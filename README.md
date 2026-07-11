@@ -2,7 +2,7 @@
 
 **Oğuz Ergin** — TOBB ETÜ
 
-**Sürüm 0.4.0** — 5 bölüm + 3 ek yayında (401 sayfa)
+**Sürüm 0.4.6** — 6 bölüm + 4 ek yayında (524 sayfa)
 
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18903609.svg)](https://doi.org/10.5281/zenodo.18903609)
@@ -36,7 +36,7 @@ Bu kitap, RISC-V buyruk kümesi mimarisi temelinde yazılmış Türkçe bir bilg
 | 3 | Buyruk Kümesi Mimarisi | ✅ Yayında |
 | 4 | RISC-V ile Programlama | ✅ Yayında |
 | 5 | Aritmetik İşlemler | ✅ Yayında |
-| 6 | İşlemci Tasarımı | 🔧 Hazırlanıyor |
+| 6 | İşlemci Tasarımı | ✅ Yayında |
 | 7 | Boru Hattı | 🔧 Hazırlanıyor |
 | 8 | Bellek Hiyerarşisi | 🔧 Hazırlanıyor |
 | 9 | Giriş/Çıkış | 🔧 Hazırlanıyor |
@@ -44,7 +44,7 @@ Bu kitap, RISC-V buyruk kümesi mimarisi temelinde yazılmış Türkçe bir bilg
 | 11 | GPU ve Hızlandırıcılar | 🔧 Hazırlanıyor |
 | 12 | Güncel Mimariler | 🔧 Hazırlanıyor |
 | Ek A | Sayı Sistemleri ve Kodlama | ✅ Yayında |
-| Ek B | Sayısal Tasarım Temelleri | 🔧 Hazırlanıyor |
+| Ek B | Sayısal Tasarım Temelleri | ✅ Yayında |
 | Ek C | RISC-V Referans Kartı | ✅ Yayında |
 | Ek D | Uygulamalı Çalışma Rehberi | ✅ Yayında |
 

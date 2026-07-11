@@ -40,6 +40,8 @@ altyordam & subroutine \\
 Amdahl Yasası & Amdahl's Law \\
 \texttt{AMB} & \texttt{ALU} (Arithmetic Logic Unit) \\
 anlamlı kısım & significand / mantissa \\
+en anlamlı bit (\texttt{MSB}) & Most Significant Bit (\texttt{MSB}) \\
+en anlamsız bit (\texttt{LSB}) & Least Significant Bit (\texttt{LSB}) \\
 anlık değer & immediate value \\
 anlık değer üreteci & immediate generator \\
 ara bellek & buffer \\
@@ -56,6 +58,7 @@ artık-N gösterimi & excess-N notation \\
 atlama buyrukları & jump instructions \\
 atomik işlem & atomic operation \\
 aygıt & device \\
+ayrı işaret biti gösterimi & sign-magnitude representation \\
 ayrıcalıklı kip & privileged mode \\
 
 %% --- B ---
@@ -63,7 +66,6 @@ bilimsel gösterim & scientific notation \\
 Booth algoritması & Booth's algorithm \\
 B türü & B-type \\
 bağlam değiştirme & context switching \\
-bağlantı noktası & port \\
 bağlayıcı & linker \\
 bakış tablosu (\texttt{LUT}) & Look-Up Table (\texttt{LUT}) \\
 bant genişliği & bandwidth \\
@@ -96,7 +98,7 @@ blok & block \\
 boru hattı & pipeline \\
 boru hattı aşaması & pipeline stage \\
 boru hattı kaydı & pipeline register \\
-boru hattı tehlikesi & pipeline hazard \\
+boru hattı sorunu & pipeline hazard \\
 boşluk (boru hattı) & bubble / NOP \\
 bölme & division \\
 bulamama (önbellekte) & miss (cache miss) \\
@@ -144,6 +146,7 @@ yonga içi bağlantı ağı (\texttt{NoC}) & Network on Chip (\texttt{NoC}) \\
 çok çevrimli & multi-cycle \\
 çok vuruşluk işlemci & multi-cycle processor \\
 çoklayıcı & multiplexer \\
+çoklu buyruk başlatımlı & superscalar \\
 çözgü & warp \\
 çözgü sapması & warp divergence \\
 
@@ -161,7 +164,7 @@ dekoder & decoder \\
 denetim birimi & control unit \\
 denetim sinyali & control signal \\
 denetim tablosu & control table \\
-denetim tehlikesi & control hazard \\
+denetim sorunu & control hazard \\
 doğrulama ortamı & testbench \\
 devingen buyruk sayısı & dynamic instruction count \\
 devingen güç tüketimi & dynamic power consumption \\
@@ -182,7 +185,7 @@ doku belleği & texture memory \\
 dolanıklık & entanglement \\
 doluluk & occupancy \\
 donanım & hardware \\
-donanımsal çok kanallılık & hardware multithreading \\
+donanımsal çoklu iş parçacığı & hardware multithreading \\
 dönüş adresi & return address \\
 döngünün açılması & loop unrolling \\
 döngüsel kilit & spin-lock \\
@@ -196,13 +199,14 @@ düzenleme birimi & hazard detection unit \\
 \texttt{EDVAC} & \texttt{EDVAC} \\
 eğitim (yapay zeka) & training \\
 elde & carry \\
-elden önceden üretme & carry lookahead \\
+elde ile seçmeli toplayıcı & carry select adder \\
+eldeyi önceden üretme & carry lookahead \\
 \texttt{ENIAC} & \texttt{ENIAC} \\
 engel & barrier \\
 eşlik (RAID) & parity (RAID) \\
 erişim süresi & access time \\
 eşzamanlama & synchronization \\
-eşzamanlı çok kanallılık (\texttt{SMT}) & Simultaneous Multithreading (\texttt{SMT}) \\
+eşzamanlı çoklu iş parçacığı (\texttt{SMT}) & Simultaneous Multithreading (\texttt{SMT}) \\
 eşzamanlılık & concurrency \\
 etiket & tag \\
 etkin adres & effective address \\
@@ -260,7 +264,7 @@ iş parçacığı & thread \\
 iş parçacığı düzeyi koşutluğu & thread-level parallelism \\
 iş parçacığı havuzu & thread pool \\
 işaret biti & sign bit \\
-işaretli genişletme & sign extension \\
+işaretle genişletme & sign extension \\
 işaretli & signed \\
 işaretsiz & unsigned \\
 işlem kodu & opcode \\
@@ -272,6 +276,7 @@ kural dışı durum (boru hattı) & exception (pipeline) \\
 J türü & J-type \\
 
 %% --- K ---
+kapı & port \\
 kritik yol & critical path \\
 karşı bağımlılık & anti-dependence \\
 karşılaştırma buyrukları & comparison instructions \\
@@ -311,7 +316,7 @@ Meltdown & Meltdown \\
 \texttt{MESI} protokolü & \texttt{MESI} protocol \\
 merkezi işlem birimi (\texttt{MİB}) & Central Processing Unit (\texttt{CPU}) \\
 \texttt{MFLOPS} & Millions of Floating Point Operations Per Second \\
-mikro buyruk & micro-operation \\
+mikro işlem & micro-operation \\
 mikro program belleği & control store \\
 mikromimari & microarchitecture \\
 mikroprogramlama & microprogramming \\
@@ -334,11 +339,12 @@ ortalama bellek erişim süresi (\texttt{AMAT}) & Average Memory Access Time (\t
 önbellek & cache \\
 önbellek satırı & cache line \\
 önceden getirme & prefetching \\
+öngörüye dayalı yürütme & speculative execution \\
 örün & web \\
 örün sunucusu & web server \\
 örün tarayıcısı & web browser \\
 ödünleşme & trade-off \\
-Özel VEYA kapısı & \texttt{XOR} gate \\
+Dışlayan VEYA kapısı & \texttt{XOR} gate \\
 özel fonksiyon birimi (\texttt{SFU}) & Special Function Unit (\texttt{SFU}) \\
 
 %% --- P ---
@@ -373,7 +379,6 @@ sayfa hatası & page fault \\
 sayfa tablosu & page table \\
 sekizlik taban & octal \\
 semafor & semaphore \\
-sıra dışı yürütme & out-of-order execution \\
 şeritleme & striping \\
 \texttt{SIMD} & Single Instruction, Multiple Data \\
 \texttt{SLC} & Single-Level Cell \\
@@ -381,6 +386,7 @@ sıra dışı yürütme & out-of-order execution \\
 Sinir Ağı İşlem Birimi (\texttt{NPU}) & Neural Processing Unit (\texttt{NPU}) \\
 sınama programı (denektaşı) & benchmark \\
 sistolik dizi & systolic array \\
+sırasız yürütüm & out-of-order execution \\
 Soğutma Tasarım Gücü (\texttt{TDP}) & Thermal Design Power (\texttt{TDP}) \\
 sonlu durum makinesi & finite state machine \\
 sonuç bağımlılığı & output dependence \\
@@ -390,12 +396,10 @@ sözde buyruk & pseudo-instruction \\
 sözde-EUZK & pseudo-LRU \\
 Spectre & Spectre \\
 \texttt{SPEC} & \texttt{SPEC} \\
-spekülatif yürütme & speculative execution \\
 \texttt{SRAM} & Static Random Access Memory \\
 Sv39 (RISC-V) & Sv39 (39-bit virtual addressing) \\
 Sv48 (RISC-V) & Sv48 (48-bit virtual addressing) \\
 Sv57 (RISC-V) & Sv57 (57-bit virtual addressing) \\
-çoklu buyruk başlatımlı & superscalar \\
 süperpozisyon & superposition \\
 
 %% --- Ş ---
@@ -442,7 +446,7 @@ veri akış mimarisi & dataflow architecture \\
 veri aktarma buyrukları & data transfer instructions \\
 veri bağımlılığı & data dependency \\
 veri belleği & data memory \\
-veri tehlikesi & data hazard \\
+veri sorunu & data hazard \\
 veri yolu & datapath \\
 veri yönlendirmesi & forwarding \\
 işlem hacmi & throughput \\
@@ -459,7 +463,7 @@ yan kanal saldırısı & side-channel attack \\
 yanlış paylaşım & false sharing \\
 yapay sınama programları & synthetic benchmarks \\
 yapay zeka & artificial intelligence \\
-yapısal tehlike & structural hazard \\
+yapı sorunu & structural hazard \\
 yarım toplayıcı & half adder \\
 yarış durumu & race condition \\
 yatay mikroprogramlama & horizontal microprogramming \\
@@ -476,6 +480,7 @@ yazmaç aktarım düzeyi (\texttt{RTL}) & Register Transfer Level (\texttt{RTL})
 yazmaç öbeği & register file \\
 yazmaç yeniden adlandırma & register renaming \\
 yekpare kırmık & monolithic die \\
+yeniden sıralama belleği & reorder buffer (ROB) \\
 yeniden yapılandırılabilir hesaplama & reconfigurable computing \\
 yerel bellek & local memory \\
 yerellik ilkesi & locality principle \\
@@ -574,7 +579,8 @@ cache coherence & bellek tutarlığı \\
 cache line & önbellek satırı \\
 calling conventions & çağrı kuralları \\
 carry & elde \\
-carry lookahead & elden önceden üretme \\
+carry lookahead & eldeyi önceden üretme \\
+carry select adder & elde ile seçmeli toplayıcı \\
 Central Processing Unit (\texttt{CPU}) & merkezi işlem birimi (\texttt{MİB}) \\
 chip & yonga \\
 chiplet & yongacık \\
@@ -590,7 +596,7 @@ concurrency & eşzamanlılık \\
 conditional branch & koşullu dallanma \\
 constant memory & sabit bellek \\
 context switching & bağlam değiştirme \\
-control hazard & denetim tehlikesi \\
+control hazard & denetim sorunu \\
 control signal & denetim sinyali \\
 control store & mikro program belleği \\
 control table & denetim tablosu \\
@@ -605,7 +611,7 @@ cycles per instruction (\texttt{CPI}) & buyruk başına çevrim (\texttt{BBÇ}) 
 %% --- D ---
 die & kırmık \\
 data dependency & veri bağımlılığı \\
-data hazard & veri tehlikesi \\
+data hazard & veri sorunu \\
 data memory & veri belleği \\
 data transfer instructions & veri aktarma buyrukları \\
 dataflow architecture & veri akış mimarisi \\
@@ -669,7 +675,7 @@ Gustafson's Law & Gustafson Yasası \\
 half adder & yarım toplayıcı \\
 hard disk drive (\texttt{HDD}) & sabit disk sürücüsü \\
 hardware & donanım \\
-hardware multithreading & donanımsal çok kanallılık \\
+hardware multithreading & donanımsal çoklu iş parçacığı \\
 Harvard architecture & Harvard mimarisi \\
 hazard detection unit & düzenleme birimi \\
 heap & yığın \\
@@ -718,6 +724,7 @@ L2 cache & L2 önbellek \\
 L3 cache & L3 önbellek \\
 latency & gecikme \\
 latency-oriented design & gecikme odaklı tasarım \\
+Least Significant Bit (\texttt{LSB}) & en anlamsız bit (\texttt{LSB}) \\
 linker & bağlayıcı \\
 little-endian & küçüğü başta \\
 load instruction & yükleme buyruğu \\
@@ -746,10 +753,11 @@ memory hierarchy & bellek hiyerarşisi \\
 memory protection & bellek koruması \\
 memory wall & bellek duvarı \\
 memory-mapped I/O & bellekle eşlemeli G/Ç \\
+Most Significant Bit (\texttt{MSB}) & en anlamlı bit (\texttt{MSB}) \\
 \texttt{MESI} protocol & \texttt{MESI} protokolü \\
 message passing & ileti geçirme \\
 microarchitecture & mikromimari \\
-micro-operation & mikro buyruk \\
+micro-operation & mikro işlem \\
 microprogramming & mikroprogramlama \\
 Millions of Floating Point Operations Per Second (\texttt{MFLOPS}) & \texttt{MFLOPS} \\
 Millions of Instructions Per Second (\texttt{MIPS}) & \texttt{MIPS} \\
@@ -785,7 +793,7 @@ opcode & işlem kodu \\
 operating system & işletim sistemi \\
 optimal (Bélády's) replacement algorithm & optimal çıkarma algoritması \\
 \texttt{OR} gate & VEYA kapısı \\
-out-of-order execution & sıra dışı yürütme \\
+out-of-order execution & sırasız yürütüm \\
 output dependence & sonuç bağımlılığı \\
 overflow & taşma \\
 
@@ -799,10 +807,10 @@ parallel efficiency & koşut verimlilik \\
 \texttt{PCI} Express & \texttt{PCI} Express \\
 performance & başarım \\
 pipeline & boru hattı \\
-pipeline hazard & boru hattı tehlikesi \\
+pipeline hazard & boru hattı sorunu \\
 pipeline register & boru hattı kaydı \\
 pipeline stage & boru hattı aşaması \\
-port & bağlantı noktası \\
+port & kapı \\
 power consumption & güç tüketimi \\
 power wall & güç duvarı \\
 precise exception & kesin kural dışı durum \\
@@ -829,6 +837,7 @@ register file & yazmaç öbeği \\
 register renaming & yazmaç yeniden adlandırma \\
 Register Transfer Level (\texttt{RTL}) & yazmaç aktarım düzeyi (\texttt{RTL}) \\
 relaxed consistency & gevşek tutarlılık \\
+reorder buffer (ROB) & yeniden sıralama belleği \\
 return address & dönüş adresi \\
 ripple carry adder & dalga eldeli toplayıcı \\
 \texttt{RISC-V} & \texttt{RISC-V} \\
@@ -850,10 +859,11 @@ shared memory & paylaşımlı bellek \\
 shift instructions & kaydırma buyrukları \\
 side-channel attack & yan kanal saldırısı \\
 sign bit & işaret biti \\
-sign extension & işaretli genişletme \\
+sign extension & işaretle genişletme \\
+sign-magnitude representation & ayrı işaret biti gösterimi \\
 signed & işaretli \\
 single-cycle processor & tek vuruşluk işlemci \\
-Simultaneous Multithreading (\texttt{SMT}) & eşzamanlı çok kanallılık (\texttt{SMT}) \\
+Simultaneous Multithreading (\texttt{SMT}) & eşzamanlı çoklu iş parçacığı (\texttt{SMT}) \\
 Single Instruction, Multiple Data (\texttt{SIMD}) & \texttt{SIMD} \\
 Single Instruction, Multiple Threads (\texttt{SIMT}) & \texttt{SIMT} \\
 Single-Level Cell (\texttt{SLC}) & \texttt{SLC} \\
@@ -869,7 +879,7 @@ spatial locality & alanda yerellik \\
 \texttt{SPEC} & \texttt{SPEC} \\
 Special Function Unit (\texttt{SFU}) & özel fonksiyon birimi (\texttt{SFU}) \\
 Spectre & Spectre \\
-speculative execution & spekülatif yürütme \\
+speculative execution & öngörüye dayalı yürütme \\
 spin-lock & döngüsel kilit \\
 stack & yığıt \\
 stack pointer & yığıt göstergesi \\
@@ -886,7 +896,7 @@ Sv39 (39-bit virtual addressing) & Sv39 (RISC-V) \\
 Sv48 (48-bit virtual addressing) & Sv48 (RISC-V) \\
 Sv57 (57-bit virtual addressing) & Sv57 (RISC-V) \\
 striping & şeritleme \\
-structural hazard & yapısal tehlike \\
+structural hazard & yapı sorunu \\
 subroutine & altyordam \\
 subtraction & çıkarma \\
 superposition & süperpozisyon \\
@@ -961,7 +971,7 @@ write-through & doğrudan yazma \\
 write-update & yazma güncelleme \\
 
 %% --- X ---
-\texttt{XOR} gate & Özel VEYA kapısı \\
+\texttt{XOR} gate & Dışlayan VEYA kapısı \\
 
 %% --- Z ---
 zero extension & sıfırla genişletme \\

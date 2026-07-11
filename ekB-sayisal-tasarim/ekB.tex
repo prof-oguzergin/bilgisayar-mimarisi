@@ -28,11 +28,11 @@ Bu eki tamamladığınızda aşağıdakileri yapabileceksiniz:
 
 Bir bilgisayarı anlamak, onu oluşturan soyutlama katmanlarını tanımakla başlar. Bölüm~\ref{chap:islemci-tasarimi} ve Bölüm~\ref{chap:boruhatti}'de işlemci, AMB, yazmaç öbeği ve bellek gibi birimler birer kutu olarak çizilmiştir. Bu kutular Yazmaç Aktarım Seviyesi'nde (YAS) tasarlanır; ancak her kutunun içinde mantık kapılarından örülmüş bir devre yatar. Tıpkı bölüm fotoğrafındaki Galata Kulesi'nin taş taş üstüne yükselmesi gibi, bir işlemci de VE, VEYA ve DEĞİL kapılarının üst üste eklenmesiyle inşa edilir.
 
-Sayısal tasarım kavramları kitabın birçok bölümünde karşımıza çıkar: Bölüm~\ref{chap:aritmetik}'te toplayıcı ve çarpıcı devreleri mantık kapılarından kurulur; Bölüm~\ref{chap:islemci-tasarimi}'da veriyolu çoklayıcıları ve denetim birimi Boole ifadeleriyle tasarlanır; Bölüm~\ref{chap:boruhatti}'de boru hattı yazmaçları flip-floplardan oluşur; Bölüm~\ref{chap:bellek}'de önbellek denetleyicisi bir durum makinesidir. Bu nedenle sayısal tasarım temelleri, kitabın tamamını destekleyen ortak bir altyapıdır.
+Sayısal tasarım kavramları kitabın birçok bölümünde karşımıza çıkar: Bölüm~\ref{chap:aritmetik}'te toplayıcı ve çarpıcı devreleri mantık kapılarından kurulur; Bölüm~\ref{chap:islemci-tasarimi}'da veri yolu çoklayıcıları ve denetim birimi Boole ifadeleriyle tasarlanır; Bölüm~\ref{chap:boruhatti}'de boru hattı yazmaçları flip-floplardan oluşur; Bölüm~\ref{chap:bellek}'de önbellek denetleyicisi bir durum makinesidir. Bu nedenle sayısal tasarım temelleri, kitabın tamamını destekleyen ortak bir altyapıdır.
 
 Bu ek, sayısal tasarım dersini daha önce almış okuyucular için bir anımsatıcı; henüz almamış olanlar için ise bağımsız bir başlangıç kaynağı olarak tasarlanmıştır. Amaç, kitabın ana bölümlerini takip edebilmek için gereken asgari sayısal tasarım bilgisini tek bir yerde toplamaktır.
 
-Sayısal tasarım, \textbf{birleşik}\index{birleşik devre} (İngilizcesi: \textit{combinational}) ve \textbf{ardışıl}\index{ardışıl devre} (İngilizcesi: \textit{sequential}) olmak üzere iki temel devre sınıfı üzerine kuruludur. Birleşik devrelerde çıkış yalnızca o andaki girişlere bağlıdır; mantık kapıları, toplayıcılar ve çoklayıcılar bu gruptadır. Ardışıl devrelerde ise çıkış hem girişlere hem de devrenin o anki \emph{durumuna} bağlıdır; flip-floplar, yazmaçlar ve sayaçlar bu gruba girer. Bir işlemci, bu iki sınıfın iç içe geçmesiyle oluşur: veriyolundaki AMB birleşik bir devredir, onu besleyen yazmaçlar ise ardışıl devrelerdir. Bu ekin ilk yarısı birleşik yapı taşlarını, ikinci yarısı ardışıl yapı taşlarını ele almaktadır.
+Sayısal tasarım, \textbf{birleşik}\index{birleşik devre} (İngilizcesi: \textit{combinational}) ve \textbf{ardışıl}\index{ardışıl devre} (İngilizcesi: \textit{sequential}) olmak üzere iki temel devre sınıfı üzerine kuruludur. Birleşik devrelerde çıkış yalnızca o andaki girişlere bağlıdır; mantık kapıları, toplayıcılar ve çoklayıcılar bu gruptadır. Ardışıl devrelerde ise çıkış hem girişlere hem de devrenin o anki \emph{durumuna} bağlıdır; flip-floplar, yazmaçlar ve sayaçlar bu gruba girer. Bir işlemci, bu iki sınıfın iç içe geçmesiyle oluşur: veri yolundaki AMB birleşik bir devredir, onu besleyen yazmaçlar ise ardışıl devrelerdir. Bu ekin ilk yarısı birleşik yapı taşlarını, ikinci yarısı ardışıl yapı taşlarını ele almaktadır.
 
 \begin{terimnotu}
 \textbf{birleşik devre} (\emph{combinational circuit})\,: \emph{Birleşmek} fiilinden. Çıkış yalnızca girişlerin o anki \emph{birleşimine} bağlıdır; bellek tutmaz. Türkçe kaynaklarda sıklıkla ``kombinasyonel devre'' olarak geçer; ancak ``kombinasyonel'' Türkçe bir sözcük değildir, İngilizce \emph{combinational} sözcüğünün doğrudan aktarımıdır. Bu kitapta \emph{birleşik} terimi kullanılmaktadır.\\[4pt]
@@ -259,7 +259,7 @@ Bir Boole ifadesinin davranışını anlamak için doğruluk tablosu çıkarıl�
 
 \begin{table}[H]
 \centering
-\caption{$F_1 = x y \overline{z}$, $F_2 = x + \overline{y} + \overline{z}$, $F_3 = \overline{x}(y + z)$ fonksiyonlarının doğruluk tablosu}
+\caption[Üç örnek fonksiyonun doğruluk tablosu]{$F_1 = x y \overline{z}$, $F_2 = x + \overline{y} + \overline{z}$, $F_3 = \overline{x}(y + z)$ fonksiyonlarının doğruluk tablosu}
 \label{tab:B.3}
 \begin{tabular}{ccc|ccc}
 \toprule
@@ -387,7 +387,7 @@ Herhangi bir Boole fonksiyonu, standart iki biçimden biriyle ifade edilebilir. 
 
 \textbf{Mini terim} (İngilizcesi: \textit{minterm}), bir fonksiyonun tüm değişkenlerinin VE ($\cdot$) işlemiyle birleştirilmesiyle oluşan bir ifadedir. Her değişken, doğruluk tablosundaki satırda 1 ise kendisi, 0 ise tümleyeni (üst çizgili hali) olarak yazılır. Örneğin 3 değişkenli bir fonksiyonda $x=1$, $y=0$, $z=1$ satırının mini terimi $x\,\overline{y}\,z$ olur. Her mini terim, doğruluk tablosunun tam olarak bir satırında 1 üretir ve diğer tüm satırlarda 0 verir.
 
-\textbf{Maksi terim} (İngilizcesi: \textit{maxterm}) ise mini terimin ikilidir: tüm değişkenler VEYA ($+$) işlemiyle birleştirilir ve bu kez kurallar tersine döner: değişken 1 ise tümleyeni, 0 ise kendisi alınır. Aynı örnek için ($x=1$, $y=0$, $z=1$) maksi terim $\overline{x}+y+\overline{z}$ olur. Her maksi terim, doğruluk tablosunun tam olarak bir satırında 0 üretir.
+\textbf{Maksi terim} (İngilizcesi: \textit{maxterm}) ise mini terimin ikilidir: tüm değişkenler VEYA ($+$) işlemiyle birleştirilir ve bu kez kurallar tersine döner: değişken 1 ise tümleyeni, 0 ise kendisi alınır. Aynı örnek için ($x=1$, $y=0$, $z=1$) maksi terim $\overline{x}+y+\overline{z}$ olur. Her maksi terim, doğruluk tablosunun tam olarak bir satırında 0 üretir. Tablo~\ref{tab:B.4}, üç değişkenli fonksiyon için mini ve maksi terimlerin tamamını listelemektedir.
 
 \begin{table}[H]
 \centering
@@ -473,7 +473,7 @@ Mini terim numarası ($m_i$), değişkenlerin soldan sağa sıralandığı ikili
 
 \subsubsection{İki Değişkenli Karno Haritası}
 
-İki değişkenli bir fonksiyonun Karno haritası $2 \times 2 = 4$ hücreden oluşur. Her hücre bir mini terime karşılık gelir. Satırlar $a$ değişkeninin, sütunlar $b$ değişkeninin değerlerini temsil eder.
+İki değişkenli bir fonksiyonun Karno haritası $2 \times 2 = 4$ hücreden oluşur (Şekil~\ref{fig:B.5}). Her hücre bir mini terime karşılık gelir. Satırlar $a$ değişkeninin, sütunlar $b$ değişkeninin değerlerini temsil eder.
 
 \begin{figure}[H]
 \centering
@@ -515,7 +515,7 @@ $F(a,b) = \Sigma(0, 3)$ fonksiyonunu Karno haritası ile sadeleştirin.
 
 \textbf{Çözüm:}
 
-Mini terimler haritaya yerleştirilir: $m_0$ ($a=0, b=0$) ve $m_3$ ($a=1, b=1$) hücrelerine 1 yazılır.
+Mini terimler Şekil~\ref{fig:B.5}'teki iki değişkenli haritaya yerleştirilir: $m_0$ ($a=0, b=0$) ve $m_3$ ($a=1, b=1$) hücrelerine 1 yazılır.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
@@ -549,7 +549,7 @@ Bu, Dışlayan VEYA DEĞİL (eşitlik) fonksiyonudur: $a$ ve $b$ aynı değerdey
 
 \subsubsection{Üç Değişkenli Karno Haritası}
 
-Üç değişkenli bir fonksiyonun Karno haritası $2 \times 4 = 8$ hücreden oluşur. Satırlar $a$ değişkeninin değerlerini, sütunlar $bc$ çiftinin Gray kodu sırasıyla (00, 01, 11, 10) dizilmiş değerlerini temsil eder. Bu sıralama, komşu sütunların yalnızca tek bir bitte farklılaşmasını garanti eder. Ayrıca haritanın \textbf{sağ kenarı sol kenarına bitişik} sayılır: en sağdaki sütun (10) ile en soldaki sütun (00) yalnızca tek bir bitte farklılaştığından, bu iki sütundaki hücreler de komşudur. Gruplama yaparken bu kenar sarma göz önünde bulundurulmalıdır.
+Üç değişkenli bir fonksiyonun Karno haritası $2 \times 4 = 8$ hücreden oluşur (Şekil~\ref{fig:B.6}). Satırlar $a$ değişkeninin değerlerini, sütunlar $bc$ çiftinin Gray kodu sırasıyla (00, 01, 11, 10) dizilmiş değerlerini temsil eder. Bu sıralama, komşu sütunların yalnızca tek bir bitte farklılaşmasını garanti eder. Ayrıca haritanın \textbf{sağ kenarı sol kenarına bitişik} sayılır: en sağdaki sütun (10) ile en soldaki sütun (00) yalnızca tek bir bitte farklılaştığından, bu iki sütundaki hücreler de komşudur. Gruplama yaparken bu kenar sarma göz önünde bulundurulmalıdır.
 
 \begin{figure}[H]
 \centering
@@ -595,7 +595,7 @@ Bu, Dışlayan VEYA DEĞİL (eşitlik) fonksiyonudur: $a$ ve $b$ aynı değerdey
         \end{tabular}
     };
 \end{tikzpicture}
-\caption{Üç değişkenli Karno haritası ve mini terim numaraları (sütunlar Gray kodu sırasıyla dizilir: 00, 01, 11, 10)}
+\caption[Üç değişkenli Karno haritası ve mini terim numaraları]{Üç değişkenli Karno haritası ve mini terim numaraları (sütunlar Gray kodu sırasıyla dizilir: 00, 01, 11, 10)}
 \label{fig:B.6}
 \end{figure}
 
@@ -645,10 +645,9 @@ Fonksiyondaki mini terimler Karno haritasına yerleştirilir ve komşu 1 değerl
     \draw[thin, sinyalmavi, opacity=0.5] (4.1, 1.7) -- (lab2.west);
 \end{tikzpicture}
 \caption*{Örnek B.5: $F$ fonksiyonunun Karno haritası ile sadeleştirilmesi}
-\label{fig:B.7}
 \end{figure}
 
-$m_0$ yalnızca $\overline{a}\,\overline{c}$ grubu tarafından, $m_7$ ise yalnızca $a \cdot b$ grubu tarafından kapsandığından her iki grup da temel asal kapsayandır. Bu iki grup, dört 1 değerinin tamamını ($m_0$, $m_2$, $m_6$, $m_7$) kapsar; $\{m_2, m_6\}$ çifti ($b\overline{c}$) de geçerli bir grup olsa da her iki hücresi zaten kapsandığından gereksizdir.
+Yukarıdaki haritada $m_0$ yalnızca $\overline{a}\,\overline{c}$ grubu tarafından, $m_7$ ise yalnızca $a \cdot b$ grubu tarafından kapsandığından her iki grup da temel asal kapsayandır. Bu iki grup, dört 1 değerinin tamamını ($m_0$, $m_2$, $m_6$, $m_7$) kapsar; $\{m_2, m_6\}$ çifti ($b\overline{c}$) de geçerli bir grup olsa da her iki hücresi zaten kapsandığından gereksizdir.
 
 Gruplandırma sonucunda:
 
@@ -659,7 +658,7 @@ Gruplandırma sonucunda:
 
 \subsubsection{Dört Değişkenli Karno Haritası}
 
-Dört değişkenli harita $4 \times 4 = 16$ hücreden oluşur; hem satırlar ($ab$) hem sütunlar ($cd$) Gray kodu sırasıyla dizilir. Üç değişkenli haritada yalnızca sağ-sol kenarlar bitişikken, dört değişkenli haritada \textbf{hem sağ-sol hem üst-alt kenarlar birbirine bitişik} sayılır: harita bir torus (simit) gibi düşünülebilir. Dolayısıyla dört köşedeki hücreler de birbirine komşudur.
+Dört değişkenli harita $4 \times 4 = 16$ hücreden oluşur (Şekil~\ref{fig:B.8}); hem satırlar ($ab$) hem sütunlar ($cd$) Gray kodu sırasıyla dizilir. Üç değişkenli haritada yalnızca sağ-sol kenarlar bitişikken, dört değişkenli haritada \textbf{hem sağ-sol hem üst-alt kenarlar birbirine bitişik} sayılır: harita bir torus (simit) gibi düşünülebilir. Dolayısıyla dört köşedeki hücreler de birbirine komşudur.
 
 \begin{figure}[H]
 \centering
@@ -705,6 +704,8 @@ Dört değişkenli harita $4 \times 4 = 16$ hücreden oluşur; hem satırlar ($a
 $F = \overline{a}\,b\,\overline{c} + \overline{a}\,\overline{c}\,d + a\,b\,\overline{c}\,\overline{d} + b\,c\,\overline{d}$ fonksiyonunu Karno haritası ile sadeleştirin.
 
 \textbf{Çözüm:}
+
+Fonksiyon aşağıdaki dört değişkenli Karno haritasına yerleştirilir ve gruplandırma yapılır.
 
 \begin{figure}[H]
 \centering
@@ -761,7 +762,6 @@ $F = \overline{a}\,b\,\overline{c} + \overline{a}\,\overline{c}\,d + a\,b\,\over
     \draw[thin, sinyalmavi, opacity=0.5] (1.95, 3.95) -- (lab2.west);
 \end{tikzpicture}
 \caption*{Örnek B.6: $F$ fonksiyonunun 4 değişkenli Karno haritası ile sadeleştirilmesi}
-\label{fig:B.9}
 \end{figure}
 
 Gruplandırma sonucunda:
@@ -925,7 +925,7 @@ Dört değişkenden fazlası için tek bir Karno haritası yeterli olmaz. Beş d
     \node[sinyalyesil, font=\small, fill=white, inner sep=1pt] at (13.75, 3.9) {$\overline{b}\,\overline{c}\,d\,\overline{e}$};
 
 \end{tikzpicture}
-\caption{Beş değişkenli Karno haritası (sol: 3D görünüm, sağ: 2D açılım ve gruplama örneği, $F = \Sigma(2,6,7,14,15,18,22,23,30,31)$)}
+\caption[Beş değişkenli Karno haritası]{Beş değişkenli Karno haritası (sol: 3D görünüm, sağ: 2D açılım ve gruplama örneği, $F = \Sigma(2,6,7,14,15,18,22,23,30,31)$)}
 \label{fig:B.karno5}
 \end{figure}
 
@@ -1201,11 +1201,11 @@ Dört değişkenden fazlası için tek bir Karno haritası yeterli olmaz. Beş d
         node[midway, left=6pt, font=\footnotesize] {$a$};
 
 \end{tikzpicture}
-\caption{Altı değişkenli Karno haritası (sol: 3D görünüm, sağ: 2D açılım, $2 \times 2$ düzen). Komşu haritalar arasındaki aynı konumdaki hücreler de komşudur.}
+\caption[Altı değişkenli Karno haritası]{Altı değişkenli Karno haritası (sol: 3D görünüm, sağ: 2D açılım, $2 \times 2$ düzen). Komşu haritalar arasındaki aynı konumdaki hücreler de komşudur.}
 \label{fig:B.karno6}
 \end{figure}
 
-Değişken sayısı arttıkça Karno haritası hızla karmaşıklaşır ve elle çözüm zorlaşır. Yedi ve üzeri değişken için üç boyutlu gösterim bile olanaklı değildir. Bu nedenle beşten fazla değişkenli fonksiyonlar için bir sonraki alt bölümde tanıtılacak Quine--McCluskey algoritması tercih edilir.
+Altı değişkenli haritanın yapısı Şekil~\ref{fig:B.karno6}'da gösterilmektedir. Değişken sayısı arttıkça Karno haritası hızla karmaşıklaşır ve elle çözüm zorlaşır. Yedi ve üzeri değişken için üç boyutlu gösterim bile olanaklı değildir. Bu nedenle beşten fazla değişkenli fonksiyonlar için bir sonraki alt bölümde tanıtılacak Quine--McCluskey algoritması tercih edilir.
 
 \subsection{Önemsenmeyen Durumlar}
 
@@ -1428,7 +1428,7 @@ for desen in sonuc:
 
 Bu gerçek, sayısal tasarımda \textbf{modüler yaklaşımı}\index{modüler tasarım} zorunlu kılar. Karmaşık bir devre sıfırdan ve tek parça olarak tasarlanmaz; bunun yerine, iyi tanımlanmış ve tekrar tekrar kullanılabilen küçük yapı taşları tasarlanır, bu taşlar birbirine eklenerek büyük sistemler oluşturulur. Tıpkı bir yazılımcının her programda sıralama algoritmasını yeniden yazmak yerine hazır bir kütüphane çağırması gibi, donanım tasarımcısı da toplayıcı, kod çözücü ve çoklayıcı gibi temel birimleri birer modül olarak kullanır. Bu yaklaşım hem mühendislik zamanından büyük tasarruf sağlar hem de tasarımı anlaşılır, sınanabilir ve bakımı kolay parçalara böler.
 
-Bu bölümde, birleşik devrelerin en yaygın yapı taşları olan toplayıcı, kod çözücü ve çoklayıcı devreleri ele alınmaktadır. Bu devreler, işlemcinin veriyolunda, denetim biriminde ve aritmetik biriminde temel bileşenler olarak kullanılır.
+Bu bölümde, birleşik devrelerin en yaygın yapı taşları olan toplayıcı, kod çözücü ve çoklayıcı devreleri ele alınmaktadır. Bu devreler, işlemcinin veri yolunda, denetim biriminde ve aritmetik biriminde temel bileşenler olarak kullanılır.
 
 % =====================================================
 \subsection{Toplayıcılar}
@@ -1444,7 +1444,7 @@ Yarım toplayıcı (İngilizcesi: \textit{half adder}), iki tek bitlik girişi (
 \[
 S = A \oplus B, \qquad C = A \cdot B
 \]
-Toplam çıkışı Dışlayan VEYA kapısıyla, elde çıkışı VE kapısıyla gerçekleştirilir. ``Yarım'' olarak adlandırılmasının nedeni, bir alt basamaktan gelen elde girişini kabul edememesidir; bu nedenle tek başına yalnızca en düşük anlamlı bitin toplanmasında kullanılabilir.
+Toplam çıkışı Dışlayan VEYA kapısıyla, elde çıkışı VE kapısıyla gerçekleştirilir (Şekil~\ref{fig:B.yarim-toplayici}). ``Yarım'' olarak adlandırılmasının nedeni, bir alt basamaktan gelen elde girişini kabul edememesidir; bu nedenle tek başına yalnızca en düşük anlamlı bitin toplanmasında kullanılabilir.
 
 \begin{figure}[H]
 \centering
@@ -1482,7 +1482,7 @@ Tam toplayıcı (İngilizcesi: \textit{full adder}), iki giriş bitinin ($A$ ve 
 \[
 S = A \oplus B \oplus C_{\text{in}}, \qquad C_{\text{out}} = A \cdot B + C_{\text{in}} \cdot (A \oplus B)
 \]
-İki yarım toplayıcı ve bir VEYA kapısı birleştirilerek gerçekleştirilebilen bu devre, çok basamaklı toplayıcılarda temel yapı taşı olarak zincirleme kullanılır.
+İki yarım toplayıcı ve bir VEYA kapısı birleştirilerek gerçekleştirilebilen bu devre (Şekil~\ref{fig:B.tam-toplayici}), çok basamaklı toplayıcılarda temel yapı taşı olarak zincirleme kullanılır.
 
 \begin{figure}[H]
 \centering
@@ -1546,7 +1546,7 @@ S = A \oplus B \oplus C_{\text{in}}, \qquad C_{\text{out}} = A \cdot B + C_{\tex
 \subsubsection{Dalgalı Elde Toplayıcı}
 \index{dalgalı elde toplayıcı}
 
-$n$ bitlik iki sayıyı toplamak için $n$ adet tam toplayıcı zincirleme bağlanır: her basamağın elde çıkışı ($C_{\text{out}}$) bir sonraki basamağın elde girişine ($C_{\text{in}}$) bağlanır. Bu yapıya \textbf{dalgalı elde toplayıcı} (İngilizcesi: \textit{ripple carry adder}) denir; elde sinyali en düşük bitten en yüksek bite doğru ``dalga'' hâlinde yayılır. Yapısı basittir ancak gecikme bit sayısıyla doğru orantılı ($O(n)$) olduğundan, geniş sözcük boyutlarında (32 veya 64 bit) elde ileriye bakma (İngilizcesi: \textit{carry lookahead}) gibi daha hızlı tasarımlar tercih edilir.
+$n$ bitlik iki sayıyı toplamak için $n$ adet tam toplayıcı zincirleme bağlanır: her basamağın elde çıkışı ($C_{\text{out}}$) bir sonraki basamağın elde girişine ($C_{\text{in}}$) bağlanır. Bu yapıya \textbf{dalgalı elde toplayıcı} (İngilizcesi: \textit{ripple carry adder}) denir; elde sinyali en düşük bitten en yüksek bite doğru ``dalga'' hâlinde yayılır (Şekil~\ref{fig:B.dalgali-elde}). Yapısı basittir ancak gecikme bit sayısıyla doğru orantılı ($O(n)$) olduğundan, geniş sözcük boyutlarında (32 veya 64 bit) elde ileriye bakma (İngilizcesi: \textit{carry lookahead}) gibi daha hızlı tasarımlar tercih edilir.
 
 \begin{figure}[H]
 \centering
@@ -1577,7 +1577,7 @@ $n$ bitlik iki sayıyı toplamak için $n$ adet tam toplayıcı zincirleme bağl
     \draw[okstil] (fa1.west) -- (fa0.east) node[midway, above, font=\scriptsize] {$C_3$};
     \draw[okstil] (fa0.west) -- ++(-1,0) node[left] {$C_4$};
 \end{tikzpicture}
-\caption{4 bitlik dalgalı elde toplayıcı: elde sinyali en az anlamlı bitten (sağ) en anlamlı bite (sol) doğru yayılır}
+\caption[4 bitlik dalgalı elde toplayıcı]{4 bitlik dalgalı elde toplayıcı: elde sinyali en az anlamlı bitten (sağ) en anlamlı bite (sol) doğru yayılır}
 \label{fig:B.dalgali-elde}
 \end{figure}
 
@@ -1751,7 +1751,7 @@ Kod çözücüler çağdaş işlemci ve bellek tasarımının birçok yerinde te
   % (c) etiketi scope dışında, (a) ve (b) ile aynı boyut
   \node[below, font=\footnotesize] at (7.5, -18.2) {(c) Kapı düzeyinde gerçekleme};
 \end{tikzpicture}
-\caption{3×8 kod çözücü: (a) blok diyagram, (b) doğruluk tablosu, (c) kapı düzeyinde gerçekleme}
+\caption[3×8 kod çözücü]{3×8 kod çözücü: (a) blok diyagram, (b) doğruluk tablosu, (c) kapı düzeyinde gerçekleme}
 \label{fig:B.10}
 \end{figure}
 
@@ -1806,7 +1806,7 @@ Kod çözücüler çağdaş işlemci ve bellek tasarımının birçok yerinde te
     \draw[->] (alt.east |- 0, \y) -- ++(1.2, 0) node[right, font=\small] {$D_\i$};
   }
 \end{tikzpicture}
-\caption{3×8 kod çözücünün iki 2×4 kod çözücü ve bir DEĞİL kapısıyla oluşturulması; $x$ etkinleştirme sinyali hangi alt kod çözücünün etkin olduğunu seçer}
+\caption[3×8 kod çözücünün iki 2×4 kod çözücüyle oluşturulması]{3×8 kod çözücünün iki 2×4 kod çözücü ve bir DEĞİL kapısıyla oluşturulması; $x$ etkinleştirme sinyali hangi alt kod çözücünün etkin olduğunu seçer}
 \label{fig:B.dec-hierarchical}
 \end{figure}
 
@@ -1871,10 +1871,10 @@ Her iki fonksiyon tek bir 3×8 kod çözücü ve iki adet 4-girişli VEYA kapıs
 
 
 \subsubsection{RISC-V çekirdeğinde örnekler}
-RISC-V işlemcisinin denetim ve veriyolu birimlerinde kod çözücüler birden çok yerde tekrarlanır:
+RISC-V işlemcisinin denetim ve veri yolu birimlerinde kod çözücüler birden çok yerde tekrarlanır:
 
 \begin{itemize}[nosep]
-  \item \textbf{Buyruk türü çözme:} 32 bitlik buyruğun \texttt{opcode} alanı (\texttt{instruction[6×0]}) etkin opcode'lar için seyrek bir kod çözücü ağına girer. Çıkış buyruk türünü (R, I, S, B, U, J) ve birinci kademe denetim sinyallerini (\texttt{ALUSrc}, \texttt{MemRead}, \texttt{MemWrite}, \texttt{RegWrite}, \texttt{Branch}, \texttt{MemtoReg}) belirler. \texttt{funct3} ve \texttt{funct7} alanları ise alt çözücülere yönlendirilerek aritmetik-mantık işlemini ve dallanma koşulunu seçer (Bölüm~\ref{chap:islemci-tasarimi}).
+  \item \textbf{Buyruk türü çözme:} 32 bitlik buyruğun \texttt{opcode} alanı (\texttt{instruction[6:0]}) etkin opcode'lar için seyrek bir kod çözücü ağına girer. Çıkış buyruk türünü (R, I, S, B, U, J) ve birinci kademe denetim sinyallerini (\texttt{ALUSrc}, \texttt{MemRead}, \texttt{MemWrite}, \texttt{RegWrite}, \texttt{Branch}, \texttt{MemtoReg}) belirler. \texttt{funct3} ve \texttt{funct7} alanları ise alt çözücülere yönlendirilerek aritmetik-mantık işlemini ve dallanma koşulunu seçer (Bölüm~\ref{chap:islemci-tasarimi}).
   \item \textbf{Yazmaç öbeği yazma kapısı:} R-tipi ve I-tipi buyrukların hedef alanı \texttt{rd} 5 bittir. 5×32 kod çözücü, \texttt{rd} değerine karşılık gelen yazmacın yazma izni hattını etkinleştirir; geri kalan 31 yazmacın yazma izni 0'da kalır. Buyruk yazmaca yazmıyorsa (\texttt{S} ve \texttt{B} tipleri gibi) \texttt{RegWrite} sinyali tüm çözücüyü devre dışı bırakır.
   \item \textbf{ALU işlem seçici:} ALU denetim birimi 3--4 bitlik bir işlem kodu üretir; bu kod ALU içinde küçük bir kod çözücüye girer. Kod çözücünün her çıkışı toplama, çıkarma, mantıksal VE/VEYA, kaydırma, karşılaştırma alt birimlerinden birinin çoklayıcı seçim sinyalini sürer.
   \item \textbf{Önbellek küme seçimi:} L1 önbellekte etiket karşılaştırması yapılmadan önce, fiziksel adresin orta bitleri (index alanı) bir kod çözücüye verilerek ilgili önbellek kümesinin yolları okunur. Aynı yapı TLB ve sayfa tablosu önbelleklerinde de geçerlidir (Bölüm~\ref{chap:bellek}).
@@ -1909,13 +1909,13 @@ Kodlayıcı (İngilizcesi: \emph{encoder}), $2^n$ veri girişi içinden 1 değer
     \draw[->] (enc.east |- 0, \y) -- ++(1.5, 0) node[right, font=\small] {$Y_\i$};
   }
 \end{tikzpicture}
-\caption{4×2 kodlayıcının blok diyagramı: dört girişten 1 olan birinin indeksi iki bitlik $Y_1 Y_0$ kodunda üretilir}
+\caption[4×2 kodlayıcının blok diyagramı]{4×2 kodlayıcının blok diyagramı: dört girişten 1 olan birinin indeksi iki bitlik $Y_1 Y_0$ kodunda üretilir}
 \label{fig:B.encoder-4to2}
 \end{figure}
 
 \begin{table}[H]
 \centering
-\caption{4×2 kodlayıcının doğruluk tablosu (aynı anda yalnızca bir girişin 1 olduğu kabulü altında)}
+\caption[4×2 kodlayıcının doğruluk tablosu]{4×2 kodlayıcının doğruluk tablosu (aynı anda yalnızca bir girişin 1 olduğu kabulü altında)}
 \label{tab:B.encoder-4to2}
 \small
 \begin{tabular}{cccc|cc}
@@ -1957,14 +1957,14 @@ Yukarıdaki 4×2 kodlayıcı, birden fazla giriş aynı anda 1 olduğunda hatal�
 Çoklayıcı (İngilizcesi: \emph{multiplexer}, kısaca MUX), $2^n$ veri girişi arasından birini $n$ bitlik denetim (seçim) sinyaline göre seçerek tek bir çıkışa aktaran devredir. Tekleyicinin (\emph{demultiplexer}) tersidir: tekleyici tek bir girişi seçilen çıkışa dağıtırken, çoklayıcı birçok giriş arasından seçilen birini tek bir çıkışta toplar.
 
 \subsubsection{Kullanım alanları}
-Çoklayıcılar işlemci veriyolu tasarımının her yerinde bulunur:
+Çoklayıcılar işlemci veri yolu tasarımının her yerinde bulunur:
 \begin{itemize}
   \item \textbf{ALU ikinci giriş seçimi:} RISC-V'te ALU'nun ikinci girişi ya bir yazmaçtan ($rs2$) ya da buyruğa gömülü anlık değerden (\emph{immediate}) alınır. Buyruk türüne göre seçim yapan bir 2×1 çoklayıcı, denetim biriminin ürettiği \texttt{ALUSrc} sinyaliyle sürülür (Bölüm~\ref{chap:islemci-tasarimi}).
   \item \textbf{Geri yazım kaynağı seçimi:} Yazmaç öbeğine yazılacak değer, ALU sonucu, bellekten okunan veri veya sonraki buyruğun adresi (\texttt{jal}/\texttt{jalr} için) olabilir. Bu kaynaklar arasında seçim yapan çoklayıcı denetim biriminin \texttt{MemtoReg} türündeki sinyaliyle sürülür.
   \item \textbf{Yazmaç öbeği okuma kapısı:} 32 yazmaçlı öbekte kaynak yazmacını seçmek için 5 bitlik kaynak numarası (\emph{rs1}, \emph{rs2}) 32×1 çoklayıcıları sürer. Çoğu işlemci aynı çevrimde iki eşzamanlı okuma için iki ayrı 32×1 çoklayıcı bulundurur.
   \item \textbf{Önbellek satırı içinden bayt/sözcük seçimi:} 64 baytlık bir önbellek satırından, okuma adresinin alt bitlerine göre belirli bir bayt veya sözcüğü seçmek için çoklayıcılar kullanılır.
   \item \textbf{Paralel-seri dönüşüm:} $n$ bitlik veriyi tek bir çıkış hattına sıralı göndermek için $n$:1 çoklayıcı kullanılır; seçim hatları bir sayaçtan beslenir. JTAG, UART ve diğer çevre birimi iletişim protokollerinde temel bir yapı taşıdır.
-  \item \textbf{Ortak veriyoluna kaynak seçimi:} Aynı veriyoluna birden çok kaynak bağlı olduğunda, bir çoklayıcı hangi kaynağın veriyolunu süreceğini seçer; bu yaklaşım, üç durumlu tampon yerine özellikle kırmik (die) içi veriyollarında yaygındır.
+  \item \textbf{Ortak veri yoluna kaynak seçimi:} Aynı veri yoluna birden çok kaynak bağlı olduğunda, bir çoklayıcı hangi kaynağın veri yolunu süreceğini seçer; bu yaklaşım, üç durumlu tampon yerine özellikle kırmik (die) içi veri yollarında yaygındır.
 \end{itemize}
 
 \subsubsection{4×1 Çoklayıcı}
@@ -2137,7 +2137,7 @@ Büyük çoklayıcılar küçüklerden kurulur. 8×1 bir çoklayıcı iki adet 4
   % F çıkışı
   \draw[->] (mux3.east) -- ++(1.2, 0) node[right, font=\small] {$F$};
 \end{tikzpicture}
-\caption{8×1 çoklayıcının iki 4×1 ve bir 2×1 çoklayıcı ile oluşturulması; $s_1 s_0$ alt çoklayıcıları, $s_2$ son katmandaki 2×1 çoklayıcıyı sürer}
+\caption[8×1 çoklayıcının 4×1 ve 2×1 çoklayıcılarla oluşturulması]{8×1 çoklayıcının iki 4×1 ve bir 2×1 çoklayıcı ile oluşturulması; $s_1 s_0$ alt çoklayıcıları, $s_2$ son katmandaki 2×1 çoklayıcıyı sürer}
 \label{fig:B.mux-hierarchical}
 \end{figure}
 
@@ -2288,7 +2288,7 @@ Tekleyici (İngilizcesi: \emph{demultiplexer}, kısaca DEMUX), tek bir veri giri
 
 \subsubsection{Kullanım alanları}
 \begin{itemize}[nosep]
-  \item \textbf{Veriyolu dağıtımı:} Tek bir veri kaynağından farklı zamanlarda farklı aygıtlara değer gönderilirken, tekleyicinin seçim girişi hangi aygıtın o anda veri alacağını belirler.
+  \item \textbf{Veri yolu dağıtımı:} Tek bir veri kaynağından farklı zamanlarda farklı aygıtlara değer gönderilirken, tekleyicinin seçim girişi hangi aygıtın o anda veri alacağını belirler.
   \item \textbf{Çift yönlü iletişim:} Çoklayıcı ile tekleyici çiftleri kullanılarak tek bir hat üzerinden zaman çoğullamalı çift yönlü veri akışı kurulur; çoklayıcı gönderici tarafta, tekleyici alıcı tarafta yer alır.
   \item \textbf{Bellek yazma yönlendirmesi:} Yazılacak veri tek kaynaktan gelir; hedef hücrenin adres çözücüsü, veriyi seçilen hücrenin yazma kapısına tekleyici davranışıyla aktarır.
   \item \textbf{Paket yönlendirme:} Ağ anahtarlarında gelen paketin başlık alanı seçim sinyali olarak kullanılır; veri yükü doğru çıkış noktasına iletilir.
@@ -2317,7 +2317,7 @@ Tekleyici (İngilizcesi: \emph{demultiplexer}, kısaca DEMUX), tek bir veri giri
   \draw[->] (-0.4, -3) node[below, font=\small] {$s_1$} -- (-0.4, -1.7);
   \draw[->] (0.4, -3) node[below, font=\small] {$s_0$} -- (0.4, -1.7);
 \end{tikzpicture}
-\caption{1×4 tekleyicinin blok diyagramı: $G$ verisi $s_1 s_0$ seçim sinyaline göre $Y_0$--$Y_3$ çıkışlarından birine yönlendirilir}
+\caption[1×4 tekleyicinin blok diyagramı]{1×4 tekleyicinin blok diyagramı: $G$ verisi $s_1 s_0$ seçim sinyaline göre $Y_0$--$Y_3$ çıkışlarından birine yönlendirilir}
 \label{fig:B.demux-1to4}
 \end{figure}
 
@@ -2339,12 +2339,11 @@ Devrenin tek girişi, dışarıdaki bir zamanlayıcının ürettiği iki bitlik 
   \item $S_1 S_0 = 11$: Doğu-Batı sarıya döner, Kuzey-Güney hâlâ kırmızı.
 \end{itemize}
 
-Bu davranışı doğruluk tablosu olarak yazmak istenmektedir:
+Bu davranış aşağıdaki doğruluk tablosu olarak yazılmaktadır:
 
 \begin{table}[H]
 \centering
 \caption*{Trafik lambası denetleyicisi doğruluk tablosu}
-\label{tab:B.trafik}
 \small
 \begin{tabular}{cc|ccc|ccc}
 \toprule
@@ -2446,7 +2445,7 @@ Flip-flop, mantık kapılarından oluşmuş ve bir bit bilgi saklayabilen bir de
 
 \subsection{RS Flip-flop}
 
-RS (\emph{Reset-Set}) flip-flopu, çapraz bağlanmış iki VEYA DEĞİL kapısından oluşur. İki girişi (S ve R) ve iki çıkışı ($Q$ ve $\overline{Q}$) vardır. S (Set) girişi flip-flopu 1 durumuna, R (Reset) girişi ise 0 durumuna getirir.
+RS (\emph{Reset-Set}) flip-flopu, çapraz bağlanmış iki VEYA DEĞİL kapısından oluşur (Şekil~\ref{fig:B.24}). İki girişi (S ve R) ve iki çıkışı ($Q$ ve $\overline{Q}$) vardır. S (Set) girişi flip-flopu 1 durumuna, R (Reset) girişi ise 0 durumuna getirir.
 
 \begin{figure}[H]
 \centering
@@ -2494,14 +2493,14 @@ $S$ & $R$ & $Q$ & $\overline{Q}$ & \textbf{Açıklama} \\
 \end{tabular}
 \end{table}
 
-RS flip-flopun çalışma prensibi şu şekildedir: $S = 0$ ve $R = 0$ olduğunda flip-flop mevcut durumunu korur. $S = 1$ ve $R = 0$ olduğunda çıkış $Q = 1$ olur (kur). $S = 0$ ve $R = 1$ olduğunda çıkış $Q = 0$ olur (sıfırla). $S = 1$ ve $R = 1$ durumu ise kararsız durumdur ve kaçınılması gereken bir durumdur; çünkü her iki çıkış da aynı anda 0 olur ve bu durum flip-flopun doğru çalışmasını engeller.
+RS flip-flopun çalışma prensibi Tablo~\ref{tab:B.12}'de özetlenmiştir: $S = 0$ ve $R = 0$ olduğunda flip-flop mevcut durumunu korur. $S = 1$ ve $R = 0$ olduğunda çıkış $Q = 1$ olur (kur). $S = 0$ ve $R = 1$ olduğunda çıkış $Q = 0$ olur (sıfırla). $S = 1$ ve $R = 1$ durumu ise kararsız durumdur ve kaçınılması gereken bir durumdur; çünkü her iki çıkış da aynı anda 0 olur ve bu durum flip-flopun doğru çalışmasını engeller.
 
 RS flip-flop, VEYA DEĞİL kapıları yerine VE DEĞİL kapıları ile de oluşturulabilir. VE DEĞİL kapıları ile yapılan RS flip-flopunda girişler etkin-düşük olarak çalışır.
 
 
 \subsection{D Flip-flop}
 
-D (\emph{Data}) flip-flopu, tek bir veri girişi ($D$) ve bir saat girişi olan flip-flop türüdür. Saat sinyalinin etkin kenarında (yükselen veya düşen kenar) $D$ girişindeki değer $Q$ çıkışına aktarılır. RS flip-flopundaki kararsız durum problemi yoktur çünkü yalnızca bir veri girişi vardır. D flip-flopu, çağdaş sayısal tasarımda en yaygın kullanılan flip-flop türüdür ve yazmaçların, boru hattı kademelerinin ve bellek hücrelerinin temel yapı taşıdır.
+D (\emph{Data}) flip-flopu, tek bir veri girişi ($D$) ve bir saat girişi olan flip-flop türüdür (Şekil~\ref{fig:B.25}). Saat sinyalinin etkin kenarında (yükselen veya düşen kenar) $D$ girişindeki değer $Q$ çıkışına aktarılır. RS flip-flopundaki kararsız durum problemi yoktur çünkü yalnızca bir veri girişi vardır. D flip-flopu, çağdaş sayısal tasarımda en yaygın kullanılan flip-flop türüdür ve yazmaçların, boru hattı kademelerinin ve bellek hücrelerinin temel yapı taşıdır.
 
 \begin{figure}[H]
 \centering
@@ -2555,7 +2554,7 @@ $D$ & $Q(t+1)$ \\
 \end{tabular}
 \end{table}
 
-Şekil~\ref{fig:B.d-zamanlama}'da D flip-flopunun zamanlama diyagramı gösterilmiştir. Saat sinyalinin her yükselen kenarında (okla işaretli) $D$ girişindeki değer $Q$ çıkışına aktarılır; kenarlar arasında $D$ ne kadar değişirse değişsin, $Q$ sabit kalır.
+Tablo~\ref{tab:B.13}'te D flip-flopunun doğruluk tablosu, Şekil~\ref{fig:B.d-zamanlama}'da ise zamanlama diyagramı gösterilmiştir. Saat sinyalinin her yükselen kenarında (okla işaretli) $D$ girişindeki değer $Q$ çıkışına aktarılır; kenarlar arasında $D$ ne kadar değişirse değişsin, $Q$ sabit kalır.
 
 \begin{figure}[H]
 \centering
@@ -2620,14 +2619,14 @@ $D$ & $Q(t+1)$ \\
     \pgfmathsetmacro{\xlast}{\ncycles*\cyclew}
     \draw[thin, gray, dashed] (\xlast, \sigH+0.3) -- (\xlast, -5.5);
 \end{tikzpicture}
-\caption{D flip-flop zamanlama diyagramı: saat sinyalinin her yükselen kenarında $D$ değeri $Q$'ya aktarılır}
+\caption[D flip-flop zamanlama diyagramı]{D flip-flop zamanlama diyagramı: saat sinyalinin her yükselen kenarında $D$ değeri $Q$'ya aktarılır}
 \label{fig:B.d-zamanlama}
 \end{figure}
 
 
 \subsection{T Flip-flop}
 
-T (\emph{Toggle}) flip-flopu, tek bir girişi ($T$) olan flip-flop türüdür. $T = 1$ olduğunda flip-flopun durumu tersine döner (toggle), $T = 0$ olduğunda mevcut durum korunur. T flip-flopu özellikle sayaç devrelerinde yaygın olarak kullanılır.
+T (\emph{Toggle}) flip-flopu, tek bir girişi ($T$) olan flip-flop türüdür (Şekil~\ref{fig:B.26}). $T = 1$ olduğunda flip-flopun durumu tersine döner (toggle), $T = 0$ olduğunda mevcut durum korunur (Tablo~\ref{tab:B.14}). T flip-flopu özellikle sayaç devrelerinde yaygın olarak kullanılır.
 
 \begin{figure}[H]
 \centering
@@ -2684,7 +2683,7 @@ $T$ & $Q(t+1)$ \\
 
 \subsection{JK Flip-flop}
 
-JK flip-flopu, RS flip-flopun geliştirilmiş halidir. İki girişi ($J$ ve $K$) vardır. RS flip-floptaki kararsız durum ($S = R = 1$) problemi JK flip-flopunda çözülmüştür. $J = K = 1$ olduğunda flip-flopun durumu tersine döner.
+JK flip-flopu, RS flip-flopun geliştirilmiş halidir (Şekil~\ref{fig:B.27}). İki girişi ($J$ ve $K$) vardır. RS flip-floptaki kararsız durum ($S = R = 1$) problemi JK flip-flopunda çözülmüştür. $J = K = 1$ olduğunda flip-flopun durumu tersine döner (Tablo~\ref{tab:B.15}).
 
 \begin{figure}[H]
 \centering
@@ -2746,7 +2745,7 @@ Tek bir flip-flop yalnızca 1~bit saklar; oysa bir işlemcinin yazmaçları 32 v
 \subsection{Koşut Yüklemeli Yazmaç}
 \index{koşut yüklemeli yazmaç}
 
-En basit yazmaç türü olan \textbf{koşut yüklemeli yazmaç}ta tüm bitler aynı anda (tek bir saat vuruşunda) yüklenir. Her D flip-flopunun girişine ilgili veri biti bağlanır; saat sinyalinin yükselen kenarında tüm bitler eşzamanlı olarak güncellenir.
+En basit yazmaç türü olan \textbf{koşut yüklemeli yazmaç}ta tüm bitler aynı anda (tek bir saat vuruşunda) yüklenir (Şekil~\ref{fig:kosut-yazmac}). Her D flip-flopunun girişine ilgili veri biti bağlanır; saat sinyalinin yükselen kenarında tüm bitler eşzamanlı olarak güncellenir.
 
 \begin{figure}[H]
 \centering
@@ -2782,7 +2781,7 @@ Uygulamada yazmaçlara genellikle bir ``yükleme etkinleştirme'' (İngilizcesi:
 \subsection{Kaydırmalı Yazmaç}
 \index{kaydırmalı yazmaç}
 
-Kaydırmalı yazmaç (İngilizcesi: \textit{shift register}), her saat vuruşunda saklanan bit dizisini bir konum sağa ya da sola kaydıran bir yazmaçtır. Her D flip-flopunun çıkışı ($Q$), bir sonraki (sağa kaydırmada) ya da bir önceki (sola kaydırmada) flip-flopun girişine ($D$) bağlanır.
+Kaydırmalı yazmaç (İngilizcesi: \textit{shift register}), her saat vuruşunda saklanan bit dizisini bir konum sağa ya da sola kaydıran bir yazmaçtır (Şekil~\ref{fig:kaydirmali-yazmac}). Her D flip-flopunun çıkışı ($Q$), bir sonraki (sağa kaydırmada) ya da bir önceki (sola kaydırmada) flip-flopun girişine ($D$) bağlanır.
 
 Kaydırmalı yazmaçlar çarpma (sola kaydırma $= \times 2$) ve bölme (sağa kaydırma $= \div 2$) işlemlerinde, seri-koşut veri dönüştürmede ve iletişim arabirimlerinde yaygın biçimde kullanılır.
 
@@ -2813,7 +2812,7 @@ Kaydırmalı yazmaçlar çarpma (sola kaydırma $= \times 2$) ve bölme (sağa k
   \draw[thick] (-2.5, -2.7) -- (10.5, -2.7);
   \node[left] at (-2.5, -2.7) {saat};
 \end{tikzpicture}
-\caption{4 bitlik sağa kaydırmalı yazmaç: seri giriş en soldaki D FF'nin girişine bağlanır; her saat vuruşunda her bit bir konum sağa kayar ve seri çıkıştan çıkar. $Q_3$--$Q_0$ koşut çıkışlardır.}
+\caption[4 bitlik sağa kaydırmalı yazmaç]{4 bitlik sağa kaydırmalı yazmaç: seri giriş en soldaki D FF'nin girişine bağlanır; her saat vuruşunda her bit bir konum sağa kayar ve seri çıkıştan çıkar. $Q_3$--$Q_0$ koşut çıkışlardır.}
 \label{fig:kaydirmali-yazmac}
 \end{figure}
 
@@ -2940,7 +2939,7 @@ Eşzamansız (İngilizcesi: \textit{asynchronous} veya \textit{ripple}) sayaçta
   \node[below=0.5cm] at (ff2.south) {$Q_2$};
 
 \end{tikzpicture}
-\caption{3 bitlik eşzamansız (dalgalı) sayaç: her flip-flopun saat girişi bir önceki flip-flopun çıkışına bağlıdır}
+\caption[3 bitlik eşzamansız (dalgalı) sayaç]{3 bitlik eşzamansız (dalgalı) sayaç: her flip-flopun saat girişi bir önceki flip-flopun çıkışına bağlıdır}
 \label{fig:B.eszsiz-sayac}
 \end{figure}
 
@@ -3031,7 +3030,7 @@ Eşzamansız (İngilizcesi: \textit{asynchronous} veya \textit{ripple}) sayaçta
 \label{fig:B.eszsiz-zamanlama}
 \end{figure}
 
-Her flip-flopun tetiklenmesi bir önceki aşamanın çıkışına bağlı olduğundan, yayılma gecikmesi zincir boyunca birikerek artar; yüksek hız gerektiren uygulamalarda bu nedenle eşzamanlı sayaçlar kullanılır.
+Her flip-flopun tetiklenmesi bir önceki aşamanın çıkışına bağlı olduğundan, yayılma gecikmesi zincir boyunca birikerek artar; bu durum Şekil~\ref{fig:B.eszsiz-zamanlama}'daki dalga formunda açıkça görülmektedir. Yüksek hız gerektiren uygulamalarda bu nedenle eşzamanlı sayaçlar kullanılır.
 
 
 % =====================================================
@@ -3054,7 +3053,7 @@ Sonlu durum makineleri, çıkışların nasıl belirlendiğine göre iki temel m
 
 \subsection{İki Model Arasındaki Farklar}
 
-Mealy ve Moore makinelerinin temel farkları Tablo~\ref{tab:B.moore-mealy}'de özetlenmiştir.
+Mealy ve Moore makinelerinin temel farkları Tablo~\ref{tab:B.moore-mealy}'de özetlenmiştir. İki modelin zamanlama davranışı ise Şekil~\ref{fig:B.moore-mealy-zamanlama}'de karşılaştırılmaktadır.
 
 \begin{table}[H]
 \centering
@@ -3180,13 +3179,13 @@ Durum diyagramında çıkış & Durumun içinde & Geçiş okları üzerinde \\
     \node[font=\tiny, gray, left] at (-0.05, {\sigH+0.55}) {\#};
 
 \end{tikzpicture}
-\caption{Mealy ve Moore makinelerinin zamanlama farkı: Mealy çıkışı $Y_M$ giriş $X$ değiştiği anda hemen güncellenir; Moore çıkışı $Y_O$ ise bir sonraki saat yükselen kenarında değişir. Bu nedenle Mealy daha hızlı tepki verirken Moore titreşime karşı daha kararlıdır.}
+\caption[Mealy ve Moore makinelerinin zamanlama farkı]{Mealy ve Moore makinelerinin zamanlama farkı: Mealy çıkışı $Y_M$ giriş $X$ değiştiği anda hemen güncellenir; Moore çıkışı $Y_O$ ise bir sonraki saat yükselen kenarında değişir. Bu nedenle Mealy daha hızlı tepki verirken Moore titreşime karşı daha kararlıdır.}
 \label{fig:B.moore-mealy-zamanlama}
 \end{figure}
 
 \subsection{Blok Diyagramları}
 
-İki modelin donanım yapısını karşılaştırmak, aralarındaki farkı anlamak açısından faydalıdır.
+İki modelin donanım yapısını karşılaştırmak, aralarındaki farkı anlamak açısından faydalıdır. Şekil~\ref{fig:B.moore-mealy-blok}'da her iki modelin blok diyagramı yan yana gösterilmektedir.
 
 \begin{figure}[H]
 \centering
@@ -3225,7 +3224,7 @@ Durum diyagramında çıkış & Durumun içinde & Geçiş okları üzerinde \\
 % Saat: alt-sağ tarafından kutuya (geri besleme okundan ayrı)
 \draw[->, thick] (4.6,-4.5) node[below, font=\small] {Saat} -- ([xshift=0.6cm]reg2.south);
 \end{tikzpicture}
-\caption{Mealy ve Moore makinelerinin blok diyagramları. Saat ortak senkronizasyon sinyalidir; her saat vuruşunda durum yazmaçları yenilenir. Mealy makinesinde giriş sinyali (kesikli kırmızı ok) çıkış mantığını doğrudan etkiler; Moore'da ise çıkışlar yalnızca duruma bağlıdır.}
+\caption[Mealy ve Moore makinelerinin blok diyagramları]{Mealy ve Moore makinelerinin blok diyagramları. Saat ortak senkronizasyon sinyalidir; her saat vuruşunda durum yazmaçları yenilenir. Mealy makinesinde giriş sinyali (kesikli kırmızı ok) çıkış mantığını doğrudan etkiler; Moore'da ise çıkışlar yalnızca duruma bağlıdır.}
 \label{fig:B.moore-mealy-blok}
 \end{figure}
 
@@ -3238,7 +3237,7 @@ Durum diyagramında çıkış & Durumun içinde & Geçiş okları üzerinde \\
     \item \textbf{Mealy makinesinde}: Çıkış, geçiş \emph{okları üzerine} yazılır (giriş / çıkış biçiminde). Durum düğümlerinde çıkış gösterilmez.
 \end{itemize}
 
-Aşağıdaki şekilde aynı davranışı gerçekleştiren bir Moore ve bir Mealy makinesi karşılaştırılmıştır. Sistem, giriş sinyalinde iki ardışık `1' algılandığında çıkışı `1' yapar.
+Şekil~\ref{fig:B.moore-mealy-ornek}'de aynı davranışı gerçekleştiren bir Moore ve bir Mealy makinesi karşılaştırılmıştır. Sistem, giriş sinyalinde iki ardışık `1' algılandığında çıkışı `1' yapar.
 
 \begin{figure}[H]
 \centering
@@ -3271,7 +3270,7 @@ Aşağıdaki şekilde aynı davranışı gerçekleştiren bir Moore ve bir Mealy
 % Moore kutusu (Mealy ile aynı boy)
 \draw[rounded corners=8pt, thick, gray!50] (7, -3.2) rectangle (14, 3.2);
 \end{tikzpicture}
-\caption{Ardışık iki `1' algılama: Mealy (2 durum, solda) ve Moore (3 durum, sağda) karşılaştırması}
+\caption[Ardışık iki `1' algılamanın Mealy ve Moore karşılaştırması]{Ardışık iki `1' algılama: Mealy (2 durum, solda) ve Moore (3 durum, sağda) karşılaştırması}
 \label{fig:B.moore-mealy-ornek}
 \end{figure}
 
@@ -3327,10 +3326,11 @@ Girişler: \textbf{BirTL} (1~TL atıldı), \textbf{İkiTL} (2~TL atıldı).
 \textbf{Adım 2: Durum geçiş tablosu.}
 \index{durum geçiş tablosu}
 
+Her durum--giriş çifti için sonraki durum ve çıkış değerleri aşağıdaki geçiş tablosunda verilmektedir.
+
 \begin{table}[H]
 \centering
 \caption*{Otomat makinesi durum geçiş tablosu}
-\label{tab:B.otomat-gecis}
 \small
 \begin{tabular}{c|cc|cc|cc}
 \toprule
@@ -3358,6 +3358,8 @@ S3 & --- & --- & S0 & & 0 & 0 \\
 
 \textbf{Adım 3: Durum diyagramı.}
 \index{durum diyagramı}
+
+Durum geçiş tablosu, aşağıdaki Mealy durum diyagramına dönüştürülür; geçiş etiketleri ``giriş/çıkış'' biçimindedir.
 
 \begin{figure}[H]
 \centering
@@ -3387,19 +3389,17 @@ S3 & --- & --- & S0 & & 0 & 0 \\
 
 \end{tikzpicture}
 \caption*{Otomat makinesi Mealy durum diyagramı. Geçiş etiketleri ``giriş/çıkış'' biçimindedir; giriş (BirTL,\,İkiTL), çıkış (İçecekVer,\,ParaÜstü). Para girişi olmayan saat tıklarında durum değişmez; bu kendi-üstü geçişler görsel sadelik için çizilmemiştir.}
-\label{fig:B.otomat-durum}
 \end{figure}
 
 \textbf{Adım 4--5: Durum kodlaması ve flip-flop denklemleri.}
 \index{durum kodlaması}
 \index{D flip-flop!durum makinesi}
 
-Durumlar 2 bit ile kodlanır: S0$=00$, S1$=01$, S2$=10$, S3$=11$. Mevcut durum bitleri $Q_1 Q_0$, sonraki durum bitleri $D_1 D_0$ olarak adlandırılır.
+Durumlar 2 bit ile kodlanır: S0$=00$, S1$=01$, S2$=10$, S3$=11$. Mevcut durum bitleri $Q_1 Q_0$, sonraki durum bitleri $D_1 D_0$ olarak adlandırılır. Kodlanmış geçiş tablosu aşağıda verilmektedir.
 
 \begin{table}[H]
 \centering
 \caption*{Otomat makinesi: kodlanmış durum geçiş tablosu}
-\label{tab:B.otomat-kodlu}
 \small
 \begin{tabular}{cc|cc|cc|cc}
 \toprule
@@ -3426,7 +3426,7 @@ $Q_1$ & $Q_0$ & BirTL & İkiTL & $D_1$ & $D_0$ & İçecekVer & ParaÜstü \\
 \textbf{Adım 6--7: Boole sadeleştirme — Karno haritaları.}
 \index{Karno haritası!durum makinesi}
 
-Dört değişken ($Q_1, Q_0$, BirTL, İkiTL) üzerinden 2$\times$4 Karno haritaları çizilir. S3 ($Q_1 Q_0 = 11$) durumundan çıkışlar için önemsenmeyen (X) satırı kullanılır.
+Dört değişken ($Q_1, Q_0$, BirTL, İkiTL) üzerinden 2$\times$4 Karno haritaları çizilir; aşağıdaki dört harita sırasıyla $D_1$, $D_0$, İçecekVer ve ParaÜstü içindir. S3 ($Q_1 Q_0 = 11$) durumundan çıkışlar için önemsenmeyen (X) satırı kullanılır.
 
 % --- TikZ makrosu: 4 değişkenli Karno haritası (otomat bölümü) ---
 \newcommand{\otomatkarno}[5]{%%
@@ -3447,7 +3447,7 @@ Dört değişken ($Q_1, Q_0$, BirTL, İkiTL) üzerinden 2$\times$4 Karno harital
 
 \begin{figure}[H]
 \centering
-\subcaptionbox{$D_1$\label{fig:B.otomat-D1}}{%%
+\subcaptionbox{$D_1$}{%%
 \otomatkarno%%
   {\node at (0.5,3.5) {0}; \node at (1.5,3.5) {1}; \node[gray] at (2.5,3.5) {X}; \node at (3.5,3.5) {0};}%%
   {\node at (0.5,2.5) {0}; \node at (1.5,2.5) {1}; \node[gray] at (2.5,2.5) {X}; \node at (3.5,2.5) {1};}%%
@@ -3467,7 +3467,7 @@ Dört değişken ($Q_1, Q_0$, BirTL, İkiTL) üzerinden 2$\times$4 Karno harital
    \node[sinyalkirmizi, anchor=west, font=\footnotesize] (labD1r) at (5, 0.5) {$Q_1$};
    \draw[thick, sinyalkirmizi, opacity=0.7] (3.95, 1) -| (labD1r.west);}%%
 }\hfill
-\subcaptionbox{$D_0$\label{fig:B.otomat-D0}}{%%
+\subcaptionbox{$D_0$}{%%
 \otomatkarno%%
   {\node at (0.5,3.5) {0}; \node at (1.5,3.5) {0}; \node[gray] at (2.5,3.5) {X}; \node at (3.5,3.5) {1};}%%
   {\node at (0.5,2.5) {1}; \node at (1.5,2.5) {1}; \node[gray] at (2.5,2.5) {X}; \node at (3.5,2.5) {0};}%%
@@ -3490,9 +3490,9 @@ Dört değişken ($Q_1, Q_0$, BirTL, İkiTL) üzerinden 2$\times$4 Karno harital
    \draw[thick, sinyalyesil, opacity=0.7] (1.95, 1) -| (labD0g.west);}%%
 }
 
-\vspace{0.8cm}
+\vspace{0.8cm}
 
-\subcaptionbox{İçecekVer\label{fig:B.otomat-IV}}{%%
+\subcaptionbox{İçecekVer}{%%
 \otomatkarno%%
   {\node at (0.5,3.5) {0}; \node at (1.5,3.5) {0}; \node[gray] at (2.5,3.5) {X}; \node at (3.5,3.5) {0};}%%
   {\node at (0.5,2.5) {0}; \node at (1.5,2.5) {1}; \node[gray] at (2.5,2.5) {X}; \node at (3.5,2.5) {0};}%%
@@ -3512,7 +3512,7 @@ Dört değişken ($Q_1, Q_0$, BirTL, İkiTL) üzerinden 2$\times$4 Karno harital
    \node[sinyalyesil, anchor=west, font=\footnotesize] (labIVg) at (5, 0.5) {$Q_1 \cdot$ BirTL};
    \draw[thick, sinyalyesil, opacity=0.7] (3.95, 0) -| (labIVg.west);}%%
 }\hfill
-\subcaptionbox{ParaÜstü\label{fig:B.otomat-PU}}{%%
+\subcaptionbox{ParaÜstü}{%%
 \otomatkarno%%
   {\node at (0.5,3.5) {0}; \node at (1.5,3.5) {0}; \node[gray] at (2.5,3.5) {X}; \node at (3.5,3.5) {0};}%%
   {\node at (0.5,2.5) {0}; \node at (1.5,2.5) {0}; \node[gray] at (2.5,2.5) {X}; \node at (3.5,2.5) {0};}%%
@@ -3525,7 +3525,6 @@ Dört değişken ($Q_1, Q_0$, BirTL, İkiTL) üzerinden 2$\times$4 Karno harital
    \draw[thick, sinyalkirmizi, opacity=0.7] (1.95, 1) -- (labPUr.west);}%%
 }
 \caption*{Otomat makinesi: D flip-flop ve çıkış Karno haritaları}
-\label{fig:B.otomat-karno}
 \end{figure}
 
 Karno haritalarından elde edilen sadeleştirilmiş ifadeler (S3 durumu ile eşzamanlı para atma durumu, BirTL$=$İkiTL$=1$, önemsenmeyen durum olarak ele alınmıştır):
@@ -3556,7 +3555,6 @@ Bu örnekte flip-floplar, durum makinesi kavramı ve birleşik mantık birlikte 
 \begin{table}[H]
 \centering
 \caption*{A ve B'nin doğru sayılarına göre çıktı tablosu}
-\label{tab:B.16}
 \begin{tabular}{l|c}
 \toprule
 \textbf{Durum} & \textbf{Çıkış} \\
@@ -3601,10 +3599,11 @@ Sistem üç durumda bulunabilir:
 \caption*{Yarışma örneği durum şeması}
 \end{figure}
 
+Aşağıdaki tablo, her durum--giriş çifti için sonraki durumu ve çıkışları göstermektedir.
+
 \begin{table}[H]
 \centering
 \caption*{Yarışma örneği durumlara göre çıkış değerleri}
-\label{tab:B.17}
 \small
 \begin{tabular}{cccc|cc|ccc}
 \toprule
@@ -3632,7 +3631,6 @@ Tasarımda JK flip-flopları kullanılacaktır. JK flip-flopunun geçiş tablosu
 \begin{table}[H]
 \centering
 \caption*{JK flip-flopta $J$ ve $K$ değerleri için doğruluk tablosu}
-\label{tab:B.18}
 \begin{tabular}{cc|cc|l}
 \toprule
 $x$ & $x(t+1)$ & $J_x$ & $K_x$ & \textbf{Açıklama} \\
@@ -3645,12 +3643,11 @@ $x$ & $x(t+1)$ & $J_x$ & $K_x$ & \textbf{Açıklama} \\
 \end{tabular}
 \end{table}
 
-Bu geçiş tablosu kullanılarak tüm sistemin doğruluk tablosu oluşturulur:
+Bu geçiş tablosu kullanılarak tüm sistemin doğruluk tablosu oluşturulur (aşağıda):
 
 \begin{table}[H]
 \centering
 \caption*{Tüm sistem için doğruluk tablosu}
-\label{tab:B.19}
 \small
 \begin{tabular}{cccc|cc|ccc|cccc}
 \toprule

@@ -4,6 +4,32 @@ Bu dosya, kitabın sürümler arasındaki önemli değişikliklerini takip eder.
 
 ---
 
+## [0.4.6] — 2026-07-11
+
+### Yeni bölüm
+- **Bölüm 6 — İşlemci Tasarımı** eklendi
+  - Tek vuruşluk veri yolu: add, sub, ori, lw, sw, beq ve jal buyruklarıyla adım adım kuruluş
+  - Denetim biriminin doğruluk tablosu ve Karno haritalarıyla gerçekleştirilmesi
+  - Çok vuruşluk tasarım: ara yazmaçlar, EskiPS yazmacı ve sonlu durum makinesi (SDM)
+  - Mikroprogramlama: yatay ve dikey mikrokod, donanım tabanlı denetimle karşılaştırma
+  - 10 çözümlü örnek (gecikme, çevrim, BBÇ ve hızlanma hesapları) ve 26 alıştırma
+  - Gerçek dünya notları (Intel 4004'ten 486'ya), yanılgılar ve tuzaklar
+
+### Kitap geneli iyileştirmeler
+- İlk 6 bölüm çok modelli değerlendirmeden geçirildi, çıkan düzeltmeler uygulandı
+- Düz metinde noktalı virgül yoğunluğu azaltıldı, daha doğal Türkçe akış sağlandı
+- Şekil listesine kısa başlıklar eklendi (ikinci satıra taşan başlıklar giderildi)
+- Terminoloji birleştirme (elde, geçirme, üretme; argüman) ve tablo em-dash temizliği
+- Bölüm 6 kaynak dosyası düz UTF-8 Türkçe karakterlere dönüştürüldü
+
+### Düzeltmeler
+- Bölüm 1: "silikon" yerine tutarlı biçimde "silisyum"
+- Bölüm 4: Örnek 4.8 gerçek bir yaprak fonksiyona çevrildi, Örnek 4.6 çapraz başvurusu düzeltildi
+- Bölüm 5: mükerrer sözcük düzeltildi
+- Ek B: gizli karakter ve şekil/tablo başvuru uyumsuzlukları giderildi
+
+---
+
 ## [0.4.5] — 2026-05-10
 
 ### Yeni bölüm

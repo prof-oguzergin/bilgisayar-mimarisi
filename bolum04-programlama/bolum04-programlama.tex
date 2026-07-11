@@ -29,7 +29,7 @@ Bu bölümü tamamladığınızda aşağıdakileri yapabileceksiniz:
 
 \section*{Giriş}
 
-Bir önceki bölümde RISC-V buyruk kümesini öğrendik: yazmaçları, aritmetik ve mantık buyruklarını, bellek erişim buyruklarını, dallanma ve atlama buyruklarını, fonksiyon çağrılarını ve yığıt yönetimini gördük. Ancak bu buyrukları tek tek tanımak, bunlarla gerçek bir program yazabilmek için yeterli değildir. Tıpkı bir dilin sözcüklerini bilmenin o dilde roman yazmaya yetmemesi gibi, buyrukları bilmek de programlamaya yetmez; sözcüklerden cümle kurmayı, cümlelerden paragraf oluşturmayı öğrenmek gerekir.
+Bir önceki bölümde RISC-V buyruk kümesini öğrendik: yazmaçları, aritmetik ve mantık buyruklarını, bellek erişim buyruklarını, dallanma ve atlama buyruklarını, fonksiyon çağrılarını ve yığıt yönetimini gördük. Ancak bu buyrukları tek tek tanımak, bunlarla gerçek bir program yazabilmek için yeterli değildir. Tıpkı bir dilin sözcüklerini bilmenin o dilde roman yazmaya yetmemesi gibi, buyrukları bilmek de programlamaya yetmez. Sözcüklerden cümle kurmayı, cümlelerden paragraf oluşturmayı öğrenmek gerekir.
 
 Bu bölümde, önceki bölümde öğrendiğimiz buyrukları kullanarak baştan sona çalışan programlar yazacağız. Amacımız yalnızca çevirici dil öğretmek değil, aynı zamanda bilgisayar mimarisini ``içeriden'' anlamaktır: bir C programının makine düzeyinde nasıl çalıştığını görmek, derleyicinin hangi kararları neden aldığını kavramak ve donanımın yazılımla nasıl etkileştiğini gözlemlemek. Bu bakış açısı, ileriki bölümlerde işlemci tasarımı, boru hattı ve bellek hiyerarşisi konularına geçtiğimizde güçlü bir temel oluşturacaktır.
 
@@ -41,7 +41,7 @@ Bölümün akışı kademeli bir zorluk sırası izler: önce en basit yazmaç v
 \label{sec:ilk-adimlar}
 \index{RISC-V!ilk adımlar}
 
-Çevirici dil programlamaya en basit işlemle başlayalım: iki sayıyı toplamak. Aşağıdaki örnekler RARS benzeticisinde çalıştırılmak üzere tasarlanmıştır; her birini yazıp çalıştırmanız ve yazmaç değerlerini gözlemlemeniz önerilir. Her örnekte bir başarım çözümlemesi de yapacağız; böylece Bölüm~\ref{chap:basarim}'de öğrendiğimiz kavramları uygulamaya koymuş olacağız.
+Çevirici dil programlamaya en basit işlemle başlayalım: iki sayıyı toplamak. Aşağıdaki örnekler RARS benzeticisinde çalıştırılmak üzere tasarlanmıştır. Her birini yazıp çalıştırmanız ve yazmaç değerlerini gözlemlemeniz önerilir. Her örnekte bir başarım çözümlemesi de yapacağız; böylece Bölüm~\ref{chap:basarim}'de öğrendiğimiz kavramları uygulamaya koymuş olacağız.
 
 \subsection{Yazmaçlarla Aritmetik}
 \label{subsec:yazmaclarla-aritmetik}
@@ -70,9 +70,9 @@ main:
     ecall
 \end{lstlisting}
 
-Programın son dört satırında kullanılan \texttt{ecall} (\emph{environment call}) buyruğu, programın işletim sisteminden bir hizmet istemesini sağlar; tıpkı bir restoranda müşterinin garsona sipariş vermesi gibi. Hangi hizmetin isteneceği \texttt{a7} yazmacına yazılan numarayla belirlenir: \texttt{a7\,=\,1} ``\texttt{a0}'daki tam sayıyı ekrana yaz'' demektir; \texttt{a7\,=\,10} ise ``programı sonlandır'' anlamına gelir. İşletim sistemi bu numaraya bakarak doğru hizmeti çalıştırır; bu mekanizmaya \emph{sistem çağrısı} (\emph{system call}) denir ve Bölüm~\ref{chap:giris-cikis}'da ayrıntılı olarak ele alınacaktır.
+Programın son dört satırında kullanılan \texttt{ecall} (\emph{environment call}) buyruğu, programın işletim sisteminden bir hizmet istemesini sağlar, tıpkı bir restoranda müşterinin garsona sipariş vermesi gibi. Hangi hizmetin isteneceği \texttt{a7} yazmacına yazılan numarayla belirlenir: \texttt{a7\,=\,1} ``\texttt{a0}'daki tam sayıyı ekrana yaz'' demektir. \texttt{a7\,=\,10} ise ``programı sonlandır'' anlamına gelir. İşletim sistemi bu numaraya bakarak doğru hizmeti çalıştırır; bu mekanizmaya \emph{sistem çağrısı} (\emph{system call}) denir ve Bölüm~\ref{chap:giris-cikis}'da ayrıntılı olarak ele alınacaktır.
 
-Bu programdaki \texttt{li} ve \texttt{mv} buyrukları aslında sözde buyruktur (\emph{pseudo-instruction}); çevirici bunları gerçek RISC-V buyrukları ile değiştirir (Bölüm~\ref{chap:buyruk-kumesi}'teki Tablo~\ref{tab:sozde-buyruklar}'ı hatırlayın). Aşağıdaki tablo bu dönüşümü somut bir program üzerinde gösterir:
+Bu programdaki \texttt{li} ve \texttt{mv} buyrukları aslında sözde buyruktur (\emph{pseudo-instruction}). Çevirici bunları gerçek RISC-V buyrukları ile değiştirir (Bölüm~\ref{chap:buyruk-kumesi}'teki Tablo~\ref{tab:sozde-buyruklar}'yi hatırlayın). Aşağıdaki tablo bu dönüşümü somut bir program üzerinde gösterir:
 
 \begin{center}
 \small
@@ -153,7 +153,7 @@ main:
     ecall
 \end{lstlisting}
 
-Bu örnekte dört yeni buyruk kullanılmaktadır: \texttt{la} (\emph{load address}, adres yükle) bir verinin bellekteki adresini yazmaca yükler; \texttt{lw} (\emph{load word}, sözcük yükle) o adresteki 4 baytlık değeri yazmaca okur; \texttt{sw} (\emph{store word}, sözcük sakla) yazmaçtaki değeri belleğe yazar; \texttt{auipc} (\emph{add upper immediate to PC}, üst anlık değeri program sayacına ekle) ise \texttt{la}'nın gerçek buyruk karşılığının ilk yarısıdır. Sözde buyruk dönüşümüne bakalım; burada önemli bir fark vardır:
+Bu örnekte dört yeni buyruk kullanılmaktadır: \texttt{la} (\emph{load address}, adres yükle) bir verinin bellekteki adresini yazmaca yükler; \texttt{lw} (\emph{load word}, sözcük yükle) o adresteki 4 baytlık değeri yazmaca okur; \texttt{sw} (\emph{store word}, sözcük sakla) yazmaçtaki değeri belleğe yazar; \texttt{auipc} (\emph{add upper immediate to PC}, üst anlık değeri program sayacına ekle) ise \texttt{la}'nın gerçek buyruk karşılığının ilk yarısıdır. Sözde buyruk dönüşümüne bakalım. Burada önemli bir fark vardır:
 
 \begin{center}
 \small
@@ -170,9 +170,9 @@ Bu örnekte dört yeni buyruk kullanılmaktadır: \texttt{la} (\emph{load addres
 \texttt{sw t1, 0(t2)} & \texttt{sw t1, 0(t2)} & Zaten gerçek buyruk \\
 \texttt{mv a0, t1}  & \texttt{addi a0, t1, 0}  & $\texttt{t1} + 0$ \\
 \texttt{li a7, 1}   & \texttt{addi a7, x0, 1}  & Sistem çağrısı \\
-\texttt{ecall}       & \texttt{ecall}            & --- \\
+\texttt{ecall}       & \texttt{ecall}            & Zaten gerçek buyruk \\
 \texttt{li a7, 10}  & \texttt{addi a7, x0, 10} & Program sonu \\
-\texttt{ecall}       & \texttt{ecall}            & --- \\
+\texttt{ecall}       & \texttt{ecall}            & Zaten gerçek buyruk \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -192,7 +192,7 @@ Devingen (yürütülen toplam buyruk) & 12 & İşlemci \\
 \end{tabular}
 \end{center}
 
-Bu programda döngü olmadığı için durağan ve devingen sayı birbirine eşittir. Ancak başarım hesaplamalarında her zaman durağan veya devingen buyruk sayısını kullanmalıyız; programcının yazdığı sözde buyruk sayısını değil.
+Bu programda döngü olmadığı için durağan ve devingen sayı birbirine eşittir. Ancak başarım hesaplamalarında her zaman durağan veya devingen buyruk sayısını kullanmalıyız, programcının yazdığı sözde buyruk sayısını değil.
 
 Yazmaç ve bellek değişim tablosu (\texttt{sayi} adresi \texttt{0x10000000}, \texttt{sonuc} adresi \texttt{0x10000004} varsayılmıştır):
 
@@ -203,12 +203,12 @@ Yazmaç ve bellek değişim tablosu (\texttt{sayi} adresi \texttt{0x10000000}, \
 \texttt{\#} & Gerçek buyruk & \texttt{t0} & \texttt{t1} & \texttt{t2} & \texttt{a0} & Bellek \\
 \midrule
    & \emph{(başlangıç)} & 0 & 0 & 0 & 0 & \texttt{[sayi]=100, [sonuc]=0} \\
-1--2 & \texttt{auipc+addi} (la t0, sayi) & \underline{0x...0000} & 0 & 0 & 0 & --- \\
+1--2 & \texttt{auipc+addi} (la t0, sayi) & \underline{0x...0000} & 0 & 0 & 0 & yok \\
 3 & \texttt{lw t1, 0(t0)} & 0x...0000 & \underline{100} & 0 & 0 & \emph{okuma} \\
-4 & \texttt{addi t1, t1, 50} & 0x...0000 & \underline{150} & 0 & 0 & --- \\
-5--6 & \texttt{auipc+addi} (la t2, sonuc) & 0x...0000 & 150 & \underline{0x...0004} & 0 & --- \\
+4 & \texttt{addi t1, t1, 50} & 0x...0000 & \underline{150} & 0 & 0 & yok \\
+5--6 & \texttt{auipc+addi} (la t2, sonuc) & 0x...0000 & 150 & \underline{0x...0004} & 0 & yok \\
 7 & \texttt{sw t1, 0(t2)} & 0x...0000 & 150 & 0x...0004 & 0 & \underline{\texttt{[sonuc]=150}} \\
-8 & \texttt{addi a0, t1, 0} & 0x...0000 & 150 & 0x...0004 & \underline{150} & --- \\
+8 & \texttt{addi a0, t1, 0} & 0x...0000 & 150 & 0x...0004 & \underline{150} & yok \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -263,7 +263,7 @@ main:
     ecall
 \end{lstlisting}
 
-Yığıt, belleğin yüksek adreslerinden düşük adreslere doğru büyür. Bu programda yeni bir yazmaç adı görüyoruz: \texttt{sp} (\emph{stack pointer}, yani yığıt işaretçisi), yığıtın en üst konumunu gösterir. \texttt{addi sp, sp, -4} yığıt işaretçisini 4 bayt aşağı kaydırarak yer açar; \texttt{sw} bu alana değeri yazar; \texttt{lw} ile geri okuruz. Yazmaç ve yığıt değişimlerini adım adım izleyelim (\texttt{sp} başlangıç değeri \texttt{0x7FFFEFFC}):
+Yığıt, belleğin yüksek adreslerinden düşük adreslere doğru büyür. Bu programda yeni bir yazmaç adı görüyoruz: \texttt{sp} (\emph{stack pointer}, yığıt işaretçisi), yığıtın en üst konumunu gösterir. \texttt{addi sp, sp, -4} yığıt işaretçisini 4 bayt aşağı kaydırarak yer açar. \texttt{sw} bu alana değeri yazar; \texttt{lw} ile geri okuruz (Şekil~\ref{fig:yigit-buyume}). Yazmaç ve yığıt değişimlerini adım adım izleyelim (\texttt{sp} başlangıç değeri \texttt{0x7FFFEFFC}):
 
 \begin{center}
 \small
@@ -315,13 +315,13 @@ Yığıt, belleğin yüksek adreslerinden düşük adreslere doğru büyür. Bu 
 \label{fig:yigit-buyume}
 \end{figure}
 
-Bu tablodaki kritik an 4.~ve 5.~adımlar arasıdır: \texttt{s0} geçici olarak 999 yapılmış olsa da yığıttaki eski değer (7) korunmaktadır. 5.~adımda \texttt{lw} bu değeri geri yükler. Yığıt işaretçisinin 2.~adımda düşüp 6.~adımda eski yerine döndüğüne de dikkat edin; her \texttt{addi sp, sp, -N} için karşılık gelen bir \texttt{addi sp, sp, +N} bulunmalıdır; aksi takdirde yığıt taşması oluşur.
+Bu tablodaki kritik an 4.~ve 5.~adımlar arasıdır: \texttt{s0} geçici olarak 999 yapılmış olsa da yığıttaki eski değer (7) korunmaktadır. 5.~adımda \texttt{lw} bu değeri geri yükler. Yığıt işaretçisinin 2.~adımda düşüp 6.~adımda eski yerine döndüğüne de dikkat edin. Her \texttt{addi sp, sp, -N} için karşılık gelen bir \texttt{addi sp, sp, +N} bulunmalıdır; aksi takdirde yığıt taşması oluşur.
 
 \emph{Başarım çözümlemesi:} Yazdırma buyrukları dahil program 11 buyruk yürütür; 2'si bellek erişimi (\texttt{sw}, \texttt{lw}), 9'u yazmaç işlemidir. Yazmaç buyrukları 1, bellek buyrukları 2 çevrimle: $9 \times 1 + 2 \times 2 = 13$ çevrim, BBÇ~$= 13/11 \approx 1{,}18$. Bir yazmacı saklamak ve geri yüklemek için 4 fazladan buyruk (2 \texttt{addi} + 1 \texttt{sw} + 1 \texttt{lw}) gerektiğine dikkat edin; fonksiyon çağrılarında birden çok yazmacın saklanması bu ek yükü katlayacaktır.
 \end{ornek}
 
 \begin{karsilastirma}[Yığıt İşlemleri: RISC-V, x86 ve ARM]
-RISC-V'te ayrı bir \texttt{push}/\texttt{pop} buyruğu yoktur; yığıt işaretçisini ayarlayıp \texttt{sw}/\texttt{lw} ile saklamak programcının sorumluluğundadır. Diğer mimariler bu konuda farklı tercihler yapmıştır:
+RISC-V'te ayrı bir \texttt{push}/\texttt{pop} buyruğu yoktur. Yığıt işaretçisini ayarlayıp \texttt{sw}/\texttt{lw} ile saklamak programcının sorumluluğundadır. Diğer mimariler bu konuda farklı tercihler yapmıştır:
 
 \begin{center}
 \small
@@ -337,9 +337,9 @@ Yığıttan çek & \texttt{pop eax} \emph{(1 buyruk)} & \texttt{lw s0, 0(sp)} \e
 \end{tabular}
 \end{center}
 
-ARM mimarisinde de \texttt{push} ve \texttt{pop} buyrukları bulunur; üstelik tek buyrukla birden çok yazmacı aynı anda saklayabilir: \texttt{push \{r4, r5, lr\}}.
+ARM mimarisinde de \texttt{push} ve \texttt{pop} buyrukları bulunur. Üstelik tek buyrukla birden çok yazmacı aynı anda saklayabilir: \texttt{push \{r4, r5, lr\}}.
 
-Peki RISC-V neden özel yığıt buyrukları sunmaz? Çünkü \texttt{push}/\texttt{pop}, yalnızca \texttt{addi}~+~\texttt{sw}/\texttt{lw} birleşiminin kısaltmasıdır; ayrı bir buyruk olarak eklenmesi işlem kodu alanını tüketir ve çözücü donanımını karmaşıklaştırır. RISC-V ``basit olanı doğru yap'' felsefesine sadık kalarak bu görevi yazılıma bırakır. Bununla birlikte, RISC-V'in yeni \emph{Zcmp} uzantısı \texttt{cm.push} ve \texttt{cm.pop} sözde buyrukları ekleyerek bu boşluğu gömülü sistemler için doldurmaktadır.
+Peki RISC-V neden özel yığıt buyrukları sunmaz? Çünkü \texttt{push}/\texttt{pop}, yalnızca \texttt{addi}~+~\texttt{sw}/\texttt{lw} birleşiminin kısaltmasıdır. Ayrı bir buyruk olarak eklenmesi işlem kodu alanını tüketir ve çözücü donanımını karmaşıklaştırır. RISC-V ``basit olanı doğru yap'' felsefesine sadık kalarak bu görevi yazılıma bırakır. Bununla birlikte, RISC-V'in yeni \emph{Zcmp} uzantısı \texttt{cm.push} ve \texttt{cm.pop} gerçek buyruklarını ekleyerek bu boşluğu gömülü sistemler için doldurmaktadır (bunlar sözde buyruk değil, çevirici tarafından tek bir makine buyruğuna kodlanan gerçek buyruklardır).
 \end{karsilastirma}
 
 \begin{ornek}[4.4]
@@ -394,15 +394,15 @@ main:
     ecall
 \end{lstlisting}
 
-Yığıt LIFO (\emph{Last In, First Out}, yani son giren ilk çıkar) düzeninde çalışır. İlk itilen değer altta, son itilen değer üstte kalır. RARS'ta bu programı adım adım yürütürken, yığıt alanında iki değerin nasıl biriktiğini ve sonra nasıl geri alındığını gözlemleyin. Bu örüntü (değer sakla, başka işler yap, geri yükle) çevirici dil programlamanın temel yapı taşıdır ve fonksiyon çağrılarında yaygın biçimde kullanılır.
+Yığıt, son giren ilk çıkar (LIFO, \emph{Last In, First Out}) düzeninde çalışır. İlk itilen değer altta, son itilen değer üstte kalır. RARS'ta bu programı adım adım yürütürken, yığıt alanında iki değerin nasıl biriktiğini ve sonra nasıl geri alındığını gözlemleyin. Bu örüntü (değer sakla, başka işler yap, geri yükle) çevirici dil programlamanın temel yapı taşıdır ve fonksiyon çağrılarında yaygın biçimde kullanılır.
 
-\emph{Başarım çözümlemesi:} Buyrukları sayalım: \texttt{la} $\times 2$, \texttt{li} $\times 6$, \texttt{mv} $\times 2$, \texttt{addi} $\times 4$, \texttt{sw} $\times 2$, \texttt{lw} $\times 2$, \texttt{add} $\times 1$, \texttt{ecall} $\times 6$: toplam 25 buyruk. 4'ü bellek erişimi (\texttt{sw} $\times 2$, \texttt{lw} $\times 2$), 21'i yazmaç veya sistem çağrısıdır. Yazmaç buyrukları 1, bellek buyrukları 2 çevrimle: $21 \times 1 + 4 \times 2 = 29$ çevrim, BBÇ~$= 29/25 = 1{,}16$. Dört örnekteki BBÇ değerlerini yan yana koyalım: 1{,}00 $\rightarrow$ 1{,}20 $\rightarrow$ 1{,}18 $\rightarrow$ 1{,}16. Bellek erişim oranı düştükçe BBÇ 1{,}0'a yaklaşır; bu programda buyruk sayısı artmasına karşın bellek erişim oranı (\%16) düşük kaldığından BBÇ nispeten iyidir. Bölüm~\ref{chap:basarim}'deki yürütme süresi formülünü hatırlayın: $T = N \times \text{BBÇ} \times T_{\text{çevrim}}$; BBÇ'yi düşürmek başarımı doğrudan artırır.
+\emph{Başarım çözümlemesi:} Programcının yazdığı sözde buyrukları sayalım: \texttt{la} $\times 2$, \texttt{li} $\times 6$, \texttt{mv} $\times 2$, \texttt{addi} $\times 4$, \texttt{sw} $\times 2$, \texttt{lw} $\times 2$, \texttt{add} $\times 1$, \texttt{ecall} $\times 6$: toplam 25 sözde buyruk. Ancak her \texttt{la} iki gerçek buyruğa (\texttt{auipc}~+~\texttt{addi}) açıldığı için işlemci 27 gerçek buyruk yürütür (Örnek~4.2'deki kuralı hatırlayın: başarım hesabında gerçek buyrukları sayarız). Bunların 4'ü bellek erişimi (\texttt{sw} $\times 2$, \texttt{lw} $\times 2$), 23'ü yazmaç veya sistem çağrısıdır. Yazmaç buyrukları 1, bellek buyrukları 2 çevrimle: $23 \times 1 + 4 \times 2 = 31$ çevrim, BBÇ~$= 31/27 \approx 1{,}15$. Dört örnekteki BBÇ değerlerini yan yana koyalım: 1{,}00 $\rightarrow$ 1{,}17 $\rightarrow$ 1{,}18 $\rightarrow$ 1{,}15. Bellek erişim oranı düştükçe BBÇ 1{,}0'a yaklaşır. Bu programda buyruk sayısı artmasına karşın bellek erişim oranı (\%15) düşük kaldığından BBÇ nispeten iyidir. Bölüm~\ref{chap:basarim}'deki yürütme süresi formülünü hatırlayın: $T = N \times \text{BBÇ} \times T_{\text{çevrim}}$; BBÇ'yi düşürmek başarımı doğrudan artırır.
 \end{ornek}
 
 \subsection{Döngüler}
 \label{subsec:donguler}
 
-Önceki örneklerde tüm buyruklar yalnızca bir kez yürütülüyordu; bu nedenle durağan ve devingen buyruk sayıları birbirine eşitti. Döngü kullandığımızda bu durum değişir: aynı buyruklar defalarca yürütülür ve devingen buyruk sayısı durağan sayıdan çok daha büyük olabilir.
+Önceki örneklerde tüm buyruklar yalnızca bir kez yürütülüyordu. Bu nedenle durağan ve devingen buyruk sayıları birbirine eşitti. Döngü kullandığımızda bu durum değişir: aynı buyruklar defalarca yürütülür ve devingen buyruk sayısı durağan sayıdan çok daha büyük olabilir.
 
 \begin{ornek}[4.5]
 \label{orn:dongu-toplam}
@@ -437,26 +437,26 @@ Bu programda \texttt{ble} (\emph{branch if less than or equal}, küçükse veya 
 \toprule
 \texttt{\#} & Buyruk & \texttt{t0} & \texttt{t1} & \texttt{t2} & Dallanma \\
 \midrule
-  & \emph{(başlangıç)} & 0 & 0 & 0 & --- \\
-1 & \texttt{addi t0, x0, 0} & \underline{0} & 0 & 0 & --- \\
-2 & \texttt{addi t1, x0, 1} & 0 & \underline{1} & 0 & --- \\
-3 & \texttt{addi t2, x0, 10} & 0 & 1 & \underline{10} & --- \\
+  & \emph{(başlangıç)} & 0 & 0 & 0 & yok \\
+1 & \texttt{addi t0, x0, 0} & \underline{0} & 0 & 0 & yok \\
+2 & \texttt{addi t1, x0, 1} & 0 & \underline{1} & 0 & yok \\
+3 & \texttt{addi t2, x0, 10} & 0 & 1 & \underline{10} & yok \\
 \midrule
 \multicolumn{6}{c}{\emph{1.~yineleme}} \\
-4 & \texttt{add t0, t0, t1} & \underline{1} & 1 & 10 & --- \\
-5 & \texttt{addi t1, t1, 1} & 1 & \underline{2} & 10 & --- \\
+4 & \texttt{add t0, t0, t1} & \underline{1} & 1 & 10 & yok \\
+5 & \texttt{addi t1, t1, 1} & 1 & \underline{2} & 10 & yok \\
 6 & \texttt{ble t1, t2, dongu} & 1 & 2 & 10 & $2 \leq 10$: dallan \\
 \midrule
 \multicolumn{6}{c}{\emph{2.~yineleme}} \\
-7 & \texttt{add t0, t0, t1} & \underline{3} & 2 & 10 & --- \\
-8 & \texttt{addi t1, t1, 1} & 3 & \underline{3} & 10 & --- \\
+7 & \texttt{add t0, t0, t1} & \underline{3} & 2 & 10 & yok \\
+8 & \texttt{addi t1, t1, 1} & 3 & \underline{3} & 10 & yok \\
 9 & \texttt{ble t1, t2, dongu} & 3 & 3 & 10 & $3 \leq 10$: dallan \\
 \midrule
 \multicolumn{6}{c}{$\vdots$ \quad (10.~yinelemede \texttt{t0}~=~55, \texttt{t1}~=~11)} \\
 \midrule
 \multicolumn{6}{c}{\emph{10.~yineleme (son)}} \\
-31 & \texttt{add t0, t0, t1} & \underline{55} & 10 & 10 & --- \\
-32 & \texttt{addi t1, t1, 1} & 55 & \underline{11} & 10 & --- \\
+31 & \texttt{add t0, t0, t1} & \underline{55} & 10 & 10 & yok \\
+32 & \texttt{addi t1, t1, 1} & 55 & \underline{11} & 10 & yok \\
 33 & \texttt{ble t1, t2, dongu} & 55 & 11 & 10 & $11 \leq 10$: \emph{hayır} \\
 \bottomrule
 \end{tabular}
@@ -470,15 +470,15 @@ Bu örnekte durağan ve devingen buyruk sayıları arasındaki fark ilk kez beli
 \toprule
 Buyruk türü & Sayı & Hesaplama \\
 \midrule
-Durağan (bellekteki buyruklar) & 10 & Döngü gövdesi yalnızca bir kez saklanır \\
-Devingen (yürütülen toplam) & 37 & $3 + 3 \times 10 + 4 = 37$ \\
+Durağan (bellekteki buyruklar) & 11 & Döngü gövdesi yalnızca bir kez saklanır \\
+Devingen (yürütülen toplam) & 38 & $3 + 3 \times 10 + 5 = 38$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Devingen sayının hesabı: 3 başlangıç buyruğu (\texttt{li} $\times 3$) + döngü gövdesindeki 3 buyruk $\times$ 10 yineleme + 4 son buyruk (\texttt{mv}, \texttt{li}, \texttt{ecall} $\times 2$). Döngü gövdesindeki 3 buyruktan hiçbiri bellek erişimi değildir (\texttt{ble} bir dallanma buyruğudur, bellek erişimi değil).
+Devingen sayının hesabı: 3 başlangıç buyruğu (\texttt{li} $\times 3$) + döngü gövdesindeki 3 buyruk $\times$ 10 yineleme + 5 son buyruk (\texttt{mv}, \texttt{li} $\times 2$, \texttt{ecall} $\times 2$). Döngü gövdesindeki 3 buyruktan hiçbiri bellek erişimi değildir (\texttt{ble} bir dallanma buyruğudur, bellek erişimi değil).
 
-\emph{Başarım çözümlemesi:} 37 devingen buyruktan hiçbiri bellek erişimi değildir (\texttt{lw}/\texttt{sw} yok); tümü yazmaç işlemi veya dallanmadır. Her buyruk tek çevrimde tamamlansa BBÇ~$= 1{,}0$ olur. Dallanma buyrukları bazı durumlarda ek çevrimlere neden olabilir; bu konuyu Bölüm~\ref{chap:boruhatti}'de ayrıntılı olarak ele alacağız. Şimdilik her buyruğun tek çevrimde tamamlandığını varsayarsak $37 \times 1 = 37$ çevrim ve BBÇ~$= 1{,}0$ elde ederiz. Önceki örneklerle karşılaştırın: bellek erişimi olan programlarda BBÇ~$\sim$1{,}2'ye çıkıyordu; bu programda bellek erişimi olmadığından BBÇ en iyi değerinde kalmaktadır.
+\emph{Başarım çözümlemesi:} 38 devingen buyruktan hiçbiri bellek erişimi değildir (\texttt{lw}/\texttt{sw} yok). Tümü yazmaç işlemi veya dallanmadır. Her buyruk tek çevrimde tamamlansa BBÇ~$= 1{,}0$ olur. Dallanma buyrukları bazı durumlarda ek çevrimlere neden olabilir. Bu konuyu Bölüm~\ref{chap:boruhatti}'de ayrıntılı olarak ele alacağız. Şimdilik her buyruğun tek çevrimde tamamlandığını varsayarsak $38 \times 1 = 38$ çevrim ve BBÇ~$= 1{,}0$ elde ederiz. Önceki örneklerle karşılaştırın: bellek erişimi olan programlarda BBÇ~$\sim$1{,}2'ye çıkıyordu; bu programda bellek erişimi olmadığından BBÇ en iyi değerinde kalmaktadır.
 \end{ornek}
 
 \begin{ornek}[4.6]
@@ -507,9 +507,9 @@ topla:
     ret                        # çağırana geri dön
 \end{lstlisting}
 
-\texttt{jal} (\emph{jump and link}, atla ve bağla) buyruğu iki iş yapar: (1)~bir sonraki buyruğun adresini \texttt{ra} (\emph{return address}, dönüş adresi) yazmacına kaydeder; (2)~\texttt{topla} etiketine atlar. \texttt{ret} ise \texttt{ra}'daki adrese geri döner. Bu mekanizma sayesinde bir altyordam birden çok yerden çağrılabilir ve her seferinde doğru yere geri döner.
+\texttt{jal} (\emph{jump and link}, atla ve bağla) buyruğu iki iş yapar: (1)~bir sonraki buyruğun adresini \texttt{ra} (\emph{return address}, dönüş adresi) yazmacına kaydeder; (2)~\texttt{topla} etiketine atlar. \texttt{ret} ise \texttt{ra}'daki adrese geri döner (Şekil~\ref{fig:altyordam-akis}). Bu mekanizma sayesinde bir altyordam birden çok yerden çağrılabilir ve her seferinde doğru yere geri döner.
 
-\texttt{topla} altyordamı \emph{yaprak fonksiyondur} (\emph{leaf function}): başka fonksiyon çağırmaz. Bu nedenle \texttt{ra}'yı yığıtta saklamasına gerek yoktur, çünkü kendi \texttt{ra} değerini bozacak bir \texttt{jal} çağrısı yapmaz. Yaprak olmayan fonksiyonlarda (bir fonksiyonun başka bir fonksiyonu çağırdığı durumda) \texttt{ra} yığıtta saklanmalıdır; bu durumu Örnek~4.8'de göreceğiz.
+\texttt{topla} altyordamı \emph{yaprak fonksiyondur} (\emph{leaf function}): başka fonksiyon çağırmaz. Bu nedenle \texttt{ra}'yı yığıtta saklamasına gerek yoktur, çünkü kendi \texttt{ra} değerini bozacak bir \texttt{jal} çağrısı yapmaz. Yaprak olmayan fonksiyonlarda (bir fonksiyonun başka bir fonksiyonu çağırdığı durumda) \texttt{ra} yığıtta saklanmalıdır. Bunu Örnek~4.14'teki özyinelemeli Fibonacci fonksiyonunda göreceğiz.
 
 Yazmaç izleme tablosu:
 
@@ -567,17 +567,17 @@ Yazmaç izleme tablosu:
 \draw[arrow, gray!50] (li3) -- (ecall);
 \draw[arrow, gray!50] (add) -- (ret);
 \end{tikzpicture}
-\caption[Altyordam çağrısında kontrol akışı]{Altyordam çağrısında kontrol akışı. \texttt{jal} buyruğu PC'yi altyordama yönlendirirken \texttt{ra}'ya dönüş adresini yazar; \texttt{ret} ise \texttt{ra}'daki adrese geri döner.}
+\caption[Altyordam çağrısında denetim akışı]{Altyordam çağrısında denetim akışı. \texttt{jal} buyruğu PC'yi altyordama yönlendirirken \texttt{ra}'ya dönüş adresini yazar; \texttt{ret} ise \texttt{ra}'daki adrese geri döner.}
 \label{fig:altyordam-akis}
 \end{figure}
 
 Tablodaki kritik satırlar 3.~ve 5.~adımlardır: \texttt{jal} PC'yi \texttt{topla}'ya yönlendirirken \texttt{ra}'ya dönüş adresini yazar; \texttt{ret} ise PC'yi \texttt{ra}'daki adrese geri getirir. PC sütunundaki gidiş-dönüş hareketini izlemek, altyordam mekanizmasını kavramanın en somut yoludur.
 
-\emph{Başarım çözümlemesi:} Program 9 buyruk yürütür (sözde buyruklar açıldığında). Tümü yazmaç işlemidir; bellek erişimi yoktur. \texttt{jal} ve \texttt{ret} buyrukları da birer çevrimde tamamlanır; altyordam çağırmanın kendisi ek maliyet getirmez. Asıl maliyet, yaprak olmayan fonksiyonlarda \texttt{ra}'yı ve saklanan yazmaçları yığıtta koruma zorunluluğundan doğar: Örnek~4.3'te gördüğümüz gibi her \texttt{sw}/\texttt{lw} çifti BBÇ'yi artırır.
+\emph{Başarım çözümlemesi:} Program 9 buyruk yürütür (sözde buyruklar açıldığında). Tümü yazmaç işlemidir. Bellek erişimi yoktur. \texttt{jal} ve \texttt{ret} buyrukları da birer çevrimde tamamlanır; altyordam çağırmanın kendisi ek maliyet getirmez. Asıl maliyet, yaprak olmayan fonksiyonlarda \texttt{ra}'yı ve saklanan yazmaçları yığıtta koruma zorunluluğundan doğar: Örnek~4.3'te gördüğümüz gibi her \texttt{sw}/\texttt{lw} çifti BBÇ'yi artırır.
 \end{ornek}
 
 \begin{bilginot}[RARS'ta Adım Adım Yürütme]
-Yukarıdaki örnekleri anlamanın en etkili yolu, RARS benzeticisinde adım adım (\emph{single step}) çalıştırmaktır. Her buyruktan sonra üç şeyi kontrol edin: (1)~hangi yazmaçların değeri değişti, (2)~bellek içeriği nasıl etkilendi ve (3)~program sayacı (PC) hangi buyruğa ilerledi. Dallanma buyrukları çalıştığında PC'nin sıradaki buyruğa değil, etiketin gösterdiği adrese atladığını gözlemlemek, kontrol akışını kavramanın en somut yoludur.
+Yukarıdaki örnekleri anlamanın en etkili yolu, RARS benzeticisinde adım adım (\emph{single step}) çalıştırmaktır. Her buyruktan sonra üç şeyi denetleyin: (1)~hangi yazmaçların değeri değişti, (2)~bellek içeriği nasıl etkilendi ve (3)~program sayacı (PC) hangi buyruğa ilerledi. Dallanma buyrukları çalıştığında PC'nin sıradaki buyruğa değil, etiketin gösterdiği adrese atladığını gözlemlemek, denetim akışını kavramanın en somut yoludur.
 \end{bilginot}
 
 \begin{bilginot}[Programlama ve Başarım İlişkisi]
@@ -585,15 +585,15 @@ Bu bölümdeki her örnekte başarım çözümlemesi yaptık. Buyruk başına ç
 \[
 T_{\text{yürütme}} = N_{\text{buyruk}} \times \text{BBÇ} \times T_{\text{çevrim}}
 \]
-Bir programı hızlandırmanın üç yolu bu formülde gizlidir: buyruk sayısını azaltmak (daha iyi algoritma), BBÇ'yi düşürmek (bellek erişimini en aza indirmek) veya çevrim süresini kısaltmak (daha yüksek saat sıklığı). Programcı olarak ilk iki etken üzerinde doğrudan kontrolümüz vardır.
+Bir programı hızlandırmanın üç yolu bu formülde gizlidir: buyruk sayısını azaltmak (daha iyi algoritma), BBÇ'yi düşürmek (bellek erişimini en aza indirmek) veya çevrim süresini kısaltmak (daha yüksek saat sıklığı). Programcı olarak ilk iki etken üzerinde doğrudan denetimimiz vardır.
 \end{bilginot}
 
 \begin{terimnotu}
-\textbf{gömülü sistem} (\emph{embedded system})\,: \emph{Gömmek} fiilinden \emph{-ülü} ekiyle; genel amaçlı olmayan, belirli bir görevi yerine getirmek üzere donanımın içine ``gömülmüş'' bilgisayar sistemidir.
+\textbf{gömülü sistem} (\emph{embedded system})\,: \emph{Gömmek} fiilinden \emph{-ülü} ekiyle. Genel amaçlı olmayan, belirli bir görevi yerine getirmek üzere donanımın içine ``gömülmüş'' bilgisayar sistemidir.
 
 \textbf{döngü açma} (\emph{loop unrolling})\,: Döngü gövdesini birden çok kez tekrarlayarak dallanma buyrukları sayısını azaltan bir eniyileme tekniğidir. ``Açma'' sözcüğü, katlanmış (döngülenmiş) kodun düz bir çizgiye açılmasını ifade eder.
 
-\textbf{özyineleme} (\emph{recursion})\,: \emph{Öz} (self) ve \emph{yineleme} (iteration) sözcüklerinin birleşimi; bir fonksiyonun kendisini çağırması anlamına gelir. Latince \emph{recurrere} (geri koşmak) kökünden gelen İngilizce terimin Türkçe karşılığıdır.
+\textbf{özyineleme} (\emph{recursion})\,: \emph{Öz} (self) ve \emph{yineleme} (iteration) sözcüklerinin birleşimi. Bir fonksiyonun kendisini çağırması anlamına gelir. Latince \emph{recurrere} (geri koşmak) kökünden gelen İngilizce terimin Türkçe karşılığıdır.
 \end{terimnotu}
 
 
@@ -626,11 +626,11 @@ main:
 \end{lstlisting}
 
 \index{veri bölümü}\index{metin bölümü}
-Bu programı adım adım inceleyelim. Program iki ana bölümden oluşur: \texttt{.data} ve \texttt{.text}. Veri bölümünde (\texttt{.data}) üç değişken tanımlanmıştır: \texttt{ileti} adlı bir karakter dizisi, \texttt{sayi} adlı 32 bitlik bir tam sayı ve \texttt{dizi} adlı beş elemanlı bir dizi. Bu değişkenler belleğin veri kesiminde (\emph{data segment}) yer alır.
+Bu programı adım adım inceleyelim. Program iki ana bölümden oluşur: \texttt{.data} ve \texttt{.text}. Veri bölümünde (\texttt{.data}) üç değişken tanımlanmıştır: \texttt{ileti} adlı bir karakter dizisi, \texttt{sayi} adlı 32 bitlik bir tam sayı ve \texttt{dizi} adlı beş elemanlı bir dizi. Bu değişkenler belleğin veri kesiminde (\emph{data segment}) yer alır. Programın bellek düzeni Şekil~\ref{fig:bellek-duzeni}'te gösterilmiştir.
 
 Metin bölümünde (\texttt{.text}) programın buyrukları bulunur. \texttt{.globl main} yönergesi, \texttt{main} etiketinin bağlayıcı (\emph{linker}) tarafından görülebilmesini sağlar; bu, programın giriş noktasıdır. İlk buyruk \texttt{la a0, ileti} ile karakter dizisinin bellek adresi \texttt{a0} yazmacına yüklenir. Ardından \texttt{li a7, 4} ile sistem çağrısı numarası belirlenir ve \texttt{ecall} buyruğuyla işletim sistemi çağrılarak karakter dizisi ekrana yazdırılır. Son iki satırda \texttt{a7} yazmacına 10 değeri yüklenerek programdan çıkış yapılır.
 
-Veri bölümünde kullanılan yönergeler şunlardır:
+Veri bölümünde kullanılan yönergeler Tablo~\ref{tab:veri-yonergeleri}'de listelenmiştir.
 
 \begin{table}[H]
 \centering
@@ -686,10 +686,10 @@ Veri bölümünde kullanılan yönergeler şunlardır:
 \label{subsec:gelistirme-ortami}
 \index{RARS}\index{Venus}
 
-RISC-V çevirici dil programlarını denemek ve çalıştırmak için çeşitli araçlar kullanılabilir. Bu kitapta örnekler için RARS (\emph{RISC-V Assembler and Runtime Simulator}) benzetimliği kullanılmıştır. RARS, Java tabanlı bir grafik arayüze sahiptir ve programları adım adım çalıştırma, yazmaç ve bellek içeriklerini izleme gibi olanaklar sunar. Tarayıcı tabanlı bir seçenek olarak Venus de kullanılabilir. Her iki aracın ayrıntılı kurulum ve kullanım bilgileri Ek~D'de verilmiştir.
+RISC-V çevirici dil programlarını denemek ve çalıştırmak için çeşitli araçlar kullanılabilir. Bu kitapta örnekler için RARS (\emph{RISC-V Assembler and Runtime Simulator}) benzeticisi kullanılmıştır. RARS, Java tabanlı bir grafik arayüze sahiptir ve programları adım adım çalıştırma, yazmaç ve bellek içeriklerini izleme gibi olanaklar sunar. Tarayıcı tabanlı bir seçenek olarak Venus de kullanılabilir. Her iki aracın ayrıntılı kurulum ve kullanım bilgileri Ek~D'de verilmiştir.
 
 \begin{bilginot}[Sistem Çağrıları]
-RARS benzetimliğinde \texttt{ecall} buyruğu, \texttt{a7} yazmacındaki değere göre farklı sistem çağrıları gerçekleştirir: 1 = tam sayı yazdır, 4 = karakter dizisi yazdır, 5 = tam sayı oku, 10 = programı sonlandır, 11 = karakter yazdır. Gerçek bir RISC-V sisteminde bu çağrılar işletim sistemi çekirdeği tarafından işlenir ve numaralandırma farklıdır.
+RARS benzeticisinde \texttt{ecall} buyruğu, \texttt{a7} yazmacındaki değere göre farklı sistem çağrıları gerçekleştirir: 1 = tam sayı yazdır, 4 = karakter dizisi yazdır, 5 = tam sayı oku, 10 = programı sonlandır, 11 = karakter yazdır. Gerçek bir RISC-V sisteminde bu çağrılar işletim sistemi çekirdeği tarafından işlenir ve numaralandırma farklıdır.
 \end{bilginot}
 
 
@@ -704,7 +704,7 @@ Temel yazmaç ve bellek işlemlerini öğrendikten sonra, şimdi bu becerileri g
 \label{subsec:dogrusal-arama}
 \index{doğrusal arama}\index{linear search|see{doğrusal arama}}
 
-Doğrusal arama, bir dizideki elemanları baştan sona tek tek kontrol ederek aranan değeri bulmaya çalışır. Basit ama öğretici bir örnektir: döngü, bellek erişimi, karşılaştırma ve dallanma buyruklarının hepsini bir arada kullanır.
+Doğrusal arama, bir dizideki elemanları baştan sona tek tek denetleyerek aranan değeri bulmaya çalışır. Basit ama öğretici bir örnektir: döngü, bellek erişimi, karşılaştırma ve dallanma buyruklarının hepsini bir arada kullanır.
 
 \begin{ornek}[4.7]
 \label{orn:dogrusal-arama}
@@ -745,9 +745,9 @@ bulunamadi:
     ret
 \end{lstlisting}
 
-Bu programda \texttt{slli t0, t0, 2} buyruğu dizin numarasını bayt uzaklığına çevirir. Her \texttt{.word} 4 bayt olduğu için dizin $i$, bellekte $i \times 4$ bayt ileridedir.
+Bu programda \texttt{slli t1, t0, 2} buyruğu dizin numarasını bayt uzaklığına çevirir. Her \texttt{.word} 4 bayt olduğu için dizin $i$, bellekte $i \times 4$ bayt ileridedir.
 
-\emph{Başarım çözümlemesi:} Döngü gövdesi 7 buyruktan oluşur (\texttt{bge}, \texttt{slli}, \texttt{add}, \texttt{lw}, \texttt{beq}, \texttt{addi}, \texttt{j}); bunların 1'i bellek erişimi (\texttt{lw}), 2'si dallanma buyruğudur. $n$ elemanlı bir dizide aranan değer bulunamazsa döngü $n$ kez yinelenir: toplam $7n + 2$ buyruk (giriş ve çıkış dahil). Yazmaç buyrukları 1, bellek buyrukları 2, dallanma buyrukları 2 çevrimle bir yineleme $3 \times 1 + 1 \times 2 + 2 \times 2 + 1 \times 1 = 8$ çevrim alır. $n = 100$ için: toplam $\sim$702 buyruk, $\sim$802 çevrim, BBÇ~$\approx 1{,}14$. Bellek erişiminin döngü başına yalnızca 1 kez yapılması BBÇ'yi düşük tutar, ancak arama başarısız olursa $n$'e orantılı buyruk yürütülür. Bölüm~\ref{chap:basarim}'deki asimptotik karmaşıklık kavramını hatırlayın: bu algoritma $O(n)$ zamanda çalışır.
+\emph{Başarım çözümlemesi:} Döngü gövdesi 7 buyruktan oluşur (\texttt{bge}, \texttt{slli}, \texttt{add}, \texttt{lw}, \texttt{beq}, \texttt{addi}, \texttt{j}). Bunların 1'i bellek erişimi (\texttt{lw}), 2'si dallanma buyruğudur. $n$ elemanlı bir dizide aranan değer bulunamazsa döngü $n$ kez yinelenir: giriş ve çıkış buyruklarıyla birlikte toplam $7n + 4$ buyruk (Örnek~\ref{orn:buyruk-sayimi}'deki türetmeyle aynı). Yazmaç ve dallanma buyrukları 1, bellek buyrukları 2 çevrimle bir yineleme $6 \times 1 + 1 \times 2 = 8$ çevrim alır. $n = 100$ için: toplam $\sim$704 buyruk, $\sim$804 çevrim, BBÇ~$\approx 1{,}14$. Bellek erişiminin döngü başına yalnızca 1 kez yapılması BBÇ'yi düşük tutar, ancak arama başarısız olursa $n$'e orantılı buyruk yürütülür. Bölüm~\ref{chap:basarim}'deki asimptotik karmaşıklık kavramını hatırlayın: bu algoritma $O(n)$ zamanda çalışır.
 \end{ornek}
 
 
@@ -782,8 +782,7 @@ RISC-V çevirici dili karşılığı (\texttt{a0} = dizi adresi, \texttt{a1} = b
 \begin{lstlisting}[style=riscv]
 # kabarcik\_sirala: a0=dizi adresi, a1=boyut
 kabarcik_sirala:
-    addi sp, sp, -20          # yığıtta yer aç
-    sw   ra, 16(sp)           # dönüş adresini sakla
+    addi sp, sp, -16          # yığıtta yer aç (yaprak: ra saklanmaz)
     sw   s0, 12(sp)           # s0'ı sakla
     sw   s1, 8(sp)            # s1'i sakla
     sw   s2, 4(sp)            # s2'yi sakla
@@ -817,19 +816,18 @@ son:
     lw   s2, 4(sp)            # s2'yi geri yükle
     lw   s1, 8(sp)            # s1'i geri yükle
     lw   s0, 12(sp)           # s0'ı geri yükle
-    lw   ra, 16(sp)           # dönüş adresini geri yükle
-    addi sp, sp, 20           # yığıtı geri al
+    addi sp, sp, 16           # yığıtı geri al
     ret
 \end{lstlisting}
 
 Bu programda dikkat çekilmesi gereken noktalar:
 \begin{itemize}
-\item Fonksiyon giriş kodunda (\emph{prologue}) saklanan yazmaçlar (\texttt{s0}--\texttt{s3}) ve dönüş adresi (\texttt{ra}) yığıta kaydedilir; çıkış kodunda (\emph{epilogue}) geri yüklenir. Bu, Bölüm~\ref{chap:buyruk-kumesi}'te gördüğümüz çağrı düzeninin doğrudan uygulamasıdır.
+\item \texttt{kabarcik\_sirala} bir yaprak fonksiyondur, başka fonksiyon çağırmaz. Bu yüzden \texttt{ra}'yı saklamaz. Yalnızca kullandığı saklanan yazmaçlar (\texttt{s0}--\texttt{s3}) fonksiyon giriş kodunda (\emph{prologue}) yığıta kaydedilir, çıkış kodunda (\emph{epilogue}) geri yüklenir. Bu, Bölüm~\ref{chap:buyruk-kumesi}'te gördüğümüz çağrı düzeninin doğrudan uygulamasıdır.
 \item Dizi erişiminde \texttt{slli} ile dizin bayt uzaklığına çevrilir, ardından \texttt{lw}/\texttt{sw} ile bellek okunur/yazılır.
-\item İç döngüde iki ardışık eleman (\texttt{0(t5)} ve \texttt{4(t5)}) okunarak karşılaştırılır. Yer değiştirme için üçüncü bir değişken (fazladan yazmaç) kullanılır.
+\item İç döngüde iki ardışık eleman (\texttt{0(t5)} ve \texttt{4(t5)}) \texttt{s2} ve \texttt{s3} yazmaçlarına okunarak karşılaştırılır. Her iki değer zaten yazmaçlarda tutulduğundan yer değiştirme, üçüncü bir geçici değişken gerektirmeden çapraz yazma ile (\texttt{s3} $\rightarrow$ \texttt{0(t5)}, \texttt{s2} $\rightarrow$ \texttt{4(t5)}) yapılır.
 \end{itemize}
 
-\emph{Başarım çözümlemesi:} İç döngü gövdesi 9 buyruktan oluşur; bunların 2'si okuma (\texttt{lw}), yer değiştirme durumunda 2'si yazma (\texttt{sw}) olmak üzere 4 bellek erişimi içerir. $n$ elemanlı bir dizi için iç döngü toplam $n(n-1)/2$ kez yinelenir. $n = 10$ için 45 yineleme, her biri $\sim$13 çevrim (en kötü durumda): toplam $\sim$585 çevrim $+$ dış döngü ek yükü. BBÇ $\approx 1{,}4$ civarındadır; bellek erişiminin yoğun olduğu bu algoritmada BBÇ doğrusal aramaya göre belirgin biçimde yükselir. Ayrıca $O(n^2)$ karmaşıklık, $n$ büyüdükçe buyruk sayısının karesel artması demektir: $n = 100$ için $\sim$45.000 buyruk, $n = 1000$ için $\sim$4{,}5 milyon. Sıralama algoritmalarında verimlilik seçimi başarımı temelden etkiler.
+\emph{Başarım çözümlemesi:} İç döngü gövdesi, yer değiştirme yapılmadığında 8 buyruk (\texttt{bge}, \texttt{slli}, \texttt{add}, \texttt{lw} $\times 2$, \texttt{ble}, \texttt{addi}, \texttt{j}), yer değiştirme yapıldığında ise iki \texttt{sw} eklenerek 10 buyruktur. En kötü durumda 2 okuma ve 2 yazma olmak üzere 4 bellek erişimi içerir. $n$ elemanlı bir dizi için iç döngü toplam $n(n-1)/2$ kez yinelenir. $n = 10$ için 45 yineleme, her biri en kötü durumda 10 buyruk / 14 çevrim ($6 \times 1 + 4 \times 2$): toplam $\sim$630 çevrim $+$ dış döngü ek yükü. BBÇ $\approx 1{,}4$ civarındadır; bellek erişiminin yoğun olduğu bu algoritmada BBÇ doğrusal aramaya göre belirgin biçimde yükselir. Ayrıca $O(n^2)$ karmaşıklık, $n$ büyüdükçe buyruk sayısının karesel artması demektir: $n = 100$ için $\sim$50.000 buyruk, $n = 1000$ için $\sim$5 milyon. Sıralama algoritmalarında verimlilik seçimi başarımı temelden etkiler.
 \end{ornek}
 
 
@@ -839,7 +837,7 @@ Dizi üzerinde arama ve sıralama yaparken \texttt{lw}/\texttt{sw} ile 4 baytlı
 \label{subsec:karakter-dizisi}
 \index{karakter dizisi}\index{dizgi|see{karakter dizisi}}\index{string|see{karakter dizisi}}
 
-Karakter dizileri (\emph{string}), kısaca \emph{dizgi} de denir; bellekte ardışık baytlar olarak saklanır ve sıfır (\texttt{0x00}) ile sonlandırılır. Bu tür verilere erişim, \texttt{lb} (\emph{load byte}, bayt yükle) ve \texttt{sb} (\emph{store byte}, bayt sakla) buyruklarıyla yapılır.
+Karakter dizileri (\emph{string}), kısaca \emph{dizgi} de denir. Bellekte ardışık baytlar olarak saklanır ve sıfır (\texttt{0x00}) ile sonlandırılır. Bu tür verilere erişim, \texttt{lb} (\emph{load byte}, bayt yükle) ve \texttt{sb} (\emph{store byte}, bayt sakla) buyruklarıyla yapılır.
 
 \begin{ornek}[4.9]
 \label{orn:strlen}
@@ -864,7 +862,7 @@ strlen_son:
     ret
 \end{lstlisting}
 
-Burada \texttt{lb} buyruğu 1 baytlık veri yükler (işaretle genişleterek); \texttt{lbu} ise işaretsiz genişletme yapar. ASCII karakterler 0--127 aralığında olduğu için her ikisi de aynı sonucu verir.
+Burada \texttt{lb} buyruğu 1 baytlık veri yükler (işaretle genişleterek). \texttt{lbu} ise işaretsiz genişletme yapar. ASCII karakterler 0--127 aralığında olduğu için her ikisi de aynı sonucu verir.
 \end{ornek}
 
 \begin{ornek}[4.10]
@@ -979,11 +977,11 @@ Bu program, önceki örneklerde öğrendiğimiz kavramları bir araya getirir:
 \item \texttt{jal}/\texttt{ret} ile altyordam çağırma (Örnek~4.6).
 \end{itemize}
 
-\emph{Başarım çözümlemesi:} ``ey edip adanada pide ye'' dizgisi 23 karakter içerir (boşluklar dahil). Dizgi sonunu bulmak 23 \texttt{lb} buyruğu gerektirir. Palindrom kontrolünde her adımda 2 \texttt{lb} (sol ve sağ karakter) ve olası boşluk atlama \texttt{lb}'leri yürütülür. Toplam $\sim$70 devingen buyruk yürütülür ve bunların $\sim$40'ı bellek erişimidir (\texttt{lb}). Bu, bellek erişim oranının \%57'ye ulaştığı anlamına gelir; önceki örneklerimizde bu oran en fazla \%16 idi. Her \texttt{lb} 2 çevrim alırsa BBÇ~$\approx (30 \times 1 + 40 \times 2) / 70 \approx 1{,}57$ olur. Karakter dizisi işleme, doğası gereği yoğun bellek erişimi gerektirir; bu nedenle önbellek başarımı (Bölüm~8) bu tür programlar için kritik öneme sahiptir.
+\emph{Başarım çözümlemesi:} ``ey edip adanada pide ye'' dizgisi 23 karakter içerir (boşluklar dahil). Önce dizgi sonunu bulan döngü, sonlandırıcı sıfır dahil 24 \texttt{lb} yürütür (her karakter için \texttt{lb}, \texttt{beqz}, \texttt{addi}, \texttt{j}). Ardından palindrom karşılaştırmasında her adımda sol/sağ karakter okuması ve boşluk atlama döngüleri çalışır. Kodu adım adım izlediğimizde \texttt{palindrom\_mu} toplam $\sim$237 devingen buyruk yürütür ve bunların $\sim$64'ü bellek erişimidir (\texttt{lb}). Bu, bellek erişim oranının \%27'ye ulaştığı anlamına gelir. Önceki örneklerimizde bu oran en fazla \%16 idi. Her \texttt{lb} 2 çevrim, geri kalan buyruklar 1 çevrim alırsa BBÇ~$\approx (173 \times 1 + 64 \times 2) / 237 \approx 1{,}27$ olur. Karakter dizisi işleme, doğası gereği yoğun bellek erişimi gerektirir; bu nedenle önbellek başarımı (Bölüm~8) bu tür programlar için kritik öneme sahiptir.
 \end{ornek}
 
 
-Şimdiye kadar diziler ve karakter dizileri ile çalıştık; her ikisinde de elemanlar aynı türdendir. Ancak gerçek programlarda farklı türdeki verileri bir arada tutmak gerekir: bir öğrencinin adı (karakter dizisi), numarası (tam sayı) ve notu (kayan nokta) gibi. C dilindeki yapılar (\texttt{struct}) bu ihtiyacı karşılar; çevirici dilde ise bu, bellekteki uzaklıkları elle hesaplamak anlamına gelir.
+Şimdiye kadar diziler ve karakter dizileri ile çalıştık. Her ikisinde de elemanlar aynı türdendir. Ancak gerçek programlarda farklı türdeki verileri bir arada tutmak gerekir: bir öğrencinin adı (karakter dizisi), numarası (tam sayı) ve notu (kayan nokta) gibi. C dilindeki yapılar (\texttt{struct}) bu ihtiyacı karşılar; çevirici dilde ise bu, bellekteki uzaklıkları elle hesaplamak anlamına gelir.
 
 \subsection{Yapılar ve Bellek Düzeni}
 \label{subsec:yapilar}
@@ -1064,7 +1062,7 @@ liste_son:
     ret
 \end{lstlisting}
 
-Bu programda her yinelemede iki \texttt{lw} buyruğu kullanılır: biri düğümün değerini okur, diğeri bir sonraki düğümün adresini okur. \texttt{lw a0, 4(a0)} satırı, işaretçinin kendisini günceller; bu, C'deki \texttt{p = p->sonraki} ifadesinin doğrudan karşılığıdır.
+Bu programda her yinelemede iki \texttt{lw} buyruğu kullanılır: biri düğümün değerini okur, diğeri bir sonraki düğümün adresini okur. \texttt{lw a0, 4(a0)} satırı, işaretçinin kendisini günceller; bu, C'deki \texttt{p = p->sonraki} ifadesinin doğrudan karşılığıdır. Düğümlerin bellekteki görünümü Şekil~\ref{fig:bagli-liste}'te gösterilmiştir.
 \end{ornek}
 
 \begin{figure}[H]
@@ -1110,8 +1108,8 @@ Bu programda her yinelemede iki \texttt{lw} buyruğu kullanılır: biri düğüm
 \label{fig:bagli-liste}
 \end{figure}
 
-\begin{bilginot}[Yığın ve Yığıt: İki Farklı Kavram]
-Türkçede ``yığın'' sözcüğü hem \emph{heap} (dinamik bellek havuzu) hem de \emph{stack} (yığıt) için kullanılabilir. Bu kitapta karışıklığı önlemek için \emph{stack} karşılığı olarak ``yığıt'', \emph{heap} karşılığı olarak ``yığın'' kullanılmaktadır. Bağlı liste düğümleri uygulamada genellikle yığın (\emph{heap}) üzerinde dinamik olarak oluşturulur.
+\begin{bilginot}[Öbek ve Yığıt: İki Farklı Kavram]
+Türkçede ``yığın'' sözcüğü hem \emph{heap} (dinamik bellek havuzu) hem de \emph{stack} (yığıt) için kullanılabildiğinden karışıklığa yol açar. Bu kitapta bu karışıklığı önlemek için \emph{stack} karşılığı olarak ``yığıt'', \emph{heap} karşılığı olarak ``öbek'' kullanılmaktadır (Şekil~\ref{fig:bellek-duzeni}'teki bellek düzeninde de öbek bu adla gösterilmiştir). Bağlı liste düğümleri uygulamada genellikle öbek (\emph{heap}) üzerinde dinamik olarak oluşturulur.
 \end{bilginot}
 
 
@@ -1119,7 +1117,7 @@ Türkçede ``yığın'' sözcüğü hem \emph{heap} (dinamik bellek havuzu) hem 
 \label{subsec:ozyineleme}
 \index{özyineleme}\index{recursion|see{özyineleme}}
 
-Önceki örneklerdeki tüm fonksiyonlar yinelemeli (\emph{iterative}) idi: döngüler kullanarak çalışıyorlardı. Ancak bazı problemler, fonksiyonun kendisini çağırmasıyla daha doğal biçimde ifade edilebilir. Bu tekniğe \emph{özyineleme} (\emph{recursion}) denir. Bölüm~\ref{chap:buyruk-kumesi}'te yığıt çerçevesinin nasıl oluşturulduğunu gördük; özyinelemede her çağrı yeni bir yığıt çerçevesi oluşturur. Bu nedenle özyinelemeli fonksiyonlar, yığıt yönetimini anlamak için ideal bir çalışma alanıdır.
+Önceki örneklerdeki tüm fonksiyonlar yinelemeli (\emph{iterative}) idi: döngüler kullanarak çalışıyorlardı. Ancak bazı problemler, fonksiyonun kendisini çağırmasıyla daha doğal biçimde ifade edilebilir. Bu tekniğe \emph{özyineleme} (\emph{recursion}) denir. Bölüm~\ref{chap:buyruk-kumesi}'te yığıt çerçevesinin nasıl oluşturulduğunu gördük. Özyinelemede her çağrı yeni bir yığıt çerçevesi oluşturur. Bu nedenle özyinelemeli fonksiyonlar, yığıt yönetimini anlamak için ideal bir çalışma alanıdır.
 
 \begin{ornek}[4.14]
 \label{orn:fibonacci}
@@ -1172,13 +1170,13 @@ fib_taban:
 
 Bu programda dikkat edilmesi gereken noktalar:
 \begin{itemize}
-\item Her özyinelemeli çağrı öncesinde \texttt{ra}, \texttt{s0} ve \texttt{s1} yığıtta saklanır. Saklanan yazmaçlar (\texttt{s0}--\texttt{s11}) çağrılan tarafın sorumluluğundadır; fonksiyon bu yazmaçları bozmamalıdır.
+\item Her özyinelemeli çağrı öncesinde \texttt{ra}, \texttt{s0} ve \texttt{s1} yığıtta saklanır. Saklanan yazmaçlar (\texttt{s0}--\texttt{s11}) çağrılan tarafın sorumluluğundadır. Fonksiyon bu yazmaçları bozmamalıdır.
 \item İlk \texttt{jal fibonacci} çağrısı \texttt{a0}'daki sonucu döndürür. Bu sonuç \texttt{s1}'e kopyalanır çünkü ikinci çağrı \texttt{a0}'yı değiştirecektir.
 \item Taban durumunda yığıt çerçevesi oluşturulmaz; bu, gereksiz bellek erişimini önler.
-\item $n = 5$ için bu fonksiyon kendini 15 kez çağırır ve yığıtta en fazla 5 çerçeve (60 bayt) birikir. $n$ büyüdükçe çağrı sayısı üstel olarak artar; bu nedenle büyük $n$ değerleri için yinelemeli sürüm tercih edilmelidir.
+\item $n = 5$ için bu fonksiyon kendini 15 kez çağırır ve yığıtta en fazla 4 çerçeve (48 bayt) birikir. Taban durumu çerçeve açmadığından derinlik $n-1$'de kalır (Şekil~\ref{fig:fibonacci-agac}). $n$ büyüdükçe çağrı sayısı üstel olarak artar; bu nedenle büyük $n$ değerleri için yinelemeli sürüm tercih edilmelidir.
 \end{itemize}
 
-\emph{Başarım çözümlemesi:} Her özyinelemeli çağrıda 16 buyruk yürütülür: 4 yığıta yazma (\texttt{sw} $\times 3$ + \texttt{addi}), 4 yığıttan okuma (\texttt{lw} $\times 3$ + \texttt{addi}), 2 fonksiyon çağrısı (\texttt{jal}), ve 6 yazmaç işlemi. $n = 5$ için toplam 15 çağrı $\times$ 16 buyruk $= 240$ buyruk yürütülür; bellek buyrukları 2 çevrim alırsa toplam $\sim$336 çevrim, BBÇ $\approx 1{,}40$. Asıl sorun BBÇ değil, buyruk sayısının üstel artışıdır: $n = 10$ için $\sim$177 çağrı $\approx 2832$ buyruk, $n = 20$ için $\sim$21.891 çağrı $\approx 350.000$ buyruk. Yinelemeli sürüm ise $n = 20$ için yalnızca $\sim$120 buyrukla aynı sonucu verir; algoritma seçimi, BBÇ'den çok daha büyük bir başarım etkisi yaratır.
+\emph{Başarım çözümlemesi:} Yaprak olmayan (özyinelemeli) her çağrıda 18 buyruk yürütülür: 2 taban denetimi (\texttt{li}, \texttt{ble}), 4 yığıta yazma (\texttt{addi} + \texttt{sw} $\times 3$), 4 yığıttan okuma (\texttt{lw} $\times 3$ + \texttt{addi}), 2 fonksiyon çağrısı (\texttt{jal} $\times 2$) ve 6 yazmaç işlemi (\texttt{mv} $\times 2$, \texttt{addi} $\times 2$, \texttt{add}, \texttt{ret}). Taban durumundaki çağrılar ise yalnızca 3 buyruk (\texttt{li}, \texttt{ble}, \texttt{ret}) yürütür. $n = 5$ için 15 çağrının 7'si özyinelemeli, 8'i tabandır: toplam $7 \times 18 + 8 \times 3 = 150$ buyruk. Bunların 42'si bellek erişimidir (özyinelemeli çağrı başına 3 \texttt{sw} + 3 \texttt{lw}); bellek buyrukları 2 çevrim alırsa toplam $108 \times 1 + 42 \times 2 = 192$ çevrim, BBÇ $\approx 1{,}28$. Asıl sorun BBÇ değil, çağrı sayısının üstel artışıdır: çağrı sayısı $2F(n{+}1){-}1$ ile büyür, $n = 10$ için 177 çağrı $\approx 1851$ buyruk, $n = 20$ için 21.891 çağrı $\approx 230.000$ buyruk. Yinelemeli sürüm ise $n = 20$ için yalnızca $\sim$120 buyrukla aynı sonucu verir; algoritma seçimi, BBÇ'den çok daha büyük bir başarım etkisi yaratır. Her çağrının yığıtta nasıl birikim oluşturduğu Şekil~\ref{fig:fibonacci-yigit-buyumesi}'da gösterilmiştir.
 \end{ornek}
 
 \begin{figure}[H]
@@ -1215,7 +1213,7 @@ Bu programda dikkat edilmesi gereken noktalar:
     };
 \end{tikzpicture}%
 }
-\caption[Özyinelemeli Fibonacci çağrı ağacı]{Özyinelemeli Fibonacci çağrı ağacı ($n=5$). Yeşil düğümler taban durumlarıdır; toplam 15 çağrı üretilir ve her çağrı yığıtta 12 baytlık bir çerçeve oluşturur.}
+\caption[Özyinelemeli Fibonacci çağrı ağacı]{Özyinelemeli Fibonacci çağrı ağacı ($n=5$). Yeşil düğümler taban durumlarıdır ve çerçeve açmaz; toplam 15 çağrının 7'si (taban olmayan çağrılar) yığıtta 12 baytlık birer çerçeve oluşturur.}
 \label{fig:fibonacci-agac}
 \end{figure}
 
@@ -1313,8 +1311,9 @@ sonuc:   .word  0
 .text
 .globl main
 main:
-    addi sp, sp, -4
-    sw   ra, 0(sp)
+    addi sp, sp, -8
+    sw   ra, 4(sp)
+    sw   s0, 0(sp)            # s0 saklanan yazmaç, korunmalı
 
     la   a0, dizi
     lw   a1, boyut            # a1 = 7
@@ -1329,8 +1328,9 @@ main:
     la   t1, sonuc
     sw   t0, 0(t1)            # sonucu belleğe yaz
 
-    lw   ra, 0(sp)
-    addi sp, sp, 4
+    lw   s0, 0(sp)            # s0'ı geri yükle
+    lw   ra, 4(sp)
+    addi sp, sp, 8
     li   a7, 10
     ecall
 
@@ -1375,17 +1375,17 @@ ek_son:
 
 Bu programda \texttt{main} fonksiyonu sırasıyla \texttt{en\_buyuk} ve \texttt{en\_kucuk} fonksiyonlarını çağırır. Dikkat edilmesi gereken noktalar:
 \begin{itemize}
-\item \texttt{main} fonksiyonu başka fonksiyonları çağırdığı için \texttt{ra}'yı yığıtta saklar. Eğer \texttt{main} yaprak fonksiyon olsaydı (başka fonksiyon çağırmayan) bu gerekli olmazdı.
+\item \texttt{main} fonksiyonu başka fonksiyonları çağırdığı için \texttt{ra}'yı ve kullandığı saklanan yazmaç \texttt{s0}'ı yığıtta saklar. Eğer \texttt{main} yaprak fonksiyon olsaydı (başka fonksiyon çağırmayan) \texttt{ra}'yı saklamak gerekli olmazdı.
 \item \texttt{en\_buyuk} fonksiyonunun sonucu \texttt{s0}'a kopyalanır. Bu bir saklanan yazmaç olduğu için \texttt{en\_kucuk} çağrısı sırasında korunacaktır. Geçici yazmaç (\texttt{t0}--\texttt{t6}) kullanılsaydı, \texttt{en\_kucuk} fonksiyonu bu değeri bozabilirdi.
 \item Her iki alt fonksiyon yalnızca geçici yazmaçlar kullandığı ve başka fonksiyon çağırmadığı için (yaprak fonksiyonlar) yığıt çerçevesi oluşturmazlar.
 \end{itemize}
 
-\emph{Başarım çözümlemesi:} Bu programda \texttt{main} 12 buyruk, \texttt{en\_buyuk} ve \texttt{en\_kucuk} ise her biri $6n + 2$ buyruk yürütür ($n$ = dizi boyutu). $n = 7$ için toplam: $12 + 2 \times (6 \times 7 + 2) = 100$ buyruk. Her döngü gövdesinde 1 bellek erişimi (\texttt{lw}) ve 1 dallanma vardır; \texttt{main}'de ise 2 bellek erişimi (\texttt{sw}/\texttt{lw} yığıt) bulunur. Bellek buyrukları 2 çevrim alırsa: yazmaç buyrukları $\sim$72, bellek buyrukları $\sim$16, dallanma buyrukları $\sim$12 ile toplam $72 + 32 + 24 = 128$ çevrim, BBÇ $\approx 1{,}28$. Dikkat edilmesi gereken bir nokta: yaprak fonksiyonlarda yığıt çerçevesi oluşturulmadığı için bellek erişimi azalır ve BBÇ düşer. Yaprak olmayan \texttt{main} ise \texttt{ra} saklama/yükleme nedeniyle fazladan 2 bellek erişimi gerektirir.
+\emph{Başarım çözümlemesi:} Bu programda \texttt{main} 18 buyruk yürütür. \texttt{en\_buyuk} ve \texttt{en\_kucuk} ise her biri yaklaşık $6n + 2$ buyruk yürütür ($n$ = dizi boyutu, kesin sayı dizi içeriğine göre biraz değişir). $n = 7$ için toplam: $18 + 2 \times (6 \times 7 + 2) \approx 106$ buyruk. Her döngü gövdesinde 1 bellek erişimi (\texttt{lw}) ve 1 dallanma vardır. \texttt{main}'de ise \texttt{ra} ve \texttt{s0}'ı saklayıp geri yüklemek için 4 yığıt erişimi (\texttt{sw} $\times 2$, \texttt{lw} $\times 2$) bulunur. Toplam $\sim$21 bellek erişimi 2 çevrim, kalan $\sim$85 buyruk 1 çevrim alırsa toplam $85 + 42 \approx 127$ çevrim, BBÇ $\approx 1{,}20$. Dikkat edilmesi gereken bir nokta: yaprak fonksiyonlar (\texttt{en\_buyuk}, \texttt{en\_kucuk}) yığıt çerçevesi oluşturmadığı için içlerindeki bellek erişimi yalnızca dizi okumalarıyla sınırlıdır. Yaprak olmayan \texttt{main} ise \texttt{ra} ve \texttt{s0}'ı koruma zorunluluğu nedeniyle fazladan 4 bellek erişimi gerektirir; bu, çağrı düzeninin somut maliyetidir.
 \end{ornek}
 
 
 \begin{tanim}[Tasarım İlkesi 3: Olağan durumu hızlandır \emph{(devam)}]
-Derleyicilerin uyguladığı eniyilemeler bu ilkenin doğrudan yansımasıdır: en sık yürütülen kod yolları (döngü gövdeleri, sık çağrılan fonksiyonlar) için daha az buyruk üreten ve daha az bellek erişimi gerektiren kod üretilir. Programcı da aynı ilkeyi çevirici dil düzeyinde uygulayabilir: seyrek çalışan hata kontrolü kodunu döngü dışına taşımak, sık erişilen verileri yazmaçlarda tutmak gibi.
+Derleyicilerin uyguladığı eniyilemeler bu ilkenin doğrudan yansımasıdır: en sık yürütülen kod yolları (döngü gövdeleri, sık çağrılan fonksiyonlar) için daha az buyruk üreten ve daha az bellek erişimi gerektiren kod üretilir. Programcı da aynı ilkeyi çevirici dil düzeyinde uygulayabilir: seyrek çalışan hata denetimi kodunu döngü dışına taşımak, sık erişilen verileri yazmaçlarda tutmak gibi.
 \end{tanim}
 
 % =====================================================
@@ -1438,7 +1438,7 @@ toplam:
     sw   a1, -24(s0)          # n'i yığıtta sakla
     sw   zero, -28(s0)        # sonuc = 0
     sw   zero, -32(s0)        # i = 0
-    j    dongu_kontrol
+    j    dongu_denetim
 dongu_govde:
     lw   t0, -32(s0)          # i'yi yığıttan oku
     slli t0, t0, 2
@@ -1451,7 +1451,7 @@ dongu_govde:
     lw   t0, -32(s0)          # i'yi yığıttan oku
     addi t0, t0, 1
     sw   t0, -32(s0)          # i'yi yığıta yaz
-dongu_kontrol:
+dongu_denetim:
     lw   t0, -32(s0)          # i'yi yığıttan oku
     lw   t1, -24(s0)          # n'i yığıttan oku
     blt  t0, t1, dongu_govde
@@ -1483,10 +1483,10 @@ son:
 
 \texttt{-O2} çıktısında dikkat çeken farklar:
 \begin{itemize}
-\item Yığıt çerçevesi oluşturulmamıştır; tüm değişkenler yazmaçlarda tutulur.
+\item Yığıt çerçevesi oluşturulmamıştır, tüm değişkenler yazmaçlarda tutulur.
 \item Döngü sayacı (\texttt{i}) yerine işaretçi kullanılır; bu, her yinelemede \texttt{slli} ile çarpma yapma gereğini ortadan kaldırır.
 \item Döngü gövdesinde yalnızca 4 buyruk vardır (\texttt{-O0}'da 10'dan fazla).
-\item Döngü kontrolü sona alınmıştır (\emph{loop inversion}): döngü başında bir defa kontrol yapılır, sonra gövde-kontrol sırası tersine çevrilir.
+\item Döngü denetimi sona alınmıştır (\emph{loop inversion}): döngü başında bir defa denetim yapılır, sonra gövde-denetim sırası tersine çevrilir.
 \end{itemize}
 \end{ornek}
 
@@ -1499,7 +1499,7 @@ son:
 \label{subsec:yapisal-donusumler}
 \index{derleyici!eniyileme}
 
-Derleyicilerin uyguladığı bazı yaygın dönüşümler şunlardır:
+Derleyicilerin uyguladığı bazı yaygın dönüşümler Tablo~\ref{tab:derleyici-eniyilemeleri}'de özetlenmiştir.
 
 \begin{table}[H]
 \centering
@@ -1529,7 +1529,7 @@ Aynı C fonksiyonunun farklı mimarilerde derlenmiş çıktıları, BKM tasarım
 
 \emph{x86-64:} Değişken uzunluklu buyruklar (1--15 bayt). Bellek-yazmaç buyrukları sayesinde ayrı yükleme buyruğu gerekmez: \texttt{add eax, [rdi]} tek buyrukla hem bellek okur hem toplar. Ancak bu karmaşıklık çözücü donanımını büyütür.
 
-Her üç mimaride de \texttt{-O2} seviyesinde döngü gövdeleri birbirine oldukça yakın buyruk sayısına sahiptir; asıl fark buyruk kodlama boyutunda ve çözücü karmaşıklığında ortaya çıkar.
+Her üç mimaride de \texttt{-O2} seviyesinde döngü gövdeleri birbirine oldukça yakın buyruk sayısına sahiptir. Asıl fark buyruk kodlama boyutunda ve çözücü karmaşıklığında ortaya çıkar.
 \end{karsilastirma}
 
 \begin{ornek}[4.17]
@@ -1569,7 +1569,7 @@ dongu2:
 son2:
 \end{lstlisting}
 
-İkinci sürümde döngü gövdesinde çarpma yoktur; yalnızca bir \texttt{sw} ve bir \texttt{addi} vardır.
+İkinci sürümde döngü gövdesinde çarpma yoktur. Yalnızca bir \texttt{sw} ve bir \texttt{addi} vardır.
 \end{ornek}
 
 
@@ -1588,12 +1588,12 @@ Gömülü sistemlerde çevresel aygıtlar (LED, düğme, UART, zamanlayıcı) be
 
 \begin{ornek}[4.18]
 \label{orn:mmio-led}
-Bellek adresine eşlenmiş bir LED'i yakıp söndüren bir RISC-V programı yazın. LED kontrol yazmacı \texttt{0x10012008} adresinde olsun ve 0. bit LED'in durumunu kontrol etsin.
+Bellek adresine eşlenmiş bir LED'i yakıp söndüren bir RISC-V programı yazın. LED denetim yazmacı \texttt{0x10012008} adresinde olsun ve 0. bit LED'in durumunu belirlesin.
 
 \textbf{Çözüm:}
 
 \begin{lstlisting}[style=riscv]
-.equ LED_ADDR, 0x10012008    # LED kontrol yazmacı adresi
+.eqv LED_ADDR, 0x10012008    # LED denetim yazmacı adresi
 
 .text
 .globl main
@@ -1602,17 +1602,24 @@ main:
     li   t1, 1                # bit 0 = 1 (LED yak)
     sw   t1, 0(t0)            # LED'i yak
 
-    # Basit gecikme döngüsü
+    # Birinci gecikme döngüsü (yanık kalma süresi)
     li   t2, 1000000
-gecikme:
+gecikme1:
     addi t2, t2, -1
-    bnez t2, gecikme
+    bnez t2, gecikme1
 
     sw   zero, 0(t0)          # LED'i söndür
+
+    # İkinci gecikme döngüsü (sönük kalma süresi)
+    li   t2, 1000000
+gecikme2:
+    addi t2, t2, -1
+    bnez t2, gecikme2
+
     j    main                 # başa dön (sürekli yanıp sön)
 \end{lstlisting}
 
-Bu programda \texttt{sw t1, 0(t0)} buyruğu sıradan bir bellek yazma gibi görünür, ancak hedef adres bir donanım yazmacına eşlendiği için yazılan değer doğrudan LED'in durumunu değiştirir. Bu, RISC-V'in (ve genel olarak RISC mimarilerinin) giriş/çıkış felsefesini yansıtır: ayrı giriş/çıkış buyrukları yerine standart bellek erişim buyrukları kullanılır.
+Bu programda \texttt{sw t1, 0(t0)} buyruğu sıradan bir bellek yazma gibi görünür, ancak hedef adres bir donanım yazmacına eşlendiği için yazılan değer doğrudan LED'in durumunu değiştirir. Bu, RISC-V'in (ve genel olarak RISC mimarilerinin) giriş/çıkış felsefesini yansıtır: ayrı giriş/çıkış buyrukları yerine standart bellek erişim buyrukları kullanılır. Programda iki ayrı gecikme döngüsü bulunur: biri LED'in yanık kaldığı süreyi, diğeri sönük kaldığı süreyi belirler. Tek bir gecikme kullanılsaydı söndürme anlık olur ve göz yanıp sönmeyi algılayamazdı.
 \end{ornek}
 
 \begin{bilginot}[Uçucu Bellek Erişimi ve Derleyici]
@@ -1632,8 +1639,8 @@ UART üzerinden bir karakter dizisi gönderen bir RISC-V programı yazın. UART 
 \textbf{Çözüm:}
 
 \begin{lstlisting}[style=riscv]
-.equ UART_TX,     0x10013000  # UART veri yazmacı
-.equ UART_STATUS, 0x10013004  # UART durum yazmacı
+.eqv UART_TX,     0x10013000  # UART veri yazmacı
+.eqv UART_STATUS, 0x10013004  # UART durum yazmacı
 
 .data
 ileti: .asciz "Merhaba RISC-V!\n"
@@ -1654,7 +1661,7 @@ yazdir_dongu:
     beqz t2, yazdir_son       # sıfır karakterse bitir
 bekle:
     lw   t3, 0(t1)            # durum yazmacını oku
-    andi t3, t3, 1            # hazır biti kontrol et
+    andi t3, t3, 1            # hazır biti denetle
     beqz t3, bekle            # hazır değilse bekle
     sw   t2, 0(t0)            # karakteri gönder
     addi a0, a0, 1            # sonraki karakter
@@ -1663,7 +1670,7 @@ yazdir_son:
     ret
 \end{lstlisting}
 
-Bu programdaki ``meşgul bekleme'' (\emph{busy waiting}) döngüsü (\texttt{bekle} etiketi) gömülü sistemlerde yaygın bir kalıptır. İşlemci, UART'ın önceki karakteri göndermeyi bitirmesini bekler. Daha verimli bir yöntem olarak kesmeler (\emph{interrupts}) kullanılabilir; bu konu Bölüm~\ref{chap:giris-cikis}'da ele alınacaktır.
+Bu programdaki ``meşgul bekleme'' (\emph{busy waiting}) döngüsü (\texttt{bekle} etiketi) gömülü sistemlerde yaygın bir kalıptır. İşlemci, UART'ın önceki karakteri göndermeyi bitirmesini bekler. Daha verimli bir yöntem olarak kesmeler (\emph{interrupts}) kullanılabilir. Bu konu Bölüm~\ref{chap:giris-cikis}'da ele alınacaktır.
 \end{ornek}
 
 
@@ -1686,7 +1693,7 @@ Bir programın yürütme süresini öngörmenin en basit yolu, toplam yürütül
 
 \begin{ornek}[4.20]
 \label{orn:buyruk-sayimi}
-Örnek~\ref{orn:dogrusal-arama}'daki doğrusal arama fonksiyonu, $n$ elemanlı bir dizide aranan değerin dizide bulunmadığı en kötü durumda kaç buyruk yürütür?
+Örnek~\ref{orn:dogrusal-arama}'deki doğrusal arama fonksiyonu, $n$ elemanlı bir dizide aranan değerin dizide bulunmadığı en kötü durumda kaç buyruk yürütür?
 
 \textbf{Çözüm:} Döngü gövdesindeki buyrukları sayalım:
 
@@ -1696,7 +1703,7 @@ Bir programın yürütme süresini öngörmenin en basit yolu, toplam yürütül
 \toprule
 \textbf{Buyruk} & \textbf{Açıklama} & \textbf{Sayı} \\
 \midrule
-\texttt{bge t0, a1, bulunamadi} & sınır kontrolü & 1 \\
+\texttt{bge t0, a1, bulunamadi} & sınır denetimi & 1 \\
 \texttt{slli t1, t0, 2} & dizin $\rightarrow$ bayt uzaklığı & 1 \\
 \texttt{add t1, a0, t1} & adres hesaplama & 1 \\
 \texttt{lw t2, 0(t1)} & bellek okuma & 1 \\
@@ -1801,7 +1808,7 @@ mt_son:
     ret
 \end{lstlisting}
 
-Bu programda matris erişimi doğrusal (ardışık) olduğu için bellek erişim kalıbı verimlidir: her yinelemede üç ardışık bellek konumuna erişilir. Matris çarpımında ise durum farklıdır: B matrisinin sütunlarına erişim, her adımda $4 \times 4 = 16$ baytlık sıçramalar gerektirir. Bu düzensiz erişim kalıbı önbellek başarımını olumsuz etkiler; bu konu Bölüm~\ref{chap:bellek}'de ayrıntılı olarak incelenecektir.
+Bu programda matris erişimi doğrusal (ardışık) olduğu için bellek erişim kalıbı verimlidir: her yinelemede üç ardışık bellek konumuna erişilir. Matris çarpımında ise durum farklıdır: B matrisinin sütunlarına erişim, her adımda $4 \times 4 = 16$ baytlık sıçramalar gerektirir. Bu düzensiz erişim kalıbı önbellek başarımını olumsuz etkiler. Bu konu Bölüm~\ref{chap:bellek}'de ayrıntılı olarak incelenecektir.
 \end{ornek}
 
 \begin{bilginot}[Alanda Yerellik ve Zamanda Yerellik]
@@ -1819,6 +1826,8 @@ Bellek erişim kalıplarında iki temel yerellik türü vardır. \emph{Alanda ye
 
 \subsection{Yaygın Hatalar}
 \label{subsec:yaygın-hatalar}
+
+Çevirici dil programlamada en sık karşılaşılan hata türleri Tablo~\ref{tab:yaygın-hatalar}'te listelenmiştir.
 
 \begin{table}[H]
 \centering
@@ -1867,7 +1876,7 @@ bitti:
     add  t2, a0, t2           # t2 = \&dizi[i]
 \end{lstlisting}
 
-Bu tür bir hata, programın çökmesine veya yanlış bellek konumlarının okunmasına yol açar. Hatanın belirtisi: sonucun beklenenden çok farklı olması ya da hizalama hatası (\emph{misaligned access}) istisnası.
+Bu tür bir hata, programın çökmesine veya yanlış bellek konumlarının okunmasına yol açar. Hatanın belirtisi: sonucun beklenenden çok farklı olması ya da hizalama hatası (\emph{misaligned access}) kural dışı durumu.
 \end{ornek}
 
 \begin{ornek}[4.24]
@@ -1884,6 +1893,7 @@ main:
     # a0 = 49 olmalı
     li   a7, 1
     ecall
+    jal  hesapla              # hesapla'yı çağır (hata burada tetiklenir)
     li   a7, 10
     ecall
 
@@ -1899,7 +1909,7 @@ hesapla:
     ret                        # ra artık yanlış adresi gösterir
 \end{lstlisting}
 
-\textbf{Çözüm:} \texttt{hesapla} fonksiyonu yaprak olmayan bir fonksiyondur (başka fonksiyon çağırır), ancak \texttt{ra}'yı yığıtta saklamamıştır. \texttt{jal kare} buyruğu \texttt{ra}'nın üzerine yeni bir dönüş adresi yazar ve eski değer kaybolur. \texttt{ret} çalıştığında \texttt{ra} \texttt{kare}'nin çağrıldığı satırın hemen sonrasını gösterir; bu da \texttt{jal kare}'nin tekrar çalışmasına ve sonsuz döngüye yol açar.
+\textbf{Çözüm:} \texttt{main}, \texttt{jal hesapla} ile \texttt{hesapla} fonksiyonunu çağırır. \texttt{hesapla} yaprak olmayan bir fonksiyondur (başka fonksiyon çağırır), ancak \texttt{ra}'yı yığıtta saklamamıştır. \texttt{main}'in çağrısı \texttt{ra}'ya \texttt{main}'e dönüş adresini yazar; fakat \texttt{hesapla} içindeki \texttt{jal kare} buyruğu \texttt{ra}'nın üzerine yeni bir dönüş adresi yazar ve \texttt{main}'e ait eski değer kaybolur. \texttt{hesapla}'nın \texttt{ret} buyruğu çalıştığında \texttt{ra} artık \texttt{jal kare}'den hemen sonraki buyruğu (\texttt{hesapla}'nın kendi \texttt{ret}'ini) gösterir. Bu da \texttt{ret}'in kendini yeniden yürütmesine ve sonsuz döngüye yol açar.
 
 Düzeltilmiş sürüm:
 
@@ -1922,7 +1932,7 @@ Bu hata, çevirici dil programlamada en sinsi hatalardan biridir: program çökm
 \label{subsec:rars-hata-ayiklama}
 \index{RARS!hata ayıklama}
 
-RARS benzetimliği, hata ayıklama için güçlü araçlar sunar:
+RARS benzeticisi, hata ayıklama için güçlü araçlar sunar:
 
 \begin{itemize}
 \item Kesme noktası (\emph{breakpoint}): Programın belirli bir satırda durmasını sağlar.
@@ -1935,7 +1945,7 @@ Hata ayıklama sırasında izlenecek sistematik yaklaşım:
 \begin{enumerate}
 \item Hatanın oluştuğu noktayı daraltmak için programı ikiye bölerek (\emph{binary search}) kesme noktaları koyun.
 \item Her döngü yinelemesinde beklenen ve gerçek yazmaç değerlerini karşılaştırın.
-\item Bellek erişimlerinde adresin doğruluğunu kontrol edin; özellikle \texttt{slli} ile çarpma yapılıp yapılmadığını.
+\item Bellek erişimlerinde adresin doğruluğunu denetleyin; özellikle \texttt{slli} ile çarpma yapılıp yapılmadığını.
 \item Fonksiyon çağrısı ve dönüşlerinde yığıt işaretçisinin (\texttt{sp}) tutarlılığını doğrulayın.
 \end{enumerate}
 
@@ -1963,7 +1973,7 @@ RISC-V ekosistemi hızla büyümektedir. Öğrencilerin ve hobi geliştiricileri
 RISC-V için tam bir yazılım geliştirme araç zinciri mevcuttur:
 
 \begin{itemize}
-\item GCC (\texttt{riscv64-unknown-elf-gcc}): C/C++ kaynak kodunu RISC-V çevirici diline ve makine koduna derler. \texttt{-S} seçeneği ile çevirici dil çıktısı alınır; \texttt{-O0}, \texttt{-O2}, \texttt{-Os} gibi eniyileme seviyeleri seçilebilir.
+\item GCC (\texttt{riscv64-unknown-elf-gcc}): C/C++ kaynak kodunu RISC-V çevirici diline ve makine koduna derler. \texttt{-S} seçeneği ile çevirici dil çıktısı alınır. \texttt{-O0}, \texttt{-O2}, \texttt{-Os} gibi eniyileme seviyeleri seçilebilir.
 \item LLVM/Clang: GCC'ye seçenek olarak sunulan açık kaynaklı derleyici. Modüler yapısı sayesinde RISC-V için özel eniyilemeler eklemek daha kolaydır.
 \item GNU Binutils: Çevirici (\texttt{as}), bağlayıcı (\texttt{ld}), nesne dosyası inceleme araçları (\texttt{objdump}, \texttt{readelf}) içerir. \texttt{objdump -d} ile derlenmiş bir programın çevirici dil dökümü alınabilir.
 \item GDB (\texttt{riscv64-unknown-elf-gdb}): Uzaktan hata ayıklama için kullanılır. OpenOCD ile birlikte gerçek donanım üzerinde adım adım yürütme olanağı sağlar.
@@ -1971,7 +1981,7 @@ RISC-V için tam bir yazılım geliştirme araç zinciri mevcuttur:
 \end{itemize}
 
 \begin{karsilastirma}[Gömülü Geliştirme: RISC-V ve ARM]
-ARM, gömülü sistemlerde on yılların deneyimine sahiptir; Cortex-M serisi mikrodenetleyiciler milyarlarca adet satılmıştır. ARM ekosisteminde Keil MDK, IAR Embedded Workbench gibi olgun ticari araçlar ve CMSIS gibi standart donanım soyutlama katmanları bulunur.
+ARM, gömülü sistemlerde on yılların deneyimine sahiptir. Cortex-M serisi mikrodenetleyiciler milyarlarca adet satılmıştır. ARM ekosisteminde Keil MDK, IAR Embedded Workbench gibi olgun ticari araçlar ve CMSIS gibi standart donanım soyutlama katmanları bulunur.
 
 RISC-V ekosistemi daha genç olmakla birlikte hızla olgunlaşmaktadır. Açık kaynak olmasının en büyük avantajı, araç zincirinin tamamının ücretsiz ve değiştirilebilir olmasıdır. Üniversiteler ve girişim şirketleri için bu, lisans maliyetlerini sıfıra indirmektedir. Dezavantajı ise kütüphane ve sürücü desteğinin ARM kadar geniş olmamasıdır; ancak bu boşluk her geçen yıl daralmaktadır.
 \end{karsilastirma}
@@ -1983,7 +1993,7 @@ RISC-V ekosistemi daha genç olmakla birlikte hızla olgunlaşmaktadır. Açık 
 
 \yanilgi{Sözde buyruk sayısı, programın gerçek maliyetini gösterir}
 
-Örnek~4.2'de gördüğümüz gibi \texttt{la} sözde buyruğu iki gerçek buyruğa (\texttt{auipc}~+~\texttt{addi}) açılır. 10 sözde buyruktan oluşan bir program aslında 12 gerçek buyruk yürütebilir. Başarım çözümlemesi yaparken her zaman çeviricinin ürettiği gerçek buyrukları saymalıyız; RARS'ta ``Basic'' sütunu bu amaçla kullanılabilir.
+Örnek~4.2'de gördüğümüz gibi \texttt{la} sözde buyruğu iki gerçek buyruğa (\texttt{auipc}~+~\texttt{addi}) açılır. 10 sözde buyruktan oluşan bir program aslında 12 gerçek buyruk yürütebilir. Başarım çözümlemesi yaparken her zaman çeviricinin ürettiği gerçek buyrukları saymalıyız. RARS'ta ``Basic'' sütunu bu amaçla kullanılabilir.
 
 \yanilgi{Daha az buyruk her zaman daha hızlı çalışır}
 
@@ -1999,7 +2009,7 @@ Buyruk sayısı tek başına başarımı belirlemez. Bir \texttt{lw} buyruğu ö
 
 \tuzak{Geçici yazmaçların fonksiyon çağrıları arasında korunacağını varsaymak}
 
-Örnek~4.6'da gördük: yaprak fonksiyon olan \texttt{topla} yalnızca geçici yazmaçlar kullandığı için yığıt çerçevesi oluşturması gerekmez. Ancak Örnek~\ref{orn:cok-fonksiyon}'da \texttt{main} fonksiyonu \texttt{en\_buyuk}'un sonucunu bir sonraki çağrıya kadar korumak için \texttt{s0}'a (saklanan yazmaç) kopyalamak zorundadır. \texttt{t0}--\texttt{t6} geçici yazmaçları çağrılan fonksiyon tarafından serbestçe değiştirilebilir; bu nedenle fonksiyon çağrıları arasında korunması gereken değerler ya yığıta ya da \texttt{s0}--\texttt{s11} yazmaçlarına taşınmalıdır.
+Örnek~4.6'da gördük: yaprak fonksiyon olan \texttt{topla} yalnızca geçici yazmaçlar kullandığı için yığıt çerçevesi oluşturması gerekmez. Ancak Örnek~\ref{orn:cok-fonksiyon}'de \texttt{main} fonksiyonu \texttt{en\_buyuk}'un sonucunu bir sonraki çağrıya kadar korumak için \texttt{s0}'a (saklanan yazmaç) kopyalamak zorundadır. \texttt{t0}--\texttt{t6} geçici yazmaçları çağrılan fonksiyon tarafından serbestçe değiştirilebilir; bu nedenle fonksiyon çağrıları arasında korunması gereken değerler ya yığıta ya da \texttt{s0}--\texttt{s11} yazmaçlarına taşınmalıdır.
 
 \tuzak{Yığıt işaretçisini geri döndürmeyi unutmak}
 
@@ -2007,11 +2017,11 @@ Buyruk sayısı tek başına başarımı belirlemez. Bir \texttt{lw} buyruğu ö
 
 \tuzak{Yığıt hizalamasını dikkate almamak}
 
-RISC-V çağrı düzeni, yığıt işaretçisinin (\texttt{sp}) her zaman 16 baytın katı olmasını gerektirir. Yığıtta 12 baytlık yer açmak (\texttt{addi sp, sp, -12}) hizalama kuralını bozar ve bazı sistemlerde sessiz hatalara yol açabilir. Her zaman 16'nın katı olacak biçimde yer açılmalıdır.
+RISC-V çağrı düzeni, yığıt işaretçisinin (\texttt{sp}) her zaman 16 baytın katı olmasını gerektirir. Yığıtta 12 baytlık yer açmak (\texttt{addi sp, sp, -12}) hizalama kuralını bozar ve bazı sistemlerde sessiz hatalara yol açabilir. Her zaman 16'nın katı olacak biçimde yer açılmalıdır. Bu kitaptaki RARS örneklerinde yalınlık için çerçeveler gereken en küçük boyutta açılmıştır (örneğin Fibonacci'de 12 bayt). Gerçek ABI uyumlu kodda bu değerleri 16'nın katına yuvarlayın.
 
 \tuzak{Yaprak olmayan fonksiyonda \texttt{ra}'yı saklamamak}
 
-Örnek~4.6'daki \texttt{topla} yaprak fonksiyondur ve \texttt{ra}'yı saklamadan \texttt{ret} ile döner. Ancak \texttt{main} gibi başka fonksiyon çağıran bir fonksiyonda \texttt{jal} buyruğu \texttt{ra}'nın üzerine yazar. Eğer eski \texttt{ra} değeri yığıtta saklanmazsa, fonksiyon çağırandan geri dönemez; program sonsuz döngüye girer veya çöker.
+Örnek~4.6'daki \texttt{topla} yaprak fonksiyondur ve \texttt{ra}'yı saklamadan \texttt{ret} ile döner. Ancak \texttt{main} gibi başka fonksiyon çağıran bir fonksiyonda \texttt{jal} buyruğu \texttt{ra}'nın üzerine yazar. Eğer eski \texttt{ra} değeri yığıtta saklanmazsa, fonksiyon çağırandan geri dönemez. Program sonsuz döngüye girer veya çöker.
 
 \yanilgi{Eniyileme seviyesini artırmak her zaman daha iyi sonuç verir}
 
@@ -2028,7 +2038,7 @@ Sözde buyrukların (\texttt{li}, \texttt{mv}, \texttt{la}) çevirici tarafında
 
 Her örnekte başarım çözümlemesi yaparak buyruk sayısı, BBÇ ve bellek erişimi arasındaki ilişkiyi sayısal olarak hesapladık. Bellek erişimi olmayan programlarda BBÇ~$= 1{,}0$ elde ederken, \texttt{lw}/\texttt{sw} buyrukları eklendikçe BBÇ'nin~$\sim 1{,}2$'ye çıktığını gördük; bu, Bölüm~\ref{chap:basarim}'deki başarım formülünün programlama düzeyindeki somut yansımasıdır.
 
-Temel kavramları pekiştirdikten sonra dizi arama ve sıralama algoritmalarından karakter dizisi işlemeye, yapı ve bağlı liste gibi veri yapılarından gömülü sistem programlamaya kadar geniş bir yelpazede uygulamalar geliştirdik. Özyinelemeli fonksiyonların yığıt yönetimini nasıl etkilediğini Fibonacci örneğiyle; birden çok fonksiyonun birbirini çağırdığı programlarda çağrı düzeninin önemini çok fonksiyonlu program örneğiyle inceledik. Matris işlemleri üzerinden bellek erişim kalıplarının başarım üzerindeki etkisini ve alanda yerellik ile zamanda yerellik kavramlarını ele aldık.
+Temel kavramları pekiştirdikten sonra dizi arama ve sıralama algoritmalarından karakter dizisi işlemeye, yapı ve bağlı liste gibi veri yapılarından gömülü sistem programlamaya kadar geniş bir yelpazede uygulamalar geliştirdik. Özyinelemeli fonksiyonların yığıt yönetimini nasıl etkilediğini Fibonacci örneğiyle, birden çok fonksiyonun birbirini çağırdığı programlarda çağrı düzeninin önemini çok fonksiyonlu program örneğiyle inceledik. Matris işlemleri üzerinden bellek erişim kalıplarının başarım üzerindeki etkisini ve alanda yerellik ile zamanda yerellik kavramlarını ele aldık.
 
 Derleyicinin C kodundan ürettiği çevirici dil çıktısını okumayı öğrendik ve farklı eniyileme seviyelerinin (\texttt{-O0}, \texttt{-O2}) kod kalitesini nasıl etkilediğini gördük. Gerçek dünya bölümünde RISC-V geliştirme ekosistemini (donanım kartlarını, araç zincirini ve ARM ile karşılaştırmalı konumunu) inceledik.
 
@@ -2044,7 +2054,7 @@ Bellekte \texttt{.word} olarak tanımlanmış 10 elemanlı bir dizinin tüm elem
 \end{alistirma}
 
 \begin{alistirma}[\kolay]
-Bir karakter dizisindeki tüm küçük harfleri büyük harfe çeviren bir fonksiyon yazın. ASCII'de küçük harfler 97--122, büyük harfler 65--90 aralığındadır; fark 32'dir.
+Bir karakter dizisindeki tüm küçük harfleri büyük harfe çeviren bir fonksiyon yazın. ASCII'de küçük harfler 97--122, büyük harfler 65--90 aralığındadır. Fark 32'dir.
 \end{alistirma}
 
 \begin{alistirma}[\kolay]
@@ -2100,7 +2110,7 @@ Her düğümü \texttt{\{int anahtar, int deger, dugum* sonraki\}} biçiminde ol
 \end{alistirma}
 
 \begin{alistirma}[\orta]
-UART üzerinden kullanıcıdan bir karakter dizisi okuyan, bu diziyi ters çeviren ve ters çevrilmiş hâlini UART üzerinden geri gönderen bir program yazın. UART adreslerini Örnek~\ref{orn:uart}'teki gibi kullanın. Giriş yazmacı \texttt{0x10013008} adresinde, durum yazmacının 1.\ biti ``okuma hazır'' bayrağı olsun.
+UART üzerinden kullanıcıdan bir karakter dizisi okuyan, bu diziyi ters çeviren ve ters çevrilmiş hâlini UART üzerinden geri gönderen bir program yazın. UART adreslerini Örnek~\ref{orn:uart}'deki gibi kullanın. Giriş yazmacı \texttt{0x10013008} adresinde, durum yazmacının 1.\ biti ``okuma hazır'' bayrağı olsun.
 \end{alistirma}
 
 \begin{alistirma}[\zor]
@@ -2159,7 +2169,7 @@ Bir yaprak yordam (\emph{leaf procedure}) ile yaprak olmayan bir yordam arasınd
 \end{alistirma}
 
 \begin{alistirma}[\kolay]
-RISC-V çağrı düzeninde \texttt{a0}--\texttt{a7} yazmaçları hangi amaçla kullanılır? Bir fonksiyon 9 terim alırsa dokuzuncu terim nereye konulur? Bu durumda çağıran ve çağrılan tarafın sorumlulukları nelerdir?
+RISC-V çağrı düzeninde \texttt{a0}--\texttt{a7} yazmaçları hangi amaçla kullanılır? Bir fonksiyon 9 bağımsız değişken (\emph{argument}) alırsa dokuzuncu bağımsız değişken nereye konulur? Bu durumda çağıran ve çağrılan tarafın sorumlulukları nelerdir?
 \end{alistirma}
 
 \begin{alistirma}[\kolay]
@@ -2192,7 +2202,7 @@ Saklanan yazmaçlar (\texttt{s0}--\texttt{s11}) ile geçici yazmaçlar (\texttt{
 \end{alistirma}
 
 \begin{alistirma}[\orta]
-Aşağıdaki fonksiyon bir yığıt çerçevesi oluşturuyor. Çerçevedeki her alanın ne için kullanıldığını ve yığıt göstergesinin değişimini adım adım izleyin:
+Aşağıdaki fonksiyon bir yığıt çerçevesi oluşturuyor. Çerçevedeki her alanın ne için kullanıldığını ve yığıt işaretçisinin değişimini adım adım izleyin:
 \begin{lstlisting}[style=riscv]
 fonk:
     addi sp, sp, -16
@@ -2206,7 +2216,7 @@ fonk:
     addi sp, sp, 16
     ret
 \end{lstlisting}
-Yığıt göstergesi başlangıçta \texttt{0x7FFFFFF0} ise, \texttt{ra} hangi bellek adresine saklanır?
+Yığıt işaretçisi başlangıçta \texttt{0x7FFFFFF0} ise, \texttt{ra} hangi bellek adresine saklanır?
 \end{alistirma}
 
 \begin{alistirma}[\orta]
@@ -2230,18 +2240,18 @@ Aşağıdaki kodda bir hata var. Hatayı bulun, nedenini açıklayın ve düzelt
 \begin{lstlisting}[style=riscv]
     .text
 toplam:
-    li   t0, 0         # sonuc = 0
+    li   s0, 0         # sonuc = 0   (s0 saklanmadan kullaniliyor)
     li   t1, 0         # i = 0
 dongu:
     bge  t1, a1, son   # i >= n ise cik
     slli t2, t1, 2     # t2 = i * 4
-    add  t2, a0, t2    # t2 = &dizi[i]
+    add  t2, a0, t2    # t2 = dizi[i] adresi
     lw   t3, 0(t2)     # t3 = dizi[i]
-    add  t0, t0, t3    # sonuc += dizi[i]
+    add  s0, s0, t3    # sonuc += dizi[i]
     addi t1, t1, 1     # i++
     j    dongu
 son:
-    mv   a0, t0
+    mv   a0, s0
     jr   ra            # don
 \end{lstlisting}
 İpucu: Bu fonksiyon başka bir fonksiyondan çağrılırsa ne olur?
@@ -2273,15 +2283,15 @@ Bellekteki bir sözcük dizisini (\texttt{.word}) ters çeviren (\emph{reverse})
 \begin{alistirma}[\zor]
 Aşağıdaki iki RISC-V döngüsü aynı işi yapmaktadır. Her birinin döngü başına yürütülen buyruk sayısını hesaplayın ve hangisinin neden daha verimli olduğunu açıklayın:
 \begin{lstlisting}[style=riscv]
-# Surum A                  # Surum B
+# Sol sutun: Surum A, sag sutun: Surum B
     li  t0, 0                  li  t0, 0
-    li  t1, 100                slli t2, a1, 2
+    li  t1, 0                  slli t2, a1, 2
 donguA:                        add  t2, a0, t2
     bge t0, a1, sonA       donguB:
     slli t2, t0, 2             bge  a0, t2, sonB
     add  t2, a0, t2            lw   t3, 0(a0)
     lw   t3, 0(t2)             add  t0, t0, t3
-    add  t0, t0, t3            addi a0, a0, 4
+    add  t1, t1, t3            addi a0, a0, 4
     addi t0, t0, 1             j    donguB
     j    donguA            sonB:
 sonA:

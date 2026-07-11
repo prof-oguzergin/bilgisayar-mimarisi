@@ -11,7 +11,7 @@
 % Günlük çalışma: sadece etkin bölümü derlemek için aşağıdaki satırı aç.
 % Tam derleme veya sürüm hazırlığı için yorum satırı yap.
 % Günlük çalışma: sadece etkin bölümü derle (uncomment et)
-%\includeonly{ekB-sayisal-tasarim/ekB}
+%\includeonly{bolum01-giris/bolum01,bolum02-basarim/bolum02,bolum03-buyruk-kumesi/bolum03,bolum04-programlama/bolum04-programlama,bolum05-aritmetik/bolum05,bolum06-islemci-tasarimi/bolum06,bolum07-boru-hatti/bolum07,ekA-sayi-sistemleri/ekA,ekB-sayisal-tasarim/ekB,ekC-risc-v-referans/ekC,ekD-pratik-rehber/ekD}
 
 % Yayın sürümü: sadece yayındaki bölümleri derle (uncomment et)
 \includeonly{bolum01-giris/bolum01,bolum02-basarim/bolum02,bolum03-buyruk-kumesi/bolum03,bolum04-programlama/bolum04-programlama,bolum05-aritmetik/bolum05,bolum06-islemci-tasarimi/bolum06,ekA-sayi-sistemleri/ekA,ekB-sayisal-tasarim/ekB,ekC-risc-v-referans/ekC,ekD-pratik-rehber/ekD}
@@ -20,13 +20,16 @@
 % \bolumekle: Dosya varsa \include eder, yoksa sayacı atlar ve label tanımlar.
 %   #1 = dosya yolu (uzantısız), #2 = label adı, #3 = bölüm numarası, #4 = başlık
 % \ekekle: Aynı mantık, ek bölümler için (appendix label formatı).
+% NOT: LaTeX2e 2025-11-01 çekirdeği \newlabel'i gövdede yasakladı. Saplama dalı
+% etiketi \label'ın kendi mekanizmasıyla (korumalı aux yazımı) kaydeder; ikinci
+% geçişte belge başındaki ileri atıflar dahil tüm \ref'ler çözülür.
 \makeatletter
 \newcommand{\bolumekle}[4]{%
   \IfFileExists{#1.tex}{%
     \include{#1}%
   }{%
     \stepcounter{chapter}%
-    \newlabel{#2}{{#3}{}{#4}{chapter.#3}{}}%
+    \protected@write\@auxout{}{\string\newlabel{#2}{{#3}{}{#4}{chapter.#3}{}}}%
   }%
 }
 \newcommand{\ekekle}[4]{%
@@ -34,17 +37,11 @@
     \include{#1}%
   }{%
     \stepcounter{chapter}%
-    \newlabel{#2}{{#3}{}{#4}{appendix.#3}{}}%
+    \protected@write\@auxout{}{\string\newlabel{#2}{{#3}{}{#4}{appendix.#3}{}}}%
   }%
 }
 % Ek B içindeki section-level referanslar (dosya yoksa tanımla)
 \AtBeginDocument{%
-  \newlabel{chap:boruhatti}{{7}{}{Boru Hattı}{chapter.7}{}}%
-  \newlabel{chap:bellek}{{8}{}{Bellek}{chapter.8}{}}%
-  \newlabel{chap:giris-cikis}{{9}{}{Giriş ve Çıkış Aygıtları}{chapter.9}{}}%
-  \newlabel{chap:cok-cekirdekli}{{10}{}{Çok Çekirdekli ve Koşut İşlemciler}{chapter.10}{}}%
-  \newlabel{chap:gpu-hizlandiricilar}{{11}{}{GPU ve Hızlandırıcılar}{chapter.11}{}}%
-  \newlabel{chap:guncel-mimariler}{{12}{}{Güncel Mimari Eğilimleri}{chapter.12}{}}%
   \@ifundefined{r@sec:ekB-yazmaclar}{%
     \newlabel{sec:ekB-yazmaclar}{{B.4}{}{Yazmaçlar}{section.B.4}{}}%
   }{}%

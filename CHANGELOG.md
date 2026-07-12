@@ -4,6 +4,18 @@ Bu dosya, kitabın sürümler arasındaki önemli değişikliklerini takip eder.
 
 ---
 
+## [0.4.7] — 2026-07-12
+
+### İyileştirmeler
+- **Bölüm 4 (RISC-V ile Programlama) görsellerle zenginleştirildi:** taban-uzaklık adresleme, döngü denetim akışı, çağrı sözleşmesinde yazmaç koruma, çok fonksiyonlu çağrı zinciri, karakter dizisi ve yapı bellek yerleşimi, kabarcık sıralama geçişi, derleme araç zinciri, MMIO adres haritası, UART yoklama akışı, matris bellek düzeni ve döngü açma için 12 yeni şekil (bölümdeki şekil sayısı 6'dan 18'e çıktı)
+- Bölüm 4 dizin girdileri genişletildi; "çağrı sözleşmesi" ve "yoklama" terim kutuları eklendi
+
+### Düzeltmeler
+- Siteye Google Scholar atıf meta etiketleri eklendi (indekslenmeyi kolaylaştırmak için)
+- LaTeX 2025-11-01 çekirdeğiyle derleme uyumu sağlandı (yayınlanmayan bölümlerin saplama mekanizması)
+
+---
+
 ## [0.4.6] — 2026-07-11
 
 ### Yeni bölüm

@@ -1,0 +1,12 @@
+-- =============================================================
+-- Bilgisayar Mimarisi — make4ht/tex4ebook derleme dosyası
+-- tex4ebook bu dosyayı (girdi adı + .mk4) otomatik yükler.
+-- =============================================================
+
+-- Kaynakça: biber, ilk geçişin ürettiği .bcf üzerinden çalışır.
+Make:add("biber", "biber ${input}")
+
+Make:htlatex {} -- 1. geçiş: aux/bcf üretimi
+Make:biber {}
+Make:htlatex {} -- 2. geçiş: kaynakça yerleşimi
+Make:htlatex {} -- 3. geçiş: çapraz referanslar

@@ -10,3 +10,82 @@ Make:htlatex {} -- 1. geçiş: aux/bcf üretimi
 Make:biber {}
 Make:htlatex {} -- 2. geçiş: kaynakça yerleşimi
 Make:htlatex {} -- 3. geçiş: çapraz referanslar
+
+-- =============================================================
+-- Kindle uyumluluk filtresi
+-- Kindle'ın Mobi üreticisi (E21018) tex4ht'nin ürettiği bozuk img alt
+-- metinlerinde ve tablo yapısına sızan öğelerde çöküyor; bu DOM filtresi
+-- üretilen XHTML'i yayın öncesi temizler.
+-- =============================================================
+local domfilter = require "make4ht-domfilter"
+
+local table_ok = { tr=true, thead=true, tbody=true, tfoot=true,
+                   caption=true, colgroup=true, col=true }
+local tr_ok = { td=true, th=true }
+
+local function index_of(parent, node)
+  for i, c in ipairs(parent:get_children()) do
+    if c == node then return i end
+  end
+  return nil
+end
+
+local function kindle_fix(dom)
+  -- 1) img alt metinleri: tex4ht'nin resim içeriğinden türettiği bozuk
+  --    (satır sonlu, karışık glifli) alt'lar Kindle ayrıştırıcısını kırıyor.
+  for _, img in ipairs(dom:query_selector("img")) do
+    img:set_attribute("alt", "")
+  end
+  -- 2) figure dışında kalan figcaption'lar (alt-şekil başlıkları) geçersiz
+  --    konumda; span.figcaption olarak yeniden adlandırılır.
+  for _, fc in ipairs(dom:query_selector("figcaption")) do
+    local p = fc:get_parent()
+    if p and p.get_element_name and p:get_element_name() ~= "figure" then
+      fc._name = "span"
+      local cls = fc:get_attribute("class") or ""
+      fc:set_attribute("class", ("figcaption " .. cls):gsub("%s+$", ""))
+    end
+  end
+  -- 3) tablo yapısındaki geçersiz konumlar
+  for _, tbl in ipairs(dom:query_selector("table")) do
+    -- 3a) tr altındaki div (multicolumn kalıntısı) -> td
+    for _, row in ipairs(tbl:query_selector("tr")) do
+      for _, c in ipairs(row:get_children()) do
+        if c:is_element() then
+          local n = c:get_element_name()
+          if not tr_ok[n] then
+            if n == "div" then
+              c._name = "td"
+            else
+              -- örn. satırlar arasına sızan <a id=..> çapaları: tablodan öncesine
+              local tparent = tbl:get_parent()
+              local tpos = index_of(tparent, tbl)
+              if tpos then
+                c:remove_node()
+                tparent:add_child_node(c, tpos)
+              end
+            end
+          end
+        end
+      end
+    end
+    -- 3b) tablonun doğrudan geçersiz çocukları -> tablodan öncesine
+    for _, c in ipairs(tbl:get_children()) do
+      if c:is_element() then
+        local n = c:get_element_name()
+        if not table_ok[n] then
+          local tparent = tbl:get_parent()
+          local tpos = index_of(tparent, tbl)
+          if tpos then
+            c:remove_node()
+            tparent:add_child_node(c, tpos)
+          end
+        end
+      end
+    end
+  end
+  return dom
+end
+
+local process = domfilter({ kindle_fix }, "kindlefix")
+Make:match("xhtml$", process)

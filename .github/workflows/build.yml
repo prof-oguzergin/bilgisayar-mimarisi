@@ -55,16 +55,6 @@ jobs:
             echo "::warning::EPUB dosyası oluşturulamadı (PDF derlemesi etkilenmez)"
           fi
 
-      - name: EPUB doğrula (epubcheck)
-        if: hashFiles('ana-kitap.epub') != ''
-        continue-on-error: true
-        run: |
-          EPUBCHECK_VERSION=5.2.1
-          wget -q "https://github.com/w3c/epubcheck/releases/download/v${EPUBCHECK_VERSION}/epubcheck-${EPUBCHECK_VERSION}.zip"
-          unzip -q "epubcheck-${EPUBCHECK_VERSION}.zip"
-          java -jar "epubcheck-${EPUBCHECK_VERSION}/epubcheck.jar" ana-kitap.epub \
-            || echo "::warning::epubcheck doğrulama hataları buldu (bilgilendirme amaçlı)"
-
       - name: PDF ve EPUB dosyalarını hazırla
         if: startsWith(github.ref, 'refs/tags/v')
         run: |

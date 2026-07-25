@@ -5,7 +5,7 @@
 **Sürüm 0.4.7** — 6 bölüm + 4 ek yayında (528 sayfa)
 
 [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18903609.svg)](https://doi.org/10.5281/zenodo.18903609)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18903608.svg)](https://doi.org/10.5281/zenodo.18903608)
 
 ---
 
@@ -81,7 +81,7 @@ Bu kitabı akademik çalışmalarınızda kullanıyorsanız lütfen aşağıdaki
   isbn      = {978-625-00-6081-0},
   publisher = {Açık Erişim},
   url       = {https://github.com/prof-oguzergin/bilgisayar-mimarisi},
-  doi       = {10.5281/zenodo.18903609},
+  doi       = {10.5281/zenodo.18903608},
   license   = {CC BY-NC-ND 4.0},
   note      = {Sürekli güncellenen açık erişimli ders kitabı}
 }

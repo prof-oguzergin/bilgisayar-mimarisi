@@ -1,0 +1,29 @@
+{
+  "title": "Bilgisayar Mimarisi: RISC-V Tabanlı Yaklaşım",
+  "description": "RISC-V buyruk kümesi mimarisi temelinde yazılmış, Türkçe bilgisayar mimarisi ders kitabı. Sayı sistemleri ve sayısal tasarımdan başlayarak buyruk kümesi, aritmetik birimler, işlemci tasarımı, boru hattı, bellek hiyerarşisi, giriş/çıkış, çok çekirdekli işlemciler, GPU'lar ve güncel mimari konularını kapsar.",
+  "creators": [
+    {
+      "name": "Ergin, Oğuz",
+      "affiliation": "University of Sharjah",
+      "orcid": "0000-0003-2701-3787"
+    }
+  ],
+  "upload_type": "publication",
+  "publication_type": "book",
+  "access_right": "open",
+  "license": "cc-by-nc-nd-4.0",
+  "language": "tur",
+  "imprint_isbn": "978-625-00-6081-0",
+  "imprint_place": "Ankara, Türkiye",
+  "keywords": [
+    "bilgisayar mimarisi",
+    "RISC-V",
+    "işlemci tasarımı",
+    "boru hattı",
+    "buyruk kümesi mimarisi",
+    "ders kitabı",
+    "açık erişim",
+    "computer architecture"
+  ],
+  "notes": "Bu kitaba atıf yapmak için aşağıdaki künyeyi kullanabilirsiniz:\n\nErgin, O. (2026). Bilgisayar Mimarisi: RISC-V Tabanlı Yaklaşım. Açık erişimli ders kitabı. ISBN 978-625-00-6081-0. https://doi.org/10.5281/zenodo.18903608\n\nKitap sürekli güncellenmektedir. Tek bir sürüme değil, tüm sürümleri temsil eden ve her zaman en güncel sürüme yönlendiren DOI'ye (10.5281/zenodo.18903608) atıf yapılması önerilir.\n\nGüncel PDF ve kaynak dosyaları: https://bilgisayar-mimarisi.oguzergin.net"
+}

@@ -13,24 +13,31 @@
 \section*{Türkçe -- İngilizce}
 \addcontentsline{toc}{section}{Türkçe -- İngilizce}
 
+% Tekrarlanan başlık ve "devamı sonraki sayfada" satırı sayfa kavramına
+% bağlıdır. EPUB modunda boş bırakılır; tablo hizalaması içinde \ifdefined
+% dallanması yapılamadığından makro dışarıda tanımlanır.
+\ifdefined\HCode
+\def\ltdevam{}
+\else
+\def\ltdevam{%
+\toprule
+\textbf{Türkçe Terim (devam)} & \textbf{İngilizce Karşılık} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\small\textit{(devamı sonraki sayfada)}} \\
+\endfoot
+\bottomrule
+\endlastfoot}
+\fi
+
 {\small
 \begin{longtable}{@{}p{7.6cm}p{7.6cm}@{}}
 \toprule
 \textbf{Türkçe Terim} & \textbf{İngilizce Karşılık} \\
 \midrule
 \endfirsthead
-
-\toprule
-\textbf{Türkçe Terim (devam)} & \textbf{İngilizce Karşılık} \\
-\midrule
-\endhead
-
-\midrule
-\multicolumn{2}{r}{\small\textit{(devamı sonraki sayfada)}} \\
-\endfoot
-
-\bottomrule
-\endlastfoot
+\ltdevam
 
 %% --- A ---
 adresleme kipleri & addressing modes \\
@@ -512,24 +519,29 @@ zamanda yerellik & temporal locality \\
 \section*{İngilizce -- Türkçe}
 \addcontentsline{toc}{section}{İngilizce -- Türkçe}
 
+% Tekrarlanan başlık/alt satır: sayfa kavramına bağlı, EPUB'da boş (bkz. üstteki tablo).
+\ifdefined\HCode
+\def\ltdevam{}
+\else
+\def\ltdevam{%
+\toprule
+\textbf{İngilizce Terim (cont.)} & \textbf{Türkçe Karşılık} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{2}{r}{\small\textit{(continued on next page)}} \\
+\endfoot
+\bottomrule
+\endlastfoot}
+\fi
+
 {\small
 \begin{longtable}{@{}p{7.6cm}p{7.6cm}@{}}
 \toprule
 \textbf{İngilizce Terim} & \textbf{Türkçe Karşılık} \\
 \midrule
 \endfirsthead
-
-\toprule
-\textbf{İngilizce Terim (cont.)} & \textbf{Türkçe Karşılık} \\
-\midrule
-\endhead
-
-\midrule
-\multicolumn{2}{r}{\small\textit{(continued on next page)}} \\
-\endfoot
-
-\bottomrule
-\endlastfoot
+\ltdevam
 
 %% --- A ---
 abstraction & soyutlama \\

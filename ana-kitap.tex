@@ -19,7 +19,16 @@
 \frontmatter
 
 % Kapak Sayfası (Devre Tahtası konsepti)
+% EPUB modunda TikZ kapak yerine raster kapak görseli kullanılır;
+% \coverimage görseli hem ilk sayfaya koyar hem EPUB kapağı olarak kaydeder.
+\ifdefined\HCode
+\author{Oğuz Ergin}
+\thispagestyle{empty}
+\coverimage[width=\linewidth]{docs/kapak.jpg}
+\clearpage
+\else
 \input{kapak}
+\fi
 
 % Künye Sayfası (kapağın hemen arkası, sol sayfa)
 \clearpage
@@ -77,7 +86,10 @@ Ankara, \the\year
 \cleardoublepage
 
 % İçindekiler
+% EPUB'da içindekiler hem kitap içi sayfa hem EPUB gezinme (nav) belgesinin
+% kaynağıdır; şekil/tablo listeleri yalnızca PDF'te yer alır.
 \tableofcontents
+\ifdefined\HCode\else
 \cleardoublepage
 \listoffigures
 \addcontentsline{toc}{chapter}{Şekil Listesi}
@@ -86,6 +98,7 @@ Ankara, \the\year
 \addcontentsline{toc}{chapter}{Tablo Listesi}
 \cleardoublepage
 \listofbilginotlari
+\fi
 
 % --- Ana İçerik ---
 \mainmatter
@@ -128,8 +141,10 @@ Ankara, \the\year
 % Önerilen Kaynaklar (ek okuma listesi)
 \printbibliography[notkeyword=atif, notkeyword=turkcekaynak, title={Önerilen Kaynaklar}]
 
-% Dizin
+% Dizin (EPUB'da dizin düşük değerli; yalnızca PDF'te basılır)
+\ifdefined\HCode\else
 \printindex
+\fi
 
 \input{yazar-hakkinda}
 

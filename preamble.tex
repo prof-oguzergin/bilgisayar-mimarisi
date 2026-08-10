@@ -4,9 +4,24 @@
 % Şablon C: Modern Teknik (Libertinus + renkli başlıklar)
 % =============================================================
 
+% --- EPUB (tex4ht) Modu ---
+% tex4ebook ile derlenirken \HCode tanımlıdır. Bu bayrakla EPUB'a uymayan
+% paketler atlanır; TikZ şekilleri dvisvgm sürücüsüyle SVG'ye çevrilir.
+% (Sürücü tanımı tikz yüklenmeden ÖNCE yapılmalıdır.)
+\ifdefined\HCode
+  \def\pgfsysdriver{pgfsys-dvisvgm.def}
+\fi
+
 % --- Temel Paketler ---
 \usepackage{fontspec}
+% Babel Türkçe ":" ve "!" kısaltmaları tex4ht'nin ":" içeren iç makro
+% adlarıyla çakışır; EPUB modunda kısaltmalar kapalıdır (yalnızca baskı
+% tipografisindeki boşlukları etkiler).
+\ifdefined\HCode
+\usepackage[turkish,shorthands=off]{babel}
+\else
 \usepackage[turkish,shorthands=:!]{babel}
+\fi
 
 % --- Yazı Tipi: Libertinus ---
 \usepackage{libertinus}
@@ -38,6 +53,8 @@
 % TikZ blok şeması renkleri tikz-sekiller-makrolar.tex'te tanımlıdır.
 
 % --- Bölüm Başlık Stili ---
+% titlesec tex4ht ile uyumsuzdur; EPUB modunda standart başlıklar kullanılır.
+\ifdefined\HCode\else
 \usepackage{titlesec}
 
 % Bölüm başlığı: Renkli büyük numara + alt çizgi
@@ -58,11 +75,18 @@
     {\normalfont\large\bfseries\color{bolumrenk!80}}
     {\thesubsection}{1em}{}
 \titlespacing*{\subsection}{0pt}{1.2ex plus 0.4ex minus 0.2ex}{0.4ex plus 0.1ex}
+\fi
 
 % --- Matematik ---
 \usepackage{amsmath}
+% unicode-math tex4ht ile sorunlu (amssymb de çakışıyor); EPUB modunda yalnızca
+% kitapta kullanılan unicode-math'e özgü semboller tanımlanır.
+\ifdefined\HCode
+\def\varnothing{\mbox{Ø}}% çap işareti yerine metin Ø (yalnızca şekil içinde)
+\else
 \usepackage{unicode-math}
 \setmathfont{Libertinus Math}
+\fi
 
 % Checkmark: Libertinus'ta ✓ glifi yok, platformda bulunan fonttan al
 \IfFontExistsTF{Apple Symbols}{%
@@ -120,6 +144,15 @@
 \usepackage{multirow}
 \usepackage{longtable}
 \usepackage{tabularx}
+% EPUB modunda tex4ht'nin longtable öykünmesi booktabs çizgileriyle (\noalign)
+% uyumsuz; çizgiler yalnızca longtable içinde devre dışı bırakılır (\begin
+% grubuyla yereldir, normal tabular'lar etkilenmez).
+\ifdefined\HCode
+\makeatletter
+\let\epub@orig@longtable\longtable
+\def\longtable{\def\toprule{}\def\midrule{}\def\bottomrule{}\epub@orig@longtable}
+\makeatother
+\fi
 
 % --- Listeler ---
 \usepackage[shortlabels]{enumitem}
@@ -155,6 +188,40 @@
 % TikZ global ok stili — tüm tikzpicture'larda >=Stealth varsayılan olur
 \tikzset{>=Stealth}
 \tikzset{okstil/.style={->, >=Stealth, thick}}
+
+% --- EPUB: şekil içinde Türkçe karakter düzeltmesi ---
+% tex4ht'nin Lua geri çağrısı (fontspec-4ht) 127 üstü karakterleri HTML
+% varlığına çevirip DVI'a 'x' yazar; SVG'ye dönüşen şekillerde bu 'x'ler
+% görünür kalır. Geri çağrı sarmalanır: resim içindeyken (epub_in_picture,
+% ana-kitap-epub.cfg'deki kancalarla açılıp kapanır) 'x' ikamesi yapılmaz,
+% 255 üstü Türkçe karakterler 8-bit fontun Cork/T1 dizilim yuvalarına
+% eşlenir (ı için OT1 yuvası 0x10 kullanılır; bu fontlarda 0x19 ß'dir).
+\ifdefined\HCode
+\AtBeginDocument{\directlua{
+  local fontspec = require "fontspec-4ht"
+  local orig = fontspec.char_to_entity
+  local glyph_id = node.id "glyph"
+  local t1map = { [0x011F]=0xA7, [0x011E]=0x87, [0x015F]=0xB3,
+                  [0x015E]=0x93, [0x0131]=0x10, [0x0130]=0x9D }
+  epub_in_picture = false
+  local function wrapped(head)
+    if epub_in_picture then
+      for n in node.traverse_id(glyph_id, head) do
+        local r = t1map[n.char]
+        if r then n.char = r end
+      end
+      return head
+    end
+    return orig(head)
+  end
+  luatexbase.remove_from_callback("pre_linebreak_filter", "Char to entity")
+  luatexbase.add_to_callback("pre_linebreak_filter", wrapped, "Char to entity")
+  luatexbase.remove_from_callback("hpack_filter", "hpack-char-to-entity")
+  luatexbase.add_to_callback("hpack_filter", wrapped, "hpack-char-to-entity")
+  luatexbase.remove_from_callback("vpack_filter", "hpack-char-to-entity")
+  luatexbase.add_to_callback("vpack_filter", wrapped, "hpack-char-to-entity")
+}}
+\fi
 
 % --- TikZ Şekil Makroları ---
 \input{tikz-sekiller-makrolar}
@@ -256,6 +323,24 @@
 \makeindex
 
 % --- Özel Ortamlar (Environments) ---
+% EPUB modunda tcolorbox (TikZ tabanlı) yerine basit blok ortamları kullanılır;
+% görünüm ana-kitap-epub.cfg içindeki CSS sınıflarıyla verilir.
+\ifdefined\HCode
+
+% Örnek kutusu (EPUB)
+\newenvironment{ornek}[1][]{\par\medskip\noindent\textbf{Örnek #1}\par\smallskip}{\par\medskip}
+
+% Tanım kutusu (EPUB)
+\newenvironment{tanim}[1][]{\par\medskip\noindent\textbf{#1}\par\smallskip}{\par\medskip}
+
+% Öğrenme Hedefleri kutusu (EPUB) — bölüm başlarındaki tek doğrudan
+% tcolorbox kullanımı budur; başlık sabittir, anahtar-değer seçenekleri yutulur.
+\newenvironment{tcolorbox}[1][]{\par\medskip\noindent\textbf{Öğrenme Hedefleri}\par\smallskip}{\par\medskip}
+
+% \tcblower: örnek kutularında soru/çözüm ayracı (EPUB'da yalın boşluk)
+\newcommand{\tcblower}{\par\medskip}
+
+\else
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable, skins}
 
@@ -282,6 +367,7 @@
     enhanced,
     arc=1mm,
 }
+\fi
 
 % Alıştırma zorluk dereceleri
 \newcommand{\kolay}{{\normalfont\small\textcolor{green!60!black}{★}}}
@@ -314,6 +400,9 @@
 \makeatother
 
 % Bilgi notu iç kutusu (doğrudan kullanılmaz)
+\ifdefined\HCode
+\newenvironment{bilginotuic}[1]{\par\medskip\noindent\textbf{#1}\par\smallskip}{\par\medskip}
+\else
 \newtcolorbox{bilginotuic}[1]{
     colback=green!5!white,
     colframe=green!60!black,
@@ -324,6 +413,7 @@
     arc=1mm,
     borderline west={3pt}{0pt}{green!60!black},
 }
+\fi
 
 % Bilgi notu ortamı (numaralı, listeye eklenir)
 \newenvironment{bilginot}[1][]{%
@@ -342,6 +432,9 @@
 
 % Terim kökeni kutusu
 \definecolor{terimrenk}{RGB}{139, 90, 43}
+\ifdefined\HCode
+\newenvironment{terimnotu}[1][Terim Kökenleri]{\par\medskip\noindent\textbf{#1}\par\smallskip}{\par\medskip}
+\else
 \newtcolorbox{terimnotu}[1][Terim Kökenleri]{
     colback=terimrenk!5!white,
     colframe=terimrenk!80!black,
@@ -354,9 +447,13 @@
     fontupper=\small,
     top=2mm, bottom=2mm,
 }
+\fi
 
 % Karşılaştırma kutusu (diğer mimarilerle karşılaştırma)
 \definecolor{karsirenk}{RGB}{100, 60, 150}
+\ifdefined\HCode
+\newenvironment{karsilastirma}[1][Diğer Mimarilerde]{\par\medskip\noindent\textbf{#1}\par\smallskip}{\par\medskip}
+\else
 \newtcolorbox{karsilastirma}[1][Diğer Mimarilerde]{
     colback=karsirenk!5!white,
     colframe=karsirenk!70!black,
@@ -369,8 +466,11 @@
     fontupper=\small,
     top=2mm, bottom=2mm,
 }
+\fi
 
 % --- Üstbilgi/Altbilgi ---
+% EPUB'da sayfa üst/alt bilgisi yoktur; fancyhdr yalnızca PDF'te yüklenir.
+\ifdefined\HCode\else
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -380,6 +480,7 @@
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\headrule}{\hbox to\headwidth{\color{bolumrenk}\leaders\hrule height \headrulewidth\hfill}}
 \renewcommand{\footrulewidth}{0pt}
+\fi
 
 % --- Şekil numaralama ---
 \numberwithin{figure}{chapter}
@@ -387,6 +488,9 @@
 \numberwithin{equation}{chapter}
 
 % --- Şekil/Tablo listesinde bölüm başlıkları ---
+% EPUB'da şekil/tablo listeleri basılmaz; bu yamanın aux'a yazdığı satırlar
+% tex4ht'nin \@writefile işleyicisini bozduğundan yalnızca PDF'te uygulanır.
+\ifdefined\HCode\else
 \makeatletter
 \let\kitap@origchapter\@chapter
 \def\@chapter[#1]#2{%
@@ -406,6 +510,7 @@
   }%
 }
 \makeatother
+\fi
 
 % --- Bölüm açılış fotoğrafı (başlıkla aynı sayfada) ---
 \newcommand{\bolumfoto}[3][]{%

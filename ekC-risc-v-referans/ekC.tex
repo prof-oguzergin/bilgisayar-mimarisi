@@ -185,6 +185,25 @@ Her buyruk kategorisi farklı bir ikili kodlama biçimi kullanır. Bu biçimler 
 
 Tablo~\ref{tab:ekc-rv32i}, RV32I temel buyruk kümesindeki tüm buyrukları işlem kodlarıyla birlikte listelemektedir.\index{RV32I}\index{buyruk kümesi}
 
+% Tekrarlanan başlık ve "devam ediyor" alt satırı sayfa kavramına bağlıdır.
+% EPUB modunda boş bırakılır; tablo hizalaması içinde \ifdefined dallanması
+% yapılamadığından (& hücre sınırı koşul atlamayı keser) makro dışarıda tanımlanır.
+\ifdefined\HCode
+\def\ltdevam{}
+\else
+\def\ltdevam{%
+\caption[]{RV32I temel buyruk kümesi (devamı)}\\
+\toprule
+\textbf{Buyruk} & \textbf{Tür} & \textbf{İşlem Kodu} & \textbf{f3} & \textbf{f7} & \textbf{Açıklama} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{6}{r}{\footnotesize\textit{Sonraki sayfada devam ediyor}} \\
+\endfoot
+\bottomrule
+\endlastfoot}
+\fi
+
 {\small
 \begin{longtable}{@{}l@{\;}l@{\;}c@{\;}c@{\;}c@{\;}l@{}}
 \caption{RV32I temel buyruk kümesi}\label{tab:ekc-rv32i}\\
@@ -192,19 +211,7 @@ Tablo~\ref{tab:ekc-rv32i}, RV32I temel buyruk kümesindeki tüm buyrukları işl
 \textbf{Buyruk} & \textbf{Tür} & \textbf{İşlem Kodu} & \textbf{f3} & \textbf{f7} & \textbf{Açıklama} \\
 \midrule
 \endfirsthead
-
-\caption[]{RV32I temel buyruk kümesi (devamı)}\\
-\toprule
-\textbf{Buyruk} & \textbf{Tür} & \textbf{İşlem Kodu} & \textbf{f3} & \textbf{f7} & \textbf{Açıklama} \\
-\midrule
-\endhead
-
-\midrule
-\multicolumn{6}{r}{\footnotesize\textit{Sonraki sayfada devam ediyor}} \\
-\endfoot
-
-\bottomrule
-\endlastfoot
+\ltdevam
 
 % --- Aritmetik Buyruklar ---
 \multicolumn{6}{l}{\textbf{Aritmetik Buyruklar}}\index{aritmetik buyruklar} \\
@@ -689,6 +696,23 @@ J türü & \texttt{1101111} & Koşulsuz atlama (jal) \\
 
 RISC-V çeviricisi (\emph{assembler}), programcıların işini kolaylaştırmak için birçok \emph{sözde buyruk}\index{sözde buyruk} tanımlar. Bu buyruklar doğrudan donanım tarafından desteklenmez; bunun yerine çevirici tarafından bir veya daha fazla gerçek buyruğa dönüştürülür. Tablo~\ref{tab:ekc-sozde-buyruklar}, yaygın kullanılan sözde buyrukları listelemektedir.
 
+% Tekrarlanan başlık/alt satır: sayfa kavramına bağlı, EPUB'da boş (bkz. RV32I tablosu).
+\ifdefined\HCode
+\def\ltdevam{}
+\else
+\def\ltdevam{%
+\caption[]{RISC-V sözde buyrukları (devamı)}\\
+\toprule
+\textbf{Sözde Buyruk} & \textbf{Açılımı} & \textbf{Açıklama} \\
+\midrule
+\endhead
+\midrule
+\multicolumn{3}{r}{\footnotesize\textit{Sonraki sayfada devam ediyor}} \\
+\endfoot
+\bottomrule
+\endlastfoot}
+\fi
+
 {\small
 \begin{longtable}{@{}l@{\quad}l@{\quad}l@{}}
 \caption{RISC-V sözde buyrukları}\label{tab:ekc-sozde-buyruklar}\\
@@ -696,19 +720,7 @@ RISC-V çeviricisi (\emph{assembler}), programcıların işini kolaylaştırmak 
 \textbf{Sözde Buyruk} & \textbf{Açılımı} & \textbf{Açıklama} \\
 \midrule
 \endfirsthead
-
-\caption[]{RISC-V sözde buyrukları (devamı)}\\
-\toprule
-\textbf{Sözde Buyruk} & \textbf{Açılımı} & \textbf{Açıklama} \\
-\midrule
-\endhead
-
-\midrule
-\multicolumn{3}{r}{\footnotesize\textit{Sonraki sayfada devam ediyor}} \\
-\endfoot
-
-\bottomrule
-\endlastfoot
+\ltdevam
 
 % --- Temel Sözde Buyruklar ---
 \multicolumn{3}{l}{\textbf{Temel Sözde Buyruklar}} \\

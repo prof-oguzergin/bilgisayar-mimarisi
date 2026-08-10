@@ -36,17 +36,47 @@ jobs:
           fi
           echo "PDF başarıyla oluşturuldu ($(du -h ana-kitap.pdf | cut -f1))"
 
-      - name: PDF dosyalarını hazırla
+      # EPUB derlemesi PDF'ten sonra çalışır; başarısız olursa PDF akışını
+      # etkilemez (continue-on-error). tex4ebook aynı TeX Live imajında hazırdır.
+      - name: EPUB derle (tex4ebook)
+        continue-on-error: true
+        uses: xu-cheng/texlive-action@v2
+        with:
+          scheme: full
+          run: |
+            apk add --no-cache zip
+            tex4ebook -l -f epub3+common_domfilters -c ana-kitap-epub.cfg ana-kitap.tex
+
+      - name: EPUB oluşturuldu mu kontrol et
+        run: |
+          if [ -f ana-kitap.epub ]; then
+            echo "EPUB başarıyla oluşturuldu ($(du -h ana-kitap.epub | cut -f1))"
+          else
+            echo "::warning::EPUB dosyası oluşturulamadı (PDF derlemesi etkilenmez)"
+          fi
+
+      - name: PDF ve EPUB dosyalarını hazırla
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           cp ana-kitap.pdf bilgisayar-mimarisi.pdf
           cp ana-kitap.pdf bilgisayar-mimarisi-${{ github.ref_name }}.pdf
+          if [ -f ana-kitap.epub ]; then
+            cp ana-kitap.epub bilgisayar-mimarisi.epub
+            cp ana-kitap.epub bilgisayar-mimarisi-${{ github.ref_name }}.epub
+          fi
 
       - name: PDF'i artifact olarak yükle
         uses: actions/upload-artifact@v4
         with:
           name: bilgisayar-mimarisi-pdf
           path: ana-kitap.pdf
+
+      - name: EPUB'ı artifact olarak yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: bilgisayar-mimarisi-epub
+          path: ana-kitap.epub
+          if-no-files-found: warn
 
       # Tag push edildiğinde Release oluştur/güncelle
       - name: GitHub Release oluştur
@@ -56,13 +86,15 @@ jobs:
           files: |
             bilgisayar-mimarisi.pdf
             bilgisayar-mimarisi-${{ github.ref_name }}.pdf
+            bilgisayar-mimarisi.epub
+            bilgisayar-mimarisi-${{ github.ref_name }}.epub
           name: "Bilgisayar Mimarisi ${{ github.ref_name }}"
           body: |
             ## Bilgisayar Mimarisi: RISC-V Tabanlı Yaklaşım
 
             **Sürüm**: ${{ github.ref_name }}
 
-            PDF dosyasını indirmek için aşağıdaki bağlantıyı kullanın.
+            PDF veya EPUB dosyasını indirmek için aşağıdaki bağlantıları kullanın.
           draft: false
           prerelease: false
           overwrite_files: true

@@ -387,7 +387,38 @@
             border: 2px solid rgba(255,255,255,0.8);
             box-shadow: 0 1px 4px rgba(0,0,0,0.15);
         }
-    </style>
+    
+/* Cocuk serisi bolumu */
+#cocuk-serisi .cocuk-kart {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--accent);
+    border-radius: 12px;
+    padding: 28px 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+}
+#cocuk-serisi .cocuk-giris { margin: 0 0 20px; max-width: 74ch; }
+#cocuk-serisi .cocuk-serit {
+    display: block; width: 100%; height: auto;
+    border-radius: 10px; border: 1px solid var(--border);
+}
+#cocuk-serisi .cocuk-alt {
+    display: flex; flex-wrap: wrap; gap: 24px;
+    align-items: center; justify-content: space-between; margin-top: 22px;
+}
+#cocuk-serisi .cocuk-liste {
+    margin: 0; padding-left: 20px; color: var(--text);
+    line-height: 1.85; flex: 1 1 340px;
+}
+.hero-cocuk-bag {
+    display: inline-block; margin-top: 14px; color: #cfe3ff;
+    font-size: .95rem; text-decoration: none; border-bottom: 1px dotted #7fb0e8;
+}
+.hero-cocuk-bag:hover { color: #ffffff; }
+@media (max-width: 640px) {
+    #cocuk-serisi .cocuk-alt { flex-direction: column; align-items: stretch; }
+}
+</style>
 </head>
 <body>
 
@@ -421,6 +452,7 @@
                     &#x1F4D6; Google Play Books
                 </a>
             </div>
+            <a class="hero-cocuk-bag" href="#cocuk-serisi">Aynı konular 7-12 yaş için: Bilge ve Yonga serisi &darr;</a>
         </div>
     </div>
 </div>
@@ -443,6 +475,35 @@
     </section>
 
     <!-- İçindekiler -->
+
+<!-- Cocuk serisi -->
+<section id="cocuk-serisi">
+    <h2>Çocuklar için: Bilge ve Yonga</h2>
+    <div class="cocuk-kart">
+        <p class="cocuk-giris">
+            Bu kitabın konuları, 7-12 yaş için yazılmış ayrı bir seride
+            hikâyelerle anlatılıyor. <strong>Bilge ve Yonga</strong>, kumdan
+            yongaya, sıfır ile bire, işlemcinin diline uzanan
+            <strong>48 kitaplık</strong> bir çocuk kitabı serisidir. Her kitap
+            tek bir fikri baştan sona bir hikâyeyle anlatır.
+        </p>
+        <img class="cocuk-serit" src="gorseller/bilge-ve-yonga-serit.jpg"
+             alt="Bilge ve Yonga serisinden kitap kapakları" loading="lazy">
+        <div class="cocuk-alt">
+            <ul class="cocuk-liste">
+                <li><strong>Dört cilt:</strong> Kumdan Bilgisayara, Hız ve Güç,
+                    Buyrukların Dünyası, İşlemcinin İçi</li>
+                <li><strong>Ücretsiz ve açık erişim:</strong> CC BY-NC-ND 4.0,
+                    çevrimdışı da okunur</li>
+                <li><strong>Kalıcı bağlantı:</strong> her cildin Zenodo'da DOI
+                    numarası vardır</li>
+            </ul>
+            <a class="btn btn-primary" href="https://bilgeveyonga.oguzergin.net"
+               target="_blank" rel="noopener">Seriyi aç &rarr;</a>
+        </div>
+    </div>
+</section>
+
     <section>
         <h2>İçindekiler</h2>
 

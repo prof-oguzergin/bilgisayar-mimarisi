@@ -32,7 +32,7 @@ Sayısal tasarım kavramları kitabın birçok bölümünde karşımıza çıkar
 
 Bu ek, sayısal tasarım dersini daha önce almış okuyucular için bir anımsatıcı; henüz almamış olanlar için ise bağımsız bir başlangıç kaynağı olarak tasarlanmıştır. Amaç, kitabın ana bölümlerini takip edebilmek için gereken asgari sayısal tasarım bilgisini tek bir yerde toplamaktır.
 
-Sayısal tasarım, \textbf{birleşik}\index{birleşik devre} (İngilizcesi: \textit{combinational}) ve \textbf{ardışıl}\index{ardışıl devre} (İngilizcesi: \textit{sequential}) olmak üzere iki temel devre sınıfı üzerine kuruludur. Birleşik devrelerde çıkış yalnızca o andaki girişlere bağlıdır; mantık kapıları, toplayıcılar ve çoklayıcılar bu gruptadır. Ardışıl devrelerde ise çıkış hem girişlere hem de devrenin o anki \emph{durumuna} bağlıdır; flip-floplar, yazmaçlar ve sayaçlar bu gruba girer. Bir işlemci, bu iki sınıfın iç içe geçmesiyle oluşur: veri yolundaki AMB birleşik bir devredir, onu besleyen yazmaçlar ise ardışıl devrelerdir. Bu ekin ilk yarısı birleşik yapı taşlarını, ikinci yarısı ardışıl yapı taşlarını ele almaktadır.
+Sayısal tasarım, \textbf{birleşik}\index{birleşik devre} (İngilizcesi: \textit{combinational}) ve \textbf{ardışıl}\index{ardışıl devre} (İngilizcesi: \textit{sequential}) olmak üzere iki temel devre sınıfı üzerine kuruludur. Birleşik devrelerde çıkış yalnızca o andaki girişlere bağlıdır; mantık kapıları, toplayıcılar ve çoklayıcılar bu gruptadır. Ardışıl devrelerde ise çıkış hem girişlere hem de devrenin o anki \emph{durumuna} bağlıdır; flip-floplar, yazmaçlar ve sayaçlar bu gruba girer. Bir işlemci, bu iki sınıfın iç içe geçmesiyle oluşur. Veri yolundaki AMB birleşik bir devredir, onu besleyen yazmaçlar ise ardışıl devrelerdir. Bu ekin ilk yarısı birleşik yapı taşlarını, ikinci yarısı ardışıl yapı taşlarını ele almaktadır.
 
 \begin{terimnotu}
 \textbf{birleşik devre} (\emph{combinational circuit})\,: \emph{Birleşmek} fiilinden. Çıkış yalnızca girişlerin o anki \emph{birleşimine} bağlıdır; bellek tutmaz. Türkçe kaynaklarda sıklıkla ``kombinasyonel devre'' olarak geçer; ancak ``kombinasyonel'' Türkçe bir sözcük değildir, İngilizce \emph{combinational} sözcüğünün doğrudan aktarımıdır. Bu kitapta \emph{birleşik} terimi kullanılmaktadır.\\[4pt]
@@ -65,7 +65,7 @@ Ekte sırasıyla şu konular ele alınmaktadır:
 
 \subsection{İkilik Sistem ve Mantık}
 
-Bilgisayarlar ikilik sistemde çalışır: her basamak yalnızca 0 veya 1 değerini alır. Fiziksel düzeyde bu iki değer genellikle düşük ve yüksek gerilim seviyeleriyle temsil edilir. Aynı zamanda mantıktaki \emph{yanlış} ve \emph{doğru} kavramlarına karşılık gelirler. Sayısal tasarım, bu iki değer üzerinde işlem yapan devrelerin (mantık kapılarının) birleştirilerek karmaşık sistemler oluşturulmasıdır. İkilik sayı gösterimleri, taban dönüşümleri, işaretli sayılar ve ikiye tümleyen yöntemi Ek~\ref{ch:sayi-sistemleri}'da ayrıntılı olarak ele alınmaktadır.
+Bilgisayarlar ikilik sistemde çalışır. Her basamak yalnızca 0 veya 1 değerini alır. Fiziksel düzeyde bu iki değer genellikle düşük ve yüksek gerilim seviyeleriyle temsil edilir. Aynı zamanda mantıktaki \emph{yanlış} ve \emph{doğru} kavramlarına karşılık gelirler. Sayısal tasarım, bu iki değer üzerinde işlem yapan devrelerin (mantık kapılarının) birleştirilerek karmaşık sistemler oluşturulmasıdır. İkilik sayı gösterimleri, taban dönüşümleri, işaretli sayılar ve ikiye tümleyen yöntemi Ek~\ref{ch:sayi-sistemleri}'da ayrıntılı olarak ele alınmaktadır.
 
 
 \subsection{Temel Kapılar ve Devre Sembolleri}
@@ -80,10 +80,10 @@ Mantık kapıları, temel mantık fonksiyonlarını gerçekleştiren, transistö
 
 Bu üç kapıdan türetilen VE-DEĞİL (NAND), VEYA-DEĞİL (NOR), Dışlayan VEYA (XOR) ve Dışlayan VEYA DEĞİL (XNOR) kapıları da yaygın olarak kullanılır.
 
-Bir mantık kapısının davranışı \textbf{doğruluk tablosu}\index{doğruluk tablosu} ile tanımlanır: tablonun her satırı olası bir giriş kombinasyonunu, karşısındaki sütun ise o kombinasyon için üretilen çıkış değerini gösterir. $n$ girişli bir kapının doğruluk tablosu $2^n$ satırdan oluşur: 2 girişli bir kapı için 4, 3 girişli bir fonksiyon için 8, 4 girişli bir fonksiyon için 16 satır gerekir. Aşağıdaki tablolarda ve şekilde yedi temel kapının doğruluk tabloları ve devre sembolleri verilmiştir.
+Bir mantık kapısının davranışı \textbf{doğruluk tablosu}\index{doğruluk tablosu} ile tanımlanır. Tablonun her satırı olası bir giriş kombinasyonunu, karşısındaki sütun ise o kombinasyon için üretilen çıkış değerini gösterir. $n$ girişli bir kapının doğruluk tablosu $2^n$ satırdan oluşur: 2 girişli bir kapı için 4, 3 girişli bir fonksiyon için 8, 4 girişli bir fonksiyon için 16 satır gerekir. Aşağıdaki tablolarda ve şekilde yedi temel kapının doğruluk tabloları ve devre sembolleri verilmiştir.
 
 \begin{terimnotu}
-\textbf{Dışlayan VEYA} (\emph{Exclusive OR}, XOR)\index{Dışlayan VEYA}\index{XOR|see{Dışlayan VEYA}}\,: Türkçede sıklıkla ``Özel VEYA'' olarak anılır; ancak \emph{exclusive} sözcüğünün doğru karşılığı ``dışlayan''dır. İşlemin mantığı bu adı açıklar: iki giriş \emph{aynı} ise sonuç 0 olur, aynı değerler \emph{dışlanır}. Yalnızca girişler farklı olduğunda sonuç 1 olur. Boole cebirinde $A \oplus B$ ile gösterilir.\\[4pt]
+\textbf{Dışlayan VEYA} (\emph{Exclusive OR}, XOR)\index{Dışlayan VEYA}\index{XOR|see{Dışlayan VEYA}}\,: Türkçede sıklıkla ``Özel VEYA'' olarak anılır; ancak \emph{exclusive} sözcüğünün doğru karşılığı ``dışlayan''dır. İşlemin mantığı bu adı açıklar. İki giriş \emph{aynı} ise sonuç 0 olur, aynı değerler \emph{dışlanır}. Yalnızca girişler farklı olduğunda sonuç 1 olur. Boole cebirinde $A \oplus B$ ile gösterilir.\\[4pt]
 \textbf{Dışlayan VEYA DEĞİL} (\emph{Exclusive NOR}, XNOR)\index{Dışlayan VEYA DEĞİL}\index{XNOR|see{Dışlayan VEYA DEĞİL}}\,: Dışlayan VEYA'nın tersidir. Girişler \emph{aynı} olduğunda 1, farklı olduğunda 0 üretir; bir eşitlik denetleyicisidir. $\overline{A \oplus B}$ ile gösterilir.
 \end{terimnotu}
 
@@ -197,7 +197,7 @@ Bir mantık kapısının davranışı \textbf{doğruluk tablosu}\index{doğruluk
 \label{fig:B.1}
 \end{figure}
 
-Giriş sayısı arttıkça doğruluk tablosu hızla büyür; bu nedenle ilerleyen bölümlerde tanıtılacak olan Boole cebri ve Karno haritası gibi yöntemler, fonksiyonların tablo çizmeden sadeleştirilmesini sağlar. Bu yedi kapı arasında özellikle VE-DEĞİL ve VEYA-DEĞİL kapıları ayrı bir öneme sahiptir: bu iki kapı \emph{evrensel} kapılardır; yalnızca bu kapılar kullanılarak diğer tüm kapılar gerçekleştirilebilir.
+Giriş sayısı arttıkça doğruluk tablosu hızla büyür; bu nedenle ilerleyen bölümlerde tanıtılacak olan Boole cebri ve Karno haritası gibi yöntemler, fonksiyonların tablo çizmeden sadeleştirilmesini sağlar. Bu yedi kapı arasında özellikle VE-DEĞİL ve VEYA-DEĞİL kapıları ayrı bir öneme sahiptir. Bu iki kapı \emph{evrensel} kapılardır; yalnızca bu kapılar kullanılarak diğer tüm kapılar gerçekleştirilebilir.
 
 \subsection{Evrensel Kapılar: VE-DEĞİL ve VEYA-DEĞİL}
 
@@ -224,7 +224,7 @@ Boole cebrinin donanım tasarımına uygulanabileceğini 1937'de Claude Shannon\
 \end{bilginot}
 
 \begin{bilginot}[Boole Cebrinde Gösterim ve Öncelik]
-Boole cebrinde ``$\cdot$'' işareti sıklıkla yazılmaz: $x \cdot y$ yerine kısaca $xy$ yazılır. Ayrıca VE işlemi, VEYA işleminden önce gelir (tıpkı aritmetikteki çarpmanın toplamadan önce gelmesi gibi). Örneğin $x + yz$ ifadesi $x + (y \cdot z)$ anlamına gelir.
+Boole cebrinde ``$\cdot$'' işareti sıklıkla yazılmaz. $x \cdot y$ yerine kısaca $xy$ yazılır. Ayrıca VE işlemi, VEYA işleminden önce gelir (tıpkı aritmetikteki çarpmanın toplamadan önce gelmesi gibi). Örneğin $x + yz$ ifadesi $x + (y \cdot z)$ anlamına gelir.
 \end{bilginot}
 
 Boole cebrinin temel özellikleri (Huntington önermeleri) Tablo~\ref{tab:boole-ozellikleri}'nde verilmiştir.
@@ -249,13 +249,13 @@ Yutma          & $x + 1 = 1$                          & $x \cdot 0 = 0$ \\
 \end{tabular}
 \end{table}
 
-Tablodaki ikiliğe dikkat edilmelidir: her özelliğin bir VEYA biçimi, bir de VE biçimi vardır. Bu ikiliğe Boole cebrinde \emph{eşiklik} (\emph{duality}) denir: herhangi bir doğru ifadede ``$+$'' ile ``$\cdot$''yi ve ``0'' ile ``1''i değiştirirseniz, elde edilen ifade de doğrudur.
+Tablodaki ikiliğe dikkat edilmelidir. Her özelliğin bir VEYA biçimi, bir de VE biçimi vardır. Bu ikiliğe Boole cebrinde \emph{eşiklik} (\emph{duality}) denir. Herhangi bir doğru ifadede ``$+$'' ile ``$\cdot$''yi ve ``0'' ile ``1''i değiştirirseniz, elde edilen ifade de doğrudur.
 
 Bu kurallar, Boole ifadelerini adım adım sadeleştirmek için kullanılır. Bir kuralın doğruluğu, doğruluk tablosu ile her zaman doğrulanabilir.
 
 Bu üç temel işlemin ($\cdot$, $+$, $\overline{\phantom{x}}$) doğruluk tabloları Bölüm~B.2'de verilmiştir. Kısaca anımsatmak gerekirse: $x \cdot y$ yalnızca her iki giriş 1 ise 1 üretir; $x + y$ girişlerden en az biri 1 ise 1 üretir; $\overline{x}$ ise girişin tersini verir.
 
-Bir Boole ifadesinin davranışını anlamak için doğruluk tablosu çıkarılır: her giriş kombinasyonu ifadeye yerleştirilir ve sonuç hesaplanır. Aşağıdaki üç fonksiyon, farklı kapı birleşimlerini (salt VE, salt VEYA ve karışık VE+VEYA) örneklemektedir. Bu tablonun ilerleyen bölümlerde mini terim gösteriminde (Örnek B.3) kullanılacağına dikkat ediniz.
+Bir Boole ifadesinin davranışını anlamak için doğruluk tablosu çıkarılır. Her giriş kombinasyonu ifadeye yerleştirilir ve sonuç hesaplanır. Aşağıdaki üç fonksiyon, farklı kapı birleşimlerini (salt VE, salt VEYA ve karışık VE+VEYA) örneklemektedir. Bu tablonun ilerleyen bölümlerde mini terim gösteriminde (Örnek B.3) kullanılacağına dikkat ediniz.
 
 \begin{table}[H]
 \centering
@@ -345,7 +345,7 @@ Açılır ve sadeleştirilir:
 \[
 F = x\overline{x} + xy + \overline{x}\,\overline{y} + \overline{y}\,y = xy + \overline{x}\,\overline{y}
 \]
-Sonuç, $xy + \overline{x}\,\overline{y}$; $x$ ve $y$'nin eşdeğerlik (Dışlayan VEYA DEĞİL) fonksiyonudur: girişler aynı olduğunda 1, farklı olduğunda 0 üretir.
+Sonuç, $xy + \overline{x}\,\overline{y}$; $x$ ve $y$'nin eşdeğerlik (Dışlayan VEYA DEĞİL) fonksiyonudur. Girişler aynı olduğunda 1, farklı olduğunda 0 üretir.
 \end{ornek}
 
 De Morgan kuramları ile sadeleştirme sırasında karşılaşılan farklı mantık işlemlerini tanımak yararlıdır. İki değişkenli Boole fonksiyonlarının tamamı $2^{2^2} = 16$ tanedir. Tablo~\ref{tab:B.5}'te bu 16 fonksiyonun her biri, sembolü ve açıklamasıyla birlikte listelenmiştir.
@@ -387,7 +387,7 @@ Herhangi bir Boole fonksiyonu, standart iki biçimden biriyle ifade edilebilir. 
 
 \textbf{Mini terim} (İngilizcesi: \textit{minterm}), bir fonksiyonun tüm değişkenlerinin VE ($\cdot$) işlemiyle birleştirilmesiyle oluşan bir ifadedir. Her değişken, doğruluk tablosundaki satırda 1 ise kendisi, 0 ise tümleyeni (üst çizgili hali) olarak yazılır. Örneğin 3 değişkenli bir fonksiyonda $x=1$, $y=0$, $z=1$ satırının mini terimi $x\,\overline{y}\,z$ olur. Her mini terim, doğruluk tablosunun tam olarak bir satırında 1 üretir ve diğer tüm satırlarda 0 verir.
 
-\textbf{Maksi terim} (İngilizcesi: \textit{maxterm}) ise mini terimin ikilidir: tüm değişkenler VEYA ($+$) işlemiyle birleştirilir ve bu kez kurallar tersine döner: değişken 1 ise tümleyeni, 0 ise kendisi alınır. Aynı örnek için ($x=1$, $y=0$, $z=1$) maksi terim $\overline{x}+y+\overline{z}$ olur. Her maksi terim, doğruluk tablosunun tam olarak bir satırında 0 üretir. Tablo~\ref{tab:B.4}, üç değişkenli fonksiyon için mini ve maksi terimlerin tamamını listelemektedir.
+\textbf{Maksi terim} (İngilizcesi: \textit{maxterm}) ise mini terimin ikilidir. Tüm değişkenler VEYA ($+$) işlemiyle birleştirilir ve bu kez kurallar tersine döner. Değişken 1 ise tümleyeni, 0 ise kendisi alınır. Aynı örnek için ($x=1$, $y=0$, $z=1$) maksi terim $\overline{x}+y+\overline{z}$ olur. Her maksi terim, doğruluk tablosunun tam olarak bir satırında 0 üretir. Tablo~\ref{tab:B.4}, üç değişkenli fonksiyon için mini ve maksi terimlerin tamamını listelemektedir.
 
 \begin{table}[H]
 \centering
@@ -456,7 +456,7 @@ Bir Boole fonksiyonunu sadeleştirmek, aynı davranışı daha az kapıyla, dola
 Maurice Karnaugh (1924--2024), Bell Laboratuvarları'nda çalışan Amerikalı fizikçi ve matematikçidir. 1953'te yayımladığı makalede~\cite{karnaugh1953} Boole fonksiyonlarını görsel olarak sadeleştirmeye yarayan harita yöntemini tanıtmıştır. Yöntem aslında 1952'de Edward Veitch'in önerdiği bir diyagramın geliştirilmiş halidir; Karnaugh'un katkısı, hücrelerin Gray kodu sıralamasıyla dizilmesini sağlayarak komşu hücrelerin yalnızca tek bir değişkende farklılık göstermesini garanti etmesidir. Soyadı İngilizce ``KAR-no'' biçiminde telaffuz edilir; Türkçe kaynaklarda bu telaffuza uygun olarak ``Karno haritası'' yazılması yerleşmiştir.
 \end{bilginot}
 
-Karno haritasının temel ilkesi şudur: haritada yan yana (komşu) olan hücreler yalnızca \emph{tek bir değişkende} farklılık gösterecek biçimde düzenlenmiştir (Gray kodu sıralamasıyla). Bu sayede komşu hücrelerdeki 1 değerleri gruplandırıldığında, farklılık gösteren değişken sadeleşir ve ifade basitleşir.
+Karno haritasının temel ilkesi, haritada yan yana (komşu) olan hücrelerin yalnızca \emph{tek bir değişkende} farklılık gösterecek biçimde düzenlenmiş olmasıdır (Gray kodu sıralamasıyla). Bu sayede komşu hücrelerdeki 1 değerleri gruplandırıldığında, farklılık gösteren değişken sadeleşir ve ifade basitleşir.
 
 \textbf{Gruplama kuralları:}
 \begin{enumerate}[nosep]
@@ -464,7 +464,7 @@ Karno haritasının temel ilkesi şudur: haritada yan yana (komşu) olan hücrel
     \item Gruplardaki tüm hücreler 1 (veya önemsenmeyen durum X) içermelidir.
     \item Gruplar ne kadar büyükse sadeleştirme o kadar iyidir.
     \item Her 1 değeri en az bir gruba dahil olmalıdır; bir hücre birden fazla grupta yer alabilir.
-    \item Haritanın kenarları birbirine bağlıdır: sol kenar sağ kenarla, üst kenar alt kenarla komşu kabul edilir (harita bir torus gibi düşünülebilir).
+    \item Haritanın kenarları birbirine bağlıdır. Sol kenar sağ kenarla, üst kenar alt kenarla komşu kabul edilir (harita bir torus gibi düşünülebilir).
 \end{enumerate}
 
 \begin{bilginot}[Değişken Sırası ve Mini Terim Numarası]
@@ -515,7 +515,7 @@ $F(a,b) = \Sigma(0, 3)$ fonksiyonunu Karno haritası ile sadeleştirin.
 
 \textbf{Çözüm:}
 
-Mini terimler Şekil~\ref{fig:B.5}'teki iki değişkenli haritaya yerleştirilir: $m_0$ ($a=0, b=0$) ve $m_3$ ($a=1, b=1$) hücrelerine 1 yazılır.
+Mini terimler Şekil~\ref{fig:B.5}'teki iki değişkenli haritaya yerleştirilir. $m_0$ ($a=0, b=0$) ve $m_3$ ($a=1, b=1$) hücrelerine 1 yazılır.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
@@ -544,12 +544,12 @@ $m_0$ ve $m_3$ köşegen konumdadır ve komşu değildir (iki bitte farklılaş�
 \[
 F = \overline{a}\,\overline{b} + a \cdot b = a \odot b
 \]
-Bu, Dışlayan VEYA DEĞİL (eşitlik) fonksiyonudur: $a$ ve $b$ aynı değerdeyse çıkış 1 olur.
+Bu, Dışlayan VEYA DEĞİL (eşitlik) fonksiyonudur. $a$ ve $b$ aynı değerdeyse çıkış 1 olur.
 \end{ornek}
 
 \subsubsection{Üç Değişkenli Karno Haritası}
 
-Üç değişkenli bir fonksiyonun Karno haritası $2 \times 4 = 8$ hücreden oluşur (Şekil~\ref{fig:B.6}). Satırlar $a$ değişkeninin değerlerini, sütunlar $bc$ çiftinin Gray kodu sırasıyla (00, 01, 11, 10) dizilmiş değerlerini temsil eder. Bu sıralama, komşu sütunların yalnızca tek bir bitte farklılaşmasını garanti eder. Ayrıca haritanın \textbf{sağ kenarı sol kenarına bitişik} sayılır: en sağdaki sütun (10) ile en soldaki sütun (00) yalnızca tek bir bitte farklılaştığından, bu iki sütundaki hücreler de komşudur. Gruplama yaparken bu kenar sarma göz önünde bulundurulmalıdır.
+Üç değişkenli bir fonksiyonun Karno haritası $2 \times 4 = 8$ hücreden oluşur (Şekil~\ref{fig:B.6}). Satırlar $a$ değişkeninin değerlerini, sütunlar $bc$ çiftinin Gray kodu sırasıyla (00, 01, 11, 10) dizilmiş değerlerini temsil eder. Bu sıralama, komşu sütunların yalnızca tek bir bitte farklılaşmasını garanti eder. Ayrıca haritanın \textbf{sağ kenarı sol kenarına bitişik} sayılır. En sağdaki sütun (10) ile en soldaki sütun (00) yalnızca tek bir bitte farklılaştığından, bu iki sütundaki hücreler de komşudur. Gruplama yaparken bu kenar sarma göz önünde bulundurulmalıdır.
 
 \begin{figure}[H]
 \centering
@@ -658,7 +658,7 @@ Gruplandırma sonucunda:
 
 \subsubsection{Dört Değişkenli Karno Haritası}
 
-Dört değişkenli harita $4 \times 4 = 16$ hücreden oluşur (Şekil~\ref{fig:B.8}); hem satırlar ($ab$) hem sütunlar ($cd$) Gray kodu sırasıyla dizilir. Üç değişkenli haritada yalnızca sağ-sol kenarlar bitişikken, dört değişkenli haritada \textbf{hem sağ-sol hem üst-alt kenarlar birbirine bitişik} sayılır: harita bir torus (simit) gibi düşünülebilir. Dolayısıyla dört köşedeki hücreler de birbirine komşudur.
+Dört değişkenli harita $4 \times 4 = 16$ hücreden oluşur (Şekil~\ref{fig:B.8}); hem satırlar ($ab$) hem sütunlar ($cd$) Gray kodu sırasıyla dizilir. Üç değişkenli haritada yalnızca sağ-sol kenarlar bitişikken, dört değişkenli haritada \textbf{hem sağ-sol hem üst-alt kenarlar birbirine bitişik} sayılır. Harita bir torus (simit) gibi düşünülebilir. Dolayısıyla dört köşedeki hücreler de birbirine komşudur.
 
 \begin{figure}[H]
 \centering
@@ -1287,7 +1287,7 @@ Algoritma iki aşamadan oluşur:
 Fonksiyonun 1 ürettiği mini terimler, içerdikleri 1 bitlerinin sayısına göre gruplara ayrılır. Ardından komşu gruplar arasında yalnızca tek bir bitte farklılık gösteren terim çiftleri birleştirilir; farklı bit ``$-$'' ile değiştirilir. Birleştirilemeyen terimler \textbf{asal kapsayan} (İngilizcesi: \textit{prime implicant})\index{asal kapsayan} olarak işaretlenir. Bu süreç, hiçbir yeni birleştirme yapılamayıncaya kadar tekrarlanır.
 
 \subsubsection{Aşama 2: Temel Asal Kapsayanları Seçme}
-Bir kapsama tablosu oluşturulur: satırlar asal kapsayanları, sütunlar mini terimleri temsil eder. Yalnızca tek bir asal kapsayan tarafından kapsanan mini terimler, o asal kapsayanı \textbf{temel asal kapsayan} (İngilizcesi: \textit{essential prime implicant}) kılar. Temel asal kapsayanlar seçildikten sonra, kalan mini terimler için en az sayıda asal kapsayan seçilerek en yalın ifade elde edilir.
+Bir kapsama tablosu oluşturulur. Satırlar asal kapsayanları, sütunlar mini terimleri temsil eder. Yalnızca tek bir asal kapsayan tarafından kapsanan mini terimler, o asal kapsayanı \textbf{temel asal kapsayan} (İngilizcesi: \textit{essential prime implicant}) kılar. Temel asal kapsayanlar seçildikten sonra, kalan mini terimler için en az sayıda asal kapsayan seçilerek en yalın ifade elde edilir.
 
 \begin{ornek}[B.8]
 $F(a,b,c,d) = \Sigma(0, 1, 2, 5, 6, 7, 8, 9, 10, 14)$ fonksiyonunu Quine--McCluskey algoritmasıyla sadeleştirin.
@@ -1546,7 +1546,7 @@ S = A \oplus B \oplus C_{\text{in}}, \qquad C_{\text{out}} = A \cdot B + C_{\tex
 \subsubsection{Dalgalı Elde Toplayıcı}
 \index{dalgalı elde toplayıcı}
 
-$n$ bitlik iki sayıyı toplamak için $n$ adet tam toplayıcı zincirleme bağlanır: her basamağın elde çıkışı ($C_{\text{out}}$) bir sonraki basamağın elde girişine ($C_{\text{in}}$) bağlanır. Bu yapıya \textbf{dalgalı elde toplayıcı} (İngilizcesi: \textit{ripple carry adder}) denir; elde sinyali en düşük bitten en yüksek bite doğru ``dalga'' hâlinde yayılır (Şekil~\ref{fig:B.dalgali-elde}). Yapısı basittir ancak gecikme bit sayısıyla doğru orantılı ($O(n)$) olduğundan, geniş sözcük boyutlarında (32 veya 64 bit) elde ileriye bakma (İngilizcesi: \textit{carry lookahead}) gibi daha hızlı tasarımlar tercih edilir.
+$n$ bitlik iki sayıyı toplamak için $n$ adet tam toplayıcı zincirleme bağlanır. Her basamağın elde çıkışı ($C_{\text{out}}$) bir sonraki basamağın elde girişine ($C_{\text{in}}$) bağlanır. Bu yapıya \textbf{dalgalı elde toplayıcı} (İngilizcesi: \textit{ripple carry adder}) denir; elde sinyali en düşük bitten en yüksek bite doğru ``dalga'' hâlinde yayılır (Şekil~\ref{fig:B.dalgali-elde}). Yapısı basittir ancak gecikme bit sayısıyla doğru orantılı ($O(n)$) olduğundan, geniş sözcük boyutlarında (32 veya 64 bit) elde ileriye bakma (İngilizcesi: \textit{carry lookahead}) gibi daha hızlı tasarımlar tercih edilir.
 
 \begin{figure}[H]
 \centering
@@ -1756,7 +1756,7 @@ Kod çözücüler çağdaş işlemci ve bellek tasarımının birçok yerinde te
 \end{figure}
 
 \subsubsection{Etkinleştirme girişi ve hiyerarşik tasarım}
-Çoğu kod çözücünün bir \emph{etkinleştirme} (enable) girişi bulunur. Etkinleştirme 0 olduğunda bütün çıkışlar 0'a zorlanır; 1 olduğunda kod çözücü normal çalışır. Bu giriş iki amaca hizmet eder: büyük kod çözücüleri küçüklerden birleştirmek ve kod çözücüyü belirli zaman aralıklarında devre dışı bırakmak. Örneğin 3×8 kod çözücü, iki 2×4 kod çözücüyle kurulabilir (Şekil~\ref{fig:B.dec-hierarchical}): en anlamlı giriş biti doğrudan bir 2×4'ün etkinleştirme girişine, tümleyeni de diğerine verilir. Bit 0 iken alt kod çözücü $D_0$--$D_3$'ü üretir; bit 1 iken üst kod çözücü $D_4$--$D_7$'yi üretir. Aynı yöntemle 32 yazmaçlık öbek için 5×32 kod çözücü, dört adet 3×8 ve bir adet 2×4 ile elde edilir.
+Çoğu kod çözücünün bir \emph{etkinleştirme} (enable) girişi bulunur. Etkinleştirme 0 olduğunda bütün çıkışlar 0'a zorlanır; 1 olduğunda kod çözücü normal çalışır. Bu giriş iki amaca hizmet eder: büyük kod çözücüleri küçüklerden birleştirmek ve kod çözücüyü belirli zaman aralıklarında devre dışı bırakmak. Örneğin 3×8 kod çözücü, iki 2×4 kod çözücüyle kurulabilir (Şekil~\ref{fig:B.dec-hierarchical}). En anlamlı giriş biti doğrudan bir 2×4'ün etkinleştirme girişine, tümleyeni de diğerine verilir. Bit 0 iken alt kod çözücü $D_0$--$D_3$'ü üretir; bit 1 iken üst kod çözücü $D_4$--$D_7$'yi üretir. Aynı yöntemle 32 yazmaçlık öbek için 5×32 kod çözücü, dört adet 3×8 ve bir adet 2×4 ile elde edilir.
 
 \begin{figure}[H]
 \centering
@@ -1811,7 +1811,7 @@ Kod çözücüler çağdaş işlemci ve bellek tasarımının birçok yerinde te
 \end{figure}
 
 \subsubsection{Kod çözücü ile Boole fonksiyonu gerçekleme}
-Kod çözücünün her çıkışı bir mini terime denk geldiğinden, $n$-değişkenli herhangi bir Boole fonksiyonu, bir $n$:$2^n$ kod çözücü ve tek bir VEYA kapısıyla iki katlı bir devre olarak gerçekleştirilebilir. Yöntem basittir: fonksiyonun SÇT (standart çarpımlar toplamı, İngilizcesi: \emph{sum of products}) biçimindeki mini terimlerine karşılık gelen kod çözücü çıkışları bir VEYA kapısında toplanır. Aynı kod çözücünün çıkışlarını birden çok VEYA kapısıyla paylaştırarak tek geçişte birden çok fonksiyon da üretilebilir; bu yaklaşım küçük ölçekli tümleşim (SSİ) döneminde birleşik mantık tasarımının en hızlı yollarından biriydi ve bugün hâlâ salt okunur bellek (ROM) tabanlı fonksiyon tabloları ile aynı ilkeye dayanır.
+Kod çözücünün her çıkışı bir mini terime denk geldiğinden, $n$-değişkenli herhangi bir Boole fonksiyonu, bir $n$:$2^n$ kod çözücü ve tek bir VEYA kapısıyla iki katlı bir devre olarak gerçekleştirilebilir. Yöntem basittir. Fonksiyonun SÇT (standart çarpımlar toplamı, İngilizcesi: \emph{sum of products}) biçimindeki mini terimlerine karşılık gelen kod çözücü çıkışları bir VEYA kapısında toplanır. Aynı kod çözücünün çıkışlarını birden çok VEYA kapısıyla paylaştırarak tek geçişte birden çok fonksiyon da üretilebilir; bu yaklaşım küçük ölçekli tümleşim (SSİ) döneminde birleşik mantık tasarımının en hızlı yollarından biriydi ve bugün hâlâ salt okunur bellek (ROM) tabanlı fonksiyon tabloları ile aynı ilkeye dayanır.
 
 \begin{ornek}[B.10]
 Üç değişkenli iki fonksiyonu tek bir 3×8 kod çözücü ile gerçekleyin:
@@ -1884,7 +1884,7 @@ RISC-V işlemcisinin denetim ve veri yolu birimlerinde kod çözücüler birden 
 
 \subsection{Kodlayıcı}
 
-Kodlayıcı (İngilizcesi: \emph{encoder}), $2^n$ veri girişi içinden 1 değerini taşıyan birinin ikilik indeksini $n$ bit çıkışta üreten devredir. Kod çözücünün tersidir: kod çözücü $n$ bit kodu açarak $2^n$ çıkıştan birinde 1 üretirken, kodlayıcı $2^n$ giriş arasında etkin olanın sıra numarasını $n$ bitlik koda sıkıştırır. Bu yönüyle bir tek-sıcak (\emph{one-hot}) gösterimi ikilik koda dönüştürür.
+Kodlayıcı (İngilizcesi: \emph{encoder}), $2^n$ veri girişi içinden 1 değerini taşıyan birinin ikilik indeksini $n$ bit çıkışta üreten devredir. Kod çözücünün tersidir. Kod çözücü $n$ bit kodu açarak $2^n$ çıkıştan birinde 1 üretirken, kodlayıcı $2^n$ giriş arasında etkin olanın sıra numarasını $n$ bitlik koda sıkıştırır. Bu yönüyle bir tek-sıcak (\emph{one-hot}) gösterimi ikilik koda dönüştürür.
 
 \subsubsection{Kullanım alanları}
 \begin{itemize}[nosep]
@@ -1932,10 +1932,10 @@ $I_3$ & $I_2$ & $I_1$ & $I_0$ & $Y_1$ & $Y_0$ \\
 
 Tablodan iki çıkış da iki-girişli VEYA kapılarıyla üretilebilir:
 \[ Y_0 = I_1 + I_3, \qquad Y_1 = I_2 + I_3. \]
-$I_0$ girişi hiçbir çıkış denkleminde yer almaz; bu, $I_0$ etkin olduğunda çıkışın doğal olarak $00$ değerini alacağını yansıtır. Bu durum bir sınırlama getirir: çıkış $00$ iken $I_0$'in mi 1 olduğu, yoksa hiçbir girişin 1 olmadığı mı belirsizdir. Sorunu gidermenin yolu, geçerlilik sinyali eklemek ve girişler arasında öncelik kurmaktır.
+$I_0$ girişi hiçbir çıkış denkleminde yer almaz; bu, $I_0$ etkin olduğunda çıkışın doğal olarak $00$ değerini alacağını yansıtır. Bu durum bir sınırlama getirir. Çıkış $00$ iken $I_0$'in mi 1 olduğu, yoksa hiçbir girişin 1 olmadığı mı belirsizdir. Sorunu gidermenin yolu, geçerlilik sinyali eklemek ve girişler arasında öncelik kurmaktır.
 
 \subsubsection{Öncelikli kodlayıcı}
-Yukarıdaki 4×2 kodlayıcı, birden fazla giriş aynı anda 1 olduğunda hatalı çıkış üretir. Örneğin $I_1 = I_2 = 1$ kombinasyonunda VEYA kapıları $Y_1 Y_0 = 11$ verir; oysa bu kod $I_3 = 1$ durumuna karşılık gelir. Çözüm, \emph{öncelikli kodlayıcı} (\emph{priority encoder}) yapısıdır: girişler bir öncelik sırasına dizilir, en yüksek öncelikli etkin giriş çıkışı belirler, ondan düşük öncelikli girişler önemsenmez. Çıkışa ayrıca bir geçerlilik (V) sinyali eklenir: hiçbir giriş 1 değilse $V = 0$ olur ve kod alanı geçersiz sayılır.
+Yukarıdaki 4×2 kodlayıcı, birden fazla giriş aynı anda 1 olduğunda hatalı çıkış üretir. Örneğin $I_1 = I_2 = 1$ kombinasyonunda VEYA kapıları $Y_1 Y_0 = 11$ verir; oysa bu kod $I_3 = 1$ durumuna karşılık gelir. Çözüm, \emph{öncelikli kodlayıcı} (\emph{priority encoder}) yapısıdır. Girişler bir öncelik sırasına dizilir, en yüksek öncelikli etkin giriş çıkışı belirler, ondan düşük öncelikli girişler önemsenmez. Çıkışa ayrıca bir geçerlilik (V) sinyali eklenir. Hiçbir giriş 1 değilse $V = 0$ olur ve kod alanı geçersiz sayılır.
 
 8×3 öncelikli kodlayıcı sekiz aygıttan eşzamanlı kesme istekleri arasından en yüksek öncelikli olanı seçer; üç bit kod ile geçerlilik biti, kesme denetleyicisinin işlemciye verdiği temel çıkıştır. Çıkış denklemleri sıradan kodlayıcıya göre ek ``ondan düşük öncelikliler 0 olmalı'' koşulları içerir; bu nedenle her bit için VE-VEYA katmanı genişler. Tasarım uygulamada ya hazır bir kütüphane bileşeni (74148 ailesi gibi) ya da bir HDL betimi ile gerçeklenir.
 
@@ -1954,7 +1954,7 @@ Yukarıdaki 4×2 kodlayıcı, birden fazla giriş aynı anda 1 olduğunda hatal�
 
 \subsection{Çoklayıcı}
 
-Çoklayıcı (İngilizcesi: \emph{multiplexer}, kısaca MUX), $2^n$ veri girişi arasından birini $n$ bitlik denetim (seçim) sinyaline göre seçerek tek bir çıkışa aktaran devredir. Tekleyicinin (\emph{demultiplexer}) tersidir: tekleyici tek bir girişi seçilen çıkışa dağıtırken, çoklayıcı birçok giriş arasından seçilen birini tek bir çıkışta toplar.
+Çoklayıcı (İngilizcesi: \emph{multiplexer}, kısaca MUX), $2^n$ veri girişi arasından birini $n$ bitlik denetim (seçim) sinyaline göre seçerek tek bir çıkışa aktaran devredir. Tekleyicinin (\emph{demultiplexer}) tersidir. Tekleyici tek bir girişi seçilen çıkışa dağıtırken, çoklayıcı birçok giriş arasından seçilen birini tek bir çıkışta toplar.
 
 \subsubsection{Kullanım alanları}
 Çoklayıcılar işlemci veri yolu tasarımının her yerinde bulunur:
@@ -1970,7 +1970,7 @@ Yukarıdaki 4×2 kodlayıcı, birden fazla giriş aynı anda 1 olduğunda hatal�
 \subsubsection{4×1 Çoklayıcı}
 4×1 çoklayıcı dört veri girişi ($G_0$, $G_1$, $G_2$, $G_3$) arasından, iki bitlik seçim sinyalinin ($x$, $y$) gösterdiği birini çıkışa aktarır. Şekil~\ref{fig:B.11}'de devrenin kapı düzeyindeki gerçeklenişi verilmiştir. Her seçim kombinasyonu bir mini terim oluşturur: $\overline{x}\overline{y}$, $\overline{x}y$, $x\overline{y}$, $xy$. Devre dört üç-girişli VE kapısıyla bu mini terimleri ilgili veri girişine zorlar; her VE kapısı yalnızca seçim sinyali kendi mini terimine eşleştiğinde 1 üretir ve veri girişini geçirir. Dört VE kapısının çıkışı dört-girişli bir VEYA kapısında toplanır:
 \[ F = \overline{x}\overline{y}\,G_0 + \overline{x}y\,G_1 + x\overline{y}\,G_2 + xy\,G_3. \]
-Daha büyük çoklayıcılar (8×1, 16×1, ...) aynı yapıyı genişletir: $n$ bitlik seçim sinyali $2^n$ adet $(n{+}1)$-girişli VE kapısı sürer ve sonuçlar tek bir VEYA kapısında birleşir. Pratikte bu doğrudan kapı düzeyi yerine bir sonraki bölümde göreceğimiz hiyerarşik birleştirme yöntemiyle kurulur.
+Daha büyük çoklayıcılar (8×1, 16×1, ...) aynı yapıyı genişletir. $n$ bitlik seçim sinyali $2^n$ adet $(n{+}1)$-girişli VE kapısı sürer ve sonuçlar tek bir VEYA kapısında birleşir. Pratikte bu doğrudan kapı düzeyi yerine bir sonraki bölümde göreceğimiz hiyerarşik birleştirme yöntemiyle kurulur.
 
 \begin{figure}[H]
 \centering
@@ -2080,7 +2080,7 @@ Daha büyük çoklayıcılar (8×1, 16×1, ...) aynı yapıyı genişletir: $n$ 
 \end{figure}
 
 \subsubsection{Hiyerarşik çoklayıcı}
-Büyük çoklayıcılar küçüklerden kurulur. 8×1 bir çoklayıcı iki adet 4×1 ve bir adet 2×1 çoklayıcıyla gerçeklenir (Şekil~\ref{fig:B.mux-hierarchical}): en anlamlı seçim biti $s_2$, son katmandaki 2×1 çoklayıcıyı sürer; alt iki bit $s_1 s_0$ iki 4×1 çoklayıcının seçim girişlerine aynı anda verilir. Aynı yaklaşım, 32×1 veya 64×1 gibi büyük çoklayıcıları da kaskat biçiminde (örneğin on altı 4×1 + bir 4×1) kurmaya olanak tanır; böylece her katman $\log_2(\text{boyut})$ kapı gecikmesine katkıda bulunur.
+Büyük çoklayıcılar küçüklerden kurulur. 8×1 bir çoklayıcı iki adet 4×1 ve bir adet 2×1 çoklayıcıyla gerçeklenir (Şekil~\ref{fig:B.mux-hierarchical}). En anlamlı seçim biti $s_2$, son katmandaki 2×1 çoklayıcıyı sürer; alt iki bit $s_1 s_0$ iki 4×1 çoklayıcının seçim girişlerine aynı anda verilir. Aynı yaklaşım, 32×1 veya 64×1 gibi büyük çoklayıcıları da kaskat biçiminde (örneğin on altı 4×1 + bir 4×1) kurmaya olanak tanır; böylece her katman $\log_2(\text{boyut})$ kapı gecikmesine katkıda bulunur.
 
 \begin{figure}[H]
 \centering
@@ -2284,7 +2284,7 @@ Devre, bir 4×1 çoklayıcı ve $z$ sinyalini tümleyen bir DEĞİL kapısıyla 
 % =====================================================
 \subsection{Tekleyici}
 
-Tekleyici (İngilizcesi: \emph{demultiplexer}, kısaca DEMUX), tek bir veri girişini $n$ bitlik seçim sinyaline göre $2^n$ çıkıştan birine yönlendiren devredir. Çoklayıcının tersidir: çoklayıcı $2^n$ giriş arasından birini seçerek tek çıkışa aktarırken, tekleyici tek bir girişi seçilen çıkışa dağıtır. Etkinleştirme girişli kod çözücü ile yapısal olarak özdeştir; bu ilişki Bölüm~\ref{chap:bellek}'te bellek satır-sütun seçim mantığında karşımıza çıkar.
+Tekleyici (İngilizcesi: \emph{demultiplexer}, kısaca DEMUX), tek bir veri girişini $n$ bitlik seçim sinyaline göre $2^n$ çıkıştan birine yönlendiren devredir. Çoklayıcının tersidir. Çoklayıcı $2^n$ giriş arasından birini seçerek tek çıkışa aktarırken, tekleyici tek bir girişi seçilen çıkışa dağıtır. Etkinleştirme girişli kod çözücü ile yapısal olarak özdeştir; bu ilişki Bölüm~\ref{chap:bellek}'te bellek satır-sütun seçim mantığında karşımıza çıkar.
 
 \subsubsection{Kullanım alanları}
 \begin{itemize}[nosep]
@@ -2370,7 +2370,7 @@ $S_1$ & $S_0$ & KG Yeşil & KG Sarı & KG Kırmızı & DB Kırmızı & DB Sarı 
 \end{aligned}
 \]
 
-İfadelerin yapısı dikkat çekicidir: KG\_Kırmızı yalnızca $S_1$'e, DB\_Kırmızı yalnızca $\overline{S_1}$'e bağlıdır; dolayısıyla iki kırmızı sinyali tek bir DEĞİL kapısıyla birbirinden üretilebilir. Yeşil ve sarı sinyallerinin her biri $S_1, S_0$ çiftinin belirli bir mini terimine karşılık gelir; her birini iki-girişli bir VE kapısıyla gerçekleştirmek yeterlidir. Toplam donanım: 4 VE + 1 DEĞİL kapısı.
+İfadelerin yapısı dikkat çekicidir. KG\_Kırmızı yalnızca $S_1$'e, DB\_Kırmızı yalnızca $\overline{S_1}$'e bağlıdır; dolayısıyla iki kırmızı sinyali tek bir DEĞİL kapısıyla birbirinden üretilebilir. Yeşil ve sarı sinyallerinin her biri $S_1, S_0$ çiftinin belirli bir mini terimine karşılık gelir; her birini iki-girişli bir VE kapısıyla gerçekleştirmek yeterlidir. Toplam donanım: 4 VE + 1 DEĞİL kapısı.
 
 \textbf{Devre.} Aşağıdaki kapı düzeyinde gerçekleme, $S_1$ ve $S_0$ girişlerinden altı lamba çıkışına kadar sinyal akışını gösterir.
 
@@ -2438,7 +2438,7 @@ $S_1$ & $S_0$ & KG Yeşil & KG Sarı & KG Kırmızı & DB Kırmızı & DB Sarı 
 
 \section{Flip-Floplar}
 
-Şimdiye kadar incelenen mantık kapıları, kod çözücüler, çoklayıcılar ve toplayıcılar \textbf{birleşik} (İngilizcesi: \textit{combinational}) devrelerdir: çıkışları yalnızca o andaki girişlere bağlıdır ve bellek tutmazlar. Oysa bir bilgisayarın çalışması için verilerin saklanması gerekir: yazmaçlar bir buyruğun sonucunu tutar, program sayacı bir sonraki buyruğun adresini hatırlar. Veri saklayabilen devrelere \textbf{ardışıl} (İngilizcesi: \textit{sequential}) devreler denir ve bunların temel yapı taşı \textbf{flip-flop}tur.
+Şimdiye kadar incelenen mantık kapıları, kod çözücüler, çoklayıcılar ve toplayıcılar \textbf{birleşik} (İngilizcesi: \textit{combinational}) devrelerdir. Çıkışları yalnızca o andaki girişlere bağlıdır ve bellek tutmazlar. Oysa bir bilgisayarın çalışması için verilerin saklanması gerekir. Yazmaçlar bir buyruğun sonucunu tutar, program sayacı bir sonraki buyruğun adresini hatırlar. Veri saklayabilen devrelere \textbf{ardışıl} (İngilizcesi: \textit{sequential}) devreler denir ve bunların temel yapı taşı \textbf{flip-flop}tur.
 
 Flip-flop, mantık kapılarından oluşmuş ve bir bit bilgi saklayabilen bir devredir. Dört temel flip-flop türü bulunmaktadır: RS, D, T ve JK. Bu bölümde her birinin yapısı, doğruluk tablosu ve kullanım alanları açıklanmaktadır.
 
@@ -2850,7 +2850,7 @@ Sayaç (İngilizcesi: \textit{counter}), her saat vuruşunda değerini belirli b
 \subsection{Eşzamanlı İkili Sayaç}
 \index{eşzamanlı sayaç}
 
-Eşzamanlı (İngilizcesi: \textit{synchronous}) sayaçta tüm flip-floplar aynı saat sinyaliyle tetiklenir. $n$ bitlik bir yukarı sayaç, $0$'dan $2^n - 1$'e kadar sayar ve sonra sıfıra döner. Sayacı gerçekleştirmek için T flip-flopları kullanılır: en düşük bit ($T_0$) her zaman terslenirken, $i$.~bit ancak kendisinden düşük tüm bitler $1$ olduğunda terslenmelidir.
+Eşzamanlı (İngilizcesi: \textit{synchronous}) sayaçta tüm flip-floplar aynı saat sinyaliyle tetiklenir. $n$ bitlik bir yukarı sayaç, $0$'dan $2^n - 1$'e kadar sayar ve sonra sıfıra döner. Sayacı gerçekleştirmek için T flip-flopları kullanılır. En düşük bit ($T_0$) her zaman terslenirken, $i$.~bit ancak kendisinden düşük tüm bitler $1$ olduğunda terslenmelidir.
 
 \[
 T_0 = 1, \qquad T_1 = Q_0, \qquad T_2 = Q_0 \cdot Q_1, \qquad T_i = \prod_{j=0}^{i-1} Q_j
@@ -3281,7 +3281,7 @@ Bu örnekte görüldüğü gibi, Mealy makinesi aynı davranışı daha az durum
 \begin{itemize}
     \item \textbf{Moore makinesi tercih edilir}: Çıkışların kararlı ve titreşimsiz (\emph{glitch-free}) olması gereken durumlarda. Örneğin, denetim birimi tasarımlarında Moore modeli yaygındır çünkü çıkışlar yalnızca saat kenarında değişir.
     \item \textbf{Mealy makinesi tercih edilir}: Hızlı tepki süresi gereken ve daha az donanım kaynağı kullanılması istenen durumlarda. Girişe anında yanıt verebilmesi önemli bir avantajdır.
-    \item Uygulamada birçok tasarım, \textbf{kayıtlı çıkışlı Mealy} (\emph{registered-output Mealy}) yaklaşımını kullanır: Mealy makinesinin çıkışları bir yazmaç üzerinden geçirilerek hem hız avantajı korunur hem de çıkış kararlılığı sağlanır.
+    \item Uygulamada birçok tasarım, \textbf{kayıtlı çıkışlı Mealy} (\emph{registered-output Mealy}) yaklaşımını kullanır. Mealy makinesinin çıkışları bir yazmaç üzerinden geçirilerek hem hız avantajı korunur hem de çıkış kararlılığı sağlanır.
 \end{itemize}
 
 % =====================================================
@@ -3308,7 +3308,7 @@ Bu adımlar aşağıdaki örnekte bir içecek otomatı makinesi üzerinden göst
 \index{ardışıl devre!otomat tasarımı}
 \index{Mealy durum makinesi!örnek}
 \index{durum makinesi!otomat}
-\textbf{Tasarım Örneği: İçecek Otomatı Makinesi.} Bu örnekte basit bir içecek otomatı makinesi tasarlanmaktadır. Makine 1~TL ve 2~TL kabul eder; içecek fiyatı 3~TL'dir. Yeterli para atıldığında içecek verilir ve para üstü varsa iade edilir. Tasarım bir Mealy durum makinesi olarak gerçekleştirilir: içecek verme ve para üstü çıkışları, mevcut durumun yanı sıra atılan paraya (girişe) de bağlıdır; örneğin aynı S2 durumunda 1~TL atılırsa yalnızca içecek verilir, 2~TL atılırsa hem içecek hem para üstü verilir.
+\textbf{Tasarım Örneği: İçecek Otomatı Makinesi.} Bu örnekte basit bir içecek otomatı makinesi tasarlanmaktadır. Makine 1~TL ve 2~TL kabul eder; içecek fiyatı 3~TL'dir. Yeterli para atıldığında içecek verilir ve para üstü varsa iade edilir. Tasarım bir Mealy durum makinesi olarak gerçekleştirilir. İçecek verme ve para üstü çıkışları, mevcut durumun yanı sıra atılan paraya (girişe) de bağlıdır; örneğin aynı S2 durumunda 1~TL atılırsa yalnızca içecek verilir, 2~TL atılırsa hem içecek hem para üstü verilir.
 \index{durum!tanımı}
 
 \textbf{Adım 1: Durumların belirlenmesi.}
@@ -3540,7 +3540,7 @@ D_0          &= \overline{Q_0} \cdot \text{BirTL}
 \end{aligned}
 \]
 
-Bu örnekte flip-floplar, durum makinesi kavramı ve birleşik mantık birlikte çalışmaktadır: flip-floplar durumu saklar, birleşik devre ise sonraki durumu ve çıkışları hesaplar.
+Bu örnekte flip-floplar, durum makinesi kavramı ve birleşik mantık birlikte çalışmaktadır. Flip-floplar durumu saklar, birleşik devre ise sonraki durumu ve çıkışları hesaplar.
 
 İşlemci tasarımında kullanılan denetim birimleri de özünde birer durum makinesidir. Bölüm~\ref{chap:islemci-tasarimi}'da göreceğimiz tek vuruşluk ve çok vuruşluk işlemci denetim birimleri, burada öğrendiğimiz ardışıl tasarım ilkelerinin doğrudan uygulamalarıdır.
 
@@ -3833,7 +3833,7 @@ J_y &= \overline{x} \cdot A \cdot \overline{B} &\qquad K_y &= \overline{A}
 \end{aligned}
 \]
 
-Flip-flop giriş ifadeleri oldukça yalındır: $x$ flip-flopu yalnızca B doğru yanıtladığında kurulur ($J_x = \overline{y}\,\overline{A}\,B$) ve B yanlış yanıtladığında sıfırlanır ($K_x = \overline{B}$). Benzer şekilde $y$ flip-flopu yalnızca A doğru yanıtladığında kurulur ($J_y = \overline{x}\,A\,\overline{B}$) ve A yanlış yanıtladığında sıfırlanır ($K_y = \overline{A}$).
+Flip-flop giriş ifadeleri oldukça yalındır. $x$ flip-flopu yalnızca B doğru yanıtladığında kurulur ($J_x = \overline{y}\,\overline{A}\,B$) ve B yanlış yanıtladığında sıfırlanır ($K_x = \overline{B}$). Benzer şekilde $y$ flip-flopu yalnızca A doğru yanıtladığında kurulur ($J_y = \overline{x}\,A\,\overline{B}$) ve A yanlış yanıtladığında sıfırlanır ($K_y = \overline{A}$).
 
 \[
 \begin{aligned}
@@ -3843,7 +3843,7 @@ Flip-flop giriş ifadeleri oldukça yalındır: $x$ flip-flopu yalnızca B doğr
 \end{aligned}
 \]
 
-$\text{Ç}_1$ ifadesindeki yapıya dikkat ediniz: eşit durumda ($xy{=}00$) yalnızca A ve B farklı yanıt verdiğinde ($A \oplus B$) skor farkı oluşur; önde olan varsa ($x{+}y{=}1$) yalnızca aynı yanıt verdiğinde ($A \odot B$) fark korunur.
+$\text{Ç}_1$ ifadesindeki yapıya dikkat ediniz. Eşit durumda ($xy{=}00$) yalnızca A ve B farklı yanıt verdiğinde ($A \oplus B$) skor farkı oluşur; önde olan varsa ($x{+}y{=}1$) yalnızca aynı yanıt verdiğinde ($A \odot B$) fark korunur.
 
 Bu ifadeler doğrudan mantık kapılarıyla gerçekleştirilir. JK flip-floplarının $J$ ve $K$ girişleri yukarıdaki ifadelere, saat girişleri ise ortak saat sinyaline bağlanır. Çıkış fonksiyonları ($\text{Ç}_2$, $\text{Ç}_1$, $\text{Ç}_0$) da ayrı birleşik devrelerle üretilir. Sonuçta ortaya çıkan devre, her saat vuruşunda $A$ ve $B$ girişlerini okuyarak durumu günceller ve yarışma skorunu gösteren 3 bitlik bir çıkış üretir.
 
@@ -3865,7 +3865,7 @@ Sayısal tasarım konuları öğrencilere soyut ve kesin görünse de uygulamaya
 Karno haritasında önemsenmeyen (X) hücreler, o giriş kombinasyonu gerçekte oluşmayacağından çıkışın ne olduğunun önem taşımadığı durumları gösterir. Bu hücreler hem 0 hem de 1 olarak atanabilir; gruplamalarda X hücrelerini 1 kabul etmek daha büyük gruplar oluşturmayı ve böylece daha az terimli bir Boole ifadesi elde etmeyi sağlar. Yalnızca 1 hücrelerini gruplayıp X'leri yok saymak, ulaşılabilecek en yalın ifadeden daha karmaşık bir devre üretir. Öte yandan X hücrelerini 1 alarak kapatılmış bir grubu oluşturmak ve sonra aynı X'leri 0 sayarak çakışan başka bir grup oluşturmak tutarsızlığa yol açar; her X hücresi için tutarlı bir atama yapılmalıdır.
 
 \yanilgi{Mealy makinesi her zaman Moore makinesinden daha az durum kullanır}
-Mealy modelinde çıkışlar hem mevcut duruma hem de anlık girişe bağlı olduğundan bazı Moore durumları birleştirilebilir; bu da daha az durum anlamına gelebilir. Ancak bu ilişki evrensel değildir: bazı belirtimlerde Moore ve Mealy makinesinin durum sayısı eşit olabilir, hatta Mealy'nin girişe bağımlı çıkış üretmesi kaçınılmaz gecikmeler ya da geçici saçma çıkış (\emph{glitch}) sorunları doğurabilir. Moore makinesi çıkışları yalnızca mevcut duruma bağlı olduğundan saat kenarında kararlı değer üretir; bu özellik çıkış sinyalinin doğrudan başka flip-floplara beslendiği tasarımlarda tercih edilir. ``Az durum her zaman daha iyi'' yaklaşımı, çıkış kararlılığı gereksinimini göz ardı eder.
+Mealy modelinde çıkışlar hem mevcut duruma hem de anlık girişe bağlı olduğundan bazı Moore durumları birleştirilebilir; bu da daha az durum anlamına gelebilir. Ancak bu ilişki evrensel değildir. Bazı belirtimlerde Moore ve Mealy makinesinin durum sayısı eşit olabilir, hatta Mealy'nin girişe bağımlı çıkış üretmesi kaçınılmaz gecikmeler ya da geçici saçma çıkış (\emph{glitch}) sorunları doğurabilir. Moore makinesi çıkışları yalnızca mevcut duruma bağlı olduğundan saat kenarında kararlı değer üretir; bu özellik çıkış sinyalinin doğrudan başka flip-floplara beslendiği tasarımlarda tercih edilir. ``Az durum her zaman daha iyi'' yaklaşımı, çıkış kararlılığı gereksinimini göz ardı eder.
 
 \tuzak{Yayılım gecikmesini göz ardı ederek saat sıklığını belirlemek}
 Bir ardışıl devrenin maksimum saat sıklığı, kaynak flip-flop çıkışından hedef flip-flop girişine uzanan en uzun birleşik mantık yolu ve flip-flop'un kurulum süresiyle sınırlıdır:
@@ -3875,28 +3875,28 @@ T_{\text{saat}} \geq t_{c\text{-}q} + t_{\text{birleşik,maks}} + t_{\text{kurul
 Bu eşitsizlik sağlanmazsa hedef flip-flop veriyi doğru saat kenarında yakalayamaz ve durum bozulur. Simülasyonda ideal (sıfır gecikmeli) kapılarla çalışan bir devre, FPGA ya da ASIC gerçeklemesinde zamanlama hatası verebilir. Sentez araçlarının ürettiği zamanlama raporunda kayma payı (\emph{slack}) değeri negatifse bu tuzağa düşülmüş demektir.
 
 \yanilgi{Eşzamansız (dalgalı) sayaç her zaman eşzamanlı sayaçtan daha basit ve hızlıdır}
-Eşzamansız sayaçta her flip-flop bir öncekinin $Q$ çıkışını saat girişi olarak alır; bu durum devre şemasını görece yalın tutar. Ancak her flip-flopun saat-çıkış gecikmesi ($t_{c\text{-}q}$) kümülatif olarak birikerek yayılır: $n$-bitlik dalgalı sayaçta en yüksek bitin kararlı değere ulaşması $n \times t_{c\text{-}q}$ gecikme ister. Eşzamanlı sayaçta tüm flip-floplar aynı saate bağlı olduğundan bu gecikme sabit ve kısa tutulur; birleşik mantık katmanı biraz karmaşıklaşsa da çok daha yüksek saat sıklığına erişilebilir. Geniş sayaçlarda eşzamansız yapı saat sıklığını ciddi biçimde sınırlar.
+Eşzamansız sayaçta her flip-flop bir öncekinin $Q$ çıkışını saat girişi olarak alır; bu durum devre şemasını görece yalın tutar. Ancak her flip-flopun saat-çıkış gecikmesi ($t_{c\text{-}q}$) kümülatif olarak birikerek yayılır. $n$-bitlik dalgalı sayaçta en yüksek bitin kararlı değere ulaşması $n \times t_{c\text{-}q}$ gecikme ister. Eşzamanlı sayaçta tüm flip-floplar aynı saate bağlı olduğundan bu gecikme sabit ve kısa tutulur; birleşik mantık katmanı biraz karmaşıklaşsa da çok daha yüksek saat sıklığına erişilebilir. Geniş sayaçlarda eşzamansız yapı saat sıklığını ciddi biçimde sınırlar.
 
 \tuzak{Kurulum ve tutma süresi ihlalini yalnızca kurulum süresine indirgeyerek değerlendirmek}
 Zamanlama analizinde kurulum süresi ($t_{\text{su}}$) ile tutma süresi ($t_{\text{hold}}$) birlikte dikkate alınmalıdır. Kurulum süresi, saat kenarından önce girişin ne kadar süre kararlı kalması gerektiğini tanımlar; tutma süresi ise saat kenarından \emph{sonra} girişin ne kadar süre sabit tutulması gerektiğini belirtir. Tutma süresi ihlali, kaynak flip-floptan hedef flip-flopa giden kombinasyonel yolun çok kısa olmasından kaynaklanır; bu durum iki flip-flop arasına kasıtlı gecikme eklenerek giderilir. Zamanlama kapatma (\emph{timing closure}) çalışmalarında tutma süresi ihlali kurulum ihlali kadar sık karşılaşılır ve statik zamanlama analizi her iki kısıtı da en kötü durum için ayrı ayrı değerlendirir.
 
 \tuzak{K-haritasında kenar sarma gruplarını kaçırmak}
-Karno haritası torus (halka) topolojisinde düzenlenmiştir: sol kenar sağ kenarla, üst kenar alt kenarla bitişiktir. Bu sayede köşe ve kenar hücreleri de komşu sayılır; örneğin 4-değişkenli haritanın dört köşesi tek bir grup oluşturabilir. Bu gruplamayı görmezden gelmek, daha küçük ve ayrık gruplar seçmeye yol açar; sonuç olarak gereksiz fazla terimli bir Boole ifadesi ve daha çok kapı kullanan bir devre üretilir. Kenar hücrelerini mutlaka kontrol etmek ve haritayı iki yönde de ``sararak'' grupları değerlendirmek doğru alışkanlıktır.
+Karno haritası torus (halka) topolojisinde düzenlenmiştir. Sol kenar sağ kenarla, üst kenar alt kenarla bitişiktir. Bu sayede köşe ve kenar hücreleri de komşu sayılır; örneğin 4-değişkenli haritanın dört köşesi tek bir grup oluşturabilir. Bu gruplamayı görmezden gelmek, daha küçük ve ayrık gruplar seçmeye yol açar; sonuç olarak gereksiz fazla terimli bir Boole ifadesi ve daha çok kapı kullanan bir devre üretilir. Kenar hücrelerini mutlaka kontrol etmek ve haritayı iki yönde de ``sararak'' grupları değerlendirmek doğru alışkanlıktır.
 
 \section*{Özet}
 \addcontentsline{toc}{section}{Özet}
 
 Bu ekte, sayısal devrelerin temelini oluşturan kavramlar ve yapı taşları ele alındı. Buraya kadar öğrendiklerimizi kısaca derleyelim.
 
-Sayısal devrelerin en küçük yapı taşları mantık kapılarıdır. VE, VEYA ve DEĞİL kapıları en temel üçlüyü oluşturur; bunların bileşiminden türeyen NAND, NOR ve XOR kapıları ise pratikte sıkça kullanılır. Her kapının davranışı doğruluk tablosuyla tam olarak tanımlanır. NAND ve NOR kapılarının evrensel niteliği özellikle dikkat çekicidir: bu iki kapıdan yalnızca biriyle, VE, VEYA ve DEĞİL dahil tüm mantık işlemleri gerçekleştirilebilir. Bu özellik, gerçek yonga üretiminde kapı türü sayısını azaltmak ve üretim sürecini yalınlaştırmak açısından büyük bir avantaj sağlar.
+Sayısal devrelerin en küçük yapı taşları mantık kapılarıdır. VE, VEYA ve DEĞİL kapıları en temel üçlüyü oluşturur; bunların bileşiminden türeyen NAND, NOR ve XOR kapıları ise pratikte sıkça kullanılır. Her kapının davranışı doğruluk tablosuyla tam olarak tanımlanır. NAND ve NOR kapılarının evrensel niteliği özellikle dikkat çekicidir. Bu iki kapıdan yalnızca biriyle, VE, VEYA ve DEĞİL dahil tüm mantık işlemleri gerçekleştirilebilir. Bu özellik, gerçek yonga üretiminde kapı türü sayısını azaltmak ve üretim sürecini yalınlaştırmak açısından büyük bir avantaj sağlar.
 
 Mantık fonksiyonlarını sistematik biçimde ifade etmek ve sadeleştirmek için Boole cebri kullanılır. De Morgan kuramları, VE ile VEYA işlemleri arasında tümleyen yardımıyla geçiş yapılmasını sağlar ve devrelerin farklı kapı türleriyle eşdeğer biçimde yazılmasına olanak tanır. Mini terim ve maksi terim gösterimleri ise herhangi bir mantık fonksiyonunu standart bir biçimde ifade etmeyi mümkün kılar.
 
 Karno haritası, Boole fonksiyonlarının görsel sadeleştirilmesi için kullanılır. İki, üç ve dört değişkenli fonksiyonlarda komşu hücreleri gruplandırarak en az sayıda kapı kullanan ifadeye ulaşmak kolaylaşır. Önemsenmeyen durumlar (X), gruplama sırasında esneklik tanır ve daha kısa ifadeler elde etmeye yardımcı olur.
 
-Birleşik devrelerin yapı taşları arasında kod çözücüler, kodlayıcılar, çoklayıcılar ve toplayıcılar yer alır. Bir kod çözücü $n$ bitlik girişi $2^n$ çıkıştan tam olarak birine yönlendirir; kodlayıcı ise tersini yapar. Çoklayıcı, $2^n$ girişten birini seçim sinyaline göre tek çıkışa aktarır. Toplayıcılar ise ikilik toplama işlemini donanımda gerçekleştirir: yarım toplayıcı elde girişini görmez; tam toplayıcı elde girişini de hesaba katar; dalgalı elde toplayıcı tam toplayıcıları zincirleyerek çok bitli toplamayı üretir. Önceden elde üreten toplayıcılar bu gecikmeyi kısaltır.
+Birleşik devrelerin yapı taşları arasında kod çözücüler, kodlayıcılar, çoklayıcılar ve toplayıcılar yer alır. Bir kod çözücü $n$ bitlik girişi $2^n$ çıkıştan tam olarak birine yönlendirir; kodlayıcı ise tersini yapar. Çoklayıcı, $2^n$ girişten birini seçim sinyaline göre tek çıkışa aktarır. Toplayıcılar ise ikilik toplama işlemini donanımda gerçekleştirir. Yarım toplayıcı elde girişini görmez; tam toplayıcı elde girişini de hesaba katar; dalgalı elde toplayıcı tam toplayıcıları zincirleyerek çok bitli toplamayı üretir. Önceden elde üreten toplayıcılar bu gecikmeyi kısaltır.
 
-Flip-floplar tek bitlik bilgi depolayan ardışıl devre elemanlarıdır. RS, D, T ve JK flip-flopları farklı tetikleme ve tutma davranışları sergiler; hepsinde ortak olan nokta, durum değişiminin saat sinyaliyle eşzamanlanmasıdır. Birden fazla flip-flop bir araya geldiğinde yazmaç oluşur: koşut yüklemeli yazmaçlar tüm bitleri aynı anda alırken, kaydırma yazmaçları veriyi seri olarak kaydırır. Sayaçlar ise her saat vuruşunda değerini artıran ya da azaltan özel yazmaçlardır; eşzamanlı sayaçlarda tüm flip-floplar aynı anda güncellenir, eşzamansız sayaçlarda ise değişim dalgalanarak ilerler.
+Flip-floplar tek bitlik bilgi depolayan ardışıl devre elemanlarıdır. RS, D, T ve JK flip-flopları farklı tetikleme ve tutma davranışları sergiler; hepsinde ortak olan nokta, durum değişiminin saat sinyaliyle eşzamanlanmasıdır. Birden fazla flip-flop bir araya geldiğinde yazmaç oluşur. Koşut yüklemeli yazmaçlar tüm bitleri aynı anda alırken, kaydırma yazmaçları veriyi seri olarak kaydırır. Sayaçlar ise her saat vuruşunda değerini artıran ya da azaltan özel yazmaçlardır; eşzamanlı sayaçlarda tüm flip-floplar aynı anda güncellenir, eşzamansız sayaçlarda ise değişim dalgalanarak ilerler.
 
 Ardışıl devrelerin en genel modeli durum makineleridir. Mealy modelinde çıkışlar hem mevcut duruma hem de o andaki girişe bağlıdır; Moore modelinde çıkışlar yalnızca mevcut duruma bağlıdır. Mealy makinesi daha az durumla daha hızlı tepki verebilir, Moore makinesi ise çıkışların saat sinyaliyle eşzamanlanması sayesinde daha kararlı bir davranış sergiler. Durum makinesi tasarımı sistematik adımlardan oluşur: önce durumlar ve geçişler tanımlanır, ardından durum tablosu oluşturulur, flip-flop türü seçilir, Karno haritasıyla geçiş ve çıkış denklemleri sadeleştirilir ve son olarak devre gerçekleştirilir.
 

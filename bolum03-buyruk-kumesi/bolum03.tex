@@ -86,7 +86,7 @@ Bir bilgisayarı katmanlar halinde düşünebiliriz: üstte yazılım (uygulamal
 
 Şekil~\ref{fig:bkm-iliskisi}'de görüldüğü gibi BKM, yazılım ile donanım arasında arayüz görevi üstlenir. BKM'yi bir \emph{sözleşme}\index{BKM!sözleşme} olarak düşünmek yararlıdır. Bu sözleşme, hangi buyrukların var olduğunu, her buyruğun hangi biçimde kodlandığını, yazmaç sayısını ve adreslenebilir bellek düzenini tanımlar. Sözleşmenin iki tarafı vardır: bir yanda derleyiciler ve işletim sistemleri, öte yanda işlemciyi tasarlayan donanım mühendisleri. Her iki taraf da yalnızca bu sözleşmeye uyarak, birbirlerinin iç ayrıntılarını bilmeden bağımsız olarak çalışabilir. GCC derleyicisini yazan bir programcı Intel'in boru hattı tasarımını bilmek zorunda değildir. Intel'in donanım mühendisi de GCC'nin eniyileme algoritmalarını bilmek zorunda değildir. Her ikisi de x86 BKM sözleşmesine uyduğu sürece uyumluluk sağlanır.
 
-Bu soyutlama katmanı güçlü bir esneklik sunar: aynı BKM sözleşmesini farklı donanımlar gerçekleyebilir. Örneğin RISC-V BKM'sini hem düşük güçlü bir gömülü denetleyici hem de yüksek başarımlı, çok çekirdekli bir sunucu işlemcisi gerçekleyebilir. Her iki durumda da aynı derlenmiş program sorunsuz çalışır. Ancak bu esnekliğin bir bedeli vardır: bir BKM sözleşmesi geniş çapta benimsendikten sonra onu değiştirmek son derece güçtür. x86 mimarisi 1978'den bu yana geriye uyumluluğunu sürdürmek zorundadır. O tarihte yazılmış bir programın bugünkü işlemcide çalışabilmesi gerekir. Bu geriye uyumluluk yükü, BKM tasarımının neden bu denli özenli yapılması gerektiğini açıkça gösterir.
+Bu soyutlama katmanı güçlü bir esneklik sunar. Aynı BKM sözleşmesini farklı donanımlar gerçekleyebilir. Örneğin RISC-V BKM'sini hem düşük güçlü bir gömülü denetleyici hem de yüksek başarımlı, çok çekirdekli bir sunucu işlemcisi gerçekleyebilir. Her iki durumda da aynı derlenmiş program sorunsuz çalışır. Ancak bu esnekliğin bir bedeli vardır. Bir BKM sözleşmesi geniş çapta benimsendikten sonra onu değiştirmek son derece güçtür. x86 mimarisi 1978'den bu yana geriye uyumluluğunu sürdürmek zorundadır. O tarihte yazılmış bir programın bugünkü işlemcide çalışabilmesi gerekir. Bu geriye uyumluluk yükü, BKM tasarımının neden bu denli özenli yapılması gerektiğini açıkça gösterir.
 
 Bölüm~\ref{chap:giris}'de gördüğümüz gibi, işlemci her buyruğu üç temel aşamadan geçirir: önce bellekten \emph{getirir}, sonra bit alanlarına ayırarak \emph{çözer}, en sonunda da ilgili işlemi \emph{yürütür}. Bu sürekli tekrar eden döngüye kısaca \textbf{Getir -- Çöz -- Yürüt}\index{getir-çöz-yürüt döngüsü} (\emph{Fetch -- Decode -- Execute}) döngüsü denir.
 
@@ -112,7 +112,7 @@ Bilgisayar tarihi boyunca buyruk kümesi mimarileri üç temel yaklaşım etraf�
 Üçüncü ve günümüzde baskın olan yaklaşımda birden çok genel amaçlı yazmaç\index{BKM!yazmaç mimarisi} bulunur. Aritmetik buyruklar yalnızca yazmaçlar arasında çalışır. Bellek erişimi ayrı yükle/sakla (\emph{load/store}) buyruklarıyla yapılır. Bu ayrım, derleyiciye sık kullanılan değerleri yazmaçlarda tutma olanağı tanır ve bellek trafiğini önemli ölçüde azaltır. MIPS (1985), SPARC (1987), ARM (1985) ve RISC-V (2010) bu yaklaşımın temsilcileridir. Bu kitapta ele alacağımız RISC-V de bir yazmaç-yazmaç mimarisidir.
 
 \subsubsection*{CISC ve RISC tartışması}
-1980'e kadar geliştirilen işlemcilerin buyruk kümeleri giderek büyümüş, buyruklar karmaşıklaşmıştı. Bu yaklaşıma sonradan \emph{Karmaşık Buyruk Kümesi Bilgisayarı}\index{CISC} (CISC -- \emph{Complex Instruction Set Computer}) adı verildi. 1980'de David Patterson ve David Ditzel, ``The Case for the Reduced Instruction Set Computer'' başlıklı çalışmalarında~\cite{patterson1980} tam tersi bir görüş ileri sürdüler: az sayıda, basit ve düzenli buyruk kullanan bir mimari, karmaşık buyrukları olan bir mimariden daha hızlı olabilir. Çünkü basit buyruklar daha kolay boru hattına alınır ve saat döngüsü kısaltılabilir. Bu ilkeye \emph{İndirgenmiş Buyruk Kümesi Bilgisayarı}\index{RISC} (RISC -- \emph{Reduced Instruction Set Computer}) adı verildi.
+1980'e kadar geliştirilen işlemcilerin buyruk kümeleri giderek büyümüş, buyruklar karmaşıklaşmıştı. Bu yaklaşıma sonradan \emph{Karmaşık Buyruk Kümesi Bilgisayarı}\index{CISC} (CISC -- \emph{Complex Instruction Set Computer}) adı verildi. 1980'de David Patterson ve David Ditzel, ``The Case for the Reduced Instruction Set Computer'' başlıklı çalışmalarında~\cite{patterson1980} tam tersi bir görüş ileri sürdüler. Onlara göre az sayıda, basit ve düzenli buyruk kullanan bir mimari, karmaşık buyrukları olan bir mimariden daha hızlı olabilir. Çünkü basit buyruklar daha kolay boru hattına alınır ve saat döngüsü kısaltılabilir. Bu ilkeye \emph{İndirgenmiş Buyruk Kümesi Bilgisayarı}\index{RISC} (RISC -- \emph{Reduced Instruction Set Computer}) adı verildi.
 
 Tarih her iki tarafa da kısmen hak verdi. RISC ilkeleri galip geldi. Bugünkü tüm yüksek başarımlı işlemciler boru hattı, yazmaç penceresi ve yükle/sakla mimarisi gibi RISC özelliklerini kullanır. Ancak x86 gibi CISC mimarileri ortadan kalkmadı. Bunun yerine karmaşık x86 buyruklarını iç düzende basit mikro-işlemlere (\emph{micro-ops}) çeviren bir yaklaşım benimsediler (1995, Intel Pentium Pro). Böylece dışarıdan CISC görünen işlemci, içeride RISC gibi çalışır. RISC-V ise RISC felsefesinin en güncel ve en sade temsilcisi olarak bu bölümün ana konusunu oluşturmaktadır.
 
@@ -147,14 +147,14 @@ x86-64        & $\sim$1500+  & SSE/AVX/AMX dahil; sürekli büyüyor \\
 \end{tabular}
 \end{table}
 
-RISC-V'in yalnızca 47 temel buyruğa sahip olması tesadüf değildir. Tasarımcılar, mevcut buyruklarla elde edilebilen işlemler için yeni bir işlem kodu tanımlamak yerine sözde buyruklar kullanmayı bilinçli olarak tercih etmiştir. Örneğin RISC-V'te ve MIPS'te ayrı bir \texttt{mov} (kopyala) buyruğu yoktur: yazmaçtan yazmaca kopyalama, \texttt{addi rd, rs, 0} (sıfır ekle) ile gerçekleştirilir ve çevirici bunu \texttt{mv rd, rs} sözde buyruğu olarak sunar. Bu yaklaşımın iki avantajı vardır:
+RISC-V'in yalnızca 47 temel buyruğa sahip olması tesadüf değildir. Tasarımcılar, mevcut buyruklarla elde edilebilen işlemler için yeni bir işlem kodu tanımlamak yerine sözde buyruklar kullanmayı bilinçli olarak tercih etmiştir. Örneğin RISC-V'te ve MIPS'te ayrı bir \texttt{mov} (kopyala) buyruğu yoktur. Yazmaçtan yazmaca kopyalama, \texttt{addi rd, rs, 0} (sıfır ekle) ile gerçekleştirilir ve çevirici bunu \texttt{mv rd, rs} sözde buyruğu olarak sunar. Bu yaklaşımın iki avantajı vardır:
 
 \begin{enumerate}[nosep]
 \item İşlem kodu uzayında yer tasarrufu sağlar. 32 bitlik sabit genişlikli bir buyrukta işlem koduna ayrılan bit sayısı sınırlıdır. Her yeni gerçek buyruk bu sınırlı alanı tüketir. Sözde buyruklar ise bu alandan hiç pay almaz.
 \item Çözme donanımı basit kalır. Daha az gerçek buyruk demek, daha az çözme yolu ve daha küçük çözücü devre demektir.
 \end{enumerate}
 
-Bunun karşılığında, mikrodenetleyici gibi çok kısıtlı aygıtlarda RISC-V RV32I yeterli olabilirken, yoğun bilimsel hesaplama gerektiren sunucularda V (vektör) ve F/D (kayan nokta) uzantıları eklenerek buyruk sayısı artırılır. RISC-V'in modüler yapısı bu esnekliği sağlar: tasarımcı uygulamanın gereksinimine göre yalnızca ihtiyaç duyduğu uzantıları ekler.
+Bunun karşılığında, mikrodenetleyici gibi çok kısıtlı aygıtlarda RISC-V RV32I yeterli olabilirken, yoğun bilimsel hesaplama gerektiren sunucularda V (vektör) ve F/D (kayan nokta) uzantıları eklenerek buyruk sayısı artırılır. RISC-V'in modüler yapısı bu esnekliği sağlar. Tasarımcı uygulamanın gereksinimine göre yalnızca ihtiyaç duyduğu uzantıları ekler.
 
 % =====================================================
 \section{RISC-V İşlemcisi ve Buyruk Kümesi}
@@ -205,7 +205,7 @@ Kayan nokta uzantıları (F/D), ayrı bir yazmaç öbeği (\texttt{f0}--\texttt{
 \begin{karsilastirma}[Uzantı Modelleri]
 Mimariler, buyruk kümesini genişletme konusunda birbirinden farklı yaklaşımlar benimsemiştir.
 
-x86, tek parça (monolitik) bir modeli izler: her yeni işlemci kuşağı önceki tüm buyruklara ek olarak yeni uzantılar (MMX, SSE, AVX, AVX-512) getirir. Tüm uzantılar tek bir dev küme oluşturur. Tasarımcının seçim hakkı yoktur.
+x86, tek parça (monolitik) bir modeli izler. Her yeni işlemci kuşağı önceki tüm buyruklara ek olarak yeni uzantılar (MMX, SSE, AVX, AVX-512) getirir. Tüm uzantılar tek bir dev küme oluşturur. Tasarımcının seçim hakkı yoktur.
 
 ARM, hedef kullanım senaryosuna göre üç profil tanımlar: A serisi (uygulama işlemcileri), R serisi (gerçek zamanlı sistemler) ve M serisi (mikrodenetleyiciler). Her profil zorunlu ve isteğe bağlı uzantılardan oluşur.
 
@@ -289,11 +289,11 @@ add s0, t0, s3    # t0 + d -> a (s0)
 \end{ornek}
 
 \begin{karsilastirma}[Buyruk Alanları ve Kodlama]
-RISC-V ve MIPS, tüm buyrukları sabit 32 bit uzunluğunda kodlar. Alan konumları (opcode, rs1, rs2, rd) biçimler arasında büyük ölçüde tutarlıdır. Bu düzenlilik, çözme (\emph{decode}) donanımını basitleştirir: alan sınırları değişmez, bu yüzden koşut okuma kolaylaşır.
+RISC-V ve MIPS, tüm buyrukları sabit 32 bit uzunluğunda kodlar. Alan konumları (opcode, rs1, rs2, rd) biçimler arasında büyük ölçüde tutarlıdır. Bu düzenlilik, çözme (\emph{decode}) donanımını basitleştirir. Alan sınırları değişmez, bu yüzden koşut okuma kolaylaşır.
 
 ARM (AArch64) da 32 bit sabit uzunluğu korur. Ancak kodlama şeması RISC-V'ten farklıdır ve bazı alan pozisyonları biçime göre değişir.
 
-x86 değişken uzunluklu buyruklara sahiptir: bir buyruk 1 ile 15 bayt arasında herhangi bir boyutta olabilir. Ön ek baytları (\emph{prefix}), işlem kodu, ModRM, SIB, yer değiştirme (\emph{displacement}) ve anlık değer (\emph{immediate}) gibi isteğe bağlı alanlar birbiri ardına eklenir. Çözme aşamasında işlemci önce buyruk sınırlarını bulmak zorundadır. Bu durum boru hattı tasarımını önemli ölçüde karmaşıklaştırır ve yüksek başarımlı x86 işlemcilerinin büyük bir silikon alanını çözme devrelerine ayırmasına neden olur.
+x86 değişken uzunluklu buyruklara sahiptir. Bir buyruk 1 ile 15 bayt arasında herhangi bir boyutta olabilir. Ön ek baytları (\emph{prefix}), işlem kodu, ModRM, SIB, yer değiştirme (\emph{displacement}) ve anlık değer (\emph{immediate}) gibi isteğe bağlı alanlar birbiri ardına eklenir. Çözme aşamasında işlemci önce buyruk sınırlarını bulmak zorundadır. Bu durum boru hattı tasarımını önemli ölçüde karmaşıklaştırır ve yüksek başarımlı x86 işlemcilerinin büyük bir silikon alanını çözme devrelerine ayırmasına neden olur.
 \end{karsilastirma}
 
 Bir buyruk kümesi mimarisinde buyruk boyutu tasarım öğelerinden biridir. Sabit boyutlu buyrukları olan bir BKM'de işlemci bellekten sürekli sabit boyutta veri okuyacağı için donanım çok daha yalın olur.
@@ -344,7 +344,7 @@ Bölüm~\ref{chap:giris}'de gördüğümüz gibi bir bilgisayarı oluşturan be�
 
 \begin{tanim}[Tasarım İlkesi~1: Küçük olan hızlıdır \emph{(devam)}]
 \index{tasarım ilkeleri!küçük olan hızlıdır}
-Bölüm~\ref{sec:tasarim-ilkeleri} ve~\ref{chap:basarim}'de tanıttığımız bu ilke burada somut biçimde karşımıza çıkar. RISC-V tasarımcıları, programcıya çok sayıda yazmaç sunarken yazmaç birimini tek çevrimde erişilebilecek kadar küçük tutmayı hedeflemiştir. 32~yazmaç bu dengenin sonucudur: 16~yazmaç derleyiciler için yetersiz kalır. 64~yazmaç ise yazmaç öbeğini büyüterek erişim süresini uzatır ve buyruk içindeki adres alanını genişleterek buyruk boyutunu artırır.
+Bölüm~\ref{sec:tasarim-ilkeleri} ve~\ref{chap:basarim}'de tanıttığımız bu ilke burada somut biçimde karşımıza çıkar. RISC-V tasarımcıları, programcıya çok sayıda yazmaç sunarken yazmaç birimini tek çevrimde erişilebilecek kadar küçük tutmayı hedeflemiştir. 32~yazmaç bu dengenin sonucudur. 16~yazmaç derleyiciler için yetersiz kalır. 64~yazmaç ise yazmaç öbeğini büyüterek erişim süresini uzatır ve buyruk içindeki adres alanını genişleterek buyruk boyutunu artırır.
 \end{tanim}
 
 RISC-V'te genel amaçlı yazmaçlar ABI (Application Binary Interface) adlarıyla gösterilir. Saklanan değerleri tutan yazmaçlar \texttt{s0}, \texttt{s1}, \texttt{s2}, \ldots\ şeklinde, geçici sonuçları tutan yazmaçlar da \texttt{t0}, \texttt{t1}, \texttt{t2}, \ldots\ şeklinde gösterilmektedir. MIPS'ten farklı olarak, RISC-V yazmaç adlarının başında \texttt{\$} karakteri bulunmaz.
@@ -500,7 +500,7 @@ Tablo~\ref{tab:riscv-yazmaclar}'teki 32 genel amaçlı yazmacın yanı sıra, RI
 
 Program sayacı (\emph{program counter}, İngilizce kısaltmasıyla PC, bu kitapta PS), o anda yürütülmekte olan buyruğun bellek adresini tutar. Her buyruk yürütüldükten sonra PS otomatik olarak 4 artar (çünkü RV32I'de her buyruk 4 bayt uzunluğundadır). Dallanma ve atlama buyrukları PS'yi farklı bir adrese yönlendirerek bu doğrusal akışı değiştirir.
 
-``Program sayacı'' adı ilk bakışta yanıltıcı olabilir: bu yazmaç programları saymaz, \emph{program içinde} sayar. Bellekteki buyrukları sırasıyla adresleyerek programın neresinde olduğumuzu takip eder. İlk bilgisayarlarda buyruklar ardışık bellek adreslerinde yer aldığından, bir sonraki buyruğa geçmek için bir sayaç yeterliydi ve bu yazmaç ``program sayacı'' adını aldı. Günümüzde PS bir sayaçtan çok bir \emph{adres göstergesidir}. Ancak tarihsel ad yerleşmiştir.
+``Program sayacı'' adı ilk bakışta yanıltıcı olabilir. Bu yazmaç programları saymaz, \emph{program içinde} sayar. Bellekteki buyrukları sırasıyla adresleyerek programın neresinde olduğumuzu takip eder. İlk bilgisayarlarda buyruklar ardışık bellek adreslerinde yer aldığından, bir sonraki buyruğa geçmek için bir sayaç yeterliydi ve bu yazmaç ``program sayacı'' adını aldı. Günümüzde PS bir sayaçtan çok bir \emph{adres göstergesidir}. Ancak tarihsel ad yerleşmiştir.
 
 PS, genel amaçlı yazmaç öbeğinin (\texttt{x0}--\texttt{x31}) bir parçası değildir. Ayrı bir donanım yazmacıdır. Programcı PS'ye doğrudan bir değer yazamaz. PS yalnızca dallanma (\texttt{beq}, \texttt{bne}, \ldots), atlama (\texttt{jal}, \texttt{jalr}) ve kural dışı durum mekanizmaları aracılığıyla değişir. Ancak \texttt{auipc} buyruğu PS'nin o anki değerini \emph{okuyarak} bir yazmaçta kullanılabilir hale getirir. Bu sayede konumdan bağımsız kod (\emph{position-independent code}) yazılabilir.
 
@@ -510,15 +510,15 @@ Her mimari programın o anki konumunu izleyen bir yazmaca sahiptir. Ancak adı, 
 
 \emph{RISC-V:} Ayrı bir donanım yazmacı olan PS, genel amaçlı yazmaç öbeğinin dışındadır. Doğrudan okunamaz ve yazılamaz. Yalnızca \texttt{auipc} ile dolaylı okunabilir, dallanma/atlama buyrukları ile değiştirilebilir. Sabit 4 baytlık buyruklar nedeniyle her adımda $+4$ artar.
 
-\emph{x86:} Intel bu yazmaca ``program sayacı'' değil, \emph{buyruk işaretçisi} (\emph{instruction pointer}) adını verir. 32 bitte \texttt{EIP}, 64 bitte \texttt{RIP}. Değişken uzunluklu buyruklar (1--15 bayt) nedeniyle artış miktarı her buyrukta farklıdır. Eski 16 bit modunda (8086) adres uzayı 1\,MB ile sınırlıydı. Bu sınırı aşmak için \texttt{CS} (\emph{Code Segment}) yazmacı ile \texttt{IP} birlikte kullanılırdı: fiziksel adres $= \texttt{CS} \times 16 + \texttt{IP}$. Çağdaş 64 bit modunda bölütleme (\emph{segmentation}) işlevini yitirmiştir. \texttt{RIP} tek başına 64 bitlik sanal adresi tutar.
+\emph{x86:} Intel bu yazmaca ``program sayacı'' değil, \emph{buyruk işaretçisi} (\emph{instruction pointer}) adını verir. 32 bitte \texttt{EIP}, 64 bitte \texttt{RIP}. Değişken uzunluklu buyruklar (1--15 bayt) nedeniyle artış miktarı her buyrukta farklıdır. Eski 16 bit modunda (8086) adres uzayı 1\,MB ile sınırlıydı. Bu sınırı aşmak için \texttt{CS} (\emph{Code Segment}) yazmacı ile \texttt{IP} birlikte kullanılırdı. Fiziksel adres $= \texttt{CS} \times 16 + \texttt{IP}$. Çağdaş 64 bit modunda bölütleme (\emph{segmentation}) işlevini yitirmiştir. \texttt{RIP} tek başına 64 bitlik sanal adresi tutar.
 
-\emph{ARM AArch32:} Program sayacı, genel amaçlı yazmaç öbeğinin bir parçasıydı (\texttt{R15 = PC}). Bu tasarım, \texttt{ADD PC, PC, R0} gibi buyrukların doğrudan PS'ye yazmasına olanak tanıyordu. Son derece esnekti ancak güvenlik açıklarına ve dallanma öngörücüsü karmaşıklığına yol açtı. ARM bu kararı AArch64'te düzeltti: PS artık ayrı bir yazmaçtır ve genel amaçlı buyruklar ile erişilemez.
+\emph{ARM AArch32:} Program sayacı, genel amaçlı yazmaç öbeğinin bir parçasıydı (\texttt{R15 = PC}). Bu tasarım, \texttt{ADD PC, PC, R0} gibi buyrukların doğrudan PS'ye yazmasına olanak tanıyordu. Son derece esnekti ancak güvenlik açıklarına ve dallanma öngörücüsü karmaşıklığına yol açtı. ARM bu kararı AArch64'te düzeltti. PS artık ayrı bir yazmaçtır ve genel amaçlı buyruklar ile erişilemez.
 
-\emph{MIPS:} RISC-V'e çok benzer biçimde PS ayrı bir yazmaçtır. Ancak MIPS'te bir ek karmaşıklık vardır: \emph{gecikmeli dallanma} (\emph{delayed branch}) nedeniyle dallanma buyruğundan \emph{sonraki} buyruk da yürütülür. RISC-V bu karmaşıklığı ortadan kaldırmıştır.
+\emph{MIPS:} RISC-V'e çok benzer biçimde PS ayrı bir yazmaçtır. Ancak MIPS'te bir ek karmaşıklık vardır. \emph{Gecikmeli dallanma} (\emph{delayed branch}) nedeniyle dallanma buyruğundan \emph{sonraki} buyruk da yürütülür. RISC-V bu karmaşıklığı ortadan kaldırmıştır.
 \end{karsilastirma}
 
 \begin{bilginot}[PS Neden Genel Amaçlı Yazmaç Değildir?]
-ARM AArch32'de program sayacının \texttt{R15} olarak genel amaçlı yazmaç öbeğine dahil edilmesi, başlangıçta zarif bir tasarım kararı gibi görünüyordu: herhangi bir buyruk PS'yi okuyabilir veya değiştirebilirdi. Ancak bu esneklik ciddi sorunlara yol açtı: (1)~güvenlik açıkları; bir saldırgan yazmaç üzerinden PS'yi keyfi bir adrese yönlendirebilirdi, (2)~dallanma öngörüsü karmaşıklığı; herhangi bir veri işleme buyruğu gizli bir dallanma olabilirdi, (3)~boru hattı tasarımı; PS'nin ne zaman güncelleneceği belirsizleşiyordu. Bu deneyimden ders çıkaran çağdaş mimariler (RISC-V, ARM AArch64, x86-64) PS'yi ayrı tutmayı tercih eder.
+ARM AArch32'de program sayacının \texttt{R15} olarak genel amaçlı yazmaç öbeğine dahil edilmesi, başlangıçta zarif bir tasarım kararı gibi görünüyordu, çünkü herhangi bir buyruk PS'yi okuyabilir veya değiştirebilirdi. Ancak bu esneklik ciddi sorunlara yol açtı: (1)~güvenlik açıkları; bir saldırgan yazmaç üzerinden PS'yi keyfi bir adrese yönlendirebilirdi, (2)~dallanma öngörüsü karmaşıklığı; herhangi bir veri işleme buyruğu gizli bir dallanma olabilirdi, (3)~boru hattı tasarımı; PS'nin ne zaman güncelleneceği belirsizleşiyordu. Bu deneyimden ders çıkaran çağdaş mimariler (RISC-V, ARM AArch64, x86-64) PS'yi ayrı tutmayı tercih eder.
 \end{bilginot}
 
 \subsubsection{Denetim ve Durum Yazmaçları (CSR)}
@@ -552,7 +552,7 @@ En sık karşılaşılan CSR yazmaçları Tablo~\ref{tab:csr-yazmaclari}'te list
 \end{tabular}
 \end{table}
 
-CSR yazmaçları \emph{ayrıcalıklı} erişim gerektirir: \texttt{m} öneki ``makine'' (\emph{machine}) ayrıcalık düzeyini belirtir. Bu, en yüksek yetki düzeyidir. Kullanıcı programları bu yazmaçlara doğrudan erişemez. Erişim yalnızca işletim sistemi çekirdeği veya önyükleme yazılımı tarafından yapılır.
+CSR yazmaçları \emph{ayrıcalıklı} erişim gerektirir. Buradaki \texttt{m} öneki ``makine'' (\emph{machine}) ayrıcalık düzeyini belirtir. Bu, en yüksek yetki düzeyidir. Kullanıcı programları bu yazmaçlara doğrudan erişemez. Erişim yalnızca işletim sistemi çekirdeği veya önyükleme yazılımı tarafından yapılır.
 
 RISC-V'te üç ayrıcalık düzeyi tanımlanmıştır:
 
@@ -581,9 +581,9 @@ Tablo~\ref{tab:csr-yazmaclari}'teki \texttt{mcycle} ve \texttt{minstret} yazmaç
 
 RISC-V, kullanıcı düzeyinden bu sayaçlara salt okunur erişim sağlayan \texttt{cycle} ve \texttt{instret} adlı gölge CSR'ler de tanımlar. Bu sayede ayrıcalıklı kipe geçmeden başarım ölçümü yapılabilir. Ancak bu erişimin açık olup olmadığı \texttt{mcounteren} yazmacı ile denetlenir.
 
-Donanım başarım sayaçları fikri RISC-V ile ortaya çıkmış değildir. Intel, 1993'te Pentium işlemcisiyle birlikte \emph{zaman damgası sayacı} (\emph{Time Stamp Counter}, TSC) adını verdiği 64 bitlik bir çevrim sayacını tanıttı. Bu sayaç \texttt{RDTSC} buyruğuyla okunabiliyordu. Pentium Pro (1995) ile birlikte \emph{başarım izleme sayaçları} (\emph{Performance Monitoring Counters}, PMC) eklendi: önbellek bulma/bulamama oranları, dallanma öngörü başarısı, boru hattı duraklamaları gibi yüzlerce farklı olay sayılabilir hale geldi. Günümüzde Intel işlemcileri binlerce farklı donanım olayını izleyebilen programlanabilir sayaçlara sahiptir. Linux'taki \texttt{perf} aracı bu sayaçları kullanarak program başarımını ayrıntılı biçimde çözümler.
+Donanım başarım sayaçları fikri RISC-V ile ortaya çıkmış değildir. Intel, 1993'te Pentium işlemcisiyle birlikte \emph{zaman damgası sayacı} (\emph{Time Stamp Counter}, TSC) adını verdiği 64 bitlik bir çevrim sayacını tanıttı. Bu sayaç \texttt{RDTSC} buyruğuyla okunabiliyordu. Pentium Pro (1995) ile birlikte \emph{başarım izleme sayaçları} (\emph{Performance Monitoring Counters}, PMC) eklendi. Önbellek bulma/bulamama oranları, dallanma öngörü başarısı, boru hattı duraklamaları gibi yüzlerce farklı olay sayılabilir hale geldi. Günümüzde Intel işlemcileri binlerce farklı donanım olayını izleyebilen programlanabilir sayaçlara sahiptir. Linux'taki \texttt{perf} aracı bu sayaçları kullanarak program başarımını ayrıntılı biçimde çözümler.
 
-ARM da benzer bir altyapı sunar: ARMv7'den itibaren \emph{Başarım İzleyici Birimi} (\emph{Performance Monitor Unit}, PMU) standart bir bileşen olarak tanımlanmıştır. RISC-V'in farkı, en temel iki sayacı (\texttt{mcycle} ve \texttt{minstret}) zorunlu CSR olarak tanımlamasıdır. En basit RISC-V gerçeklemesinde bile bu sayaçlar bulunmalıdır.
+ARM da benzer bir altyapı sunar. ARMv7'den itibaren \emph{Başarım İzleyici Birimi} (\emph{Performance Monitor Unit}, PMU) standart bir bileşen olarak tanımlanmıştır. RISC-V'in farkı, en temel iki sayacı (\texttt{mcycle} ve \texttt{minstret}) zorunlu CSR olarak tanımlamasıdır. En basit RISC-V gerçeklemesinde bile bu sayaçlar bulunmalıdır.
 \end{bilginot}
 
 \begin{karsilastirma}[Özel Yazmaçlar: RISC-V, ARM ve x86]
@@ -607,7 +607,7 @@ Ayrıca kayan nokta işlemlerinin durumunu tutan bir denetim yazmacı (\texttt{f
 \index{yığıt göstergesi}\index{RISC-V!yığıt göstergesi}
 Tablo~\ref{tab:riscv-yazmaclar}'te \texttt{x2} yazmacının ABI adı \texttt{sp} (\emph{stack pointer}, yığıt göstergesi) olarak belirtilmişti. Ancak RISC-V donanımı açısından \texttt{x2} ile diğer yazmaçlar arasında hiçbir fark yoktur. \texttt{x2} sıradan bir genel amaçlı yazmaçtır. Yığıt göstergesi rolü tamamen yazılım uzlaşısına (ABI) dayanır. Donanım \texttt{x2}'yi özel olarak tanımaz.
 
-Bu, x86 ile temel bir farktır. x86'da \texttt{RSP} donanım düzeyinde özel bir yazmaçtır: \texttt{PUSH} buyruğu \texttt{RSP}'yi otomatik olarak azaltıp veriyi belleğe yazar. \texttt{POP} ise bellekten okuyup \texttt{RSP}'yi artırır. \texttt{CALL} dönüş adresini \texttt{RSP}'nin gösterdiği yere yazar. \texttt{RET} oradan okur. Programcı \texttt{RSP}'yi başka amaçla kullansa bile bu buyruklar hâlâ \texttt{RSP}'yi yığıt göstergesi olarak varsayar.
+Bu, x86 ile temel bir farktır. x86'da \texttt{RSP} donanım düzeyinde özel bir yazmaçtır. \texttt{PUSH} buyruğu \texttt{RSP}'yi otomatik olarak azaltıp veriyi belleğe yazar. \texttt{POP} ise bellekten okuyup \texttt{RSP}'yi artırır. \texttt{CALL} dönüş adresini \texttt{RSP}'nin gösterdiği yere yazar. \texttt{RET} oradan okur. Programcı \texttt{RSP}'yi başka amaçla kullansa bile bu buyruklar hâlâ \texttt{RSP}'yi yığıt göstergesi olarak varsayar.
 
 RISC-V'te ise \texttt{PUSH}/\texttt{POP} buyrukları yoktur. Yığıta yazmak için programcı \texttt{sp}'yi açıkça güncelleyip \texttt{sw}/\texttt{lw} kullanır:
 \begin{lstlisting}[style=riscv]
@@ -661,7 +661,7 @@ Bu yaklaşım daha fazla buyruk gerektirir. Ancak donanımı sadeleştirir ve ya
 \subsection{Sıfır Yazmacı: x0 Neden Hep Sıfırdır}
 \index{RISC-V!sıfır yazmacı}\index{x0 yazmacı}
 
-Tablo~\ref{tab:riscv-yazmaclar}'te dikkat çeken bir ayrıntı, \texttt{x0} (\texttt{zero}) yazmacının değerinin her zaman sıfır olması ve üzerine yazılamamasıdır. Bu tasarım kararının ardında güçlü bir neden yatar: sıfır değeri programlarda son derece sık kullanılır ve ayrı bir sıfır yazmacı, pek çok işlemi ek buyruk gerektirmeden gerçekleştirmeyi sağlar. Örneğin:
+Tablo~\ref{tab:riscv-yazmaclar}'te dikkat çeken bir ayrıntı, \texttt{x0} (\texttt{zero}) yazmacının değerinin her zaman sıfır olması ve üzerine yazılamamasıdır. Bu tasarım kararının ardında güçlü bir neden yatar. Sıfır değeri programlarda son derece sık kullanılır ve ayrı bir sıfır yazmacı, pek çok işlemi ek buyruk gerektirmeden gerçekleştirmeyi sağlar. Örneğin:
 
 \begin{itemize}[nosep]
 \item Yazmaçtan yazmaca kopyalama: \texttt{add t0, t1, zero} $\equiv$ \texttt{mv t0, t1}
@@ -757,7 +757,7 @@ Tablo~\ref{tab:yazmac-karsilastirma}'te görüldüğü gibi mimari tasarımlar a
 
 Yazmaç sayısı az olduğunda derleyici, hesaplama sırasında kullanılan tüm değişkenleri yazmaçlarda tutamaz. Bu durumda bazı değerleri geçici olarak belleğe (yığıta) yazmak ve daha sonra geri okumak zorunda kalır. Bu işleme \emph{yazmaçtan belleğe taşıma}\index{yazmaçtan belleğe taşıma} (\emph{register spilling}) denir. Bu duruma yol açan yetersizliğe de \emph{yazmaç yetersizliği}\index{yazmaç yetersizliği} adı verilir. Derleyici, yazmaca sığdıramadığı her değer için fazladan bir saklama (\texttt{store}) ve bir yükleme (\texttt{load}) buyruğu üretmek zorundadır. Bu da hem buyruk sayısını artırır hem de yavaş bellek erişimleri nedeniyle başarımı düşürür. Örneğin x86 IA-32'nin yalnızca 8 genel amaçlı yazmacı olması, derleyicileri sık sık yazmaçtan belleğe taşıma yapmaya zorlamış ve bu durum x86-64'te yazmaç sayısının 16'ya çıkarılmasının başlıca nedenlerinden biri olmuştur.
 
-Öte yandan yazmaç sayısını artırmanın da bir bedeli vardır. Her buyrukta kaynak ve hedef yazmaçlarını belirtmek için daha fazla bit gerekir: 32 yazmaç, buyrukta yazmaç numarasını kodlamak için 5 bit gerektirirken, 16 yazmaç 4 bit, 8 yazmaç ise 3 bit gerektirir. Üç yazmaçlı bir buyrukta (kaynak~1, kaynak~2, hedef) bu fark $3 \times (5 - 3) = 6$ bite ulaşır. Sabit 32 bitlik buyruk genişliğinde bu fazladan bitler, anlık değerler ve işlem kodları için ayrılabilecek alandan çalınır. Aynı programın makine kodu daha fazla yer kaplar ve buyruk önbelleğine (\emph{instruction cache}) daha fazla baskı uygular. Bu duruma \emph{kod şişmesi}\index{kod şişmesi} (\emph{code bloat}) denir.
+Öte yandan yazmaç sayısını artırmanın da bir bedeli vardır. Her buyrukta kaynak ve hedef yazmaçlarını belirtmek için daha fazla bit gerekir. 32 yazmaç, buyrukta yazmaç numarasını kodlamak için 5 bit gerektirirken, 16 yazmaç 4 bit, 8 yazmaç ise 3 bit gerektirir. Üç yazmaçlı bir buyrukta (kaynak~1, kaynak~2, hedef) bu fark $3 \times (5 - 3) = 6$ bite ulaşır. Sabit 32 bitlik buyruk genişliğinde bu fazladan bitler, anlık değerler ve işlem kodları için ayrılabilecek alandan çalınır. Aynı programın makine kodu daha fazla yer kaplar ve buyruk önbelleğine (\emph{instruction cache}) daha fazla baskı uygular. Bu duruma \emph{kod şişmesi}\index{kod şişmesi} (\emph{code bloat}) denir.
 
 Bağlam değiştirme (\emph{context switch}) maliyeti de yazmaç sayısıyla doğru orantılıdır. İşletim sistemi bir süreçten diğerine geçerken tüm yazmaçların belleğe kaydedilip geri yüklenmesi gerekir. 32 yazmaçlı bir mimaride bu işlem, 8 yazmaçlı bir mimariye göre dört kat daha fazla veri aktarımı gerektirir.
 
@@ -1023,7 +1023,7 @@ x86-64 ise yalnızca 16 genel amaçlı yazmaç sunar (RAX--R15). IA-32'de bu say
 \label{sec:riscv-veri}
 \index{RISC-V!veri saklama}
 
-İkilik tabandaki sayı gösterimlerini öğrendiğimize göre, şimdi bu bilgilerin RISC-V yazmaçlarında nasıl kullanıldığına bakalım. RISC-V RV32I temel buyruk kümesi 32 adet 32 bitlik yazmaca sahiptir ve veriler ikiye tümleyen yöntemiyle saklanır. Yazmaçlardaki basamaklar sağdan sola doğru 0'dan 31'e kadar numaralandırılır: en sağdaki bit (bit~0) en anlamsız, en soldaki bit (bit~31) ise en anlamlı basamaktır.
+İkilik tabandaki sayı gösterimlerini öğrendiğimize göre, şimdi bu bilgilerin RISC-V yazmaçlarında nasıl kullanıldığına bakalım. RISC-V RV32I temel buyruk kümesi 32 adet 32 bitlik yazmaca sahiptir ve veriler ikiye tümleyen yöntemiyle saklanır. Yazmaçlardaki basamaklar sağdan sola doğru 0'dan 31'e kadar numaralandırılır. En sağdaki bit (bit~0) en anlamsız, en soldaki bit (bit~31) ise en anlamlı basamaktır.
 
 \begin{bilginot}[RV64I'de 64 Bit Yazmaçlar]
 RV64I uzantısında yazmaçlar 64 bit genişliğindedir. Bu durumda işaretsiz sayılar için en büyük değer $2^{64}-1$, işaretli sayılar için en küçük değer $-2^{63}$, en büyük değer $2^{63}-1$ olur.
@@ -1074,9 +1074,9 @@ Saklanan 32 bitlik bir sayının işaretli ya da işaretsiz olduğunu donanım b
 \label{sec:bellek-duzeni}
 \index{bellek düzeni}
 
-Tek tek bitlerle uğraşmak ne kadar zor olurdu, bir düşünün: her seferinde 0 ya da 1'lerle tek tek ilgilenmeniz gerekirdi. Bu yüzden bitler gruplar halinde düzenlenir. Bu grupların en temel birimi, 8 bitten oluşan \textbf{bayt}'tır\index{bayt}.
+Tek tek bitlerle uğraşmak ne kadar zor olurdu, bir düşünün. Her seferinde 0 ya da 1'lerle tek tek ilgilenmeniz gerekirdi. Bu yüzden bitler gruplar halinde düzenlenir. Bu grupların en temel birimi, 8 bitten oluşan \textbf{bayt}'tır\index{bayt}.
 
-Belleği devasa bir kutu dizisi olarak hayal edebilirsiniz: her kutunun bir adresi vardır ve her kutu tam bir baytlık (8 bitlik) veri tutar. Günümüz işlemcilerinin tamamı bu ``bayt adreslenebilir'' bellek yapısını kullanır (Şekil~\ref{fig:bellek-yapisi}).
+Belleği devasa bir kutu dizisi olarak hayal edebilirsiniz. Her kutunun bir adresi vardır ve her kutu tam bir baytlık (8 bitlik) veri tutar. Günümüz işlemcilerinin tamamı bu ``bayt adreslenebilir'' bellek yapısını kullanır (Şekil~\ref{fig:bellek-yapisi}).
 
 Ancak bu her zaman böyle değildi. Bayt adresleme IBM System/360 (1964) ile yaygınlaştı. Bu mimari 8 bitlik baytı endüstri standardı haline getirdi. Öncesinde işlemciler bellekte en küçük birim olarak \emph{sözcük} kullanırdı ve sözcük boyutları mimariden mimariye farklılık gösterirdi: CDC~6600 (1964) 60 bitlik, Cray-1 (1976) 64 bitlik, PDP-10 (1966) ise 36 bitlik sözcüklerle çalışırdı. Bu işlemcilerde her adres bir sözcüğe karşılık gelirdi. Sözcüğün içindeki tekil bir bayta doğrudan erişmek mümkün değildi. Günümüzde bazı sayısal sinyal işlemcileri (DSP) hâlâ 16 veya 32 bitlik sözcük adresleme kullanmaktadır.
 
@@ -1100,7 +1100,7 @@ PDP-10 & 36 bit & 1966 \\
 \end{tabular}
 \end{center}
 
-Burada iki ayrı kavramı birbirine karıştırmamak gerekir: bellek \emph{bayt} biriminde adreslenir, ancak işlemci belleğe genellikle \emph{sözcük} biriminde erişir. Örneğin RV32I'de bellekte her baytın ayrı bir adresi vardır. Ancak \texttt{lw} (load word) buyruğu tek seferde 4 ardışık baytı (bir sözcüğü) okur, \texttt{lb} (load byte) ise yalnızca tek bir bayt okur. Bu ikili yapı esneklik sağlar: metin işlemede karakterlere tek tek erişmek için \texttt{lb}, tam sayı hesaplamalarında 32 bitlik değerlerle çalışmak için \texttt{lw} kullanılır.
+Burada iki ayrı kavramı birbirine karıştırmamak gerekir. Bellek \emph{bayt} biriminde adreslenir, ancak işlemci belleğe genellikle \emph{sözcük} biriminde erişir. Örneğin RV32I'de bellekte her baytın ayrı bir adresi vardır. Ancak \texttt{lw} (load word) buyruğu tek seferde 4 ardışık baytı (bir sözcüğü) okur, \texttt{lb} (load byte) ise yalnızca tek bir bayt okur. Bu ikili yapı esneklik sağlar. Metin işlemede karakterlere tek tek erişmek için \texttt{lb}, tam sayı hesaplamalarında 32 bitlik değerlerle çalışmak için \texttt{lw} kullanılır.
 
 \begin{karsilastirma}[Adresleme Biriminin Boyutu: Bir Ödünleşme]
 En küçük adreslenebilir birimin boyutu önemli bir tasarım kararıdır:
@@ -1146,12 +1146,12 @@ Bayt adreslemesinin bugün evrensel standart olması, yazılım dünyasının ka
 \label{fig:bellek-yapisi}
 \end{figure}
 
-Şekil~\ref{fig:bellek-yapisi}'de belleğin iki farklı görünümü yer almaktadır. Soldaki \emph{dizi gösterimi}, belleği ardışık baytlardan oluşan tek boyutlu bir dizi olarak sunar. Her satır tek bir bayta karşılık gelir ve her baytın kendine ait bir adresi vardır. Bu gösterim belleğin kavramsal yapısını en yalın biçimde yansıtır. Sağdaki \emph{matris gösterimi} ise aynı belleği satır ve sütunlar halinde düzenler: her satırda birden fazla bayt yan yana gösterilir. Gerçek bellek yongalarının iç yapısı bu matris düzenine daha yakındır. Bellek hücreleri satır ve sütun adresleriyle seçilir. Matris gösterimi aynı zamanda sözcük sınırlarını görmeyi de kolaylaştırır: dört sütunlu bir düzende her satır bir sözcüğe (4 bayt) karşılık gelir.
+Şekil~\ref{fig:bellek-yapisi}'de belleğin iki farklı görünümü yer almaktadır. Soldaki \emph{dizi gösterimi}, belleği ardışık baytlardan oluşan tek boyutlu bir dizi olarak sunar. Her satır tek bir bayta karşılık gelir ve her baytın kendine ait bir adresi vardır. Bu gösterim belleğin kavramsal yapısını en yalın biçimde yansıtır. Sağdaki \emph{matris gösterimi} ise aynı belleği satır ve sütunlar halinde düzenler. Her satırda birden fazla bayt yan yana gösterilir. Gerçek bellek yongalarının iç yapısı bu matris düzenine daha yakındır. Bellek hücreleri satır ve sütun adresleriyle seçilir. Matris gösterimi aynı zamanda sözcük sınırlarını görmeyi de kolaylaştırır. Dört sütunlu bir düzende her satır bir sözcüğe (4 bayt) karşılık gelir.
 
 \begin{karsilastirma}[Bellek Erişim Modelleri]
-RISC-V, MIPS ve ARM yükle/sakla (\emph{load/store}) mimarisini benimser: aritmetik ve mantık işlemleri yalnızca yazmaçlar üzerinde gerçeklenir, belleğe erişim ise ayrı \texttt{load}/\texttt{store} buyruklarıyla yapılır. Bu ayrım boru hattı tasarımını basitleştirir. Her buyruk aşamasının ne yapacağı önceden bellidir.
+RISC-V, MIPS ve ARM yükle/sakla (\emph{load/store}) mimarisini benimser. Aritmetik ve mantık işlemleri yalnızca yazmaçlar üzerinde gerçeklenir, belleğe erişim ise ayrı \texttt{load}/\texttt{store} buyruklarıyla yapılır. Bu ayrım boru hattı tasarımını basitleştirir. Her buyruk aşamasının ne yapacağı önceden bellidir.
 
-x86 ise bellek işleneni (\emph{memory operand}) kavramına izin verir: \texttt{ADD EAX, [rbx+4]} gibi bir buyruk hem belleği okur hem de aritmetik işlemi tek adımda gerçekleştirir. Bu esneklik programcıya kolaylık sağlasa da boru hattında hem bellek hem de yürütme biriminin aynı buyruk için harekete geçmesi gerekir.
+x86 ise bellek işleneni (\emph{memory operand}) kavramına izin verir. \texttt{ADD EAX, [rbx+4]} gibi bir buyruk hem belleği okur hem de aritmetik işlemi tek adımda gerçekleştirir. Bu esneklik programcıya kolaylık sağlasa da boru hattında hem bellek hem de yürütme biriminin aynı buyruk için harekete geçmesi gerekir.
 
 Hizalama konusunda mimariler farklılaşır. RISC-V belirtimi hizasız erişime izin verir. Ancak donanım bunu iki ayrı bellek okumasına bölerek çözebileceğinden başarım düşer. MIPS geleneksel olarak hizalı erişim zorunlu kılar. Hizasız erişim kural dışı durum üretir. ARM (AArch64) hizasız erişime izin verir. x86 de hizasız erişimi destekler. Ancak önbellek sınırını aşan erişimlerde gecikme oluşur.
 \end{karsilastirma}
@@ -1170,7 +1170,7 @@ RISC-V C (Compressed) uzantısı etkinleştirildiğinde bazı buyruklar 16 bit (
 \item \textbf{Veri erişimi (\emph{data access}):} \texttt{lw}/\texttt{sw}, \texttt{lh}/\texttt{sh}, \texttt{lb}/\texttt{sb} gibi yükle/sakla buyruklarıyla yapılır. Burada okunan veya yazılan verinin boyutu buyruğa bağlıdır: \texttt{lb} 1 bayt, \texttt{lh} 2 bayt (yarım sözcük), \texttt{lw} 4 bayt (sözcük) okur.
 \end{enumerate}
 
-Bu ayrım önemli bir sonuç doğurur: ``sözcük'' kavramı bağlama göre farklı boyutlara karşılık gelebilir. Buyruk sözcüğü RV32I'de her zaman 32 bittir. Ancak C uzantısı etkinleştirildiğinde bazı buyruklar 16 bit olabilir. Veri sözcüğü ise erişim türüne bağlıdır. Farklı mimarilerde bu boyutlar değişebilir: örneğin PDP-11'de sözcük 16 bit, VAX'ta 32 bit, çağdaş 64 bit işlemcilerde ise ``çift sözcük'' (\emph{doubleword}) olarak 64 bittir.
+Bu ayrım önemli bir sonuç doğurur. ``Sözcük'' kavramı bağlama göre farklı boyutlara karşılık gelebilir. Buyruk sözcüğü RV32I'de her zaman 32 bittir. Ancak C uzantısı etkinleştirildiğinde bazı buyruklar 16 bit olabilir. Veri sözcüğü ise erişim türüne bağlıdır. Farklı mimarilerde bu boyutlar değişebilir. Örneğin PDP-11'de sözcük 16 bit, VAX'ta 32 bit, çağdaş 64 bit işlemcilerde ise ``çift sözcük'' (\emph{doubleword}) olarak 64 bittir.
 
 İşlemcinin adresleyebileceği bellek uzayı adres çıkışındaki bit sayısına bağlıdır. RV32I'de 32 bitlik adres çıkışıyla $2^{32}$~bayt ya da $2^{30}$~sözcük adreslenebilir.
 
@@ -1279,7 +1279,7 @@ Belleğe birden fazla bayt içeren bir veri yerleştirilirken hangi baytın kü�
 \end{itemize}
 
 \begin{bilginot}[Güliver'in Yumurta Savaşı]
-\emph{Big-endian} ve \emph{little-endian} terimleri, Jonathan Swift'in 1726 tarihli \emph{Güliver'in Gezileri} romanından esinlenilerek bilgisayar bilimine kazandırılmıştır. Romanda Lilliput ve Blefuscu imparatorlukları, haşlanmış yumurtanın hangi ucundan kırılması gerektiği konusunda şiddetli bir savaşa tutuşur: bir taraf kalın ucundan (\emph{big end}), diğeri sivri ucundan (\emph{little end}) kırılmasını savunur. Danny Cohen, 1980 yılında yayımladığı ``On Holy Wars and a Plea for Peace'' başlıklı makalesinde~\cite{cohen1980} bu hikâyeye gönderme yaparak bayt sırası tartışmasını \emph{endian} kavramıyla adlandırmıştır. Tıpkı romandaki yumurta savaşı gibi, bayt sırası tercihi de teknik açıdan kesin bir üstünlük sağlamaz. Ancak iki farklı düzeni kullanan sistemler arasında veri alışverişi yapılırken ciddi uyumluluk sorunlarına yol açar.
+\emph{Big-endian} ve \emph{little-endian} terimleri, Jonathan Swift'in 1726 tarihli \emph{Güliver'in Gezileri} romanından esinlenilerek bilgisayar bilimine kazandırılmıştır. Romanda Lilliput ve Blefuscu imparatorlukları, haşlanmış yumurtanın hangi ucundan kırılması gerektiği konusunda şiddetli bir savaşa tutuşur. Bir taraf kalın ucundan (\emph{big end}), diğeri sivri ucundan (\emph{little end}) kırılmasını savunur. Danny Cohen, 1980 yılında yayımladığı ``On Holy Wars and a Plea for Peace'' başlıklı makalesinde~\cite{cohen1980} bu hikâyeye gönderme yaparak bayt sırası tartışmasını \emph{endian} kavramıyla adlandırmıştır. Tıpkı romandaki yumurta savaşı gibi, bayt sırası tercihi de teknik açıdan kesin bir üstünlük sağlamaz. Ancak iki farklı düzeni kullanan sistemler arasında veri alışverişi yapılırken ciddi uyumluluk sorunlarına yol açar.
 \end{bilginot}
 
 \begin{figure}[H]
@@ -1355,7 +1355,7 @@ Az sayıda işlemci, baytları ne tamamen büyükten küçüğe ne de küçükte
 \begin{karsilastirma}[Bayt Sırası Tercihleri]
 x86 her zaman küçüğü başta düzenini kullanır. Bu tercih değiştirilemez. RISC-V de varsayılan olarak küçüğü başta çalışır. Belirtim büyüğü başta kipini tanımlasa da hemen her RISC-V gerçeklemesi küçüğü başta düzenini benimsemiştir.
 
-MIPS ve ARM çift yönlü mimarilerdir: donanım her iki düzeni de destekleyebilir. ARM işlemciler büyük çoğunlukla küçüğü başta kipinde çalışır. Android ve Linux çekirdekleri de bu kipi kullanır. MIPS ise tarihsel olarak büyüğü başta ile anılır (SGI iş istasyonları, ağ donanımları). Ancak günümüz MIPS çekirdekleri küçüğü başta kipini de destekler.
+MIPS ve ARM çift yönlü mimarilerdir. Donanım her iki düzeni de destekleyebilir. ARM işlemciler büyük çoğunlukla küçüğü başta kipinde çalışır. Android ve Linux çekirdekleri de bu kipi kullanır. MIPS ise tarihsel olarak büyüğü başta ile anılır (SGI iş istasyonları, ağ donanımları). Ancak günümüz MIPS çekirdekleri küçüğü başta kipini de destekler.
 
 Ağ protokolleri (TCP/IP, UDP) büyüğü başta düzenini, bir başka adıyla ``ağ bayt sırası''nı (\emph{network byte order}) kullanır. Küçüğü başta makinelerde ağ paketleri işlenirken \texttt{htonl}/\texttt{ntohl} gibi dönüşüm işlevleri gerekir.
 \end{karsilastirma}
@@ -1423,7 +1423,7 @@ Bölüm~\ref{chap:basarim}'de tanıttığımız bu ilkenin burada somut bir yans
 \item \texttt{addi} bir I türü buyruktur: bir kaynak yazmaç (\texttt{rs1}), bir hedef yazmaç (\texttt{rd}) ve 12 bitlik bir anlık değer (\texttt{imm}) kullanır. İkinci kaynak yazmaç alanı yoktur. Onun yerine anlık değer alanı vardır. İşlem kodu alanları: \texttt{opcode=0010011}, \texttt{funct3=000}.
 \end{itemize}
 
-İşlemcinin çözme birimi, buyruğun \texttt{opcode} alanına bakarak hangi biçimle karşı karşıya olduğunu anlar ve bit alanlarını buna göre yorumlar. R türünde \texttt{rs2} alanı olarak okunan bitler, I türünde anlık değerin bir parçasıdır. Bu ayrım, sabit genişlikli buyruk biçimlerinin doğal bir sonucudur: işlenenler farklı türde olduğunda (yazmaç mı, sabit mi?) buyruğun iç yapısının da farklı olması gerekir.
+İşlemcinin çözme birimi, buyruğun \texttt{opcode} alanına bakarak hangi biçimle karşı karşıya olduğunu anlar ve bit alanlarını buna göre yorumlar. R türünde \texttt{rs2} alanı olarak okunan bitler, I türünde anlık değerin bir parçasıdır. Bu ayrım, sabit genişlikli buyruk biçimlerinin doğal bir sonucudur. İşlenenler farklı türde olduğunda (yazmaç mı, sabit mi?) buyruğun iç yapısının da farklı olması gerekir.
 
 \subsection{Buyruk Türleri}
 \index{buyruk!türleri}
@@ -1706,7 +1706,7 @@ J & Koşulsuz atlama & \texttt{jal} \\
 Tablo~\ref{tab:riscv-buyruk-bicimleri-tablo}'da her biçimin hangi tür buyrukları kapsadığı özetlenmiştir.
 
 \begin{karsilastirma}[Buyruk Biçimlerinin Karşılaştırması]
-MIPS mimarisi yalnızca 3 buyruk biçimi (R, I, J) kullanır. Bu yapı daha basittir ancak esneklik açısından kısıtlıdır. ARM AArch64 sabit 32 bitlik buyruklar kullanır. Biçim gruplandırması farklıdır. x86 mimarisi ise 1–15 bayt arasında değişen uzunlukta buyruklar içerir: önek, REX/VEX, işlem kodu, ModRM, SIB, yer değiştirme (displacement) ve anlık değer alanlarıyla oluşan bu yapının çözümlenmesi sıralı bayt incelemesi gerektirir. RISC-V'in 6 biçimi (R, I, S, B, U, J) ise dengeli bir çözüm sunar: farklı buyruk gereksinimlerini karşılayacak kadar çeşitlilik sağlarken çözümleme mantığını düzenli tutar.
+MIPS mimarisi yalnızca 3 buyruk biçimi (R, I, J) kullanır. Bu yapı daha basittir ancak esneklik açısından kısıtlıdır. ARM AArch64 sabit 32 bitlik buyruklar kullanır. Biçim gruplandırması farklıdır. x86 mimarisi ise 1–15 bayt arasında değişen uzunlukta buyruklar içerir. Önek, REX/VEX, işlem kodu, ModRM, SIB, yer değiştirme (displacement) ve anlık değer alanlarıyla oluşan bu yapının çözümlenmesi sıralı bayt incelemesi gerektirir. RISC-V'in 6 biçimi (R, I, S, B, U, J) ise dengeli bir çözüm sunar. Farklı buyruk gereksinimlerini karşılayacak kadar çeşitlilik sağlarken çözümleme mantığını düzenli tutar.
 \end{karsilastirma}
 
 % =====================================================
@@ -1771,7 +1771,7 @@ addi t1, s1, 0   # s1 + 0 = s1, sonuç t1'e yazılır
 
 
 \begin{karsilastirma}[Veri Aktarma Yaklaşımları]
-x86 mimarisinde aritmetik buyruklar doğrudan bellek işleneni kabul eder (örn. \texttt{ADD EAX, [adres]}). Bu özellik basit durumlar için ayrı yükleme/saklama adımını ortadan kaldırır, ancak boru hattını karmaşıklaştırır. MIPS, ARM ve RISC-V mimarileri ise yükleme-saklama (load-store) ilkesini benimser: verinin işlenebilmesi için önce yazmaçlara yüklenmesi gerekir. ARM, verimlilik açısından çift yükleme/saklama buyrukları (LDP/STP) sunar. MIPS benzer işlevler için \texttt{lw}/\texttt{sw} kullanır. x86'nın bellek işleneni yaklaşımı buyruk karmaşıklığını artırır. Buna karşın bellekten yoğun biçimde veri okuyan kodlarda buyruk sayısını azaltır.
+x86 mimarisinde aritmetik buyruklar doğrudan bellek işleneni kabul eder (örn. \texttt{ADD EAX, [adres]}). Bu özellik basit durumlar için ayrı yükleme/saklama adımını ortadan kaldırır, ancak boru hattını karmaşıklaştırır. MIPS, ARM ve RISC-V mimarileri ise yükleme-saklama (load-store) ilkesini benimser. Verinin işlenebilmesi için önce yazmaçlara yüklenmesi gerekir. ARM, verimlilik açısından çift yükleme/saklama buyrukları (LDP/STP) sunar. MIPS benzer işlevler için \texttt{lw}/\texttt{sw} kullanır. x86'nın bellek işleneni yaklaşımı buyruk karmaşıklığını artırır. Buna karşın bellekten yoğun biçimde veri okuyan kodlarda buyruk sayısını azaltır.
 \end{karsilastirma}
 
 % =====================================================
@@ -1819,7 +1819,7 @@ add s2, s3, t0    # a = b + dizi[3]
 \label{sec:carpma-bolme-sorunu}
 \index{çarpma!geniş sonuç sorunu}
 
-İki $N$ bitlik tam sayının çarpımı $2N$ bitlik bir sonuç üretir. Örneğin RV32I'de iki 32 bitlik yazmaç çarpıldığında sonuç 64 bit genişliğindedir ve tek bir 32 bitlik yazmaca sığmaz. Benzer şekilde bölme işlemi hem bölüm hem kalan olmak üzere iki ayrı değer üretir. Bu durum tüm sabit genişlikli yazmaç mimarileri için bir tasarım kararı gerektirir: geniş sonuç nerede ve nasıl saklanacaktır?
+İki $N$ bitlik tam sayının çarpımı $2N$ bitlik bir sonuç üretir. Örneğin RV32I'de iki 32 bitlik yazmaç çarpıldığında sonuç 64 bit genişliğindedir ve tek bir 32 bitlik yazmaca sığmaz. Benzer şekilde bölme işlemi hem bölüm hem kalan olmak üzere iki ayrı değer üretir. Bu durum tüm sabit genişlikli yazmaç mimarileri için bir tasarım kararı gerektirir. Peki geniş sonuç nerede ve nasıl saklanacaktır?
 
 Farklı mimariler bu soruna farklı yaklaşımlar benimsemiştir:
 
@@ -1913,7 +1913,7 @@ Tablo~\ref{tab:carpma-karsilastirma-kod}'te özetlendiği gibi ARM, 64 bitlik ya
 \end{ornek}
 
 \begin{karsilastirma}[Aritmetik Buyruk Farklılıkları]
-RISC-V ve MIPS, 3 işlenenli biçim kullanır (\texttt{add rd, rs1, rs2}): hedef yazmaç ayrıdır, kaynak değerler korunur. x86 ise 2 işlenenli biçimi benimser (\texttt{ADD EAX, EBX}): hedef aynı zamanda birinci kaynaktır ve özgün değer üzerine yazılır. ARM AArch64, RISC-V gibi 3 işlenenli biçimi tercih eder. Çarpma ve bölme işlemlerindeki mimari farklılıklar Tablo~\ref{tab:carpma-saklama}'te özetlenmiştir.
+RISC-V ve MIPS, 3 işlenenli biçim kullanır (\texttt{add rd, rs1, rs2}). Hedef yazmaç ayrıdır, kaynak değerler korunur. x86 ise 2 işlenenli biçimi benimser (\texttt{ADD EAX, EBX}). Hedef aynı zamanda birinci kaynaktır ve özgün değer üzerine yazılır. ARM AArch64, RISC-V gibi 3 işlenenli biçimi tercih eder. Çarpma ve bölme işlemlerindeki mimari farklılıklar Tablo~\ref{tab:carpma-saklama}'te özetlenmiştir.
 \end{karsilastirma}
 
 % =====================================================
@@ -1956,7 +1956,7 @@ $\texttt{0xFF} = (0000\ldots011111111)_2$ ile VE işlemi yapıldığında yalnı
 \label{sec:degil-islemi}
 \index{DEĞİL işlemi}\index{NOT}
 
-VE, VEYA ve Dışlayan VEYA iki işlenen gerektirir (\emph{binary operation}). Ancak DEĞİL (\textit{NOT}) tek bir işlenen üzerinde çalışır: her 0 bitini 1'e, her 1 bitini 0'a çevirir. Bu basit işlem mimariler arasında şaşırtıcı derecede farklı biçimlerde gerçekleştirilir:
+VE, VEYA ve Dışlayan VEYA iki işlenen gerektirir (\emph{binary operation}). Ancak DEĞİL (\textit{NOT}) tek bir işlenen üzerinde çalışır. Her 0 bitini 1'e, her 1 bitini 0'a çevirir. Bu basit işlem mimariler arasında şaşırtıcı derecede farklı biçimlerde gerçekleştirilir:
 
 \begin{itemize}[nosep]
 \item x86'da \texttt{NOT} gerçek bir buyruktur: \texttt{NOT EAX} yazıldığında donanım doğrudan bit tersini hesaplar.
@@ -1965,7 +1965,7 @@ VE, VEYA ve Dışlayan VEYA iki işlenen gerektirir (\emph{binary operation}). A
 \item RISC-V'te\index{RISC-V!DEĞİL işlemi} ne \texttt{not} ne de \texttt{nor} gerçek buyruk olarak tanımlanmıştır. Bunun yerine \texttt{xori} buyruğu $-1$ anlık değeriyle kullanılarak DEĞİL elde edilir. Çevirici \texttt{not rd, rs} sözde buyruğunu otomatik olarak \texttt{xori rd, rs, -1} biçimine açar.
 \end{itemize}
 
-RISC-V tasarımcılarının ayrı bir DEĞİL buyruğu eklememesinin nedeni, buyruk kümesini olabildiğince küçük tutma ilkesidir: mevcut bir buyrukla (\texttt{xori}) aynı işlem gerçekleştirilebildiğinde yeni bir işlem kodu tanımlamak gereksiz karmaşıklık yaratır.
+RISC-V tasarımcılarının ayrı bir DEĞİL buyruğu eklememesinin nedeni, buyruk kümesini olabildiğince küçük tutma ilkesidir. Mevcut bir buyrukla (\texttt{xori}) aynı işlem gerçekleştirilebildiğinde yeni bir işlem kodu tanımlamak gereksiz karmaşıklık yaratır.
 
 \begin{ornek}[3.13]
 RISC-V buyruklarını kullanarak \texttt{s2} yazmacındaki değerin DEĞİL'ini alın.
@@ -1975,7 +1975,7 @@ RISC-V buyruklarını kullanarak \texttt{s2} yazmacındaki değerin DEĞİL'ini 
 xori s2, s2, -1   # s2'nin tüm bitlerini tersine çevirir
 \end{lstlisting}
 
-Bu buyruk \texttt{not s2, s2} sözde buyruğuna karşılık gelir. Anlık değer $-1$, 32 bite işaretle genişletildiğinde tüm 32 bitin 1 olduğu $(\text{FFFFFFFF})_{16}$ değerini üretir ve Dışlayan VEYA işlemi her biti tersine çevirir: $a \oplus 1 = \overline{a}$ olduğundan bu yöntem DEĞİL ile aynı sonucu verir.
+Bu buyruk \texttt{not s2, s2} sözde buyruğuna karşılık gelir. Anlık değer $-1$, 32 bite işaretle genişletildiğinde tüm 32 bitin 1 olduğu $(\text{FFFFFFFF})_{16}$ değerini üretir ve Dışlayan VEYA işlemi her biti tersine çevirir. Burada $a \oplus 1 = \overline{a}$ olduğundan bu yöntem DEĞİL ile aynı sonucu verir.
 \end{ornek}
 
 
@@ -2159,7 +2159,7 @@ don:
 cik:
 \end{lstlisting}
 
-Bu örnek dallanma buyruklarının en yaygın kullanımını göstermektedir: \texttt{bge} döngü koşulunu sınar ve koşul sağlandığında döngüden çıkar. \texttt{jal zero, don} koşulsuz geri atlama için kullanılır. Hedef yazmaç olarak \texttt{zero} verildiğinde dönüş adresi saklanmaz, bu da \texttt{j don} sözde buyruğuna karşılık gelir. Dizi indisinin 4 ile çarpılması (\texttt{slli} ile 2 bit sola kaydırma) her \texttt{int} değerin 4 bayt kaplamasından kaynaklanır.
+Bu örnek dallanma buyruklarının en yaygın kullanımını göstermektedir. Burada \texttt{bge} döngü koşulunu sınar ve koşul sağlandığında döngüden çıkar. \texttt{jal zero, don} koşulsuz geri atlama için kullanılır. Hedef yazmaç olarak \texttt{zero} verildiğinde dönüş adresi saklanmaz, bu da \texttt{j don} sözde buyruğuna karşılık gelir. Dizi indisinin 4 ile çarpılması (\texttt{slli} ile 2 bit sola kaydırma) her \texttt{int} değerin 4 bayt kaplamasından kaynaklanır.
 \end{ornek}
 
 \subsection{Koşulsuz Atlama Buyrukları}
@@ -2246,7 +2246,7 @@ else_:
     ADD  EAX, 1           ; c = b + 1 (sonuc EAX'ta)
 son_:
 \end{lstlisting}
-x86'da karşılaştırma (\texttt{CMP}) ve dallanma (\texttt{JGE}) iki ayrı buyruk gerektirir. Bayrak yazmacı aracılığıyla iletişim kurulur. Ancak x86 buyruklarının bir kısmı daha güçlüdür: \texttt{ADD EAX, 1} hem toplama hem yazmaca yazma işini tek buyrukta yapar.
+x86'da karşılaştırma (\texttt{CMP}) ve dallanma (\texttt{JGE}) iki ayrı buyruk gerektirir. Bayrak yazmacı aracılığıyla iletişim kurulur. Ancak x86 buyruklarının bir kısmı daha güçlüdür. \texttt{ADD EAX, 1} hem toplama hem yazmaca yazma işini tek buyrukta yapar.
 
 \textbf{ARM AArch64} (\texttt{a}$=$\texttt{X1}, \texttt{b}$=$\texttt{X2}, \texttt{c}$=$\texttt{X3}):
 \begin{lstlisting}
@@ -2258,7 +2258,7 @@ else_:
     ADD  X3, X2, #1       ; c = b + 1
 son_:
 \end{lstlisting}
-ARM de x86 gibi bayrak yazmacı kullanır. Ancak AArch64 ayrıca \texttt{CSEL} (koşullu seçim) buyruğuyla dallanmayı tamamen ortadan kaldırabilir: uygun değerler yazmaçlara hazırlandıktan sonra \texttt{CMP X1, X2} ve ardından \texttt{CSEL X3, X1, X2, GE} ile seçim 2 buyruğa iner (koşul doğruysa \texttt{X1}, değilse \texttt{X2} seçilir).
+ARM de x86 gibi bayrak yazmacı kullanır. Ancak AArch64 ayrıca \texttt{CSEL} (koşullu seçim) buyruğuyla dallanmayı tamamen ortadan kaldırabilir. Uygun değerler yazmaçlara hazırlandıktan sonra \texttt{CMP X1, X2} ve ardından \texttt{CSEL X3, X1, X2, GE} ile seçim 2 buyruğa iner (koşul doğruysa \texttt{X1}, değilse \texttt{X2} seçilir).
 \end{ornek}
 
 \section{Sözde Buyruklar}
@@ -2267,7 +2267,7 @@ ARM de x86 gibi bayrak yazmacı kullanır. Ancak AArch64 ayrıca \texttt{CSEL} (
 
 Çevirici dilde sık kullanılan bazı işlemler için RISC-V donanımında ayrı bir buyruk tanımlanmamıştır. Bunun yerine çevirici (\textit{assembler}), programcının yazdığı kısa biçimli buyruğu bir veya iki gerçek buyruğa otomatik olarak açar. Bu kısa biçimlere \emph{sözde buyruk}\index{sözde buyruklar} (\textit{pseudo-instruction}) denir.
 
-Sözde buyrukların arkasındaki tasarım fikri, işlem kodu uzayını verimli kullanmak ile programlamayı kolaylaştırmak arasındaki dengeyi kurmaktır. Her sık kullanılan işlem için ayrı bir işlem kodu tanımlamak, sınırlı buyruk alanını hızla tüketir ve kod çözme donanımını karmaşıklaştırır. Sözde buyruklar bu sorunu çözer: donanım az sayıda temel buyrukla yetinirken, çevirici programcıya zengin bir buyruk kümesi varmış gibi bir deneyim sunar. Örneğin RISC-V donanımında ayrı bir \texttt{mv} buyruğu yoktur. Ancak programcı \texttt{mv s1, s2} yazdığında çevirici bunu \texttt{addi s1, s2, 0} buyruğuna dönüştürür. Sonuç olarak donanım basit kalır, işlem kodu uzayı korunur ve programcı bunun farkında bile olmadan rahatça kod yazar. Tablo~\ref{tab:sozde-buyruklar}'de en yaygın kullanılan sözde buyruklar listelenmiştir (tam liste için bkz.\ Ek~\ref{app:risc-v-referans}).
+Sözde buyrukların arkasındaki tasarım fikri, işlem kodu uzayını verimli kullanmak ile programlamayı kolaylaştırmak arasındaki dengeyi kurmaktır. Her sık kullanılan işlem için ayrı bir işlem kodu tanımlamak, sınırlı buyruk alanını hızla tüketir ve kod çözme donanımını karmaşıklaştırır. Sözde buyruklar bu sorunu çözer. Donanım az sayıda temel buyrukla yetinirken, çevirici programcıya zengin bir buyruk kümesi varmış gibi bir deneyim sunar. Örneğin RISC-V donanımında ayrı bir \texttt{mv} buyruğu yoktur. Ancak programcı \texttt{mv s1, s2} yazdığında çevirici bunu \texttt{addi s1, s2, 0} buyruğuna dönüştürür. Sonuç olarak donanım basit kalır, işlem kodu uzayı korunur ve programcı bunun farkında bile olmadan rahatça kod yazar. Tablo~\ref{tab:sozde-buyruklar}'de en yaygın kullanılan sözde buyruklar listelenmiştir (tam liste için bkz.\ Ek~\ref{app:risc-v-referans}).
 
 \begin{table}[H]
 \centering
@@ -2295,7 +2295,7 @@ Sözde buyrukların arkasındaki tasarım fikri, işlem kodu uzayını verimli k
 \end{tabular}
 \end{table}
 
-Tablodaki örneklerden görüldüğü gibi, sözde buyrukların büyük bölümü mevcut buyrukların özel durumlarından ibarettir: sıfır yazmacı (x0) veya sıfır anlık değeri kullanılarak farklı işlemler elde edilir. Bu yaklaşım, RISC-V'in yalnızca yaklaşık 47 gerçek buyrukla geniş bir işlem yelpazesini nasıl kapsadığını somut biçimde göstermektedir.
+Tablodaki örneklerden görüldüğü gibi, sözde buyrukların büyük bölümü mevcut buyrukların özel durumlarından ibarettir. Sıfır yazmacı (x0) veya sıfır anlık değeri kullanılarak farklı işlemler elde edilir. Bu yaklaşım, RISC-V'in yalnızca yaklaşık 47 gerçek buyrukla geniş bir işlem yelpazesini nasıl kapsadığını somut biçimde göstermektedir.
 
 % =====================================================
 \section{Adresleme Kipleri}
@@ -2304,7 +2304,7 @@ Tablodaki örneklerden görüldüğü gibi, sözde buyrukların büyük bölüm�
 
 Bir buyruk yürütülürken, işlenecek veriler nereden gelir? Doğrudan buyruğun içinden mi, bir yazmaçtan mı, yoksa bellekten mi okunur? Sonuç nereye yazılır? Bu soruların yanıtı \textbf{adresleme kipi}\index{adresleme kipleri} kavramıyla verilir. Her adresleme kipi, verinin kaynağını ya da hedefini belirleyen farklı bir yöntemdir (RISC-V adresleme kiplerinin özeti için bkz.\ Ek~\ref{app:risc-v-referans}).
 
-Peki bu kiplere neden gerek vardır? Üst düzey bir dilde yazdığımız her yapı, işlemcinin anlayacağı buyruk dizisine çevrilirken veriye farklı yollarla erişmeyi gerektirir. Tablo~\ref{tab:adresleme-kipi-motivasyon} bu bağlantıyı gösterir: her adresleme kipi, aslında sıkça karşılaşılan bir programlama örüntüsünün donanım düzeyindeki karşılığıdır.
+Peki bu kiplere neden gerek vardır? Üst düzey bir dilde yazdığımız her yapı, işlemcinin anlayacağı buyruk dizisine çevrilirken veriye farklı yollarla erişmeyi gerektirir. Tablo~\ref{tab:adresleme-kipi-motivasyon} bu bağlantıyı gösterir. Her adresleme kipi, aslında sıkça karşılaşılan bir programlama örüntüsünün donanım düzeyindeki karşılığıdır.
 
 \begin{table}[H]
 \centering
@@ -2600,7 +2600,7 @@ Program sayacının üzerine ekleme yapma yoluyla yeni bellek adresinin bulunmas
 
 \subsection{Üst Anlık Adresleme Kipi}
 \index{adresleme kipleri!üst anlık}
-RISC-V'te I türü buyrukların anlık alanı yalnızca 12 bittir. Bu alan $-2048$ ile $+2047$ arasındaki değerleri temsil edebilir. Peki 12 bite sığmayan büyük sabitleri bir yazmaca nasıl yükleriz? RISC-V bu sorunu \texttt{lui} (Load Upper Immediate) buyruğuyla çözer. Ancak dikkat edilmesi gereken nokta şudur: \texttt{lui} yazmacın tamamını değil, yalnızca üst 20 bitini (bit 31--12) yazar. Alt 12 bit ise sıfırlanır. Dolayısıyla tek başına \texttt{lui} istenen sabiti oluşturamaz. Yalnızca üst kısmını hazırlar. Tam 32 bitlik bir sabiti elde etmek için ardından \texttt{addi} ile alt 12 bit eklenir (Şekil~\ref{fig:ust-anlik-adresleme}). Bu iki buyrukluk sıralama, RISC-V'in sabit uzunluklu buyruk tasarımının doğal bir sonucudur: 32 bitlik buyrukta hem işlem kodu hem yazmaç numarası hem de 32 bitlik bir sabit aynı anda sığamaz.
+RISC-V'te I türü buyrukların anlık alanı yalnızca 12 bittir. Bu alan $-2048$ ile $+2047$ arasındaki değerleri temsil edebilir. Peki 12 bite sığmayan büyük sabitleri bir yazmaca nasıl yükleriz? RISC-V bu sorunu \texttt{lui} (Load Upper Immediate) buyruğuyla çözer. Ancak burada dikkat edilmesi gereken bir nokta vardır. \texttt{lui} yazmacın tamamını değil, yalnızca üst 20 bitini (bit 31--12) yazar. Alt 12 bit ise sıfırlanır. Dolayısıyla tek başına \texttt{lui} istenen sabiti oluşturamaz. Yalnızca üst kısmını hazırlar. Tam 32 bitlik bir sabiti elde etmek için ardından \texttt{addi} ile alt 12 bit eklenir (Şekil~\ref{fig:ust-anlik-adresleme}). Bu iki buyrukluk sıralama, RISC-V'in sabit uzunluklu buyruk tasarımının doğal bir sonucudur, çünkü 32 bitlik buyrukta hem işlem kodu hem yazmaç numarası hem de 32 bitlik bir sabit aynı anda sığamaz.
 
 Benzer biçimde \texttt{auipc} buyruğu, 20 bitlik anlık değeri program sayacına (PS) ekleyerek 32 bitlik bir adres üretir. Bu, konumdan bağımsız kodda uzak adreslere erişmek için kullanılır.
 
@@ -2676,9 +2676,9 @@ x86 değişken uzunluklu buyruk biçimi sayesinde 32 bitlik sabiti tek buyruğa 
 \end{karsilastirma}
 
 \begin{karsilastirma}[Adresleme Kiplerinin Zenginliği]
-RISC mimarileri adresleme kiplerini bilinçli olarak sınırlı tutar. RISC-V yalnızca beş kip sunar (yazmaç, anlık, eklemeli, PS'ye göreceli, üst anlık). MIPS de benzer biçimde üç temel kiple yetinir. ARM (AArch64) biraz daha zengin bir seçenek sunar: ön ve son dizinli adresleme, genişletilmiş yazmaç adresleme gibi altı civarında kip tanımlar.
+RISC mimarileri adresleme kiplerini bilinçli olarak sınırlı tutar. RISC-V yalnızca beş kip sunar (yazmaç, anlık, eklemeli, PS'ye göreceli, üst anlık). MIPS de benzer biçimde üç temel kiple yetinir. ARM (AArch64) biraz daha zengin bir seçenek sunar. Ön ve son dizinli adresleme, genişletilmiş yazmaç adresleme gibi altı civarında kip tanımlar.
 
-x86 ise tam tersi yönde ilerler: taban, dizin, ölçek ve öteleme bileşenlerini serbestçe birleştirerek 10'dan fazla adresleme kipi üretir (Tablo~\ref{tab:adresleme-kipleri}). Bu zenginlik, tek bir buyrukla karmaşık bellek erişimi yapabilmeyi sağlar. Ancak buyruk çözme donanımını önemli ölçüde karmaşıklaştırır. Daha az kip, daha basit bir çözümleyici (decoder) donanımı anlamına gelir. Ancak adres hesaplamak için zaman zaman ek buyruklara gerek duyulabilir.
+x86 ise tam tersi yönde ilerler. Taban, dizin, ölçek ve öteleme bileşenlerini serbestçe birleştirerek 10'dan fazla adresleme kipi üretir (Tablo~\ref{tab:adresleme-kipleri}). Bu zenginlik, tek bir buyrukla karmaşık bellek erişimi yapabilmeyi sağlar. Ancak buyruk çözme donanımını önemli ölçüde karmaşıklaştırır. Daha az kip, daha basit bir çözümleyici (decoder) donanımı anlamına gelir. Ancak adres hesaplamak için zaman zaman ek buyruklara gerek duyulabilir.
 
 Bu ödünleşmeyi somut olarak görmek için C dilindeki \texttt{int dizi[N];} dizisinde \texttt{dizi[i]} elemanına erişimi düşünelim. Burada \texttt{i} bir değişkendir, derleme sırasında değeri bilinmez:
 
@@ -3130,7 +3130,7 @@ geri_don:
     ret
 \end{lstlisting}
 
-Her özyinelemeli çağrıda yığıta yeni bir çerçeve eklenir. Örneğin \texttt{faktoriyel(3)} hesaplanırken yığıt üç kez büyür: her katmanda \texttt{ra} ve \texttt{s0} saklanır. Taban durumuna ulaşıldığında (\texttt{n=1}) yığıt çerçeveleri ters sırada kapatılarak sonuç üst katmanlara iletilir.
+Her özyinelemeli çağrıda yığıta yeni bir çerçeve eklenir. Örneğin \texttt{faktoriyel(3)} hesaplanırken yığıt üç kez büyür. Her katmanda \texttt{ra} ve \texttt{s0} saklanır. Taban durumuna ulaşıldığında (\texttt{n=1}) yığıt çerçeveleri ters sırada kapatılarak sonuç üst katmanlara iletilir.
 \end{ornek}
 
 \begin{bilginot}[Yaprak Altyordam Eniyilemesi]
@@ -3143,7 +3143,7 @@ Altyordam çağırma, mimariler arasında farklı yaklaşımlarla çözülür. R
 
 MIPS de aynı yaklaşımı benimser (\texttt{jal} + \texttt{\$ra}). ARM (AArch64) ise \texttt{BL} buyruğuyla dönüş adresini \texttt{x30} (LR) yazmacına yazar. İç içe çağrılarda yığıt kullanımı RISC-V'tekiyle benzerdir.
 
-x86 tamamen farklı bir yol izler: \texttt{CALL} buyruğu dönüş adresini doğrudan yığıta iter, \texttt{RET} ise yığıttan çeker. Bu donanım düzeyindeki yığıt yönetimi programcının işini kolaylaştırır. Ancak her çağrıda bellek erişimi gerektirdiğinden başarım açısından ek bir bedel taşır.
+x86 tamamen farklı bir yol izler. \texttt{CALL} buyruğu dönüş adresini doğrudan yığıta iter, \texttt{RET} ise yığıttan çeker. Bu donanım düzeyindeki yığıt yönetimi programcının işini kolaylaştırır. Ancak her çağrıda bellek erişimi gerektirdiğinden başarım açısından ek bir bedel taşır.
 \end{karsilastirma}
 
 % =====================================================
@@ -3155,7 +3155,7 @@ C dilinde yazdığınız bir program, ``çalıştır'' düğmesine bastığını
 
 \subsection{Derleyici}
 \index{derleyici}
-Derleyici (\textit{compiler}), üst düzey programlama dillerini (C, C++, Java vb.) çevirici dile dönüştüren programdır. Bu dönüşüm sırasında derleyici, söz dizimi denetimi, tür denetimi, en iyileme (\textit{optimization}) ve yazmaç ataması gibi pek çok adımı gerçekleştirir. Yazmaç ataması, Bölüm~\ref{sec:yazmaclar}'te ele alınan yazmaç sayısı ödünleşmesiyle doğrudan ilişkilidir: az yazmaçlı bir mimaride derleyici daha sık belleğe taşıma kodu üretmek zorunda kalır. Derleyicinin ürettiği çevirici dil dosyası \texttt{.s} (veya \texttt{.asm}) uzantısını taşır.
+Derleyici (\textit{compiler}), üst düzey programlama dillerini (C, C++, Java vb.) çevirici dile dönüştüren programdır. Bu dönüşüm sırasında derleyici, söz dizimi denetimi, tür denetimi, en iyileme (\textit{optimization}) ve yazmaç ataması gibi pek çok adımı gerçekleştirir. Yazmaç ataması, Bölüm~\ref{sec:yazmaclar}'te ele alınan yazmaç sayısı ödünleşmesiyle doğrudan ilişkilidir. Az yazmaçlı bir mimaride derleyici daha sık belleğe taşıma kodu üretmek zorunda kalır. Derleyicinin ürettiği çevirici dil dosyası \texttt{.s} (veya \texttt{.asm}) uzantısını taşır.
 
 \subsection{Çevirici}
 \index{çevirici}
@@ -3409,7 +3409,7 @@ Altyordam çağırma    & \texttt{bl func}                  & \texttt{jal ra, fu
 \end{tabular}
 \end{table}
 
-Tablo~\ref{tab:riscv-arm-karsilastirma}'te görüldüğü üzere, RISC-V ve ARM (AArch64) pek çok açıdan birbirine benzer. Her iki mimari de sabit uzunluklu buyruklar ve yükle-sakla modelini benimser. Temel ayrım lisanslama modelindedir: RISC-V açık kaynaklı ve telif hakkından bağımsız iken ARM ticari lisans gerektirir. Tablo~\ref{tab:riscv-arm-buyruk}'daki buyruk söz dizimi karşılaştırmasında dikkat çeken önemli bir nokta, ARM'ın dallanma için bayrak yazmaçlarını (koşul kodları) kullanması, RISC-V'in ise karşılaştırma işlemini doğrudan dallanma buyruğuna dahil etmesidir.
+Tablo~\ref{tab:riscv-arm-karsilastirma}'te görüldüğü üzere, RISC-V ve ARM (AArch64) pek çok açıdan birbirine benzer. Her iki mimari de sabit uzunluklu buyruklar ve yükle-sakla modelini benimser. Temel ayrım lisanslama modelindedir. RISC-V açık kaynaklı ve telif hakkından bağımsız iken ARM ticari lisans gerektirir. Tablo~\ref{tab:riscv-arm-buyruk}'daki buyruk söz dizimi karşılaştırmasında dikkat çeken önemli bir nokta, ARM'ın dallanma için bayrak yazmaçlarını (koşul kodları) kullanması, RISC-V'in ise karşılaştırma işlemini doğrudan dallanma buyruğuna dahil etmesidir.
 
 
 \subsection{x86 Buyruk Kümesi}
@@ -3603,7 +3603,7 @@ Bu mimarilerin çoğu artık üretilmemektedir. Ancak katkıları yaşamaktadır
 Buyruk kümesi tasarımı akademik bir konu olmaktan çok ötedir. Endüstrideki her yeni mimari nesil, buyruk kümesi düzeyinde verilen kararların sonuçlarını taşır.
 
 \subsubsection*{x86'nın geriye uyumluluk yükü}
-Intel'in x86\index{x86} mimarisi 1978'den bu yana geriye uyumluluğu korur: günümüzün en güçlü Xeon işlemcisi bile 8086 için yazılmış bir programı çalıştırabilir. Bu esneklik muazzam bir ticari avantaj sağlasa da her nesil işlemciye ek karmaşıklık yükler. Çağdaş x86 işlemcileri, CISC buyrukları içeride RISC benzeri mikro-işlemlere çevirirken transistör bütçesinin önemli bir bölümünü bu dönüşüm birimine ayırır.
+Intel'in x86\index{x86} mimarisi 1978'den bu yana geriye uyumluluğu korur. Günümüzün en güçlü Xeon işlemcisi bile 8086 için yazılmış bir programı çalıştırabilir. Bu esneklik muazzam bir ticari avantaj sağlasa da her nesil işlemciye ek karmaşıklık yükler. Çağdaş x86 işlemcileri, CISC buyrukları içeride RISC benzeri mikro-işlemlere çevirirken transistör bütçesinin önemli bir bölümünü bu dönüşüm birimine ayırır.
 
 \subsubsection*{ARM'ın elde taşınır cihazlardaki hakimiyeti}
 ARM\index{ARM} mimarisi, düşük güç tüketimi odaklı tasarımıyla akıllı telefonların neredeyse tamamında kullanılır. 2020'den itibaren Apple'ın M serisi işlemcilerle dizüstü ve masaüstü pazarına girmesi, ARM'ın ``yalnızca düşük güçlü cihazlar için'' algısını kökten değiştirdi. ARM'ın lisanslama modeli, farklı şirketlerin aynı buyruk kümesi üzerinde kendi mikromimarilerini tasarlamasına olanak tanır.
@@ -3641,7 +3641,7 @@ x86 mimarisinde bu evrim kümülatif biçimde ilerlemiştir:
 
 Her yeni uzantı öncekini kapsadığından, x86 işlemcileri tüm eski SIMD buyruklarını da desteklemek zorundadır. Bu da geriye uyumluluk yükünü artırır.
 
-ARM mimarisi benzer gereksinime farklı yanıt vermiştir. NEON\index{NEON} uzantısı (128 bit) sabit genişlikteyken, SVE\index{SVE} (\emph{Scalable Vector Extension}) ve onun geliştirilmiş sürümü SVE2 değişken vektör uzunluğu sunar: aynı buyruk, 128 bitten 2048 bite kadar farklı genişliklerde çalışabilir. Bu yaklaşım, yazılımın donanımdan bağımsız olmasını sağlar.
+ARM mimarisi benzer gereksinime farklı yanıt vermiştir. NEON\index{NEON} uzantısı (128 bit) sabit genişlikteyken, SVE\index{SVE} (\emph{Scalable Vector Extension}) ve onun geliştirilmiş sürümü SVE2 değişken vektör uzunluğu sunar. Aynı buyruk, 128 bitten 2048 bite kadar farklı genişliklerde çalışabilir. Bu yaklaşım, yazılımın donanımdan bağımsız olmasını sağlar.
 
 RISC-V ``V'' (vektör) uzantısı\index{RISC-V!V uzantısı} ise en esnek modeli sunar. Vektör uzunluğu buyruk kümesinde sabitlenmez. Donanım ne kadar geniş vektör birimi sağlıyorsa yazılım o kadarını kullanır. Bu tasarım, küçük bir gömülü işlemcide 64 bitlik, yüksek başarımlı bir sunucuda 1024 bitlik vektörlerle aynı programın çalışmasını mümkün kılar.
 
@@ -3651,7 +3651,7 @@ Yapay zekâ iş yükleri, buyruk kümesi tasarımını köklü biçimde etkileme
 
 \begin{itemize}[nosep]
 \item \textbf{Düşük duyarlıklı veri türleri:} INT8, FP16 ve BF16 (\emph{bfloat16}) gibi dar veri türleri, aynı bant genişliğiyle iki veya dört kat daha fazla veri işlemeyi mümkün kılar. Intel AMX\index{AMX} (\emph{Advanced Matrix Extensions}), ARM SME\index{SME} (\emph{Scalable Matrix Extension}) ve RISC-V'in önerilen matris uzantıları bu veri türlerini doğrudan destekler.
-\item \textbf{Matris buyrukları:} Sinir ağlarının temelindeki matris çarpımı, geleneksel skaler veya SIMD buyrukları yerine özel matris birimlerinde çok daha verimli yürütülür. Google TPU\index{TPU}, bu yaklaşımın en uç örneğidir: buyruk kümesinin tamamı matris işlemlerine odaklanmıştır.
+\item \textbf{Matris buyrukları:} Sinir ağlarının temelindeki matris çarpımı, geleneksel skaler veya SIMD buyrukları yerine özel matris birimlerinde çok daha verimli yürütülür. Google TPU\index{TPU}, bu yaklaşımın en uç örneğidir. Buyruk kümesinin tamamı matris işlemlerine odaklanmıştır.
 \item \textbf{Alana özgü hızlandırıcılar:} Sinir ağı motoru (NPU\index{NPU}) artık birçok yonganın standart bileşenidir (Apple Neural Engine, Qualcomm Hexagon). Bu birimler BKM'den bağımsız yan işlemci olarak çalışır. Ancak bazıları ana BKM'den özel buyrukla tetiklenir.
 \end{itemize}
 

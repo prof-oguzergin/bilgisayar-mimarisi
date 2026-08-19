@@ -20,7 +20,7 @@ Bu eki tamamladığınızda aşağıdakileri yapabileceksiniz:
     \item Bir yazmaç öbeğini Verilog ile gerçekleştirmek ve benzetimini yapmak.
     \item Çevirici dilde yazılmış bir programı benzetimlikte adım adım çalıştırarak hata ayıklamak.
     \item Tek vuruşluk bir RISC-V işlemcisini Verilog modülleriyle birleştirmek.
-    \item Proje çıktılarını belirlenen değerlendirme ölçütlerine göre sınamak.
+    \item Proje çıktılarını belirlenen değerlendirme ölçütlerine göre (bkz.\ Tablo~\ref{tab:ekd-degerlendirme}) sınamak.
 \end{itemize}
 \end{tcolorbox}
 
@@ -63,7 +63,7 @@ QEMU   & Sistem      & Komut satırı          & İşletim sistemi çalıştırm
 \textbf{Spike}\index{Spike} ise RISC-V International tarafından geliştirilen referans benzetimliğidir. Ayrıcalıklı buyrukları ve sanal bellek mekanizmalarını da destekler; bu nedenle işletim sistemi düzeyinde çalışmalar için tercih edilir. Linux ortamında kaynak koddan derlenerek kurulur.
 
 \begin{bilginot}[Hızlı Başlangıç]
-Kurulum kolaylığı açısından \textbf{RARS} önerilir: Java 8 veya üzeri yüklü bir sistemde \texttt{java -jar rars.jar} komutuyla çalışır. Kurulum gerektirmeyen bir seçenek olarak \textbf{Venus} tarayıcı üzerinden doğrudan kullanılabilir. Her iki araç da RV32I buyruk kümesini tam olarak destekler.
+Kurulum kolaylığı açısından \textbf{RARS} önerilir. Java 8 veya üzeri yüklü bir sistemde \texttt{java -jar rars.jar} komutuyla çalışır. Kurulum gerektirmeyen bir seçenek olarak \textbf{Venus} tarayıcı üzerinden doğrudan kullanılabilir. Her iki araç da RV32I buyruk kümesini tam olarak destekler.
 \end{bilginot}
 
 Aşağıdaki kısa program, RARS veya Venus'te doğrudan çalıştırılabilir. Program, ilk $n$ Fibonacci sayısını hesaplayarak belleğe yazar; yazmaç ve bellek değişimlerini adım adım izleyerek buyruk yürütüm döngüsünü gözlemlemek için uygundur.
@@ -193,7 +193,7 @@ Verilog'un güncel sürümü olan \textbf{SystemVerilog}\index{SystemVerilog} (I
 \subsection{Modül Yapısı}
 \label{sec:ekd-modul}
 
-Verilog'da temel tasarım birimi \emph{modül}dür. Her modülün giriş/çıkış portları ve iç mantığı vardır.
+Verilog'da temel tasarım birimi \emph{modül}dür. Her modülün giriş/çıkış kapıları ve iç mantığı vardır.
 
 \begin{lstlisting}[style=verilog, caption={Verilog modül yapısı: 2 girişli VE kapısı}, label={lst:ekd-ve-kapisi}]
 module ve_kapisi (
@@ -205,7 +205,7 @@ module ve_kapisi (
 endmodule
 \end{lstlisting}
 
-\texttt{module} ile \texttt{endmodule} arasındaki blok, devrenin tanımını oluşturur. \texttt{input} ve \texttt{output} anahtar sözcükleri port yönünü belirler. Verilog'da karmaşık devreleri küçük modüllere ayırarak hiyerarşik bir yapı kurmak temel tasarım ilkesidir. Şekil~\ref{fig:ekd-modul-hiyerarsi}'de basit bir işlemci veri yolunun modül hiyerarşisi gösterilmektedir.
+\texttt{module} ile \texttt{endmodule} arasındaki blok, devrenin tanımını oluşturur. \texttt{input} ve \texttt{output} anahtar sözcükleri kapı yönünü belirler. Verilog'da karmaşık devreleri küçük modüllere ayırarak hiyerarşik bir yapı kurmak temel tasarım ilkesidir. Şekil~\ref{fig:ekd-modul-hiyerarsi}'de basit bir işlemci veri yolunun modül hiyerarşisi gösterilmektedir.
 
 \begin{figure}[H]
 \centering
@@ -246,11 +246,11 @@ endmodule
 Verilog'da iki temel veri tipi vardır:
 
 \begin{itemize}[leftmargin=2em]
-    \item \texttt{wire}\index{Verilog!wire}: Bileşimsel (kombinasyonel) mantıkta kullanılır. Fiziksel bir teli temsil eder; \texttt{assign} ile sürekli atama yapılır.
+    \item \texttt{wire}\index{Verilog!wire}: Birleşik mantıkta kullanılır. Fiziksel bir teli temsil eder; \texttt{assign} ile sürekli atama yapılır.
     \item \texttt{reg}\index{Verilog!reg}: Sıralı (ardışıl) mantıkta ve \texttt{always} bloklarında kullanılır. Adına rağmen her zaman bir yazmaç anlamına gelmez; sentez aracının kullanım bağlamına göre karar verdiği bir depolama elemanıdır.
 \end{itemize}
 
-Çok bitli sinyaller köşeli parantezle tanımlanır: \texttt{wire [31:0] veri} ifadesi 32 bitlik bir sinyal tanımlar.
+Çok bitli sinyaller köşeli parantezle tanımlanır. \texttt{wire [31:0] veri} ifadesi 32 bitlik bir sinyal tanımlar.
 
 % -------------------------------------------------------------
 \subsection{Sürekli Atama ve \texttt{always} Blokları}
@@ -296,7 +296,7 @@ Bileşimsel \texttt{always} bloklarında \texttt{=} (bloklu atama), sıralı blo
 \subsection{Doğrulama Ortamı Yazma}
 \label{sec:ekd-testbench}
 
-Doğrulama ortamı\index{doğrulama ortamı}\index{Verilog!doğrulama ortamı} (\emph{testbench}), tasarlanan modülü doğrulamak için yazılan benzetim ortamıdır. Doğrulama ortamı modülünün giriş/çıkış portu yoktur; test edilen modülü içsel olarak örnekler (instantiate).
+Doğrulama ortamı\index{doğrulama ortamı}\index{Verilog!doğrulama ortamı} (\emph{testbench}), tasarlanan modülü doğrulamak için yazılan benzetim ortamıdır. Doğrulama ortamı modülünün giriş/çıkış kapısı yoktur; test edilen modülü içsel olarak örnekler (instantiate).
 
 \begin{lstlisting}[style=verilog, caption={2'ye 1 çoklayıcı doğrulama ortamı örneği}, label={lst:ekd-testbench}]
 `timescale 1ns / 1ps
@@ -342,7 +342,7 @@ Bu ekteki Verilog tasarımları, bir FPGA\index{FPGA} geliştirme kartı üzerin
 \section{Yazmaç Öbeği Tasarımı}
 \label{sec:ekd-yazmac-dosyasi}
 
-Bölüm~\ref{chap:islemci-tasarimi}'da öğrenilen yazmaç öbeğinin\index{yazmaç öbeği} Verilog ile gerçeklenişi, işlemci projeleri için temel bir yapı taşıdır. Aşağıdaki modül, RISC-V'in 32 adet 32 bitlik yazmaç öbeğini tanımlar: iki okuma portu ve bir yazma portu içerir; \texttt{x0} yazmacı her zaman sıfırdır.
+Bölüm~\ref{chap:islemci-tasarimi}'da öğrenilen yazmaç öbeğinin\index{yazmaç öbeği} Verilog ile gerçeklenişi, işlemci projeleri için temel bir yapı taşıdır. Aşağıdaki modül, RISC-V'in 32 adet 32 bitlik yazmaç öbeğini tanımlar. İki okuma kapısı ve bir yazma kapısı içerir; \texttt{x0} yazmacı her zaman sıfırdır.
 
 \begin{lstlisting}[style=verilog, caption={RISC-V yazmaç öbeği (32$\times$32)}, label={lst:ekd-yazmac}]
 module yazmac_dosyasi (
@@ -371,7 +371,7 @@ module yazmac_dosyasi (
 endmodule
 \end{lstlisting}
 
-Bu modül, Bölüm~\ref{chap:islemci-tasarimi}'daki tek çevrimli veriyolu şemasının doğrudan Verilog karşılığıdır. Okuma portları bileşimsel (\texttt{assign}), yazma portu ise saat kenarına bağlıdır. Şekil~\ref{fig:ekd-yazmac-blok}'da bu modülün blok diyagramı gösterilmektedir.
+Bu modül, Bölüm~\ref{chap:islemci-tasarimi}'daki tek çevrimli veri yolu şemasının doğrudan Verilog karşılığıdır. Okuma kapıları bileşimsel (\texttt{assign}), yazma kapısı ise saat kenarına bağlıdır. Şekil~\ref{fig:ekd-yazmac-blok}'da bu modülün blok diyagramı gösterilmektedir.
 
 \begin{figure}[H]
 \centering
@@ -382,7 +382,7 @@ Bu modül, Bölüm~\ref{chap:islemci-tasarimi}'daki tek çevrimli veriyolu şema
   \node[font=\scriptsize, text=gray] at (0, 1.0) {32 $\times$ 32 bit};
   \node[font=\scriptsize, text=gray] at (0, 0.4) {\texttt{x0} $\equiv$ 0};
 
-  % Sol: giriş portları (kutunun dışında, yazılar okların üstünde)
+  % Sol: giriş kapıları (kutunun dışında, yazılar okların üstünde)
   \draw[okstil, thick, sinyalmavi] (-4.2, 1.2) -- (-2.0, 1.2)
         node[midway, above] {oku\_adr1 [4:0]};
   \draw[okstil, thick, sinyalmavi] (-4.2, 0.2) -- (-2.0, 0.2)
@@ -398,13 +398,13 @@ Bu modül, Bölüm~\ref{chap:islemci-tasarimi}'daki tek çevrimli veriyolu şema
   \draw[okstil, thick] (0.6, -3.8) -- (0.6, -2.25);
   \node[font=\footnotesize, below] at (0.6, -3.8) {yaz\_etkin};
 
-  % Sağ: çıkış portları (kutunun dışından başlıyor)
+  % Sağ: çıkış kapıları (kutunun dışından başlıyor)
   \draw[okstil, thick, sinyalyesil] (2.0, 1.2) -- (5.0, 1.2);
   \node[font=\footnotesize, above] at (3.5, 1.2) {oku\_veri1 [31:0]};
   \draw[okstil, thick, sinyalyesil] (2.0, 0.2) -- (5.0, 0.2);
   \node[font=\footnotesize, above] at (3.5, 0.2) {oku\_veri2 [31:0]};
 \end{tikzpicture}
-\caption[Yazmaç öbeği blok diyagramı]{Yazmaç öbeği blok diyagramı. İki okuma portu bileşimsel (saat bağımsız), yazma portu saat kenarına bağlıdır. \texttt{x0} yazmacı donanım tarafından sıfıra sabitlenmiştir.}
+\caption[Yazmaç öbeği blok diyagramı]{Yazmaç öbeği blok diyagramı. İki okuma kapısı bileşimsel (saat bağımsız), yazma kapısı saat kenarına bağlıdır. \texttt{x0} yazmacı donanım tarafından sıfıra sabitlenmiştir.}
 \label{fig:ekd-yazmac-blok}
 \end{figure}
 
@@ -415,7 +415,7 @@ Bu modül, Bölüm~\ref{chap:islemci-tasarimi}'daki tek çevrimli veriyolu şema
 \section{Mini Projeler}
 \label{sec:ekd-projeler}
 
-Bu bölümde, kitabın farklı konularını pekiştiren üç proje sunulmaktadır. Projeler artan karmaşıklık düzeyinde tasarlanmıştır; her biri bir dönem ödevi veya laboratuvar çalışması olarak kullanılabilir.
+Bu bölümde, kitabın farklı konularını pekiştiren üç proje sunulmaktadır; projelerin genel özeti Tablo~\ref{tab:ekd-projeler}'de verilmiştir. Projeler artan karmaşıklık düzeyinde tasarlanmıştır; her biri bir dönem ödevi veya laboratuvar çalışması olarak kullanılabilir.
 
 \begin{table}[H]
 \centering
@@ -468,23 +468,23 @@ RV32I buyruk biçimleri sabit genişliktedir (32~bit). Bölüm~\ref{chap:buyruk-
 \subsection{Proje B: Boru Hattı Benzetimliği}
 \label{sec:ekd-proje-b}
 
-\textbf{Amaç:} Bölüm~\ref{chap:boruhatti}'deki beş aşamalı boru hattını (IF--ID--EX--MEM--WB) yazılımla benzetim yaparak veri ve denetim tehlikelerini gözlemlemek.\smallskip
+\textbf{Amaç:} Bölüm~\ref{chap:boruhatti}'deki beş aşamalı boru hattını (IF--ID--EX--MEM--WB) yazılımla benzetim yaparak veri ve denetim sorunlarını gözlemlemek.\smallskip
 
 \textbf{Gereksinimler:}
 \begin{enumerate}[leftmargin=2em]
     \item Proje~A'daki yorumlayıcıyı beş aşamalı boru hattı modeline dönüştürün.
     \item Aşamalar arası boru hattı yazmaçlarını (IF/ID, ID/EX, EX/MEM, MEM/WB) modelleyin.
-    \item Aşağıdaki tehlike çözüm tekniklerini gerçekleyin:
+    \item Aşağıdaki sorun çözüm tekniklerini gerçekleyin:
     \begin{itemize}[leftmargin=1.5em]
-        \item \textbf{Veri tehlikesi:} İletme (forwarding) birimi ve gerektiğinde durdurma (stall) mantığı.
-        \item \textbf{Denetim tehlikesi:} Dallanmada basit ``her zaman dallanma yok'' öngörüsü; yanlış öngörüde boru hattını boşaltma (flush).
+        \item \textbf{Veri sorunu:} İletme (forwarding) birimi ve gerektiğinde durdurma (stall) mantığı.
+        \item \textbf{Denetim sorunu:} Dallanmada basit ``her zaman dallanma yok'' öngörüsü; yanlış öngörüde boru hattını boşaltma (flush).
     \end{itemize}
     \item Her çevrimde boru hattı durumunu yazdıran izleme (trace) çıktısı üretin.
     \item Program sonunda aşağıdaki istatistikleri raporlayın:
     \begin{itemize}[leftmargin=1.5em]
         \item Toplam çevrim sayısı ve BBÇ (Buyruk Başına Çevrim)
         \item İletme sayısı, durdurma sayısı, boşaltma sayısı
-        \item Tehlike türlerine göre dağılım
+        \item Sorun türlerine göre dağılım
     \end{itemize}
 \end{enumerate}
 
@@ -522,7 +522,7 @@ Sonuc: 38 buyruk, 47 cevrim, BBÇ = 1,24
         \item Çıkarma politikası: LRU, FIFO, rastgele
     \end{itemize}
     \item Bellek erişim izi (trace) dosyasını okuyarak bulma/bulamama oranlarını hesaplayın.
-    \item Parametre taraması yaparak sonuçları tablolaştırın. Örnek:
+    \item Parametre taraması yaparak sonuçları tablolaştırın; örnek bir tarama çıktısı Tablo~\ref{tab:ekd-onbellek-tarama}'de gösterilmiştir.
 \end{enumerate}
 
 \begin{table}[H]
@@ -624,7 +624,7 @@ Listeleme~\ref{lst:ekd-always}'daki 2'ye~1 çoklayıcıyı genişleterek 4'e~1 �
 \begin{alistirma}[\orta]
 Listeleme~\ref{lst:ekd-yazmac}'daki yazmaç öbeği modülüne aşağıdaki değişiklikleri yapın:
 \begin{enumerate}[(a)]
-\item Üçüncü bir okuma portu (\texttt{oku\_adr3}, \texttt{oku\_veri3}) ekleyin.
+\item Üçüncü bir okuma kapısı (\texttt{oku\_adr3}, \texttt{oku\_veri3}) ekleyin.
 \item Yazma işleminin saat düşüş kenarında (\texttt{negedge clk}) gerçekleşmesini sağlayın. Bu değişikliğin boru hattı tasarımında ne avantajı olabilir?
 \end{enumerate}
 \end{alistirma}
@@ -638,7 +638,7 @@ Proje~A için bir RV32I yorumlayıcısı tasarladığınızı düşünün. \text
 \end{alistirma}
 
 \begin{alistirma}[\zor]
-Listeleme~\ref{lst:ekd-yazmac}'daki yazmaç öbeği modülüne \emph{yazma yönlendirmesi} (write forwarding) ekleyin: aynı çevrimde yazılan ve okunan yazmaç aynıysa, okuma portunda yeni yazılan değer görünsün. Bu özelliğin boru hattındaki veri tehlikelerini azaltmaya nasıl katkı sağladığını açıklayın.
+Listeleme~\ref{lst:ekd-yazmac}'daki yazmaç öbeği modülüne \emph{yazma yönlendirmesi} (write forwarding) ekleyin. Aynı çevrimde yazılan ve okunan yazmaç aynıysa, okuma kapısında yeni yazılan değer görünsün. Bu özelliğin boru hattındaki veri sorunlarını azaltmaya nasıl katkı sağladığını açıklayın.
 \end{alistirma}
 
 \begin{alistirma}[\zor]

@@ -31,7 +31,7 @@ Bu bölümü tamamladığınızda aşağıdakileri yapabileceksiniz:
 
 Cebinizdeki akıllı telefon, 1969'da insanı Ay'a götüren Apollo rehberlik bilgisayarından milyonlarca kat daha güçlü. Bugün bilgisayarlar yalnızca masaüstünde değil, saatimizde, buzdolabımızda, otomobilimizde ve veri merkezlerindeki devasa sunucu çiftliklerinde karşımıza çıkıyor. Bu yaygınlığın arkasında yarım yüzyılı aşan sürekli bir mimari yenilenme var.
 
-\emph{Bilgisayar mimarisi}\index{bilgisayar mimarisi}, donanım ile yazılım arasındaki sınırı tanımlayan ve işlemci, bellek ve giriş/çıkış birimlerinin nasıl bir araya geleceğini belirleyen mühendislik dalıdır. Verimli yazılım geliştirmek isteyen bir programcı için donanımın çalışma ilkelerini anlamak, yüksek başarımlı donanım tasarlamak isteyen bir mühendis için de yazılım gereksinimlerini kavramak vazgeçilmez. Üstelik alan, tarihsel bir dönüm noktasında: transistörler küçüldükçe güç yoğunluğunun sabit kalacağını öngören Dennard ölçeklemesinin\index{Dennard ölçeklemesi} sona ermesi, yapay zekânın yükselişi ve açık kaynak donanım hareketleri bilgisayar mimarisini her zamankinden daha heyecanlı bir araştırma alanı yapıyor.
+\emph{Bilgisayar mimarisi}\index{bilgisayar mimarisi}, donanım ile yazılım arasındaki sınırı tanımlayan ve işlemci, bellek ve giriş/çıkış birimlerinin nasıl bir araya geleceğini belirleyen mühendislik dalıdır. Verimli yazılım geliştirmek isteyen bir programcı için donanımın çalışma ilkelerini anlamak, yüksek başarımlı donanım tasarlamak isteyen bir mühendis için de yazılım gereksinimlerini kavramak vazgeçilmez. Üstelik alan tarihsel bir dönüm noktasında. Transistörler küçüldükçe güç yoğunluğunun sabit kalacağını öngören Dennard ölçeklemesinin\index{Dennard ölçeklemesi} sona ermesi, yapay zekânın yükselişi ve açık kaynak donanım hareketleri bilgisayar mimarisini her zamankinden daha heyecanlı bir araştırma alanı yapıyor.
 
 Bu bölümde önce bilgisayarların tarihsel gelişimini, ardından bir bilgisayarın temel bileşenlerini ve işlemcinin nasıl üretildiğini göreceğiz. Sonra programların bu donanım üzerinde nasıl çalıştırıldığını, mimariyi şekillendiren etkenleri, güç tüketimi sorununu, RISC-V buyruk kümesinin neden tercih edildiğini ve yapay zekânın bilgisayar mimarisine getirdiği yeni ufukları ele alacağız.
 
@@ -108,7 +108,7 @@ Mikroişlemci & $\sim$1\,ns & $\sim$100\,W & Yonga \\
 \end{tabular}
 \end{center}
 
-Bu tabloda çarpıcı bir örüntü görülür: anahtarlama hızı her nesilde yaklaşık 10 kat artarken, sistem boyutu odadan tek bir yongaya küçülmüştür. Güç tüketimi ise beşinci nesilde artık düşürülemez hale gelmiştir. Bu durum, ``güç duvarı'' kavramının ortaya çıkmasına yol açmıştır.
+Bu tabloda çarpıcı bir örüntü görülür. Anahtarlama hızı her nesilde yaklaşık 10 kat artarken, sistem boyutu odadan tek bir yongaya küçülmüştür. Güç tüketimi ise beşinci nesilde artık düşürülemez hale gelmiştir. Bu durum, ``güç duvarı'' kavramının ortaya çıkmasına yol açmıştır.
 \end{karsilastirma}
 
 \subsection{Moore Yasası ve Transistör Artışı}
@@ -392,7 +392,7 @@ Yukarıda tanımlanan bileşenler ve onları birbirine bağlayan ana kart, farkl
 \subsection{Gerçek Dünyayla Etkileşen Bilgisayarlar}
 \label{sec:fiziksel-bilgisayarlar}
 
-Önceki alt bölümde bilgisayarın beş temel bileşenini tanıdık ve bunların masaüstünden akıllı telefona kadar çeşitli biçimlerde bir araya geldiğini gördük. Bu bileşenler yalnızca insan kullanıcıya hizmet eden aygıtlarla sınırlı değil: günümüzde giderek artan sayıda bilgisayar, gerçek dünyayı doğrudan algılayıp ona müdahale edebiliyor. İnsansı robotlar\index{insansı robot}, sürücüsüz araçlar (otonom)\index{sürücüsüz araç}\index{otonom araç}, insansız hava araçları (İHA)\index{İHA}\index{drone} ve endüstriyel robot kolları\index{endüstriyel robot} bunun en çarpıcı örnekleridir (Şekil~\ref{fig:fiziksel-bilgisayarlar}).
+Önceki alt bölümde bilgisayarın beş temel bileşenini tanıdık ve bunların masaüstünden akıllı telefona kadar çeşitli biçimlerde bir araya geldiğini gördük. Bu bileşenler yalnızca insan kullanıcıya hizmet eden aygıtlarla sınırlı değil. Günümüzde giderek artan sayıda bilgisayar, gerçek dünyayı doğrudan algılayıp ona müdahale edebiliyor. İnsansı robotlar\index{insansı robot}, sürücüsüz araçlar (otonom)\index{sürücüsüz araç}\index{otonom araç}, insansız hava araçları (İHA)\index{İHA}\index{drone} ve endüstriyel robot kolları\index{endüstriyel robot} bunun en çarpıcı örnekleridir (Şekil~\ref{fig:fiziksel-bilgisayarlar}).
 
 \begin{figure}[H]
 \centering
@@ -415,13 +415,13 @@ Yukarıda tanımlanan bileşenler ve onları birbirine bağlayan ana kart, farkl
 \end{figure}
 
 \subsubsection*{Beş bileşen aynı, giriş/çıkış farklı}
-Sayılan sistemlerin her biri özünde bir bilgisayardır ve Şekil~\ref{fig:bes-bilesen}'te gösterilen beş bileşeni eksiksiz barındırır. Onları farklı kılan şey giriş ve çıkış aygıtlarıdır. Geleneksel bir bilgisayarda giriş aygıtı klavye ve fare, çıkış aygıtı ise monitör ve hoparlördür. Oysa bir insansı robotta giriş aygıtları stereo kameralar (gözler), mikrofonlar (kulaklar), LiDAR\index{LiDAR}, kuvvet/tork algılayıcıları ve eklem konum algılayıcılarıdır. Çıkış aygıtları ise bacak ve kol eklemlerini hareket ettiren elektrik motorları ve sürücüleridir (\emph{actuator})\index{eyleyici}. Bir sürücüsüz araçta da durum farklı değildir: kameralar, radar\index{radar}, LiDAR ve ultrasonik algılayıcılar\index{ultrasonik algılayıcı} giriş sağlarken, direksiyon motoru, gaz ve fren denetleyicileri çıkış aygıtlarını oluşturur.
+Sayılan sistemlerin her biri özünde bir bilgisayardır ve Şekil~\ref{fig:bes-bilesen}'te gösterilen beş bileşeni eksiksiz barındırır. Onları farklı kılan şey giriş ve çıkış aygıtlarıdır. Geleneksel bir bilgisayarda giriş aygıtı klavye ve fare, çıkış aygıtı ise monitör ve hoparlördür. Oysa bir insansı robotta giriş aygıtları stereo kameralar (gözler), mikrofonlar (kulaklar), LiDAR\index{LiDAR}, kuvvet/tork algılayıcıları ve eklem konum algılayıcılarıdır. Çıkış aygıtları ise bacak ve kol eklemlerini hareket ettiren elektrik motorları ve sürücüleridir (\emph{actuator})\index{eyleyici}. Bir sürücüsüz araçta da durum farklı değildir. Kameralar, radar\index{radar}, LiDAR ve ultrasonik algılayıcılar\index{ultrasonik algılayıcı} giriş sağlarken, direksiyon motoru, gaz ve fren denetleyicileri çıkış aygıtlarını oluşturur.
 
 \subsubsection*{Gerçek zamanlılık gereksinimi}
 Çevreyle etkileşen sistemlerde en önemli mimari kısıt \emph{gerçek zamanlılık}\index{gerçek zamanlı sistem} (\emph{real-time}) gereksinimidir. Bir masaüstü bilgisayarda fare tıklamasına verilen yanıtın birkaç milisaniye gecikmesi fark edilmeyebilir; ancak saatte 100\,km hızla giden bir sürücüsüz aracın çevreyi algılayıp karar vermesi için yalnızca birkaç on milisaniye süresi vardır. Bu nedenle bu tür sistemlerdeki işlemciler, saniyede milyonlarca algılayıcı verisini birleştirmeli (\emph{sensor fusion})\index{algılayıcı birleştirme}, yapay zekâ modelleriyle çevreyi yorumlamalı ve eyleyicilere komut göndermeli. Tüm bunları kesin zaman sınırları içinde yapmalıdır. Bu gereksinim, özel yapay zekâ hızlandırıcılarının (GPU, NPU, TPU gibi) bu platformlara entegre edilmesinin temel nedenidir ve Bölüm~\ref{chap:gpu-hizlandiricilar}'de ayrıntılı olarak ele alınacaktır.
 
 \subsubsection*{Bilgisayar mimarisi açısından önemi}
-Gerçek dünyayla etkileşen bilgisayarlar, mimari tasarımı birçok yönden zorlamaktadır: algılayıcılardan gelen yüksek bant genişlikli veri akışları verimli giriş/çıkış alt sistemleri gerektirir; gerçek zamanlı yapay zekâ çıkarımı güçlü koşut işlem kapasitesi talep eder; enerji kaynağının sınırlı olması (pil) düşük güç tüketimini zorunlu kılar; güvenlik açısından can alıcı kararların deterministik zamanda tamamlanması gerekir. Bu gereksinimler, bilgisayar mimarisinin geleceğini şekillendiren en önemli itici güçlerden biri hâline gelmiştir.
+Gerçek dünyayla etkileşen bilgisayarlar, mimari tasarımı birçok yönden zorlamaktadır. Algılayıcılardan gelen yüksek bant genişlikli veri akışları verimli giriş/çıkış alt sistemleri gerektirir; gerçek zamanlı yapay zekâ çıkarımı güçlü koşut işlem kapasitesi talep eder; enerji kaynağının sınırlı olması (pil) düşük güç tüketimini zorunlu kılar; güvenlik açısından can alıcı kararların deterministik zamanda tamamlanması gerekir. Bu gereksinimler, bilgisayar mimarisinin geleceğini şekillendiren en önemli itici güçlerden biri hâline gelmiştir.
 
 
 \section{İşlemci ve Yonga Üretimi}
@@ -483,7 +483,7 @@ Bölüm~\ref{sec:bilgisayar-gelisimi}'de anlatıldığı gibi, tümleşik devrel
 
 Tümleşik devreler, içerdikleri transistör sayısına göre sınıflandırılır: birkaç düzine transistör barındıran \emph{SSI}\index{SSI} (Small Scale Integration), birkaç yüz transistörlük \emph{MSI}\index{MSI}, on binlerce transistörlük \emph{LSI}\index{LSI} ve yüz binlerin üzerine çıkan \emph{VLSI}\index{VLSI} (Very Large Scale Integration: Çok Büyük Ölçekli Tümleştirme). Günümüzdeki işlemciler milyarlarca transistör içermekte olup artık ``ultra-VLSI'' olarak nitelendirilebilecek bir ölçektedir. Transistör boyutlarının küçülmesi, aynı alana daha fazla transistör sığdırılmasını sağlamış. Ancak beraberinde güç tüketimi, ısı yönetimi ve üretim maliyeti gibi yeni mühendislik zorlukları da getirmiştir.
 
-Tümleşik devrelerin etkisi yalnızca boyut ve hız kazanımıyla sınırlı kalmamıştır. Ayrık bileşenlerle kurulan devrelerde her lehim noktası olası bir arıza kaynağıyken, tümleşik devrede bağlantılar fabrikada otomatik olarak oluşturulduğundan güvenilirlik büyük ölçüde artmıştır. Üstelik üretim miktarı arttıkça birim maliyet düşer: günümüzde birkaç milyar transistör içeren bir işlemci yongası, enflasyon etkisi çıkarıldığında 1960'ların birkaç yüz transistörlük devresinden daha ucuza üretilebilmektedir. Bu maliyet--başarım ilişkisi, bilgisayarların yalnızca laboratuvar ve iş dünyasında değil, cep telefonlarından bulaşık makinelerine kadar günlük yaşamın her köşesinde yer almasını olanaklı kılmıştır.
+Tümleşik devrelerin etkisi yalnızca boyut ve hız kazanımıyla sınırlı kalmamıştır. Ayrık bileşenlerle kurulan devrelerde her lehim noktası olası bir arıza kaynağıyken, tümleşik devrede bağlantılar fabrikada otomatik olarak oluşturulduğundan güvenilirlik büyük ölçüde artmıştır. Üstelik üretim miktarı arttıkça birim maliyet düşer. Günümüzde birkaç milyar transistör içeren bir işlemci yongası, enflasyon etkisi çıkarıldığında 1960'ların birkaç yüz transistörlük devresinden daha ucuza üretilebilmektedir. Bu maliyet--başarım ilişkisi, bilgisayarların yalnızca laboratuvar ve iş dünyasında değil, cep telefonlarından bulaşık makinelerine kadar günlük yaşamın her köşesinde yer almasını olanaklı kılmıştır.
 
 \subsection{Yonga Üretim Süreci}
 \label{sec:yonga-uretim-sureci}
@@ -750,7 +750,7 @@ Fotolitografi işlemi son derece hassas bir ortamda gerçekleştirilir. Üretim 
 \end{figure}
 
 \begin{bilginot}[Silisyum plaka neden yuvarlak?]
-Öğrenciler sıklıkla ``Plaka neden kare değil, kare olsa daha fazla kırmık sığmaz mı?'' diye sorar. Yanıt üretim sürecinde yatmaktadır. Silisyum plakalar \emph{Czochralski yöntemi}\index{Czochralski yöntemi} ile üretilir: çok saf silisyum bir potada eritilir, dönen bir tohum kristal erimiş silisyuma dokundurularak yavaşça yukarı çekilir. Dönerek çekilme hareketi doğal olarak silindirik bir tek kristal kütle (\emph{ingot}) oluşturur. Bu silindirin enine kesitleri daire biçimindedir. Kare plaka üretmek istendiğinde silindirik kütleden kesim sırasında büyük miktarda malzeme israf olurdu. Ayrıca yüksek sıcaklıklı üretim aşamalarında (900--1100\,°C) kare plakanın köşelerinde gerilim yoğunlaşması oluşarak kırılma riski artardı. Yuvarlak geometri ise termal genleşme sırasında gerilimi eşit biçimde dağıtır.
+Öğrenciler sıklıkla ``Plaka neden kare değil, kare olsa daha fazla kırmık sığmaz mı?'' diye sorar. Yanıt üretim sürecinde yatmaktadır. Silisyum plakalar \emph{Czochralski yöntemi}\index{Czochralski yöntemi} ile üretilir. Çok saf silisyum bir potada eritilir, dönen bir tohum kristal erimiş silisyuma dokundurularak yavaşça yukarı çekilir. Dönerek çekilme hareketi doğal olarak silindirik bir tek kristal kütle (\emph{ingot}) oluşturur. Bu silindirin enine kesitleri daire biçimindedir. Kare plaka üretmek istendiğinde silindirik kütleden kesim sırasında büyük miktarda malzeme israf olurdu. Ayrıca yüksek sıcaklıklı üretim aşamalarında (900--1100\,°C) kare plakanın köşelerinde gerilim yoğunlaşması oluşarak kırılma riski artardı. Yuvarlak geometri ise termal genleşme sırasında gerilimi eşit biçimde dağıtır.
 \end{bilginot}
 
 
@@ -783,7 +783,7 @@ Bir yonga üretim sürecinin en temel parametresi \emph{teknoloji düğümü}\in
 \end{tabular}
 \end{table}
 
-Tablo~\ref{tab:teknoloji-dugumleri}'den görüldüğü üzere, 2004'ten 2022'ye kadar transistör yoğunluğu yaklaşık 150 kat artmıştır. Ancak bu kazanımlar bedelsiz değildir: teknoloji düğümü küçüldükçe hem plaka maliyeti hem de \emph{maske seti}\index{maske seti} (\emph{mask set}) maliyeti dramatik biçimde artar. Maske seti, yonga üzerindeki her bir katmanın desenini plakaya aktarmak için kullanılan fotolitografi kalıplarının tamamıdır. Çağdaş bir işlemcide 80'den fazla maske katmanı bulunabilir ve her maske yüksek duyarlıkta üretilmek zorundadır. Tablo~\ref{tab:plaka-maliyetleri} bu maliyet artışını göstermektedir.
+Tablo~\ref{tab:teknoloji-dugumleri}'den görüldüğü üzere, 2004'ten 2022'ye kadar transistör yoğunluğu yaklaşık 150 kat artmıştır. Ancak bu kazanımlar bedelsiz değildir. Teknoloji düğümü küçüldükçe hem plaka maliyeti hem de \emph{maske seti}\index{maske seti} (\emph{mask set}) maliyeti dramatik biçimde artar. Maske seti, yonga üzerindeki her bir katmanın desenini plakaya aktarmak için kullanılan fotolitografi kalıplarının tamamıdır. Çağdaş bir işlemcide 80'den fazla maske katmanı bulunabilir ve her maske yüksek duyarlıkta üretilmek zorundadır. Tablo~\ref{tab:plaka-maliyetleri} bu maliyet artışını göstermektedir.
 
 \begin{table}[ht!]
 \centering
@@ -836,7 +836,7 @@ Aynı verim modelinin endüstride yaygın kullanılan bir diğer biçimi, hata y
 \text{Verim} = \left(1 + \frac{\text{Birim alan başına hata sayısı} \times \text{Yonga alanı}}{\alpha}\right)^{-\alpha}
 \label{eq:verim-alfa}
 \end{equation}
-Burada $\alpha$ üretim karmaşıklığı katsayısıdır ve Denklem~\ref{eq:verim}'teki kritik aşama sayısına karşılık gelir. İki biçim özdeş değildir: aynı hata yoğunluğu için Denklem~\ref{eq:verim} çok daha kötümser bir kestirim verir. Örnek~\ref{orn:verim-hesaplama}'te bu ikinci biçim kullanılmaktadır.
+Burada $\alpha$ üretim karmaşıklığı katsayısıdır ve Denklem~\ref{eq:verim}'teki kritik aşama sayısına karşılık gelir. İki biçim özdeş değildir. Aynı hata yoğunluğu için Denklem~\ref{eq:verim} çok daha kötümser bir kestirim verir. Örnek~\ref{orn:verim-hesaplama}'te bu ikinci biçim kullanılmaktadır.
 
 \subsubsection*{Verim Öğrenme Eğrisi}
 
@@ -949,16 +949,16 @@ Makine dili (onaltılık) & \texttt{0x007302B3} & Aynı buyruğun onaltılık g�
 \end{tabular}
 \end{center}
 
-Çevirici dilin en önemli avantajı, programcının kaynak ve hedef yazmaçlarını (\texttt{x5}, \texttt{x6}, \texttt{x7}) isimle görmesini sağlaması ve işlem kodlarını anlamlı kısaltmalarla temsil etmesidir. Bununla birlikte çevirici dil, mimariye özgüdür: bir RISC-V işlemcisi için yazılmış çevirici dil kodu, x86 ya da ARM işlemcisinde çalışmaz. Bu sınırlama, ilerleyen alt bölümlerde ele alınacak üst düzey dillerin ve derleyicilerin geliştirilmesinin temel motivasyonlarından biri olmuştur.
+Çevirici dilin en önemli avantajı, programcının kaynak ve hedef yazmaçlarını (\texttt{x5}, \texttt{x6}, \texttt{x7}) isimle görmesini sağlaması ve işlem kodlarını anlamlı kısaltmalarla temsil etmesidir. Bununla birlikte çevirici dil, mimariye özgüdür. Bir RISC-V işlemcisi için yazılmış çevirici dil kodu, x86 ya da ARM işlemcisinde çalışmaz. Bu sınırlama, ilerleyen alt bölümlerde ele alınacak üst düzey dillerin ve derleyicilerin geliştirilmesinin temel motivasyonlarından biri olmuştur.
 
 \subsection{Von Neumann ve Harvard Mimarileri}
 \label{subsec:vonneumann-harvard}
 
 Buyruklar ve veriler bellekte nasıl saklanmalı? Bu soru, bilgisayar mimarisinin en temel tasarım kararlarından birini oluşturur ve tarihsel olarak iki farklı yaklaşım geliştirilmiştir.
 
-\emph{Von Neumann mimarisi}\index{Von Neumann mimarisi}, John Von Neumann'ın 1945'te EDVAC tasarımı için kaleme aldığı raporda~\cite{vonneumann1945} ortaya koyduğu ilkelere dayanır. Bu mimaride buyruklar ve veriler tek bir ortak bellekte saklanır. İşlemci aynı yol üzerinden hem buyruğu getirir hem de veriyi okur/yazar. Ortak bellek kullanımının en büyük avantajı esnekliktir: programlar veriyle aynı biçimde depolanabilir, kopyalanabilir ve değiştirilebilir. Bu sayede bir program başka bir programı belleğe yükleyebilir. İşletim sistemlerinin ve derleyicilerin çalışma ilkesi tam da budur. Ancak tek yoldan hem buyruk hem veri geçmesi kaçınılmaz bir yarışma yaratır: işlemci aynı anda buyruğu getirip veriyi okuyamaz. Bu sınırlama \emph{Von Neumann darboğazı}\index{Von Neumann darboğazı} olarak bilinir ve günümüzde bile başarımı etkileyen temel sorunlardan biridir.
+\emph{Von Neumann mimarisi}\index{Von Neumann mimarisi}, John Von Neumann'ın 1945'te EDVAC tasarımı için kaleme aldığı raporda~\cite{vonneumann1945} ortaya koyduğu ilkelere dayanır. Bu mimaride buyruklar ve veriler tek bir ortak bellekte saklanır. İşlemci aynı yol üzerinden hem buyruğu getirir hem de veriyi okur/yazar. Ortak bellek kullanımının en büyük avantajı esnekliktir. Programlar veriyle aynı biçimde depolanabilir, kopyalanabilir ve değiştirilebilir. Bu sayede bir program başka bir programı belleğe yükleyebilir. İşletim sistemlerinin ve derleyicilerin çalışma ilkesi tam da budur. Ancak tek yoldan hem buyruk hem veri geçmesi kaçınılmaz bir yarışma yaratır. İşlemci aynı anda buyruğu getirip veriyi okuyamaz. Bu sınırlama \emph{Von Neumann darboğazı}\index{Von Neumann darboğazı} olarak bilinir ve günümüzde bile başarımı etkileyen temel sorunlardan biridir.
 
-\emph{Harvard mimarisi}\index{Harvard mimarisi} bu darboğazı ortadan kaldırmayı hedefler. İsmini 1944'te Howard Aiken'in Harvard Üniversitesi'nde tasarladığı Mark~I bilgisayarından alan bu yaklaşımda buyruklar ve veriler fiziksel olarak ayrı belleklerde tutulur ve her birinin kendi yolu vardır. İşlemci, aynı anda buyruk belleğinden bir sonraki buyruğu getirirken veri belleğinden de ihtiyaç duyduğu veriyi okuyabilir. Bu koşut erişim, özellikle gerçek zamanlı sinyal işleme gibi bant genişliğine duyarlı uygulamalarda belirgin bir başarım artışı sağlar. Dezavantajı ise esneklik kaybıdır: buyruk ve veri belleklerinin boyutları tasarım zamanında belirlenmek zorundadır ve biri boşken diğeri doluysa kapasite israf edilir. İki yaklaşım Şekil~\ref{fig:vonneumann-harvard}'da karşılaştırmalı olarak gösterilmektedir.
+\emph{Harvard mimarisi}\index{Harvard mimarisi} bu darboğazı ortadan kaldırmayı hedefler. İsmini 1944'te Howard Aiken'in Harvard Üniversitesi'nde tasarladığı Mark~I bilgisayarından alan bu yaklaşımda buyruklar ve veriler fiziksel olarak ayrı belleklerde tutulur ve her birinin kendi yolu vardır. İşlemci, aynı anda buyruk belleğinden bir sonraki buyruğu getirirken veri belleğinden de ihtiyaç duyduğu veriyi okuyabilir. Bu koşut erişim, özellikle gerçek zamanlı sinyal işleme gibi bant genişliğine duyarlı uygulamalarda belirgin bir başarım artışı sağlar. Dezavantajı ise esneklik kaybıdır. Buyruk ve veri belleklerinin boyutları tasarım zamanında belirlenmek zorundadır ve biri boşken diğeri doluysa kapasite israf edilir. İki yaklaşım Şekil~\ref{fig:vonneumann-harvard}'da karşılaştırmalı olarak gösterilmektedir.
 
 \begin{figure}[H]
 \centering
@@ -1005,14 +1005,14 @@ Buyruklar ve veriler bellekte nasıl saklanmalı? Bu soru, bilgisayar mimarisini
 \label{fig:vonneumann-harvard}
 \end{figure}
 
-Günümüzde çoğu genel amaçlı işlemci, her iki yaklaşımın avantajlarını birleştiren \emph{değiştirilmiş Harvard mimarisi}\index{değiştirilmiş Harvard mimarisi} kullanır: ana bellekte buyruklar ve veriler birlikte saklanır (Von Neumann esnekliği), ancak işlemcinin içindeki önbelleklerde buyruk önbelleği ile veri önbelleği ayrı tutulur (Harvard bant genişliği). Bu tasarım, Bölüm~\ref{chap:bellek}'de ele alınacak bellek hiyerarşisinin temel yapı taşlarından biridir.
+Günümüzde çoğu genel amaçlı işlemci, her iki yaklaşımın avantajlarını birleştiren \emph{değiştirilmiş Harvard mimarisi}\index{değiştirilmiş Harvard mimarisi} kullanır. Ana bellekte buyruklar ve veriler birlikte saklanır (Von Neumann esnekliği), ancak işlemcinin içindeki önbelleklerde buyruk önbelleği ile veri önbelleği ayrı tutulur (Harvard bant genişliği). Bu tasarım, Bölüm~\ref{chap:bellek}'de ele alınacak bellek hiyerarşisinin temel yapı taşlarından biridir.
 
 \subsection{RISC ve CISC Tasarım Felsefeleri}
 \label{subsec:risc-cisc}
 
-Bir buyruk kümesi mimarisi tasarlanırken karşılaşılan temel soru şudur: buyruklar ne kadar karmaşık olmalı? Tarihsel süreçte bu soruya iki farklı felsefe yanıt vermiştir.
+Bir buyruk kümesi mimarisi tasarlanırken temel bir soruyla karşılaşılır. Buyruklar ne kadar karmaşık olmalı? Tarihsel süreçte bu soruya iki farklı felsefe yanıt vermiştir.
 
-\emph{CISC}\index{CISC} (\emph{Complex Instruction Set Computer}: Karmaşık Buyruk Kümeli Bilgisayar) yaklaşımı, bir programı olabildiğince az sayıda buyrukla ifade etmeyi hedefler. Bunun için buyruk kümesi büyük tutulur ve buyruklar karmaşıktır. CISC mimarisinde tek bir buyruk, bellekten veri okuma, üzerinde işlem yapma ve sonucu belleğe yazma gibi birden fazla adımı bir arada gerçekleştirebilir. Bu yaklaşım, belleğin pahalı ve yavaş olduğu dönemlerde programları küçük tutmak amacıyla geliştirildi: daha az buyruk demek daha az bellek kullanımı demekti. Intel'in x86\index{x86} ailesi, CISC felsefesinin en yaygın temsilcisidir.
+\emph{CISC}\index{CISC} (\emph{Complex Instruction Set Computer}: Karmaşık Buyruk Kümeli Bilgisayar) yaklaşımı, bir programı olabildiğince az sayıda buyrukla ifade etmeyi hedefler. Bunun için buyruk kümesi büyük tutulur ve buyruklar karmaşıktır. CISC mimarisinde tek bir buyruk, bellekten veri okuma, üzerinde işlem yapma ve sonucu belleğe yazma gibi birden fazla adımı bir arada gerçekleştirebilir. Bu yaklaşım, belleğin pahalı ve yavaş olduğu dönemlerde programları küçük tutmak amacıyla geliştirildi. Daha az buyruk demek daha az bellek kullanımı demekti. Intel'in x86\index{x86} ailesi, CISC felsefesinin en yaygın temsilcisidir.
 
 \emph{RISC}\index{RISC} (\emph{Reduced Instruction Set Computer}: İndirgenmiş Buyruk Kümeli Bilgisayar) yaklaşımı ise 1980'lerde Berkeley ve Stanford üniversitelerindeki araştırmalardan doğdu. RISC felsefesinde her buyruk yalnızca bir temel işlem yapar, tüm buyruklar sabit uzunluktadır ve bellek erişimi yalnızca özel yükleme (\texttt{lw}) ve saklama (\texttt{sw}) buyruklarıyla gerçekleştirilir. Aritmetik işlemler doğrudan bellekteki veriler üzerinde değil, yazmaçlardaki\index{yazmaç} değerler üzerinde yapılır. Bu ayrım \emph{yükle-sakla mimarisi}\index{yükle-sakla mimarisi} (\emph{load-store architecture}) olarak bilinir. ARM\index{ARM} ve RISC-V\index{RISC-V}, RISC felsefesinin günümüzdeki önemli temsilcileridir.
 
@@ -1158,7 +1158,7 @@ Bu katmanlar arasındaki ilişki Şekil~\ref{fig:yazilim-katmanlari}'de gösteri
 
 \emph{Kütüphaneler}\index{kütüphane} (\emph{library}), sık kullanılan işlevlerin bir araya getirildiği hazır kod koleksiyonlarıdır. Bir programcı matematiksel bir fonksiyon hesaplamak ya da ekrana görüntü çizmek istediğinde ilgili kütüphaneyi çağırır. Aynı kodu sıfırdan yazmak zorunda kalmaz. Kütüphaneler, yazılım geliştirme hızını artırmanın yanı sıra test edilmiş ve eniyilenmiş kodun tekrar tekrar kullanılmasını sağlar.
 
-Bu katmanlı yapı, bilgisayar mimarisi açısından can alıcı bir sonuç doğurur: bir programın başarımı yalnızca donanıma değil, derleyicinin eniyileme kalitesine, işletim sisteminin kaynak yönetim politikalarına ve kütüphanelerin verimliliğine de bağlıdır. Mimari tasarımcılar, buyruk kümesini ve donanımı bu yazılım katmanlarıyla uyumlu biçimde geliştirmek zorundadır. Bu bölümde tanıttığımız yazma-derleme-çalıştırma zincirini RISC-V buyruklarıyla ayrıntılı biçimde Bölüm~\ref{chap:buyruk-kumesi}'te, çevirici dil programlamayı ise Bölüm~\ref{chap:programlama}'te ele alacağız.
+Bu katmanlı yapı, bilgisayar mimarisi açısından can alıcı bir sonuç doğurur. Bir programın başarımı yalnızca donanıma değil, derleyicinin eniyileme kalitesine, işletim sisteminin kaynak yönetim politikalarına ve kütüphanelerin verimliliğine de bağlıdır. Mimari tasarımcılar, buyruk kümesini ve donanımı bu yazılım katmanlarıyla uyumlu biçimde geliştirmek zorundadır. Bu bölümde tanıttığımız yazma-derleme-çalıştırma zincirini RISC-V buyruklarıyla ayrıntılı biçimde Bölüm~\ref{chap:buyruk-kumesi}'te, çevirici dil programlamayı ise Bölüm~\ref{chap:programlama}'te ele alacağız.
 
 \subsection{Buyruk Yürütüm Döngüsü}
 \label{subsec:buyruk-yurutum-dongusu}
@@ -1307,7 +1307,7 @@ Bilgisayar, birbirini tamamlayan pek çok ayrı parçadan oluşur. Bu parçalar�
     \item \textbf{Geçmiş (Tarih):} \emph{Geçmişe uyumluluk}\index{geçmişe uyumluluk} (\emph{backward compatibility}) ilkesi, daha önce yazılmış yazılımların yeni donanımda da çalışmasını zorunlu kılar. Bu ilke mimariyi tarihe bağlı kılar. x86 buyruk kümesinin 1978'den bu yana korunması bunun en bilinen örneği.
 \end{itemize}
 
-Bu etkenler arasında \emph{geçmişe uyumluluk} özellikle güçlü bir kısıt oluşturur. Intel, 8086'dan bu yana her yeni işlemcide önceki neslin tüm yazılımlarını çalıştırma taahhüdünü sürdürmüştür. Devasa bir yazılım ekosistemine sahip olmanın getirdiği bu rekabet avantajı, şirket içinde \emph{altın kelepçe}\index{altın kelepçe}\index{golden handcuffs|see{altın kelepçe}} (\emph{golden handcuffs}) olarak adlandırılır: milyarlarca dolarlık mevcut yazılım yatırımı müşterileri x86 ekosistemine bağlarken, aynı zamanda mimarların eski buyrukları ve davranışları sonsuza dek desteklemesini zorunlu kılar. Bu durum, teknik açıdan daha verimli tasarım seçeneklerini engellese bile ticari açıdan vazgeçilmez görülmektedir. Geçmişe uyumluluğun buyruk kümesi tasarımına etkileri Bölüm~\ref{chap:buyruk-kumesi}'te ayrıntılı olarak ele alınacaktır.
+Bu etkenler arasında \emph{geçmişe uyumluluk} özellikle güçlü bir kısıt oluşturur. Intel, 8086'dan bu yana her yeni işlemcide önceki neslin tüm yazılımlarını çalıştırma taahhüdünü sürdürmüştür. Devasa bir yazılım ekosistemine sahip olmanın getirdiği bu rekabet avantajı, şirket içinde \emph{altın kelepçe}\index{altın kelepçe}\index{golden handcuffs|see{altın kelepçe}} (\emph{golden handcuffs}) olarak adlandırılır. Milyarlarca dolarlık mevcut yazılım yatırımı müşterileri x86 ekosistemine bağlarken, aynı zamanda mimarların eski buyrukları ve davranışları sonsuza dek desteklemesini zorunlu kılar. Bu durum, teknik açıdan daha verimli tasarım seçeneklerini engellese bile ticari açıdan vazgeçilmez görülmektedir. Geçmişe uyumluluğun buyruk kümesi tasarımına etkileri Bölüm~\ref{chap:buyruk-kumesi}'te ayrıntılı olarak ele alınacaktır.
 
 \subsection{Dört Tasarım İlkesi}
 \label{sec:tasarim-ilkeleri}
@@ -1597,7 +1597,7 @@ Bu zincir şöyle özetlenebilir:
 %
 Her bozukluk hataya, her hata arızaya dönüşmek zorunda değildir. \emph{Hata düzeltme kodlaması}\index{hata düzeltme kodu}\index{ECC|see{hata düzeltme kodu}} (\emph{ECC}: Error Correcting Code) hatayı arızaya dönüşmeden yakalayabilir. Yedekli hesaplama ise bir birimin bozukluğunu diğerleriyle maskeleyebilir. Güvenilirlik mühendisliğinin amacı bu zinciri mümkün olan en erken noktada kırmaktır.
 
-ECC'nin temel çalışma ilkesi şudur: veri saklanırken veya iletilirken sözcüğe fazladan \emph{denetim bitleri} eklenir. Bu bitler, belirli matematiksel kodlama kurallarına göre üretilir ve okuma sırasında denetlenir. Tek bitlik bir hata oluşmuşsa ECC devresi hatayı hem \emph{saptayıp} hem de \emph{düzeltebilir}. Çift bitlik hatalar ise saptanabilir ama düzeltilemez (SECDED\index{SECDED}: \emph{Single Error Correction, Double Error Detection}). Bu mekanizma özellikle sunucu belleklerinde yaygın olarak kullanılır ve kozmik ışın kaynaklı geçici bozuklukların büyük çoğunluğunu kullanıcı farkına bile varmadan giderir. Hata düzeltme kodlamasının ayrıntılı matematiksel temeli ve farklı kodlama yöntemleri Bölüm~\ref{chap:bellek}'de ele alınacaktır.
+ECC temel olarak şöyle çalışır. Veri saklanırken veya iletilirken sözcüğe fazladan \emph{denetim bitleri} eklenir. Bu bitler, belirli matematiksel kodlama kurallarına göre üretilir ve okuma sırasında denetlenir. Tek bitlik bir hata oluşmuşsa ECC devresi hatayı hem \emph{saptayıp} hem de \emph{düzeltebilir}. Çift bitlik hatalar ise saptanabilir ama düzeltilemez (SECDED\index{SECDED}: \emph{Single Error Correction, Double Error Detection}). Bu mekanizma özellikle sunucu belleklerinde yaygın olarak kullanılır ve kozmik ışın kaynaklı geçici bozuklukların büyük çoğunluğunu kullanıcı farkına bile varmadan giderir. Hata düzeltme kodlamasının ayrıntılı matematiksel temeli ve farklı kodlama yöntemleri Bölüm~\ref{chap:bellek}'de ele alınacaktır.
 
 \subsection{Bozukluk Türleri}
 \label{subsec:bozukluk-turleri}
@@ -1652,7 +1652,7 @@ Birden fazla bileşenden oluşan bir sistemde, herhangi bir bileşenin arızası
 \label{eq:mttf-sistem}
 \end{equation}
 %
-Burada $\lambda_i = 1/\text{MTTF}_i$ bileşen $i$'nin arıza oranıdır. $N$ özdeş bileşenden oluşan bir sistemde bu ifade $\text{MTTF}_{\text{sistem}} = \text{MTTF}_{\text{bileşen}} / N$ biçimine sadeleşir. Bu denklem can alıcı bir sonuç doğurur: bir veri merkezinde 10\,000 sunucu varsa ve her birinin MTTF'si 100\,000~saat ise, merkezin MTTF'si yalnızca 10~saat olur. Ortalama her 10 saatte bir sunucu arızası beklenir.
+Burada $\lambda_i = 1/\text{MTTF}_i$ bileşen $i$'nin arıza oranıdır. $N$ özdeş bileşenden oluşan bir sistemde bu ifade $\text{MTTF}_{\text{sistem}} = \text{MTTF}_{\text{bileşen}} / N$ biçimine sadeleşir. Bu denklem can alıcı bir sonuç doğurur. Bir veri merkezinde 10\,000 sunucu varsa ve her birinin MTTF'si 100\,000~saat ise, merkezin MTTF'si yalnızca 10~saat olur. Ortalama her 10 saatte bir sunucu arızası beklenir.
 
 \begin{ornek}[1.7]
 Bir sunucu üç temel bileşenden oluşuyor: işlemci, bellek ve disk. Her bileşenin MTTF değeri şöyledir:
@@ -1805,7 +1805,7 @@ RISC-V'in en büyük avantajı, tarihsel yükten arınmış olarak sıfırdan ta
 
 Şekil~\ref{fig:isa-karsilastirma}'te üç önemli buyruk kümesi mimarisinin temel boyutlarda karşılaştırması veriliyor. Günümüzde SiFive, Alibaba T-Head, Andes ve NVIDIA gibi firmalar RISC-V tabanlı ticari işlemciler üretiyor. Avrupa İşlemci Girişimi (European Processor Initiative) de yüksek başarımlı hesaplama alanında RISC-V'e yatırım yapıyor. Akademik dünyada ise BOOM, Rocket ve CVA6 gibi açık kaynaklı RISC-V çekirdekleri araştırmacılara gerçek bir işlemci tasarımı üzerinde deney yapma olanağı sunuyor.
 
-RISC-V'in benimsenmesi yalnızca akademik dünyayla sınırlı kalmadı. Endüstride de hızla ivme kazandı. Şekil~\ref{fig:riscv-buyume}'da birikimli RISC-V çekirdek sayısının yıllara göre artışı gösterilmektedir. ARM mimarisinin 10~milyar çekirdeğe ulaşması 17~yıl sürmüşken, RISC-V bu eşiğe yalnızca 12~yılda ulaştı. Dikkat çekici bir nokta: NVIDIA tek başına 2024'te 1~milyar RISC-V çekirdeğini piyasaya sürdü. Bunlar GPU denetleyicileri, güç yönetimi ve güvenlik alt sistemleri gibi görevlerde kullanılmaktadır.
+RISC-V'in benimsenmesi yalnızca akademik dünyayla sınırlı kalmadı. Endüstride de hızla ivme kazandı. Şekil~\ref{fig:riscv-buyume}'da birikimli RISC-V çekirdek sayısının yıllara göre artışı gösterilmektedir. ARM mimarisinin 10~milyar çekirdeğe ulaşması 17~yıl sürmüşken, RISC-V bu eşiğe yalnızca 12~yılda ulaştı. NVIDIA'nın tek başına 2024'te 1~milyar RISC-V çekirdeğini piyasaya sürmesi dikkat çekicidir. Bunlar GPU denetleyicileri, güç yönetimi ve güvenlik alt sistemleri gibi görevlerde kullanılmaktadır.
 
 \begin{figure}[H]
 \centering
@@ -1945,7 +1945,7 @@ Alana özgü hızlandırıcılar ne kadar farklı görünürse görünsün, heps
 
 Bu nedenle yapay zekâ çağı, bilgisayar mimarisi eğitimini önemsizleştirmek bir yana, daha da \emph{can alıcı} hale getirdi. Buyruk kümesi tasarımı (Bölüm~\ref{chap:buyruk-kumesi}), işlemci mikromimarisi (Bölüm~\ref{chap:islemci-tasarimi}), boru hattı (Bölüm~\ref{chap:boruhatti}) ve bellek hiyerarşisi (Bölüm~\ref{chap:bellek}) gibi konular, hem geleneksel MİB'leri hem de yeni nesil hızlandırıcıları anlamanın temelini oluşturuyor.
 
-RISC-V'in modüler genişletilebilirlik yapısı bu bağlamda özel bir avantaj sunuyor: Öğrenciler, temel RV32I çekirdeğine özel matris çarpımı buyrukları ekleyerek basit bir yapay zekâ hızlandırıcısını prototipleyebilir. Bu deneyim, alana özgü mimari tasarımının özünü kavramak için eşsiz bir fırsat sağlıyor.
+RISC-V'in modüler genişletilebilirlik yapısı bu bağlamda özel bir avantaj sunuyor. Öğrenciler, temel RV32I çekirdeğine özel matris çarpımı buyrukları ekleyerek basit bir yapay zekâ hızlandırıcısını prototipleyebilir. Bu deneyim, alana özgü mimari tasarımının özünü kavramak için eşsiz bir fırsat sağlıyor.
 
 \begin{bilginot}[Büyük Dil Modelleri ve Donanım]
 ChatGPT ve benzeri büyük dil modelleri\index{büyük dil modeli} (Large Language Models: LLM), on milyarlarca parametreden oluşan yapay sinir ağları. GPT-4 düzeyinde bir modelin eğitimi, on bin GPU'dan oluşan bir küme üzerinde aylarca sürebiliyor ve milyonlarca dolar enerji maliyeti gerektiriyor. Modelin kullanıcılara sunulması (çıkarım) ise daha düşük güçle mümkün, ancak milyonlarca eş zamanlı istek düşünüldüğünde bu da büyük ölçekli bir donanım altyapısı gerektiriyor. Transformer mimarisindeki \emph{dikkat mekanizması}\index{dikkat mekanizması} (attention), bellek bant genişliği açısından son derece yoğun bir işlem olup yeni nesil donanım tasarımlarını doğrudan şekillendiriyor.
@@ -1983,7 +1983,7 @@ Bilgisayar mimarisi çok hızlı gelişen bir mühendislik alanıdır. Elektrik-
 
 Bilgisayar tarihinde vakum tüplerinden transistörlere, tümleşik devrelerden mikroişlemcilere ve günümüzün çok çekirdekli heterojen sistemlerine uzanan beş nesil ayırt edilebilir. Moore Yasası'nın öngördüğü transistör artışı onlarca yıl boyunca endüstrinin yol haritasını belirledi, ancak Dennard ölçeklemesinin sona ermesiyle güç duvarı ortaya çıktı. Güç tüketimi, günümüzde işlemci tasarımının en temel kısıtlarından biri. Bilgisayar başarımının nasıl ölçüldüğü ve değerlendirildiği Bölüm~\ref{chap:basarim}'de ayrıntılı olarak ele alınıyor.
 
-RISC-V'in açık kaynak, modüler ve eğitim dostu yapısı, onu hem bu kitabın hem de dünya genelinde giderek artan sayıda mimari projenin tercih ettiği buyruk kümesi haline getirdi. Yapay zekâ ise bilgisayar mimarisinin yeni ufku: GPU, TPU ve NPU gibi alana özgü hızlandırıcılar, genel amaçlı MİB'lerin tek başına karşılayamadığı devasa hesaplama gereksinimlerini verimli biçimde karşılamak için tasarlanıyor. Bu hızlandırıcıların mimarisi Bölüm~\ref{chap:gpu-hizlandiricilar}'de kapsamlı olarak incelenecek.
+RISC-V'in açık kaynak, modüler ve eğitim dostu yapısı, onu hem bu kitabın hem de dünya genelinde giderek artan sayıda mimari projenin tercih ettiği buyruk kümesi haline getirdi. Yapay zekâ ise bilgisayar mimarisinin yeni ufku. GPU, TPU ve NPU gibi alana özgü hızlandırıcılar, genel amaçlı MİB'lerin tek başına karşılayamadığı devasa hesaplama gereksinimlerini verimli biçimde karşılamak için tasarlanıyor. Bu hızlandırıcıların mimarisi Bölüm~\ref{chap:gpu-hizlandiricilar}'de kapsamlı olarak incelenecek.
 
 İlerleyen bölümlerde başarım (Bölüm~\ref{chap:basarim}), buyruk kümesi mimarisi (Bölüm~\ref{chap:buyruk-kumesi}), sayısal aritmetik (Bölüm~\ref{chap:aritmetik}), işlemci tasarımı (Bölüm~\ref{chap:islemci-tasarimi}), boru hattı (Bölüm~\ref{chap:boruhatti}), bellek hiyerarşisi (Bölüm~\ref{chap:bellek}), giriş/çıkış (Bölüm~\ref{chap:giris-cikis}), çok çekirdekli sistemler (Bölüm~\ref{chap:cok-cekirdekli}) ve GPU ile hızlandırıcılar (Bölüm~\ref{chap:gpu-hizlandiricilar}) ele alınacak.
 

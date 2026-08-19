@@ -44,7 +44,7 @@ Görüldüğü gibi herkes ``hızlı bir bilgisayar'' istemektedir; ama ``hızl�
 \textbf{sınama programı} (\emph{benchmark})\,: \emph{Sınamak} (to test) fiilinden \emph{-ma} ekiyle oluşan \emph{sınama} ve \emph{program} sözcüklerinin birleşimi. Bir sistemin başarımını ölçmek için kullanılan standart test programıdır. İngilizce \emph{benchmark} ``referans noktası'' anlamına gelir. Bazı kaynaklarda \emph{denektaşı} (deneme taşı: kuyumcuların altın ayarını sınadığı taş) terimi de kullanılır. Bu kitapta \emph{sınama programı} tercih edilmiştir.
 \end{terimnotu}
 
-Bir otomobil alırken yalnızca en yüksek hızına bakılmaz. Yakıt tüketimi, güvenlik donanımı, konfor düzeyi ve fiyatı da değerlendirilir. Bilgisayar başarımı da öyle: tek bir sayıya indirgemek yerine iş yükünün niteliğine uygun ölçütleri birlikte ele almak gerekir. Bu bölümde önce gereksinimlerin nasıl belirlendiğini, ardından başarımın nasıl tanımlanıp ölçüldüğünü, FLOPS ve SPEC gibi karşılaştırma ölçütlerini, tarihsel başarım eğilimlerini ve Amdahl Yasası'nın tasarım kararlarına etkisini ele alacağız.
+Bir otomobil alırken yalnızca en yüksek hızına bakılmaz. Yakıt tüketimi, güvenlik donanımı, konfor düzeyi ve fiyatı da değerlendirilir. Bilgisayar başarımı da öyle. Tek bir sayıya indirgemek yerine iş yükünün niteliğine uygun ölçütleri birlikte ele almak gerekir. Bu bölümde önce gereksinimlerin nasıl belirlendiğini, ardından başarımın nasıl tanımlanıp ölçüldüğünü, FLOPS ve SPEC gibi karşılaştırma ölçütlerini, tarihsel başarım eğilimlerini ve Amdahl Yasası'nın tasarım kararlarına etkisini ele alacağız.
 
 
 % -----------------------------------------------------------------
@@ -63,7 +63,7 @@ Başarımı ölçmek için önce neyin ``başarılı'' sayılacağını tanımla
 \subsection{Gereksinimden Ölçüme Giden Yol}
 \label{subsec:gereksinimden-olcume}
 
-Başarım değerlendirmesi üç aşamalı bir süreçtir. Şekil~\ref{fig:gereksinim-dongusu}'de gösterildiği gibi bu aşamalar döngüsel bir ilişki içindedir: ölçüm sonuçları gereksinimlerin yeniden gözden geçirilmesine yol açabilir.
+Başarım değerlendirmesi üç aşamalı bir süreçtir. Şekil~\ref{fig:gereksinim-dongusu}'de gösterildiği gibi bu aşamalar döngüsel bir ilişki içindedir. Ölçüm sonuçları gereksinimlerin yeniden gözden geçirilmesine yol açabilir.
 
 \begin{figure}[H]
 \centering
@@ -178,9 +178,9 @@ Gereksinimler belirlendikten sonra sıra, bu gereksinimleri somut sayılara dön
 \subsection{Yürütme Zamanı}
 \label{subsec:yurutme-zamani}
 
-Sayısal devrelerin başarımı her zaman \emph{zaman} ile ölçülür. Bir mantık devresine giriş verildiği andan doğru çıkışın elde edildiği ana kadar geçen süre, o devrenin hızını belirler. Bir toplayıcı devresi iki sayıyı 2~nanosaniyede topluyorsa, aynı işi 5~nanosaniyede yapan bir toplayıcıdan daha hızlıdır. Aynı ilke bilgisayar düzeyinde de geçerlidir: bir programın başlatılmasından tamamlanmasına kadar geçen süre, o bilgisayarın ilgili iş yükündeki başarımının en doğrudan göstergesidir.
+Sayısal devrelerin başarımı her zaman \emph{zaman} ile ölçülür. Bir mantık devresine giriş verildiği andan doğru çıkışın elde edildiği ana kadar geçen süre, o devrenin hızını belirler. Bir toplayıcı devresi iki sayıyı 2~nanosaniyede topluyorsa, aynı işi 5~nanosaniyede yapan bir toplayıcıdan daha hızlıdır. Aynı ilke bilgisayar düzeyinde de geçerlidir. Bir programın başlatılmasından tamamlanmasına kadar geçen süre, o bilgisayarın ilgili iş yükündeki başarımının en doğrudan göstergesidir.
 
-Bir işin başlangıcı ile bitişi arasında geçen bu süreye \emph{yürütme zamanı}\index{yürütme zamanı} ya da tepki zamanı (\emph{execution time}) denir. Yürütme zamanı ile başarım arasındaki ilişki ters orantılıdır: süre ne kadar kısaysa başarım o kadar yüksektir. Tıpkı bir maratoncu gibi: İstanbul Maratonu'nu 2~saatte koşan atlet, 3~saatte koşandan daha başarılıdır çünkü aynı işi daha kısa sürede tamamlamıştır. Bu ters orantıyı şöyle ifade ederiz:
+Bir işin başlangıcı ile bitişi arasında geçen bu süreye \emph{yürütme zamanı}\index{yürütme zamanı} ya da tepki zamanı (\emph{execution time}) denir. Yürütme zamanı ile başarım arasındaki ilişki ters orantılıdır. Süre ne kadar kısaysa başarım o kadar yüksektir. Tıpkı maratonda olduğu gibi, İstanbul Maratonu'nu 2~saatte koşan atlet, 3~saatte koşandan daha başarılıdır çünkü aynı işi daha kısa sürede tamamlamıştır. Bu ters orantıyı şöyle ifade ederiz:
 
 \begin{equation}
 \text{Başarım} \propto \frac{1}{\text{Yürütme zamanı}}
@@ -189,7 +189,7 @@ Bir işin başlangıcı ile bitişi arasında geçen bu süreye \emph{yürütme 
 
 Burada $\propto$ simgesi ``ile orantılıdır'' anlamına gelir. Bu ifadeyi bir \emph{eşitlik} olarak yazmak ($\text{Başarım} = 1/\text{Yürütme zamanı}$) cazip görünse de o zaman başarımın birimi $1/\text{saniye}$ (hertz, Hz) olurdu. Bu fiziksel olarak anlamsızdır. ``Bu bilgisayarın başarımı 0,1~Hz'dir'' demek ne bir mühendise ne de bir kullanıcıya bir şey ifade eder.
 
-Gerçekte başarım her zaman \emph{karşılaştırmalı} olarak ölçülür\index{karşılaştırmalı başarım}. ``Bu bilgisayar hızlıdır'' cümlesi tek başına eksiktir. ``Bu bilgisayar \emph{şu bilgisayardan} hızlıdır'' ya da ``Bu bilgisayar \emph{geçen yılki modelden} hızlıdır'' demek gerekir. Günlük hayatta da böyle yaparız: yeni çıkan bir akıllı telefonun tanıtımında ``önceki modelden \%30 daha hızlı'' denir, ``başarımı 0,05~Hz'dir'' denmez. Yeni bir otomobil tanıtılırken ``0--100~km/sa hızlanma 4,5~saniye'' dendiğinde bile zihinsel olarak bunu bildiğimiz başka otomobillerle karşılaştırırız.
+Gerçekte başarım her zaman \emph{karşılaştırmalı} olarak ölçülür\index{karşılaştırmalı başarım}. ``Bu bilgisayar hızlıdır'' cümlesi tek başına eksiktir. ``Bu bilgisayar \emph{şu bilgisayardan} hızlıdır'' ya da ``Bu bilgisayar \emph{geçen yılki modelden} hızlıdır'' demek gerekir. Günlük hayatta da böyle yaparız. Yeni çıkan bir akıllı telefonun tanıtımında ``önceki modelden \%30 daha hızlı'' denir, ``başarımı 0,05~Hz'dir'' denmez. Yeni bir otomobil tanıtılırken ``0--100~km/sa hızlanma 4,5~saniye'' dendiğinde bile zihinsel olarak bunu bildiğimiz başka otomobillerle karşılaştırırız.
 
 İşte bu nedenle başarımın doğal ifade biçimi iki sistemin \emph{oranıdır}:
 \begin{equation}
@@ -200,12 +200,12 @@ Gerçekte başarım her zaman \emph{karşılaştırmalı} olarak ölçülür\ind
 \noindent ``A, B'den $n$ kat hızlıdır'' demek, A'nın aynı programı B'den $n$~kat daha kısa sürede çalıştırdığı anlamına gelir. Oran hesabında orantı sabiti sadeleştiği için birim sorunu ortadan kalkar. Örneğin bir program A~bilgisayarında 20~saniyede, B~bilgisayarında 60~saniyede tamamlanıyorsa A, B'den $60/20 = 3$ kat hızlıdır. Önemli olan 20~saniyenin mutlak değeri değil, B'ye göre 3 kat daha kısa olmasıdır.
 
 \begin{bilginot}[``2~kat daha hızlı'' mı, ``2~katı kadar hızlı'' mı?]
-Günlük dilde ``A, B'den 2~kat \emph{daha} hızlı'' ile ``A, B'nin 2~\emph{katı kadar} hızlı'' ifadeleri sıklıkla birbirinin yerine kullanılır; ancak dikkatli okunduğunda farklı anlamlara gelebilir. ``2~katı kadar hızlı'' açıkça hızlanma $= 2$ demektir: A'nın başarımı B'nin başarımının 2 katıdır. ``2~kat \emph{daha} hızlı'' ise B'nin hızına ek olarak 2~kat fazlasını (toplam 3~katı) ima edebilir. Tıpkı ``100~TL'den 50~TL \emph{daha} fazla'' dendiğinde 150~TL anlaşılması gibi.
+Günlük dilde ``A, B'den 2~kat \emph{daha} hızlı'' ile ``A, B'nin 2~\emph{katı kadar} hızlı'' ifadeleri sıklıkla birbirinin yerine kullanılır; ancak dikkatli okunduğunda farklı anlamlara gelebilir. ``2~katı kadar hızlı'' açıkça hızlanma $= 2$ demektir. A'nın başarımı B'nin başarımının 2 katıdır. ``2~kat \emph{daha} hızlı'' ise B'nin hızına ek olarak 2~kat fazlasını (toplam 3~katı) ima edebilir. Tıpkı ``100~TL'den 50~TL \emph{daha} fazla'' dendiğinde 150~TL anlaşılması gibi.
 
 Mühendislik ve bilimsel yazında bu belirsizlikten kaçınmak gerekir. Bu kitapta ``$n$~kat hızlı'' ve ``$n$~kat daha hızlı'' ifadelerinin her ikisi de Denklem~\ref{eq:basarim-karsilastirma}'deki oranı, başka deyişle \emph{hızlanma $= n$} anlamını taşır. Belirsizlik riski olan yerlerde oran doğrudan verilmelidir: ``A'nın yürütme zamanı B'nin yarısıdır'' ya da ``hızlanma 2$\times$'' gibi.
 \end{bilginot}
 
-Başarımın bu karşılaştırmalı doğası önemli bir sonuç doğurur: \emph{mutlak başarım} diye bir kavram yoktur\index{mutlak başarım}. Hiçbir bilgisayar için ``bu bilgisayarın başarımı şu kadardır'' gibi tek başına anlamlı bir sayı verilemez. Başarım her zaman bir referansa göre ölçülür. Dahası, her sistem daha iyisini yapabilecek bir tasarımla karşılaştırılabilir. Her zaman daha hızlı bir çözüm üretilebilir. Bugünün en hızlı süper bilgisayarı, birkaç yıl sonra orta düzey bir sistemin gerisinde kalabilir. Bu gerçek, bilgisayar mimarisini sürekli gelişen bir mühendislik alanı kılar: bugünün en iyi tasarımı, yarının başlangıç noktasıdır.
+Başarımın bu karşılaştırmalı doğası önemli bir sonuç doğurur: \emph{mutlak başarım} diye bir kavram yoktur\index{mutlak başarım}. Hiçbir bilgisayar için ``bu bilgisayarın başarımı şu kadardır'' gibi tek başına anlamlı bir sayı verilemez. Başarım her zaman bir referansa göre ölçülür. Dahası, her sistem daha iyisini yapabilecek bir tasarımla karşılaştırılabilir. Her zaman daha hızlı bir çözüm üretilebilir. Bugünün en hızlı süper bilgisayarı, birkaç yıl sonra orta düzey bir sistemin gerisinde kalabilir. Bu gerçek, bilgisayar mimarisini sürekli gelişen bir mühendislik alanı kılar. Bugünün en iyi tasarımı, yarının başlangıç noktasıdır.
 
 Yürütme zamanı iki farklı biçimde ölçülebilir:
 
@@ -221,7 +221,7 @@ MİB zamanı kendi içinde de ikiye ayrılır: \emph{kullanıcı MİB zamanı}\i
 \subsection{Saat Sıklığı ve Çevrim Zamanı}
 \label{subsec:saat-sikligi}
 
-Bir kadırgadaki davulcuyu düşünün: davulcu düzenli aralıklarla davula vurur ve her vuruşta tüm kürekçiler aynı anda kürek çeker. Davulcu hızlanırsa kadırga hızlanır; ama kürekçiler yetişemeyecek kadar hızlı vurursa düzen bozulur. İşlemcideki \emph{saat sinyali}\index{saat sinyali} tam olarak bu davulcunun rolünü üstlenir: düzenli aralıklarla yükselen ve düşen bir kare dalga üreterek işlemcinin tüm birimlerinin (yazmaçların, toplayıcıların, bellek denetleyicisinin) aynı anda adım atmasını sağlar. Şekil~\ref{fig:saat-darbeleri}'de bu kare dalga sinyali gösterilmektedir.
+Bir kadırgadaki davulcuyu düşünün: davulcu düzenli aralıklarla davula vurur ve her vuruşta tüm kürekçiler aynı anda kürek çeker. Davulcu hızlanırsa kadırga hızlanır; ama kürekçiler yetişemeyecek kadar hızlı vurursa düzen bozulur. İşlemcideki \emph{saat sinyali}\index{saat sinyali} tam olarak bu davulcunun rolünü üstlenir. Düzenli aralıklarla yükselen ve düşen bir kare dalga üreterek işlemcinin tüm birimlerinin (yazmaçların, toplayıcıların, bellek denetleyicisinin) aynı anda adım atmasını sağlar. Şekil~\ref{fig:saat-darbeleri}'de bu kare dalga sinyali gösterilmektedir.
 
 \begin{figure}[H]
 \centering
@@ -287,18 +287,18 @@ Bir kadırgadaki davulcuyu düşünün: davulcu düzenli aralıklarla davula vur
 \label{fig:saat-darbeleri}
 \end{figure}
 
-Saatin iki yükselen ya da iki düşen darbesi arasında geçen süreye \emph{çevrim zamanı}\index{çevrim zamanı} denir. 1 saniyelik zaman aralığındaki çevrim sayısı ise \emph{saat vuruşu sıklığı}\index{saat sıklığı} (frekans) olarak tanımlanır. Peki işlemci hangi kenarı kullanır? Büyük çoğunluk \emph{yükselen kenarı}\index{yükselen kenar} temel alır: flip-floplar yalnızca saat sinyali 0'dan 1'e geçtiğinde yeni değerlerini yakalar, geri kalan sürede içeriklerini korur. Düşen kenar kullanılarak da aynı sonuç elde edilebilir. Önemli olan tasarım boyunca tutarlı bir seçim yapılmasıdır.\footnote{Bazı bellek teknolojileri her iki kenarı da kullanır. DDR (Double Data Rate) bellek adını tam da buradan alır: hem yükselen hem düşen kenarda veri aktararak aynı saat sıklığında iki kat bant genişliği sağlar.}
+Saatin iki yükselen ya da iki düşen darbesi arasında geçen süreye \emph{çevrim zamanı}\index{çevrim zamanı} denir. 1 saniyelik zaman aralığındaki çevrim sayısı ise \emph{saat vuruşu sıklığı}\index{saat sıklığı} (frekans) olarak tanımlanır. Peki işlemci hangi kenarı kullanır? Büyük çoğunluk \emph{yükselen kenarı}\index{yükselen kenar} temel alır. Flip-floplar yalnızca saat sinyali 0'dan 1'e geçtiğinde yeni değerlerini yakalar, geri kalan sürede içeriklerini korur. Düşen kenar kullanılarak da aynı sonuç elde edilebilir. Önemli olan tasarım boyunca tutarlı bir seçim yapılmasıdır.\footnote{Bazı bellek teknolojileri her iki kenarı da kullanır. DDR (Double Data Rate) bellek adını tam da buradan alır. Hem yükselen hem düşen kenarda veri aktararak aynı saat sıklığında iki kat bant genişliği sağlar.}
 
 \begin{equation}
 \text{Çevrim zamanı} = \frac{1}{\text{Saat sıklığı}}
 \label{eq:cevrim-zamani}
 \end{equation}
 
-Sıklık birimi olan Hertz\index{Hertz}, bir saniyede bir olayın kaç kere gerçekleştiğini gösterir. Kadırga benzetmemize dönersek: davulcu davula saniyede 2~kez vuruyorsa vuruş sıklığı 2\,Hz, çevrim zamanı ise $1/2 = 0{,}5$\,saniyedir. Günümüz işlemcilerinde saat sıklığı milyar Hertz (GHz) mertebesindedir. 4\,GHz'lik bir işlemcide davulcu saniyede 4 milyar kez vurmakta, her vuruş yalnızca 0,25\,ns sürmektedir.
+Sıklık birimi olan Hertz\index{Hertz}, bir saniyede bir olayın kaç kere gerçekleştiğini gösterir. Kadırga benzetmemize dönersek, davulcu davula saniyede 2~kez vuruyorsa vuruş sıklığı 2\,Hz, çevrim zamanı ise $1/2 = 0{,}5$\,saniyedir. Günümüz işlemcilerinde saat sıklığı milyar Hertz (GHz) mertebesindedir. 4\,GHz'lik bir işlemcide davulcu saniyede 4 milyar kez vurmakta, her vuruş yalnızca 0,25\,ns sürmektedir.
 
 İşlemcinin içinde zaman kavramını anlamasının tek yolu saat vuruşlarını, başka bir deyişle çevrimleri, saymasıdır. İşlemci ``10 nanosaniye geçti'' diye düşünmez. Onun bildiği tek şey ``5 çevrim geçti''dir. Bu nedenle işlemci içindeki tüm zamanlar \emph{çevrim sayısı}\index{çevrim sayısı} cinsinden ifade edilir: bir bellek erişimi kaç çevrim sürer, bir çarpma kaç çevrimde tamamlanır, bir program baştan sona kaç çevrimde biter. Hepsi çevrim sayısıyla ölçülür. Saat sıklığı bilindiği için çevrim sayısını gerçek zamana dönüştürmek kolaydır: 5\,GHz'lik bir işlemcide 10 çevrim, $10 \times 0{,}2\;\text{ns} = 2\;\text{ns}$ demektir.
 
-Bir programın yürütülmesi sırasında işlemcinin harcadığı toplam saat çevrimi sayısına \emph{çevrim sayısı} (cycle count) denir. Çevrim sayısı programdan programa büyük farklılık gösterir: basit bir toplama işlemi birkaç düzine çevrimde tamamlanabilirken, karmaşık bir sıralama algoritması milyarlarca çevrim gerektirebilir. Çevrim sayısını belirleyen iki temel etken vardır: programda kaç buyruk yürütüldüğü ve her bir buyruğun kaç çevrimde tamamlandığı. Bu ayrıntılı çözümlemeyi bir sonraki alt bölümde BBÇ kavramıyla ele alacağız. Şimdilik çevrim sayısını bilinen bir değer olarak kabul edelim. Saat sıklığını belirleyen kritik yol analizini ve saat dağıtım ağlarını Bölüm~\ref{chap:islemci-tasarimi}'da inceleyeceğiz.
+Bir programın yürütülmesi sırasında işlemcinin harcadığı toplam saat çevrimi sayısına \emph{çevrim sayısı} (cycle count) denir. Çevrim sayısı programdan programa büyük farklılık gösterir. Basit bir toplama işlemi birkaç düzine çevrimde tamamlanabilirken, karmaşık bir sıralama algoritması milyarlarca çevrim gerektirebilir. Çevrim sayısını belirleyen iki temel etken vardır: programda kaç buyruk yürütüldüğü ve her bir buyruğun kaç çevrimde tamamlandığı. Bu ayrıntılı çözümlemeyi bir sonraki alt bölümde BBÇ kavramıyla ele alacağız. Şimdilik çevrim sayısını bilinen bir değer olarak kabul edelim. Saat sıklığını belirleyen kritik yol analizini ve saat dağıtım ağlarını Bölüm~\ref{chap:islemci-tasarimi}'da inceleyeceğiz.
 
 Çevrim sayısı ile çevrim zamanını çarparak programın toplam yürütme zamanını elde ederiz:
 \begin{equation}
@@ -306,7 +306,7 @@ Bir programın yürütülmesi sırasında işlemcinin harcadığı toplam saat �
 \label{eq:yurutme-zamani}
 \end{equation}
 
-Bu formülü küçük bir örnekle pekiştirelim. İki firmayı düşünelim: her ikisi de RISC-V BKM'sini kullanan bir işlemci üretmektedir ve aynı programı çalıştıracaklardır. Aynı BKM, aynı program. Dolayısıyla her iki işlemci de bu programı aynı çevrim sayısında (diyelim 12 milyar çevrimde) tamamlar.\footnote{Gerçekte aynı BKM'yi kullanan iki farklı işlemci, mikromimari farklılıkları nedeniyle aynı programı farklı çevrim sayılarında tamamlayabilir. Burada karşılaştırmayı yalınlaştırmak için çevrim sayısını sabit tutuyoruz.} Fark, üretim teknolojisindedir: İşlemci~A eski 7\,nm süreçle üretilmiş ve 3\,GHz'de çalışmaktadır. İşlemci~B ise daha yeni 5\,nm süreçle üretilmiş ve transistörleri daha hızlı anahtarlama yapabildiği için 4\,GHz'e ulaşmaktadır. Denklem~\ref{eq:yurutme-zamani}'ü uygularsak:
+Bu formülü küçük bir örnekle pekiştirelim. İki firmayı düşünelim: her ikisi de RISC-V BKM'sini kullanan bir işlemci üretmektedir ve aynı programı çalıştıracaklardır. Aynı BKM, aynı program. Dolayısıyla her iki işlemci de bu programı aynı çevrim sayısında (diyelim 12 milyar çevrimde) tamamlar.\footnote{Gerçekte aynı BKM'yi kullanan iki farklı işlemci, mikromimari farklılıkları nedeniyle aynı programı farklı çevrim sayılarında tamamlayabilir. Burada karşılaştırmayı yalınlaştırmak için çevrim sayısını sabit tutuyoruz.} Fark, üretim teknolojisindedir. İşlemci~A eski 7\,nm süreçle üretilmiş ve 3\,GHz'de çalışmaktadır. İşlemci~B ise daha yeni 5\,nm süreçle üretilmiş ve transistörleri daha hızlı anahtarlama yapabildiği için 4\,GHz'e ulaşmaktadır. Denklem~\ref{eq:yurutme-zamani}'ü uygularsak:
 %
 \[
 T_A = \frac{12 \times 10^9}{3 \times 10^9} = 4\;\text{s}, \qquad
@@ -329,14 +329,14 @@ Kritik yol gecikmesini belirleyen yalnızca mantık kapıları değildir. Kapıl
 %
 yol alabilir. Bu bir ana kartın uzun kenarından bile kısadır! Üstelik işlemcinin içindeki sinyaller boşlukta değil, bakır teller üzerinde ilerler. Bakırda yayılma hızı ışık hızının yaklaşık üçte ikisine (${\sim}\,2 \times 10^{8}$\,m/s) düşer ve bir çevrimdeki menzil yalnızca ${\sim}\,5$\,cm'ye iner. Mantık kapılarının kendi anahtarlama gecikmeleri de bu bütçeden pay aldığında, kritik yol üzerindeki fiziksel tel uzunluğu birkaç santimetreyi geçemez.
 
-Bu fiziksel gerçek doğrudan bir tasarım ilkesine yol açar: bir birimi küçültmek, içindeki telleri kısaltır ve sinyal gecikmesini azaltır. Dolayısıyla daha yüksek saat sıklığına olanak tanır. Tersine, büyük bir yazmaç öbeği veya geniş bir çoklayıcı daha uzun teller ve daha fazla kapı gecikmesi demektir. Fiziksel boyut doğrudan hızı sınırlar.
+Bu fiziksel gerçek doğrudan bir tasarım ilkesine yol açar. Bir birimi küçültmek, içindeki telleri kısaltır ve sinyal gecikmesini azaltır. Dolayısıyla daha yüksek saat sıklığına olanak tanır. Tersine, büyük bir yazmaç öbeği veya geniş bir çoklayıcı daha uzun teller ve daha fazla kapı gecikmesi demektir. Fiziksel boyut doğrudan hızı sınırlar.
 
 \begin{tanim}[Tasarım İlkesi 1: Küçük olan hızlıdır]
 \index{tasarım ilkeleri!küçük olan hızlıdır}
-Donanımda küçük yapılar büyük yapılardan daha hızlı çalışır. Daha az sayıda eleman, daha kısa bağlantı hatları ve daha az kapı gecikmesi anlamına gelir. Bu ilke, yazmaç öbeğinin boyutundan önbellek büyüklüğüne, boru hattı aşamalarının karmaşıklığından veri yolu genişliğine kadar pek çok mimari kararı doğrudan etkiler. Tabii ki ``küçük'' her zaman ``daha iyi'' demek değildir: az sayıda yazmaç derleyicilerin elini bağlar, küçük bir önbellek bulma oranını düşürür. İyi bir tasarım, küçüklüğün hız avantajı ile büyüklüğün işlevsel avantajı arasında doğru dengeyi bulmaktır.
+Donanımda küçük yapılar büyük yapılardan daha hızlı çalışır. Daha az sayıda eleman, daha kısa bağlantı hatları ve daha az kapı gecikmesi anlamına gelir. Bu ilke, yazmaç öbeğinin boyutundan önbellek büyüklüğüne, boru hattı aşamalarının karmaşıklığından veri yolu genişliğine kadar pek çok mimari kararı doğrudan etkiler. Tabii ki ``küçük'' her zaman ``daha iyi'' demek değildir. Az sayıda yazmaç derleyicilerin elini bağlar, küçük bir önbellek bulma oranını düşürür. İyi bir tasarım, küçüklüğün hız avantajı ile büyüklüğün işlevsel avantajı arasında doğru dengeyi bulmaktır.
 \end{tanim}
 
-Denklem~\ref{eq:yurutme-zamani}'ün önemli bir iletisi vardır: saat sıklığını iki katına çıkarmak, çevrim sayısı aynı kalırsa yürütme zamanını yarıya düşürür. Ancak yürütme zamanını belirleyen yalnızca saat sıklığı değildir. Programın kaç buyruktan oluştuğu ve her buyruğun kaç çevrimde tamamlandığı da denkleme girer. Sonraki iki alt bölümde bu kavramları ele alacağız.
+Denklem~\ref{eq:yurutme-zamani}'ün önemli bir iletisi vardır. Saat sıklığını iki katına çıkarmak, çevrim sayısı aynı kalırsa yürütme zamanını yarıya düşürür. Ancak yürütme zamanını belirleyen yalnızca saat sıklığı değildir. Programın kaç buyruktan oluştuğu ve her buyruğun kaç çevrimde tamamlandığı da denkleme girer. Sonraki iki alt bölümde bu kavramları ele alacağız.
 
 
 \subsection{Buyruk Sayısı}
@@ -344,7 +344,7 @@ Denklem~\ref{eq:yurutme-zamani}'ün önemli bir iletisi vardır: saat sıklığ�
 
 Bir programın yürütme zamanını etkileyen ikinci büyük bileşen, programın işlemci tarafından yürütülmesi gereken toplam \textbf{buyruk sayısıdır}\index{buyruk sayısı} (\emph{instruction count}). Aynı üst düzey program (örneğin C++ ile yazılmış bir oyun) farklı BKM'ler için derlendiğinde farklı sayıda makine buyruğu üretir.
 
-Bunu somut bir örnekle düşünelim. \emph{Kızgın Kuşlar} (\kizginkus)\index{Kızgın Kuşlar} oyununu hem bir iPhone'da (ARM işlemci) hem de Intel tabanlı bir dizüstü bilgisayarda (x86 işlemci) oynayan kişi, oyun deneyiminde bir fark görmez. Oysa derleyici aynı kaynak kodundan iki çok farklı buyruk dizisi üretmiştir: x86'nın karmaşık buyrukları az sayıda buyrukla çok iş yapabilirken, ARM'ın daha basit buyrukları aynı işi daha çok buyrukla ifade eder. RISC-V\@'e derlendiğinde ise buyruk sayısı yine farklı olacaktır. Kullanıcı aynı kuşu aynı hedefe fırlatsa da perde arkasında yürütülen buyruk sayısı platformdan platforma değişir.
+Bunu somut bir örnekle düşünelim. \emph{Kızgın Kuşlar} (\kizginkus)\index{Kızgın Kuşlar} oyununu hem bir iPhone'da (ARM işlemci) hem de Intel tabanlı bir dizüstü bilgisayarda (x86 işlemci) oynayan kişi, oyun deneyiminde bir fark görmez. Oysa derleyici aynı kaynak kodundan iki çok farklı buyruk dizisi üretmiştir. x86'nın karmaşık buyrukları az sayıda buyrukla çok iş yapabilirken, ARM'ın daha basit buyrukları aynı işi daha çok buyrukla ifade eder. RISC-V\@'e derlendiğinde ise buyruk sayısı yine farklı olacaktır. Kullanıcı aynı kuşu aynı hedefe fırlatsa da perde arkasında yürütülen buyruk sayısı platformdan platforma değişir.
 
 Tablo~\ref{tab:buyruk-karsilastirma} bu farkı somut biçimde gösterir. Oyundaki hasar hesabını gerçekleyen tek satırlık bir C ifadesi üç farklı BKM'de derlendiğinde birbirinden çok farklı makine buyruklarına dönüşür:
 
@@ -370,7 +370,7 @@ Tablo~\ref{tab:buyruk-karsilastirma} bu farkı somut biçimde gösterir. Oyundak
 \end{tabular}
 \end{table}
 
-x86, \texttt{mov eax, [hasar+eax*4]} gibi tek buyrukta \emph{ölçekli dizin adresleme}\index{ölçekli dizin adresleme} yapabildiği ve \texttt{imul eax, [carpan]} ile bellekten doğrudan çarpma gerçekleştirebildiği için aynı işi yalnızca 4 buyrukla bitirir. ARM'ın kaydırma birimi (\emph{barrel shifter})\index{barrel shifter|see{kaydırma birimi}} adres hesabını yükleme buyruğunun içine gömer. Buyruk sayısı 5'e düşer. RISC-V ise en yalın yapıdadır: dizin hesabı (\texttt{slli}~+~\texttt{add}) ve veri yükleme ayrı buyruklarda yapılır, toplam 7 buyruk gerekir. Ancak ``az buyruk~=~hızlı'' demek değildir. Karmaşık bir buyruk daha çok çevrimde tamamlanabilir. Bu dengeyi BBÇ kavramıyla ele alacağız.
+x86, \texttt{mov eax, [hasar+eax*4]} gibi tek buyrukta \emph{ölçekli dizin adresleme}\index{ölçekli dizin adresleme} yapabildiği ve \texttt{imul eax, [carpan]} ile bellekten doğrudan çarpma gerçekleştirebildiği için aynı işi yalnızca 4 buyrukla bitirir. ARM'ın kaydırma birimi (\emph{barrel shifter})\index{barrel shifter|see{kaydırma birimi}} adres hesabını yükleme buyruğunun içine gömer. Buyruk sayısı 5'e düşer. RISC-V ise en yalın yapıdadır. Dizin hesabı (\texttt{slli}~+~\texttt{add}) ve veri yükleme ayrı buyruklarda yapılır, toplam 7 buyruk gerekir. Ancak ``az buyruk~=~hızlı'' demek değildir. Karmaşık bir buyruk daha çok çevrimde tamamlanabilir. Bu dengeyi BBÇ kavramıyla ele alacağız.
 
 Buyruk sayısını belirleyen başlıca etkenler şunlardır:
 \begin{itemize}
@@ -507,7 +507,7 @@ $\text{BBÇ} = 11\,/\,4 = 2{,}75$
 \end{minipage}
 \end{center}
 
-RISC-V daha çok buyruk kullanıyor ama her biri daha az çevrime mal oluyor (BBÇ $\approx 1{,}86$); x86 ise daha az buyrukla işi yapıyor ama her buyruğu daha çok çevrim gerektiriyor (BBÇ $= 2{,}75$). Dikkat çekici nokta şudur: buyruk sayıları arasında neredeyse iki kat fark varken (4'e karşı 7), toplam çevrim sayıları çok daha yakındır (11'e karşı 13). İşte BBÇ'nin buyruk sayısıyla birlikte değerlendirilmesinin gerekliliği burada ortaya çıkar.
+RISC-V daha çok buyruk kullanıyor ama her biri daha az çevrime mal oluyor (BBÇ $\approx 1{,}86$); x86 ise daha az buyrukla işi yapıyor ama her buyruğu daha çok çevrim gerektiriyor (BBÇ $= 2{,}75$). Dikkat çekici bir sonuç çıkıyor. Buyruk sayıları arasında neredeyse iki kat fark varken (4'e karşı 7), toplam çevrim sayıları çok daha yakındır (11'e karşı 13). İşte BBÇ'nin buyruk sayısıyla birlikte değerlendirilmesinin gerekliliği burada ortaya çıkar.
 
 \subsubsection*{Çevrim Başına Buyruk (ÇBB)}
 
@@ -517,7 +517,7 @@ BBÇ'nin tersi olan \textbf{Çevrim Başına Buyruk}\index{çevrim başına buyr
 \label{eq:cbb}
 \end{equation}
 
-\noindent BBÇ'nin düşük olması istenirken ÇBB'nin yüksek olması istenir. İkisi aynı bilgiyi ters yönden ifade eder. Yukarıdaki örnekte RISC-V'in ÇBB'si $1/1{,}86 \approx 0{,}54$, x86'nın ÇBB'si $1/2{,}75 \approx 0{,}36$'dır: RISC-V her çevrimde ortalama yarım buyruk bitirirken x86 üçte birden biraz fazlasını bitirir. Çağdaş çok yollu işlemciler ise her çevrimde birden fazla buyruk başlatıp tamamlayabildiği için ÇBB\,$>$\,1 değerlerine ulaşabilir. İşlemci üreticileri başarım sunumlarında genellikle ÇBB'yi tercih eder çünkü ``daha yüksek = daha iyi'' sezgisi daha kolay kavranır.
+\noindent BBÇ'nin düşük olması istenirken ÇBB'nin yüksek olması istenir. İkisi aynı bilgiyi ters yönden ifade eder. Yukarıdaki örnekte RISC-V'in ÇBB'si $1/1{,}86 \approx 0{,}54$, x86'nın ÇBB'si $1/2{,}75 \approx 0{,}36$'dır. RISC-V her çevrimde ortalama yarım buyruk bitirirken x86 üçte birden biraz fazlasını bitirir. Çağdaş çok yollu işlemciler ise her çevrimde birden fazla buyruk başlatıp tamamlayabildiği için ÇBB\,$>$\,1 değerlerine ulaşabilir. İşlemci üreticileri başarım sunumlarında genellikle ÇBB'yi tercih eder çünkü ``daha yüksek = daha iyi'' sezgisi daha kolay kavranır.
 
 \subsection{Hepsini Bir Araya Getirelim: Yürütme Zamanı Denklemi}
 \label{subsec:yurutme-zamani-denklemi}
@@ -546,7 +546,7 @@ Bu denklemin en can alıcı iletisi şudur: \textbf{üç bileşen birbirinden ba
 Dolayısıyla herhangi bir bileşeni tek başına eniyilemeye çalışmak yanıltıcıdır. Bir bileşendeki kazanım, diğerindeki kayıpla silinebilir. İyi bir tasarımcı her zaman \emph{toplam yürütme zamanına} bakar, tek bir bileşene değil. Bu etkileşimlerin ayrıntılı dökümünü Bölüm~\ref{subsec:basarim-faktorleri}'de inceleyeceğiz.
 
 \begin{tanim}[Tasarım İlkesi 2: İyi tasarım, iyi ödünleşme gerektirir]
-Mühendislikte bedava kazanım yoktur\index{ödünleşme}\index{trade-off|see{ödünleşme}}: bir özelliği iyileştirmek, neredeyse her zaman bir başka özellikten ödün vermeyi gerektirir. Saat sıklığını artırmak güç tüketimini yükseltir; işlem hacmini artırmak gecikmeyi büyütebilir; güç tüketimini düşürmek başarımı sınırlar; yonga alanını büyütmek maliyeti artırır. İyi bir mimar, bu ödünleşmelerin farkında olarak hedef iş yüküne en uygun dengeyi kurar. Örneğin masaüstü bilgisayar tasarımcısı düşük gecikmeye, sunucu tasarımcısı yüksek işlem hacmine, gömülü sistem tasarımcısı ise düşük güç tüketimine öncelik verir. Her biri farklı bir ödünleşme tercihidir.
+Mühendislikte bedava kazanım yoktur\index{ödünleşme}\index{trade-off|see{ödünleşme}}. Bir özelliği iyileştirmek, neredeyse her zaman bir başka özellikten ödün vermeyi gerektirir. Saat sıklığını artırmak güç tüketimini yükseltir; işlem hacmini artırmak gecikmeyi büyütebilir; güç tüketimini düşürmek başarımı sınırlar; yonga alanını büyütmek maliyeti artırır. İyi bir mimar, bu ödünleşmelerin farkında olarak hedef iş yüküne en uygun dengeyi kurar. Örneğin masaüstü bilgisayar tasarımcısı düşük gecikmeye, sunucu tasarımcısı yüksek işlem hacmine, gömülü sistem tasarımcısı ise düşük güç tüketimine öncelik verir. Her biri farklı bir ödünleşme tercihidir.
 \end{tanim}
 
 \begin{ornek}[2.2]
@@ -618,7 +618,7 @@ Bilgisayar başarımı iki farklı açıdan değerlendirilir:
 
 Bu iki kavram her zaman koşut hareket etmez. Bir boru hattı tasarımı, tek bir buyruğun gecikmesini artırabilir ama birim zamanda tamamlanan buyruk sayısını (işlem hacmini) yükseltir. Benzer şekilde, çok çekirdekli bir işlemci tek bir programı hızlandıramayabilir ama birden fazla programı eş zamanlı çalıştırarak işlem hacmini artırır. Bu iki ölçütün farkı Şekil~\ref{fig:gecikme-islemhacmi}'te görselleştirilmektedir.
 
-Gecikme ve işlem hacmini somutlaştırmak için bir taşımacılık benzetmesi düşünelim. İstanbul'dan Ankara'ya giden bir otomobil 4~saatte varabilir (düşük gecikme) ama yalnızca 4 yolcu taşır. Bir otobüs 5~saat sürebilir (yüksek gecikme) ama 50~yolcu taşır. Saatlik yolcu işlem hacmi açısından otobüs çok daha üstündür ($50/5 = 10$ yolcu/saat karşısında $4/4 = 1$ yolcu/saat). İşlemci tasarımında da benzer bir ödünleşme yaşanır: bir boru hattı buyruğun toplam geçiş süresini artırabilir ama birim zamanda tamamlanan buyruk sayısını önemli ölçüde yükseltir. Hangi ölçütün önemli olduğu (gecikme mi, işlem hacmi mi) kullanım senaryosuna göre değişir.
+Gecikme ve işlem hacmini somutlaştırmak için bir taşımacılık benzetmesi düşünelim. İstanbul'dan Ankara'ya giden bir otomobil 4~saatte varabilir (düşük gecikme) ama yalnızca 4 yolcu taşır. Bir otobüs 5~saat sürebilir (yüksek gecikme) ama 50~yolcu taşır. Saatlik yolcu işlem hacmi açısından otobüs çok daha üstündür ($50/5 = 10$ yolcu/saat karşısında $4/4 = 1$ yolcu/saat). İşlemci tasarımında da benzer bir ödünleşme yaşanır. Bir boru hattı buyruğun toplam geçiş süresini artırabilir ama birim zamanda tamamlanan buyruk sayısını önemli ölçüde yükseltir. Hangi ölçütün önemli olduğu (gecikme mi, işlem hacmi mi) kullanım senaryosuna göre değişir.
 
 \begin{terimnotu}
 \textbf{örün} (\emph{web})\,: İngilizce \emph{web} sözcüğü ``ağ, örülmüş yapı'' anlamına gelir. Türkçe karşılığı olan \emph{örün}, \emph{örmek} fiilinden türetilmiştir ve ODTÜ Bilişim Terimleri Sözlüğü'nde yer almaktadır. Tıpkı İngilizcedeki \emph{web} gibi ``birbirine bağlı düğümlerden oluşan örüntü'' kavramını yansıtır. Bu kitapta \emph{web sunucusu} yerine \emph{örün sunucusu}, \emph{web tarayıcısı} yerine \emph{örün tarayıcısı} kullanılmıştır.\index{örün (web)}
@@ -748,7 +748,7 @@ Devre tasarımı & Yok        & Yok        & Doğrudan    \\
 \end{tabular}
 \end{table}
 
-\noindent Bu tablo önemli bir gerçeği vurgular: buyruk sayısını azaltma çabası (örneğin karmaşık buyruklar tanımlama) BBÇ'yi artırabilir. Saat sıklığını yükseltme çabası ise boru hattı derinleştirme yoluyla BBÇ'yi artırabilir. Dolayısıyla herhangi bir bileşeni tek başına eniyilemeye çalışmak yerine \emph{toplam yürütme zamanına} odaklanmak gerekir.
+\noindent Bu tablo önemli bir gerçeği vurgular. Buyruk sayısını azaltma çabası (örneğin karmaşık buyruklar tanımlama) BBÇ'yi artırabilir. Saat sıklığını yükseltme çabası ise boru hattı derinleştirme yoluyla BBÇ'yi artırabilir. Dolayısıyla herhangi bir bileşeni tek başına eniyilemeye çalışmak yerine \emph{toplam yürütme zamanına} odaklanmak gerekir.
 
 Bu etkileşimleri daha somut olarak inceleyelim:
 \begin{itemize}
@@ -786,7 +786,7 @@ Saniye Başına İşlenen Milyon Buyruk\index{MIPS (ölçüm birimi)} (\emph{Mil
 \end{equation}
 
 \begin{terimnotu}
-\textbf{MIPS} (\emph{million instructions per second})\,: MIPS kısaltması bilgisayar dünyasında iki farklı anlam taşır. Bu bölümde ele aldığımız \emph{Million Instructions Per Second} (Saniye Başına Milyon Buyruk) bir başarım ölçütüdür. Ancak MIPS aynı zamanda Stanford Üniversitesi'nde John Hennessy'nin\index{John Hennessy} 1981'de tasarladığı RISC işlemci mimarisinin de adıdır: \emph{Microprocessor without Interlocked Pipeline Stages}\index{MIPS (işlemci)} (Kilitlemesiz Boru Hattı Aşamalarına Sahip Mikroişlemci). Hennessy ve ekibinin bu adı seçmesi bir rastlantı değildir: ölçüt olarak MIPS'in ``anlamsız'' olduğu tartışmaları zaten sürmekteydi ve bu isim hem teknik bir özelliği (boru hattı kilitlemelerinin yazılıma bırakılmasını) hem de alaycı bir göndermeyi barındırıyordu. MIPS mimarisi ilerleyen yıllarda gömülü sistemlerde ve oyun konsollarında (PlayStation~1 ve~2 gibi) yaygın biçimde kullanıldı. Bu kitapta bağlamdan anlaşılmadığı durumlarda ölçüt için ``MIPS değeri'', mimari için ``MIPS mimarisi'' ifadesi tercih edilecektir.
+\textbf{MIPS} (\emph{million instructions per second})\,: MIPS kısaltması bilgisayar dünyasında iki farklı anlam taşır. Bu bölümde ele aldığımız \emph{Million Instructions Per Second} (Saniye Başına Milyon Buyruk) bir başarım ölçütüdür. Ancak MIPS aynı zamanda Stanford Üniversitesi'nde John Hennessy'nin\index{John Hennessy} 1981'de tasarladığı RISC işlemci mimarisinin de adıdır: \emph{Microprocessor without Interlocked Pipeline Stages}\index{MIPS (işlemci)} (Kilitlemesiz Boru Hattı Aşamalarına Sahip Mikroişlemci). Hennessy ve ekibinin bu adı seçmesi bir rastlantı değildir. Ölçüt olarak MIPS'in ``anlamsız'' olduğu tartışmaları zaten sürmekteydi ve bu isim hem teknik bir özelliği (boru hattı kilitlemelerinin yazılıma bırakılmasını) hem de alaycı bir göndermeyi barındırıyordu. MIPS mimarisi ilerleyen yıllarda gömülü sistemlerde ve oyun konsollarında (PlayStation~1 ve~2 gibi) yaygın biçimde kullanıldı. Bu kitapta bağlamdan anlaşılmadığı durumlarda ölçüt için ``MIPS değeri'', mimari için ``MIPS mimarisi'' ifadesi tercih edilecektir.
 \end{terimnotu}
 
 Bir saniyede işlenen buyruk sayısı ilk bakışta mantıklı bir başarım ölçütü gibi görünür; ancak farklı buyruk kümeleri farklı karmaşıklıkta buyruklar içerdiğinden MIPS değeri yanıltıcı sonuçlar verebilir. Aşağıdaki örnekte bu durum somut olarak gösterilmektedir.
@@ -837,7 +837,7 @@ Saniye başına milyon kayan nokta\index{kayan nokta} işlemi, \emph{MFLOPS}\ind
 \subsection{FLOPS ve Türevleri}
 \label{subsec:flops}
 
-Bir önceki alt bölümde MFLOPS'un belirli bir programın başarımını ölçmekte güvenilir olmadığını gördük: farklı mimarilerdeki kayan nokta buyrukları farklı karmaşıklıkta olduğundan, program düzeyinde sayılan ``işlem sayısı'' yanıltıcı oluyordu. Ancak FLOPS kavramı burada farklı bir bağlamda karşımıza çıkar: belirli bir programın kaç kayan nokta işlemi yürüttüğünü ölçmek yerine, \emph{donanımın kuramsal üst kapasitesini} tanımlamak amacıyla kullanılır. Bu ayrım can alıcıdır.
+Bir önceki alt bölümde MFLOPS'un belirli bir programın başarımını ölçmekte güvenilir olmadığını gördük. Farklı mimarilerdeki kayan nokta buyrukları farklı karmaşıklıkta olduğundan, program düzeyinde sayılan ``işlem sayısı'' yanıltıcı oluyordu. Ancak FLOPS kavramı burada farklı bir bağlamda karşımıza çıkar. Belirli bir programın kaç kayan nokta işlemi yürüttüğünü ölçmek yerine, \emph{donanımın kuramsal üst kapasitesini} tanımlamak amacıyla kullanılır. Bu ayrım can alıcıdır.
 
 \emph{FLOPS}\index{FLOPS} (Floating Point Operations Per Second, Saniye Başına Kayan Nokta İşlemi), bir sistemin birim zamanda gerçekleştirebildiği en yüksek kayan nokta aritmetik işlem sayısını ifade eder:
 
@@ -879,7 +879,7 @@ Bir GPU'nun teknik özelliklerinde 5120 CUDA çekirdeği, 1,5\,GHz saat sıklı�
 \end{ornek}
 
 \begin{bilginot}[Skynet: 60 Teraflop Yeter mi?]
-2003 yapımı \emph{Terminator 3: Rise of the Machines} filminde insanlığı tehdit eden yapay zekâ Skynet'in işlem gücü 60~TFLOPS olarak belirtilir. O dönem için korku verici bir rakamdır. Bugünün gözüyle bakıldığında tablo oldukça farklıdır: tek bir NVIDIA H100\index{NVIDIA!H100} GPU, FP8 duyarlığında yaklaşık 4~PFLOPS tepe başarıma ulaşır, Skynet'in yaklaşık 67 katı. Hatta bir oyun konsolu olan PlayStation~5 bile $\sim$10~TFLOPS FP32 başarımıyla Skynet'in altıda birini tek başına karşılar. Bu karşılaştırma, Moore Yasası'nın 20~yılda hesaplama kapasitesini ne denli ileriye taşıdığının çarpıcı bir göstergesidir.
+2003 yapımı \emph{Terminator 3: Rise of the Machines} filminde insanlığı tehdit eden yapay zekâ Skynet'in işlem gücü 60~TFLOPS olarak belirtilir. O dönem için korku verici bir rakamdır. Bugünün gözüyle bakıldığında tablo oldukça farklıdır. Tek bir NVIDIA H100\index{NVIDIA!H100} GPU, FP8 duyarlığında yaklaşık 4~PFLOPS tepe başarıma ulaşır, Skynet'in yaklaşık 67 katı. Hatta bir oyun konsolu olan PlayStation~5 bile $\sim$10~TFLOPS FP32 başarımıyla Skynet'in altıda birini tek başına karşılar. Bu karşılaştırma, Moore Yasası'nın 20~yılda hesaplama kapasitesini ne denli ileriye taşıdığının çarpıcı bir göstergesidir.
 \end{bilginot}
 
 \subsection{Yapay Zeka İş Yüklerinde Başarım}
@@ -988,7 +988,7 @@ Program~5 & 10$\times$ & 100$\times$ \\
 Tek bir programdaki hızlanma 10$\times$'ten 100$\times$'e çıktığında aritmetik ortalama $2{,}8$'den $20{,}8$'e fırladı, yaklaşık 7,4 kat artış. Oysa geometrik ortalama yalnızca $1{,}58$'den $2{,}51$'e yükseldi (1,6 kat artış). İşlemci gerçekte beş programın dördünde hiçbir iyileşme sağlamıyor. Aritmetik ortalama bu gerçeği gizlerken geometrik ortalama daha dürüst bir tablo sunuyor.
 \end{ornek}
 
-Bu örneğin gösterdiği ilke şudur: aritmetik ortalama, tek bir aşırı değerin genel sonucu baskılamasına izin verir. Geometrik ortalama ise tüm programlardaki başarımı daha dengeli biçimde yansıtır. Bu fark Şekil~\ref{fig:arit-geo-karsilastirma}'te çubuk grafik olarak görülmektedir. Bu nedenle başarım karşılaştırmalarında, özellikle hızlanma oranları söz konusu olduğunda, geometrik ortalama tercih edilir.
+Bu örnek önemli bir ilkeyi gösterir. Aritmetik ortalama, tek bir aşırı değerin genel sonucu baskılamasına izin verir. Geometrik ortalama ise tüm programlardaki başarımı daha dengeli biçimde yansıtır. Bu fark Şekil~\ref{fig:arit-geo-karsilastirma}'te çubuk grafik olarak görülmektedir. Bu nedenle başarım karşılaştırmalarında, özellikle hızlanma oranları söz konusu olduğunda, geometrik ortalama tercih edilir.
 
 \begin{figure}[H]
 \centering
@@ -1082,7 +1082,7 @@ facerec      & 164 & 48   & $48/164 = 0{,}29$ \\
 \end{tabular}
 \end{center}
 
-Dikkat çekici bir nokta: art, milc ve facerec programlarında hızlanma 1'in altındadır. Bu, Kasırga~5'in bu programlarda Kasırga~3'ten \emph{daha yavaş} olduğu anlamına gelir.
+Hızlanmanın art, milc ve facerec programlarında 1'in altında kalması dikkat çekicidir. Bu, Kasırga~5'in bu programlarda Kasırga~3'ten \emph{daha yavaş} olduğu anlamına gelir.
 
 \textbf{(b)} Aritmetik ve geometrik ortalamalar:
 \[
@@ -1191,7 +1191,7 @@ SPEC~CPU~2017~\cite{bucek2018}, selefine~\cite{henning2006} göre önemli deği�
 \subsection{SPEC Puanı Nasıl Hesaplanır?}
 \label{subsec:spec-puan-hesaplama}
 
-Bir SPEC kümesinde 10--23 arasında program bulunur ve her biri farklı bir uygulama alanını temsil eder. Peki bir işlemcinin tüm bu programlardaki başarımını nasıl tek bir sayıda özetleyebiliriz? Çiğ yürütme zamanlarının ortalamasını almak işe yaramaz: programlar arasında devasa süre farkları vardır. Biri 10~saniyede biterken diğeri 3~saat sürebilir. Böyle bir ortalamada en uzun süren program sonucu baskılar ve kısa programlardaki farklılıklar görünmez olur.
+Bir SPEC kümesinde 10--23 arasında program bulunur ve her biri farklı bir uygulama alanını temsil eder. Peki bir işlemcinin tüm bu programlardaki başarımını nasıl tek bir sayıda özetleyebiliriz? Çiğ yürütme zamanlarının ortalamasını almak işe yaramaz, çünkü programlar arasında devasa süre farkları vardır. Biri 10~saniyede biterken diğeri 3~saat sürebilir. Böyle bir ortalamada en uzun süren program sonucu baskılar ve kısa programlardaki farklılıklar görünmez olur.
 
 SPEC bu sorunu iki adımda çözer. Birincisi, her programın yürütme zamanını bir \emph{referans makine}nin süresine bölerek \emph{normalize} eder. Böylece tüm programlar ``referans makineye göre kaç kat hızlı?'' sorusuna yanıt veren birimsiz oranlara dönüşür ve saniye--saat ölçek farkı ortadan kalkar. İkincisi, bu oranları Bölüm~\ref{subsec:karsilastirmali-basarim}'de tartıştığımız \emph{geometrik ortalama} ile birleştirir. Böylece tek bir uç değerin sonucu baskılaması önlenir.
 
@@ -1209,7 +1209,7 @@ r_i = \frac{T_{\text{ref},i}}{T_{\text{test},i}}
 \label{eq:spec-puan}
 \end{equation}
 
-\noindent Geometrik ortalamanın burada tercih edilmesinin bir nedeni daha vardır: iki işlemcinin geometrik ortalamalarının oranı, her zaman bireysel oranların geometrik ortalamasına eşittir. Başka bir deyişle, hangi makine referans seçilirse seçilsin, iki işlemci arasındaki göreceli sıralama değişmez.
+\noindent Geometrik ortalamanın burada tercih edilmesinin bir nedeni daha vardır. İki işlemcinin geometrik ortalamalarının oranı, her zaman bireysel oranların geometrik ortalamasına eşittir. Başka bir deyişle, hangi makine referans seçilirse seçilsin, iki işlemci arasındaki göreceli sıralama değişmez.
 
 \begin{ornek}[2.9]
 Fırtına ve Bora adlı iki işlemci, SPECint~2017 kümesinden seçilmiş beş programla sınanmıştır. Referans makinenin ve iki işlemcinin yürütme zamanları (saniye) aşağıda verilmiştir.
@@ -1280,7 +1280,7 @@ SPEC, işlemci başarımı için en yaygın kabul görmüş standart olsa da tek
     \item \textbf{Geekbench}\index{Geekbench}~\cite{geekbench}, \textbf{Cinebench}\index{Cinebench}, \textbf{3DMark}\index{3DMark}: Tüketici odaklı sınama programlarıdır. Özellikle bilgisayar ve akıllı telefon incelemelerinde yaygın biçimde kullanılır; ancak endüstri ve akademi çevrelerinde SPEC kadar ağırlık taşımaz.
 \end{itemize}
 
-Bu çeşitlilik, Bölüm~\ref{subsec:karsilastirmali-basarim}'de vurguladığımız ilkeyi pekiştirir: başarım tek boyutlu bir kavram değildir. Gömülü bir sistem tasarımcısı CoreMark sonuçlarına, süper bilgisayar araştırmacısı LINPACK'e, yapay zeka mühendisi MLPerf'e~\cite{mattson2020} (Bilgi Notu~\ref{bn:mlperf}) bakarken, bir oyuncu yalnızca kendi oyunundaki kare hızına güvenir. Doğru sınama programı, ölçülmek istenen iş yüküne bağlıdır.
+Bu çeşitlilik, Bölüm~\ref{subsec:karsilastirmali-basarim}'de vurguladığımız ilkeyi pekiştirir. Başarım tek boyutlu bir kavram değildir. Gömülü bir sistem tasarımcısı CoreMark sonuçlarına, süper bilgisayar araştırmacısı LINPACK'e, yapay zeka mühendisi MLPerf'e~\cite{mattson2020} (Bilgi Notu~\ref{bn:mlperf}) bakarken, bir oyuncu yalnızca kendi oyunundaki kare hızına güvenir. Doğru sınama programı, ölçülmek istenen iş yüküne bağlıdır.
 
 % -----------------------------------------------------------------
 % 2.4 Başarım Eğilimleri: Geçmişten Günümüze
@@ -1305,7 +1305,7 @@ Bilgisayar başarımının tarihsel gelişimi, mimari kararları derinden şekil
 
 Bu dönemde ortaya çıkan en önemli mimari gelişmelerden biri 1980'lerde başlayan \emph{RISC devrimi}\index{RISC devrimi}'dir. Berkeley ve Stanford üniversitelerinde geliştirilen RISC (Reduced Instruction Set Computer, İndirgenmiş Buyruk Kümeli Bilgisayar) felsefesi, az sayıda basit buyruğun boru hattında verimli bir şekilde yürütülmesini öneriyordu. MIPS, SPARC ve ARM gibi BKM'ler bu dönemde doğmuş, RISC-V\index{RISC-V} ise 2010'larda bu geleneğin açık kaynak devamı olarak ortaya çıkmıştır. RISC yaklaşımı, saat sıklığı artışı ve buyruk düzeyinde koşutluk yenilikleriyle birleşerek altın çağın itici gücü olmuştur.
 
-Bu 25 yıllık dönemde tek çekirdek başarımı yaklaşık bin kat artmıştır: 1985'teki bir iş istasyonu yaklaşık 1~MIPS başarıma sahipken, 2005'teki bir masaüstü bilgisayar 1000~MIPS düzeyine ulaşıyordu. Programcılar açısından bu dönem son derece verimli bir çağdı: yazılımı değiştirmeden her 18--24 ayda bir donanımın yenilenmesiyle program kendiliğinden hızlanıyordu. Herb Sutter'ın deyimiyle ``bedava öğle yemeği'' dönemi\index{bedava öğle yemeği} yaşanıyordu. Ne var ki bu dönem 2005'te güç duvarıyla birlikte sona erecekti.
+Bu 25 yıllık dönemde tek çekirdek başarımı yaklaşık bin kat artmıştır: 1985'teki bir iş istasyonu yaklaşık 1~MIPS başarıma sahipken, 2005'teki bir masaüstü bilgisayar 1000~MIPS düzeyine ulaşıyordu. Programcılar açısından bu dönem son derece verimli bir çağdı. Yazılımı değiştirmeden her 18--24 ayda bir donanımın yenilenmesiyle program kendiliğinden hızlanıyordu. Herb Sutter'ın deyimiyle ``bedava öğle yemeği'' dönemi\index{bedava öğle yemeği} yaşanıyordu. Ne var ki bu dönem 2005'te güç duvarıyla birlikte sona erecekti.
 
 \subsection{Güç Duvarı ve Başarım Duraksaması (2005--günümüz)}
 \label{subsec:guc-duvari-basarim}
@@ -1323,7 +1323,7 @@ Bu dönüm noktasından sonra tek çekirdek başarımındaki yıllık artış \%
 \end{itemize}
 
 \begin{terimnotu}
-\textbf{koşut} (\emph{parallel})\,: İngilizce \emph{parallel} sözcüğü Latince \emph{parallelus} ``yan yana giden'' kökünden gelir. Türkçe karşılığı olan \emph{koşut}, \emph{koşmak} fiilinden türetilmiştir: yan yana aynı yönde koşan iki şerit gibi, birbirinden bağımsız ama eş zamanlı ilerleyen süreçleri ifade eder. Bu kitapta \emph{koşut hesaplama} (parallel computing), \emph{koşutluk} (parallelism) ve \emph{koşutlaştırma} (parallelization) biçimlerinde kullanılmıştır.\index{koşut hesaplama}\index{koşutluk}
+\textbf{koşut} (\emph{parallel})\,: İngilizce \emph{parallel} sözcüğü Latince \emph{parallelus} ``yan yana giden'' kökünden gelir. Türkçe karşılığı olan \emph{koşut}, \emph{koşmak} fiilinden türetilmiştir ve yan yana aynı yönde koşan iki şerit gibi, birbirinden bağımsız ama eş zamanlı ilerleyen süreçleri ifade eder. Bu kitapta \emph{koşut hesaplama} (parallel computing), \emph{koşutluk} (parallelism) ve \emph{koşutlaştırma} (parallelization) biçimlerinde kullanılmıştır.\index{koşut hesaplama}\index{koşutluk}
 \end{terimnotu}
 
 \begin{figure}[H]
@@ -1417,11 +1417,11 @@ Bir diğer önemli eğilim ise \emph{yongacık mimarisidir}\index{yongacık mima
 
 1960'lı yıllarda bilgisayar tasarımcılarını meşgul eden temel sorulardan biri şuydu: \emph{Tek bir güçlü işlemci mi yapmak, yoksa birden çok işlemciyi bir arada çalıştırmak mı daha etkilidir?} Dönemin işlemcileri bugünkü ölçütlerle son derece yavaştı ve birçok araştırmacı çok işlemcili sistemlerin bu darboğazı aşacağını umuyordu.
 
-IBM'in System/360\index{IBM System/360} ana bilgisayar ailesinin baş mimarı olan Gene Amdahl\index{Amdahl, Gene} (1922--2015) bu iyimser beklentiyi sorguladı. 1967'de AFIPS Bilgisayar Konferansı'nda sunduğu kısa ama son derece etkili bildirisinde~\cite{amdahl1967}, programların doğası gereği sıralı kalan bölümlerinin, sisteme ne kadar işlemci eklenirse eklensin toplam hızlanmayı sınırlayacağını gösterdi. Bu düşünceyi somutlaştırmak için günlük hayattan bir benzetme yapalım: bir kişi Artvin'e yürüyerek 100 günde gidiyorsa, 100 kişinin yola çıkması bu süreyi 1 güne indirmez; çünkü yürüme işini herkesin kendi adına kendisinin yapması gerekir. Programlarda da durum benzerdir: bir kısmı doğası gereği sıralıdır ve koşutlaştırılamaz.
+IBM'in System/360\index{IBM System/360} ana bilgisayar ailesinin baş mimarı olan Gene Amdahl\index{Amdahl, Gene} (1922--2015) bu iyimser beklentiyi sorguladı. 1967'de AFIPS Bilgisayar Konferansı'nda sunduğu kısa ama son derece etkili bildirisinde~\cite{amdahl1967}, programların doğası gereği sıralı kalan bölümlerinin, sisteme ne kadar işlemci eklenirse eklensin toplam hızlanmayı sınırlayacağını gösterdi. Bu düşünceyi somutlaştırmak için günlük hayattan bir benzetme yapalım: bir kişi Artvin'e yürüyerek 100 günde gidiyorsa, 100 kişinin yola çıkması bu süreyi 1 güne indirmez; çünkü yürüme işini herkesin kendi adına kendisinin yapması gerekir. Programlarda da durum benzerdir. Bir kısmı doğası gereği sıralıdır ve koşutlaştırılamaz.
 
 Amdahl'ın bu gözlemi tek işlemcili mimarilerin önemini yeniden vurgulasa da, daha geniş bir ilke olarak her türlü \emph{kısmi iyileştirmenin} toplam başarıma etkisini nicel olarak açıklar. Bir mühendis işlemcinin kayan nokta birimini 10 kat hızlandırmak için aylarca çalıştığında toplam başarım ne kadar artar? Yanıt, o birimin programın ne kadarını etkilediğine bağlıdır. Bu ilişki \emph{Amdahl Yasası}\index{Amdahl yasası} olarak bilinir.
 
-Amdahl Yasası'nın temel düşüncesi şudur: yapılan bir iyileştirme programın tamamını değil, yalnızca belirli bir bölümünü hızlandırır. Programın geri kalan kısmı bu iyileştirmeden etkilenmez ve eski hızında çalışmaya devam eder. Bu yüzden, iyileştirme ne kadar büyük olursa olsun, etkilenmeden kalan bölüm toplam hızlanmaya bir üst sınır koyar.
+Amdahl Yasası'nın temel düşüncesine göre yapılan bir iyileştirme programın tamamını değil, yalnızca belirli bir bölümünü hızlandırır. Programın geri kalan kısmı bu iyileştirmeden etkilenmez ve eski hızında çalışmaya devam eder. Bu yüzden, iyileştirme ne kadar büyük olursa olsun, etkilenmeden kalan bölüm toplam hızlanmaya bir üst sınır koyar.
 
 Bu ilişkiyi nicel olarak ifade edelim. Önce hızlanmayı tanımlayalım:
 \begin{equation}
@@ -1675,7 +1675,7 @@ Amdahl Yasası önemli bir gerçeği ortaya koyar; ancak karamsar bir varsayıma
 
 Bir hava tahmini merkezini düşünelim. Merkez tek işlemcili bir sistemle 10\,km çözünürlükte tahmin yapabiliyorken 64~çekirdekli bir sisteme geçtiğinde genellikle aynı 10\,km tahmini 64~kat hızlı yapmaz. Bunun yerine çözünürlüğü 1\,km'ye çıkararak \emph{daha ayrıntılı} bir tahmin üretir. Benzer şekilde, bir yapay zeka araştırmacısı daha fazla GPU aldığında aynı modeli daha hızlı eğitmek yerine \emph{daha büyük} bir model eğitmeye yönelir. Kısacası, uygulamada hesaplama kapasitesi arttığında insanlar doğal olarak problem büyüklüğünü de artırır.
 
-John Gustafson\index{Gustafson, John} 1988'de tam da bu gözlemi formüle dökmüştür~\cite{gustafson1988}. Gustafson'ın bakış açısı şöyledir: çekirdek sayısı arttıkça programın koşut kısmı büyür (daha fazla veri işlenir, daha ince çözünürlük hesaplanır), ama seri kısım (başlatma, yapılandırma, sonuçları birleştirme gibi işlemler) hemen hemen aynı kalır. Dolayısıyla seri kısmın \emph{mutlak süresi} değişmese bile programın geneline oranla \emph{payı} düşer. Amdahl ``elimdeki program sabit, kaç çekirdek gerekir?'' diye sorarken, Gustafson ``elimde $N$~çekirdek var, ne büyüklükte problem çözebilirim?'' diye sorar.
+John Gustafson\index{Gustafson, John} 1988'de tam da bu gözlemi formüle dökmüştür~\cite{gustafson1988}. Gustafson'un bakış açısına göre çekirdek sayısı arttıkça programın koşut kısmı büyür (daha fazla veri işlenir, daha ince çözünürlük hesaplanır), ama seri kısım (başlatma, yapılandırma, sonuçları birleştirme gibi işlemler) hemen hemen aynı kalır. Dolayısıyla seri kısmın \emph{mutlak süresi} değişmese bile programın geneline oranla \emph{payı} düşer. Amdahl ``elimdeki program sabit, kaç çekirdek gerekir?'' diye sorarken, Gustafson ``elimde $N$~çekirdek var, ne büyüklükte problem çözebilirim?'' diye sorar.
 
 \emph{Gustafson Yasası}\index{Gustafson yasası} ölçeklenmiş hızlanmayı (\emph{scaled speedup}) şöyle tanımlar:
 
@@ -1705,7 +1705,7 @@ Bir hava tahmini programı 64~çekirdekli bir sistemde 1\,km çözünürlükle �
     \[
     S = \frac{1}{0{,}04 + \dfrac{0{,}96}{64}} = \frac{1}{0{,}055} \approx 18{,}2\times
     \]
-    Aynı \%4 seri oranla Amdahl yalnızca $18{,}2\times$ öngörür. Aradaki fark, Gustafson'ın ``çekirdek sayısı artınca problem de büyür'' varsayımından kaynaklanır.
+    Aynı \%4 seri oranla Amdahl yalnızca $18{,}2\times$ öngörür. Aradaki fark, Gustafson'un ``çekirdek sayısı artınca problem de büyür'' varsayımından kaynaklanır.
 \end{enumerate}
 
 \noindent\emph{Not:} Amdahl Yasası'ndaki seri kesir, tek çekirdekli (seri) yürütme temel alınarak tanımlanır. Burada olduğu gibi koşut yürütme sırasında ölçülen seri oranı doğrudan Amdahl formülüne koymak ancak yaklaşık bir sonuç verir. İki yasayı birebir karşılaştırmak için bu oranın seri yürütme üzerinden yeniden ifade edilmesi gerekir.
@@ -1790,9 +1790,9 @@ Heterojen bir sistemde iş yükünün farklı kısımları farklı birimlerde y�
 \label{eq:heterojen-amdahl}
 \end{equation}
 
-\noindent Denklem~\ref{eq:heterojen-amdahl}, klasik Amdahl formülünün (Denklem~\ref{eq:amdahl}) özel bir hâlidir: tek bir hızlandırıcı ($K = 1$) ve $f_1 = P$, $S_1 = H$ alınırsa özgün biçime dönüşür.
+\noindent Denklem~\ref{eq:heterojen-amdahl}, klasik Amdahl formülünün (Denklem~\ref{eq:amdahl}) özel bir hâlidir. Tek bir hızlandırıcı ($K = 1$) ve $f_1 = P$, $S_1 = H$ alınırsa özgün biçime dönüşür.
 
-Bu formül iki önemli gerçeği açığa çıkarır. Birincisi, her hızlandırıcının katkısı yalnızca kendi kapsadığı iş yükü oranıyla ($f_k$) sınırlıdır, tıpkı klasik Amdahl'da olduğu gibi. İkincisi, iş yükünün MİB'de kalan kısmı azaldıkça toplam hızlanma çarpıcı biçimde artabilir. Günümüzün tek yonga tasarımlarında grafik işlemcisi, yapay zeka işlemcisi ve video işlemcisi gibi birimlerin bir arada bulunmasının nedeni budur: her biri iş yükünün farklı bir dilimini hızlandırarak MİB'de kalan oranı en aza indirir.
+Bu formül iki önemli gerçeği açığa çıkarır. Birincisi, her hızlandırıcının katkısı yalnızca kendi kapsadığı iş yükü oranıyla ($f_k$) sınırlıdır, tıpkı klasik Amdahl'da olduğu gibi. İkincisi, iş yükünün MİB'de kalan kısmı azaldıkça toplam hızlanma çarpıcı biçimde artabilir. Günümüzün tek yonga tasarımlarında grafik işlemcisi, yapay zeka işlemcisi ve video işlemcisi gibi birimlerin bir arada bulunmasının nedeni budur. Her biri iş yükünün farklı bir dilimini hızlandırarak MİB'de kalan oranı en aza indirir.
 
 \begin{ornek}[2.12]
 Bir akıllı telefon tek yongasında video düzenleme uygulaması çalıştırılıyor. Uygulamanın iş yükü dağılımı ve her birimin MİB'e göre hızlanma katsayısı şöyledir:
@@ -1837,12 +1837,12 @@ Genel işlemler (yalnızca MİB)          & 0,20 & 1$\times$ \\
     = \frac{1}{0{,}2165}
     \approx 4{,}62\times
     \end{align*}
-    Video işlemcisi 4 kat hızlanmasına rağmen toplam hızlanma yalnızca $4{,}48\times$'ten $4{,}62\times$'e çıkmıştır. Bunun nedeni tanıdıktır: Amdahl Yasası burada da geçerlidir. MİB'de kalan \%20'lik kısım, toplam hızlanmayı en fazla $1/0{,}20 = 5\times$ ile sınırlar. Bu üst sınıra zaten yaklaşıldığı için tek bir hızlandırıcıyı daha da güçlendirmek azalan getiri sağlar.
+    Video işlemcisi 4 kat hızlanmasına rağmen toplam hızlanma yalnızca $4{,}48\times$'ten $4{,}62\times$'e çıkmıştır. Bunun nedeni tanıdıktır. Amdahl Yasası burada da geçerlidir. MİB'de kalan \%20'lik kısım, toplam hızlanmayı en fazla $1/0{,}20 = 5\times$ ile sınırlar. Bu üst sınıra zaten yaklaşıldığı için tek bir hızlandırıcıyı daha da güçlendirmek azalan getiri sağlar.
 \end{enumerate}
 \end{ornek}
 
 \begin{bilginot}[Doğru İş Yükünü Doğru Birime Yönlendirmek]
-Heterojen sistemlerde en büyük başarım kazanımı, mümkün olan her iş yükü parçasını uygun hızlandırıcıya yönlendirmekten gelir. Yazılımın MİB üzerinde kalan oranını azaltmak, tek bir hızlandırıcıyı daha da güçlendirmekten çok daha etkilidir. Bu ilke, işletim sistemi ve derleyici tasarımında giderek daha önemli bir rol oynamaktadır: çağdaş işletim sistemleri iş yükü karakterizasyonuna göre görevleri büyük veya küçük çekirdeklere, grafik işlemcisine ya da yapay zeka işlemcisine otomatik olarak yönlendirebilir.
+Heterojen sistemlerde en büyük başarım kazanımı, mümkün olan her iş yükü parçasını uygun hızlandırıcıya yönlendirmekten gelir. Yazılımın MİB üzerinde kalan oranını azaltmak, tek bir hızlandırıcıyı daha da güçlendirmekten çok daha etkilidir. Bu ilke, işletim sistemi ve derleyici tasarımında giderek daha önemli bir rol oynamaktadır. Çağdaş işletim sistemleri iş yükü karakterizasyonuna göre görevleri büyük veya küçük çekirdeklere, grafik işlemcisine ya da yapay zeka işlemcisine otomatik olarak yönlendirebilir.
 \end{bilginot}
 
 
@@ -1921,7 +1921,7 @@ Bellek duvarı sorunu Bölüm~\ref{chap:bellek}'de ayrıntılı olarak incelenec
 
 Günümüzde bir bilgisayarın başarımını değerlendirirken yalnızca hızına değil, harcadığı enerjiye de bakmak gerekir. Veri merkezlerinde elektrik maliyeti, dizüstü bilgisayarlarda pil ömrü ve taşınabilir aygıtlarda ısı kısıtları, \emph{güç-başarım oranını}\index{güç-başarım oranı} (performance per watt) önemli bir tasarım ölçütü haline getirmiştir.
 
-Bölüm~\ref{sec:devingen-guc}'de gördüğümüz gibi devingen güç tüketimi $P_{\text{devingen}} = C \times V_{dd}^2 \times f$ formülüyle hesaplanır ve besleme geriliminin \emph{karesiyle} orantılıdır (Denklem~\ref{eq:devingen-guc}). Gerilimin karesiyle doğru orantılı olan bu ilişki önemli bir sonuç doğurur: saat sıklığını ($f$) artırmak devingen gücü doğru orantılı olarak artırırken, bunu desteklemek için gerilimin de yükseltilmesi gerektiğinde güç tüketimi çok daha hızlı yükselir. Buna ek olarak, Bölüm~\ref{sec:duragan-guc}'de ele alınan durağan güç (sızıntı akımları) da transistörler küçüldükçe artmaktadır. İşte bu iki etken, 2005'ten sonra endüstrinin saat sıklığını artırmak yerine çok çekirdekli ve heterojen tasarımlara yönelmesinin temel nedenidir.
+Bölüm~\ref{sec:devingen-guc}'de gördüğümüz gibi devingen güç tüketimi $P_{\text{devingen}} = C \times V_{dd}^2 \times f$ formülüyle hesaplanır ve besleme geriliminin \emph{karesiyle} orantılıdır (Denklem~\ref{eq:devingen-guc}). Gerilimin karesiyle doğru orantılı olan bu ilişki önemli bir sonuç doğurur. Saat sıklığını ($f$) artırmak devingen gücü doğru orantılı olarak artırırken, bunu desteklemek için gerilimin de yükseltilmesi gerektiğinde güç tüketimi çok daha hızlı yükselir. Buna ek olarak, Bölüm~\ref{sec:duragan-guc}'de ele alınan durağan güç (sızıntı akımları) da transistörler küçüldükçe artmaktadır. İşte bu iki etken, 2005'ten sonra endüstrinin saat sıklığını artırmak yerine çok çekirdekli ve heterojen tasarımlara yönelmesinin temel nedenidir.
 
 Enerji verimliliği artık başarım kadar önemli bir tasarım ölçütüdür:
 
@@ -2145,16 +2145,16 @@ Bu tablodan çarpıcı gözlemler çıkarmak mümkündür:
 Başarım kavramı ilk bakışta basit görünse de sezgiye dayanan yaklaşımlar çoğu zaman yanıltıcı sonuçlara yol açar\index{yanılgılar ve tuzaklar}. Tek bir ölçüte odaklanmak, korelasyonu nedensellikle karıştırmak ya da pazarlama verilerini mühendislik gerçeği gibi kabul etmek. Bunların hepsi hem öğrencilerin hem de deneyimli mühendislerin düşebileceği tuzaklardır. Bu bölümde başarımla ilgili en yaygın yanılgıları ve tasarım hatalarını somut örneklerle ele alacağız.
 
 \yanilgi{Saat sıklığı yüksek olan işlemci her zaman daha hızlıdır}
-Örnek~2.3'te gördüğümüz gibi, 300\,MHz'lik işlemci 200\,MHz'lik olandan daha yavaş çalışabilir. Başarım üç bileşenin çarpımına bağlıdır (Denklem~\ref{eq:yurutme-zamani-bbc}). Saat sıklığı bunlardan yalnızca biridir. Intel Pentium~4 işlemcisi 3,8\,GHz'e ulaşmıştı ancak aynı dönemdeki 2\,GHz'lik AMD Athlon~64 birçok iş yükünde daha hızlıydı; çünkü Athlon~64'ün daha kısa boru hattı ve daha verimli mikromimarisi sayesinde BBÇ değeri çok daha düşüktü. Günümüzde de Apple M serisi (3--4\,GHz) ile Intel i9 (6\,GHz) arasında benzer bir tablo mevcuttur: düşük saat sıklığına rağmen Apple çevrimi başına daha fazla iş yaparak yakın tek çekirdek başarımı elde etmektedir.
+Örnek~2.3'te gördüğümüz gibi, 300\,MHz'lik işlemci 200\,MHz'lik olandan daha yavaş çalışabilir. Başarım üç bileşenin çarpımına bağlıdır (Denklem~\ref{eq:yurutme-zamani-bbc}). Saat sıklığı bunlardan yalnızca biridir. Intel Pentium~4 işlemcisi 3,8\,GHz'e ulaşmıştı ancak aynı dönemdeki 2\,GHz'lik AMD Athlon~64 birçok iş yükünde daha hızlıydı; çünkü Athlon~64'ün daha kısa boru hattı ve daha verimli mikromimarisi sayesinde BBÇ değeri çok daha düşüktü. Günümüzde de Apple M serisi (3--4\,GHz) ile Intel i9 (6\,GHz) arasında benzer bir tablo mevcuttur. Düşük saat sıklığına rağmen Apple çevrimi başına daha fazla iş yaparak yakın tek çekirdek başarımı elde etmektedir.
 
 \yanilgi{MIPS güvenilir bir başarım ölçüsüdür}
 MIPS değeri, farklı buyruk kümelerine sahip işlemciler arasında anlamlı bir karşılaştırma yapılmasına izin vermez. Aynı işi yapan iki farklı BKM, biri 100 basit buyrukla diğeri 40 karmaşık buyrukla tamamlayabilir. Basit buyruklu olan MIPS'te daha yüksek skor alır ama toplam çevrim sayısı daha fazla olabilir. Hatta aynı işlemci üzerinde bile farklı programlar farklı MIPS değerleri verir. Daha da kötüsü, bazı derleyici eniyilemeleri buyruk sayısını artırarak MIPS'i yükseltebilir ama programı yavaşlatabilir. Örnek~2.5'te bunu somut olarak gördük. Bu nedenle MIPS, işlemcilerin başarımını karşılaştırmak için tek başına güvenilir bir ölçüt değildir.
 
 \tuzak{Tepe başarımı gerçek başarım sanmak}
-Bir GPU'nun 80 TFLOPS tepe başarıma sahip olması, gerçek uygulamalarda bu değere ulaşacağı anlamına gelmez. Tepe başarım, tüm hesaplama birimlerinin her saat çevriminde tam kapasiteyle ve kesintisiz çalıştığı kuram düzeyinde bir üst sınırdır. Ancak gerçek uygulamalarda bellek bant genişliği darboğazları, veri bağımlılıkları ve denetim akışı düzensizlikleri nedeniyle tepe başarımın genellikle \%10--60'ı arasında bir sürdürülebilir başarımla sonuçlanır. Bir işlemciyi tepe başarımına bakarak seçmek, bir otomobili yalnızca en yüksek hızına bakarak seçmek gibidir: şehir içi trafikte 300\,km/sa yapabilen spor otomobil, 180\,km/sa yapabilen aile otomobilinden daha yavaş kalabilir.
+Bir GPU'nun 80 TFLOPS tepe başarıma sahip olması, gerçek uygulamalarda bu değere ulaşacağı anlamına gelmez. Tepe başarım, tüm hesaplama birimlerinin her saat çevriminde tam kapasiteyle ve kesintisiz çalıştığı kuram düzeyinde bir üst sınırdır. Ancak gerçek uygulamalarda bellek bant genişliği darboğazları, veri bağımlılıkları ve denetim akışı düzensizlikleri nedeniyle tepe başarımın genellikle \%10--60'ı arasında bir sürdürülebilir başarımla sonuçlanır. Bir işlemciyi tepe başarımına bakarak seçmek, bir otomobili yalnızca en yüksek hızına bakarak seçmek gibidir. Şehir içi trafikte 300\,km/sa yapabilen spor otomobil, 180\,km/sa yapabilen aile otomobilinden daha yavaş kalabilir.
 
 \tuzak{Amdahl Yasası'nı göz ardı etmek}
-Bir mühendis, programın yalnızca \%5'ini oluşturan bir birimi 100 kat hızlandırmak için aylarca çalışabilir. Amdahl Yasası'na göre bu çabanın karşılığı en fazla $\frac{1}{0{,}95 + 0{,}05/100} \approx 1{,}05$ kat hızlanma. Yalnızca \%5'lik bir iyileşme. Aynı sürede programın \%60'ını oluşturan bileşeni 2 kat hızlandırmak $\frac{1}{0{,}4 + 0{,}6/2} \approx 1{,}43$ kat hızlanma sağlardı. Bu tuzak uygulamada sıkça karşılaşılır: mühendisler çoğu zaman en ``ilginç'' veya en ``yavaş'' bileşeni eniyileme eğilimindedir, oysa Amdahl Yasası bize bileşenin mutlak yavaşlığının değil \emph{toplam yürütme zamanı içindeki payının} önemli olduğunu söyler.
+Bir mühendis, programın yalnızca \%5'ini oluşturan bir birimi 100 kat hızlandırmak için aylarca çalışabilir. Amdahl Yasası'na göre bu çabanın karşılığı en fazla $\frac{1}{0{,}95 + 0{,}05/100} \approx 1{,}05$ kat hızlanma. Yalnızca \%5'lik bir iyileşme. Aynı sürede programın \%60'ını oluşturan bileşeni 2 kat hızlandırmak $\frac{1}{0{,}4 + 0{,}6/2} \approx 1{,}43$ kat hızlanma sağlardı. Uygulamada bu tuzağa sıkça düşülür. Mühendisler çoğu zaman en ``ilginç'' veya en ``yavaş'' bileşeni eniyileme eğilimindedir, oysa Amdahl Yasası bize bileşenin mutlak yavaşlığının değil \emph{toplam yürütme zamanı içindeki payının} önemli olduğunu söyler.
 
 \yanilgi{Transistör sayısı arttıkça başarım aynı oranda artar}
 Moore Yasası transistör sayısını her iki yılda ikiye katlamıştır; ancak 2005'ten sonra eklenen transistörler tek çekirdek başarımına doğrudan katkı sağlamamaktadır. Ek transistörler çekirdek sayısını artırmak, önbellek boyutunu büyütmek veya GPU, sinir ağı motoru gibi özel amaçlı hızlandırıcılar eklemek için kullanılır. Bu birimlerin başarıma dönüşmesi, yazılımın koşutlaştırılmasına veya ilgili hızlandırıcıyı kullanacak şekilde yazılmasına bağlıdır. Dolayısıyla ``transistör sayısı iki katına çıktı, bilgisayar iki kat hızlandı'' çıkarımı artık geçerli değildir.
@@ -2177,11 +2177,11 @@ Yürütme zamanı, başarımın en doğrudan ölçütüdür ve üç bileşenin �
 
 MIPS ve MFLOPS gibi ölçütler yanıltıcı olabilir, çünkü farklı buyruk kümesi mimarilerindeki buyruklar eşdeğer iş yapmaz. İki işlemci arasında MIPS değerleri üzerinden doğrudan karşılaştırma yapmak, birinin kilometreyle diğerinin mille hız ölçtüğü iki aracı karşılaştırmaya benzer. Kayan nokta işlemi sayısını esas alan FLOPS ölçütü, bilimsel hesaplama ve yapay zeka iş yüklerinde daha anlamlıdır; ancak burada da tepe başarım ile sürdürülebilir başarım arasındaki farka ve hangi sayısal duyarlık düzeyinde çalışıldığına dikkat etmek gerekir. SPEC ve MLPerf gibi standart sınama kümeleri, gerçekçi iş yükleri üzerinde tekrarlanabilir ve adil karşılaştırma imkânı sunar.
 
-Amdahl Yasası, bir iyileştirmenin toplam başarıma katkısını nicel olarak ortaya koyar: yalnızca programın $P$ oranındaki kısmını $H$ kat hızlandırırsanız toplam hızlanma $\frac{1}{(1-P)+P/H}$ ile sınırlıdır. Bu formülün temel çıkarımı ``olağan durumu hızlandır'' ilkesidir: programın büyük bölümünü oluşturan kısmı hızlandırmak, küçük bir bölümü büyük ölçüde hızlandırmaktan çok daha etkilidir. Gustafson Yasası ise farklı bir bakış açısı sunar: çekirdek sayısı arttıkça problem büyüklüğü de artırılırsa Amdahl'ın belirlediği karamsar üst sınır aşılabilir. Gerçek uygulamalarda büyük ölçekli bilimsel simülasyonlar bu modele yakın davranır.
+Amdahl Yasası, bir iyileştirmenin toplam başarıma katkısını nicel olarak ortaya koyar. Yalnızca programın $P$ oranındaki kısmını $H$ kat hızlandırırsanız toplam hızlanma $\frac{1}{(1-P)+P/H}$ ile sınırlıdır. Bu formülün temel çıkarımı ``olağan durumu hızlandır'' ilkesidir. Programın büyük bölümünü oluşturan kısmı hızlandırmak, küçük bir bölümü büyük ölçüde hızlandırmaktan çok daha etkilidir. Gustafson Yasası ise farklı bir bakış açısı sunar. Çekirdek sayısı arttıkça problem büyüklüğü de artırılırsa Amdahl'ın belirlediği karamsar üst sınır aşılabilir. Gerçek uygulamalarda büyük ölçekli bilimsel simülasyonlar bu modele yakın davranır.
 
-Çağdaş işlemciler ve sistemler heterojen yapıdadır: tek bir yonga üzerinde grafik işlemciler, sinir ağı hızlandırıcıları ve video kod çözücüler bir arada bulunur. Bu hızlandırıcılar, iş yükünün belirli dilimlerini genel amaçlı işlemciden çok daha hızlı işler. Genişletilmiş Amdahl formülü bu durumu modellemek için kullanılır. MİB'de kalan iş oranı, tüm sistemin ulaşabileceği hızlanmayı sınırlar. Dolayısıyla heterojen sistemlerde iş yükünü farklı işlem birimlerine ne ölçüde aktarabildiğiniz, genel başarımı belirleyen en önemli etkenlerden biridir.
+Çağdaş işlemciler ve sistemler heterojen yapıdadır. Tek bir yonga üzerinde grafik işlemciler, sinir ağı hızlandırıcıları ve video kod çözücüler bir arada bulunur. Bu hızlandırıcılar, iş yükünün belirli dilimlerini genel amaçlı işlemciden çok daha hızlı işler. Genişletilmiş Amdahl formülü bu durumu modellemek için kullanılır. MİB'de kalan iş oranı, tüm sistemin ulaşabileceği hızlanmayı sınırlar. Dolayısıyla heterojen sistemlerde iş yükünü farklı işlem birimlerine ne ölçüde aktarabildiğiniz, genel başarımı belirleyen en önemli etkenlerden biridir.
 
-Bellek duvarı, işlemci hızının bellek hızından çok daha hızlı ilerlemesinin yarattığı darboğazı ifade eder. Önbellek hiyerarşisi ve yüksek bant genişlikli bellek (HBM) bu farkı hafifletmek için kullanılan başlıca araçlardır. Güç tüketimi de başarımla doğrudan bağlantılıdır: devingen güç, gerilimin karesiyle orantılıdır. Bu ilişki, saat sıklığı yerine koşutluğa yönelmenin temel fiziksel nedenidir ve Green500 listesindeki başarım/watt ölçütünün neden bu denli önem kazandığını açıklar.
+Bellek duvarı, işlemci hızının bellek hızından çok daha hızlı ilerlemesinin yarattığı darboğazı ifade eder. Önbellek hiyerarşisi ve yüksek bant genişlikli bellek (HBM) bu farkı hafifletmek için kullanılan başlıca araçlardır. Güç tüketimi de başarımla doğrudan bağlantılıdır. Devingen güç, gerilimin karesiyle orantılıdır. Bu ilişki, saat sıklığı yerine koşutluğa yönelmenin temel fiziksel nedenidir ve Green500 listesindeki başarım/watt ölçütünün neden bu denli önem kazandığını açıklar.
 
 Başarım eğilimleri 2005'ten bu yana köklü bir dönüşüm geçirmiştir. O güne kadar yılda yaklaşık \%50 oranında seyreden tek çekirdek başarım artışı, güç duvarının devreye girmesiyle \%3--5 düzeyine gerilemiştir. Günümüzde başarım artışı çok çekirdekli işlemciler, alana özgü hızlandırıcılar ve gelişmiş bellek hiyerarşileriyle sağlanmaktadır. Saat sıklığının tek başına belirleyici olduğu, MIPS'in güvenilir bir karşılaştırma ölçütü olduğu ve tepe başarımın sürdürülebilir başarıma eşit sayılabileceği gibi yaygın yanılgılar, hem tasarım kararlarında hem de sınav sorularında sıkça karşılaşılan tuzaklardır.
 

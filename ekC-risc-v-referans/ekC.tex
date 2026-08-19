@@ -3,7 +3,7 @@
 % =============================================================
 \chapter{RISC-V Referans Kartı}
 \label{app:risc-v-referans}
-\bolumfoto[Celsus Kütüphanesi, antik dünyanın en büyük bilgi kaynaklarından biriydi. Bu ek de RISC-V buyruk kümesinin başvuru kaynağıdır: yazarken, okurken ve hata ayıklarken her an dönüp bakılacak bir referans.]{gorseller/ekC-efes.jpg}{Efes Antik Kenti, Celsus Kütüphanesi -- İzmir}
+\bolumfoto[Celsus Kütüphanesi, antik dünyanın en büyük bilgi kaynaklarından biriydi. Bu ek de RISC-V buyruk kümesinin başvuru kaynağıdır. Yazarken, okurken ve hata ayıklarken her an dönüp bakılacak bir referanstır.]{gorseller/ekC-efes.jpg}{Efes Antik Kenti, Celsus Kütüphanesi -- İzmir}
 
 \begin{tcolorbox}[
     colback=blokyesil!15,
@@ -85,7 +85,7 @@ Kitap boyunca \textbf{RV32I} taban buyruk kümesi kullanılmaktadır. RV32I, RIS
 \subsection{Ayrıcalık Düzeyleri}
 \label{subsec:ekc-ayricalik}
 
-RISC-V, yazılım katmanlarını birbirinden yalıtmak için üç ayrıcalık düzeyi tanımlar:\index{ayrıcalık düzeyleri}\index{RISC-V!ayrıcalık düzeyleri}
+RISC-V, yazılım katmanlarını birbirinden yalıtmak için üç ayrıcalık düzeyi tanımlar (Tablo~\ref{tab:ekc-ayricalik}):\index{ayrıcalık düzeyleri}\index{RISC-V!ayrıcalık düzeyleri}
 
 \begin{table}[H]
 \centering
@@ -150,12 +150,12 @@ sw x7, 150(x3)    # Bellek[x3 + 150] = x7
 Burada parantez içindeki yazmaç \textbf{taban adres}i, parantez dışındaki sayı ise \textbf{ofset} değerini verir. Erişilen bellek adresi ikisinin toplamıdır. Örneğin \texttt{100(x0)} ifadesinde \texttt{x0} daima sıfır olduğundan adres doğrudan 100 olur; \texttt{150(x3)} ifadesinde ise adres \texttt{x3 + 150} olarak hesaplanır.
 
 \begin{bilginot}[Yükleme ve saklama buyruklarındaki fark]
-Yükleme buyruklarında (\texttt{lw}) veri bellekten yazmaca \emph{okunur}: hedef bir yazmaçtır. Saklama buyruklarında (\texttt{sw}) ise veri yazmaçtan belleğe \emph{yazılır}: ilk işlenen bellekten değil, belleğe \emph{gönderilecek} olan yazmacı gösterir.
+Yükleme buyruklarında (\texttt{lw}) veri bellekten yazmaca \emph{okunur}. Hedef bir yazmaçtır. Saklama buyruklarında (\texttt{sw}) ise veri yazmaçtan belleğe \emph{yazılır}. İlk işlenen bellekten değil, belleğe \emph{gönderilecek} olan yazmacı gösterir.
 \end{bilginot}
 
 \subsection{Buyruk Kategorileri}
 
-RISC-V buyruklarını beş ana kategoride toplamak mümkündür (ayrıntılı açıklama Bölüm~\ref{chap:buyruk-kumesi}'te verilmektedir):
+RISC-V buyruklarını beş ana kategoride toplamak mümkündür (Tablo~\ref{tab:ekc-buyruk-kategorileri}; ayrıntılı açıklama Bölüm~\ref{chap:buyruk-kumesi}'te verilmektedir):
 
 \begin{table}[H]
 \centering
@@ -321,7 +321,7 @@ Tablo~\ref{tab:ekc-rv32i}, RV32I temel buyruk kümesindeki tüm buyrukları işl
 \subsection{Buyruk Kodlama Örneği}
 \label{subsec:ekc-kodlama-ornegi}
 
-Bir buyruğun ikili kodlamasını somut bir örnek üzerinden inceleyelim. \texttt{add x5, x6, x7} buyruğu R türündedir ve aşağıdaki gibi kodlanır:
+Bir buyruğun ikili kodlamasını somut bir örnek üzerinden inceleyelim. \texttt{add x5, x6, x7} buyruğu R türündedir (bkz.\ Şekil~\ref{fig:ekc-r-tipi}) ve aşağıdaki gibi kodlanır:
 
 \begin{center}
 \begin{tikzpicture}[scale=0.85, every node/.style={font=\footnotesize}]
@@ -434,7 +434,7 @@ RISC-V çağrı kuralları\index{çağrı kuralları}, alt yordamlar arasında y
     \item Saklanan yazmaçlar yığıttan geri yüklenir, \texttt{ret} ile çağırana dönülür.
 \end{enumerate}
 
-Aşağıdaki şekil, bir alt yordam çağrısı sırasında yığıt çerçevesinin yapısını göstermektedir:
+Şekil~\ref{fig:ekc-yigit-cerceve}, bir alt yordam çağrısı sırasında yığıt çerçevesinin yapısını göstermektedir:
 
 \begin{figure}[H]
 \centering
@@ -473,6 +473,8 @@ Aşağıdaki şekil, bir alt yordam çağrısı sırasında yığıt çerçevesi
 RISC-V, altı temel buyruk biçimi tanımlar.\index{buyruk biçimi} Her biçim 32 bit genişliğindedir ve farklı alan düzenleri içerir. Bu bölümde her biçim görsel olarak sunulmaktadır.
 
 % --- R Türü ---
+\textbf{R türü} (Şekil~\ref{fig:ekc-r-tipi}): İki kaynak ve bir hedef yazmaç içerir; işlev kodu alanları (funct7, funct3) yapılacak işlemi belirler. Aritmetik ve mantık buyrukları bu biçimi kullanır.
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[scale=0.85, every node/.style={font=\footnotesize}]
@@ -507,6 +509,8 @@ RISC-V, altı temel buyruk biçimi tanımlar.\index{buyruk biçimi} Her biçim 3
 \end{figure}
 
 % --- I Türü ---
+\textbf{I türü} (Şekil~\ref{fig:ekc-i-tipi}): 12 bitlik işaretli anlık değer, bir kaynak yazmaç ve bir hedef yazmaç içerir. Anlık aritmetik, yükleme ve bazı sistem buyrukları bu biçimi kullanır.
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[scale=0.85, every node/.style={font=\footnotesize}]
@@ -537,6 +541,8 @@ RISC-V, altı temel buyruk biçimi tanımlar.\index{buyruk biçimi} Her biçim 3
 \end{figure}
 
 % --- S Türü ---
+\textbf{S türü} (Şekil~\ref{fig:ekc-s-tipi}): Anlık değer iki ayrı alana (imm[11:5] ve imm[4:0]) bölünmüştür; iki kaynak yazmaç içerir, hedef yazmaç alanı yoktur. Saklama buyrukları (\texttt{sw}, \texttt{sh}, \texttt{sb}) bu biçimi kullanır.
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[scale=0.85, every node/.style={font=\footnotesize}]
@@ -571,6 +577,8 @@ RISC-V, altı temel buyruk biçimi tanımlar.\index{buyruk biçimi} Her biçim 3
 \end{figure}
 
 % --- B Türü ---
+\textbf{B türü} (Şekil~\ref{fig:ekc-b-tipi}): S türüne benzer, ancak anlık değer bit sıralaması farklıdır; iki kaynak yazmaç içerir, hedef yazmaç yoktur. Dal ofseti çift sayıdır (en düşük bit her zaman 0). Dallanma buyrukları (\texttt{beq}, \texttt{bne} vb.) bu biçimi kullanır.
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[scale=0.85, every node/.style={font=\footnotesize}]
@@ -605,6 +613,8 @@ RISC-V, altı temel buyruk biçimi tanımlar.\index{buyruk biçimi} Her biçim 3
 \end{figure}
 
 % --- U Türü ---
+\textbf{U türü} (Şekil~\ref{fig:ekc-u-tipi}): 20 bitlik anlık değer ve bir hedef yazmaç içerir; bu değer yazmacın üst 20 bitine yerleştirilir. \texttt{lui} ve \texttt{auipc} buyrukları bu biçimi kullanır.
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[scale=0.85, every node/.style={font=\footnotesize}]
@@ -627,6 +637,8 @@ RISC-V, altı temel buyruk biçimi tanımlar.\index{buyruk biçimi} Her biçim 3
 \end{figure}
 
 % --- J Türü ---
+\textbf{J türü} (Şekil~\ref{fig:ekc-j-tipi}): U türüne benzer alan genişliğinde; 20 bitlik anlık değer farklı bit sıralamasıyla kodlanır. \texttt{jal} buyruğu bu biçimi kullanarak 20 bitlik ofsetle koşulsuz atlama gerçekleştirir.
+
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[scale=0.85, every node/.style={font=\footnotesize}]
@@ -802,7 +814,7 @@ Küçük eşitse dallan\index{ble} \\[3pt]
 }% end \small
 
 \noindent
-\textbf{Not:} \texttt{li}\index{li} buyruğunun açılımı, anlık değerin büyüklüğüne bağlı olarak değişir. Değer 12 bitlik işaretli aralığa sığıyorsa yalnızca \texttt{addi} kullanılır. Aksi hâlde önce \texttt{lui} ile üst 20 bit yüklenir, ardından \texttt{addi} ile alt 12 bit eklenir. Benzer şekilde \texttt{la}, \texttt{call} ve \texttt{tail} buyrukları da iki buyruktan oluşur: birincisi üst kısımları \texttt{auipc} ile hesaplar, ikincisi alt kısımları ekler.
+\textbf{Not:} \texttt{li}\index{li} buyruğunun açılımı, anlık değerin büyüklüğüne bağlı olarak değişir. Değer 12 bitlik işaretli aralığa sığıyorsa yalnızca \texttt{addi} kullanılır. Aksi hâlde önce \texttt{lui} ile üst 20 bit yüklenir, ardından \texttt{addi} ile alt 12 bit eklenir. Benzer şekilde \texttt{la}, \texttt{call} ve \texttt{tail} buyrukları da iki buyruktan oluşur. Birincisi üst kısımları \texttt{auipc} ile hesaplar, ikincisi alt kısımları ekler.
 
 
 % =============================================================
@@ -876,7 +888,7 @@ else_dal:
 son:
 \end{lstlisting}
 
-Koşul ters çevrilerek yazılır: \texttt{a > b} yerine \texttt{b >= a} sınanır; koşul doğruysa \texttt{else} dalına atlanır. Bu yöntem, çevirici dilde koşullu yapıların standart gerçekleştirme kalıbıdır. Çevirici dilinde \texttt{ble} (küçük veya eşitse dallan) sözde buyruğu da kullanılabilir; çevirici bunu \texttt{bge} ile yer değiştirmiş kaynaklara çevirir.
+Koşul ters çevrilerek yazılır. \texttt{a > b} yerine \texttt{b >= a} sınanır; koşul doğruysa \texttt{else} dalına atlanır. Bu yöntem, çevirici dilde koşullu yapıların standart gerçekleştirme kalıbıdır. Çevirici dilinde \texttt{ble} (küçük veya eşitse dallan) sözde buyruğu da kullanılabilir; çevirici bunu \texttt{bge} ile yer değiştirmiş kaynaklara çevirir.
 \end{ornek}
 
 \begin{ornek}[C.4]
@@ -901,17 +913,11 @@ int sonuc = toplam(3, 5);
 \textbf{Çözüm: İşlev gövdesi (toplam)}
 \begin{lstlisting}[style=riscv]
 toplam:
-    addi sp, sp, -8        # yigit cercevesi ac (8 bayt)
-    sw   ra, 4(sp)         # donus adresini sakla
-    sw   s0, 0(sp)         # kaydedilen yazmaci sakla
     add  a0, a0, a1        # donus degeri = a + b
-    lw   s0, 0(sp)         # kaydedilen yazmaci geri yukle
-    lw   ra, 4(sp)         # donus adresini geri yukle
-    addi sp, sp, 8         # yigit cercevesini kapat
     ret                    # cagirana don (jalr zero, 0(ra))
 \end{lstlisting}
 
-RISC-V çağrı kurallarına göre argümanlar \texttt{a0}--\texttt{a7} yazmaçlarıyla aktarılır; dönüş değeri \texttt{a0}'a yazılır. İşlev içinde kullanılan kaydedilen yazmaçlar (\texttt{s0}--\texttt{s11}) ve dönüş adresi (\texttt{ra}) yığıta saklanıp geri yüklenmek zorundadır. \texttt{ret} sözde buyruğu, çevirici tarafından \texttt{jalr zero, 0(ra)} olarak açılır.
+RISC-V çağrı kurallarına göre argümanlar \texttt{a0}--\texttt{a7} yazmaçlarıyla aktarılır; dönüş değeri \texttt{a0}'a yazılır. \texttt{toplam} bir \emph{yaprak işlevdir}. Başka bir işlev çağırmadığı ve yalnızca argüman yazmaçlarını kullandığı için yığıt çerçevesine gerek duymaz; \texttt{ra} olduğu gibi korunur. Buna karşılık başka bir işlev çağıran ya da kaydedilen yazmaçları (\texttt{s0}--\texttt{s11}) kullanan işlevler, kullandıkları kaydedilen yazmaçları ve \texttt{ra}'yı yığıta saklayıp geri yüklemek zorundadır. \texttt{ret} sözde buyruğu, çevirici tarafından \texttt{jalr zero, 0(ra)} olarak açılır.
 \end{ornek}
 
 % =============================================================
@@ -923,7 +929,7 @@ RISC-V çağrı kurallarına göre argümanlar \texttt{a0}--\texttt{a7} yazmaçl
 Bu ekte RISC-V buyruk kümesi mimarisinin referans bilgileri sunuldu. Temel kavramlar şöyle özetlenebilir:
 
 \begin{itemize}
-\item RISC-V modüler bir mimaridir: RV32I/RV64I taban kümeleri üzerine M, A, F, D, C, V gibi uzantılar eklenerek farklı uygulama alanlarına uygun yapılandırmalar oluşturulur. Bu kitap RV32I taban kümesini kullanmaktadır.
+\item RISC-V modüler bir mimaridir. RV32I/RV64I taban kümeleri üzerine M, A, F, D, C, V gibi uzantılar eklenerek farklı uygulama alanlarına uygun yapılandırmalar oluşturulur. Bu kitap RV32I taban kümesini kullanmaktadır.
 
 \item RISC-V üç ayrıcalık düzeyi tanımlar: Makine (M), Gözetmen (S) ve Kullanıcı (U). Tüm gerçeklemeler en az M modunu destekler.
 

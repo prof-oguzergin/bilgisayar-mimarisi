@@ -40,7 +40,7 @@ Bilgisayarlar özünde birer hesaplama makinesidir. İlk yapıldıkları günden
 
 Bu ilke, günümüzün yapay zeka çağında her zamankinden daha geçerlidir. Büyük dil modellerini eğiten ve çalıştıran grafik işlemcileri (GPU) ile yapay zeka hızlandırıcıları, özünde devasa toplayıcı ve çarpıcı dizilerinden oluşur. Örneğin NVIDIA'nın güncel GPU'ları on binlerce kayan nokta çarpma-toplama birimi barındırır. Google'ın TPU hızlandırıcısı ise 128$\times$128'lik çarpıcı dizileriyle tek saat darbesinde on binlerce çarpma-toplama işlemi gerçekleştirir. Bu bölümde öğreneceğimiz toplayıcı, çarpıcı ve kayan nokta birimi tasarımları, tüm bu devlerin temel yapı taşlarıdır.
 
-Peki bir işlemci 0 ve 1'lerden ibaret bitlerle nasıl toplama, çarpma hatta ondalıklı sayılarla işlem yapabiliyor? Üstelik tüm bu farklı sayı türleri (işaretli tam sayılar\index{tam sayı}, kesirler, kayan nokta sayıları) sınırlı bir bit genişliğine sığdırılmak zorunda. Bu bölümde, bilgisayarın bu temel sorunu nasıl çözdüğünü adım adım göreceğiz: mantık kapılarından başlayarak toplama, çıkarma, çarpma ve bölme devrelerini tasarlayacak, sonra da kayan nokta gösterimine geçeceğiz.
+Peki bir işlemci 0 ve 1'lerden ibaret bitlerle nasıl toplama, çarpma hatta ondalıklı sayılarla işlem yapabiliyor? Üstelik tüm bu farklı sayı türleri (işaretli tam sayılar\index{tam sayı}, kesirler, kayan nokta sayıları) sınırlı bir bit genişliğine sığdırılmak zorunda. Bu bölümde, bilgisayarın bu temel sorunu nasıl çözdüğünü adım adım göreceğiz. Mantık kapılarından başlayarak toplama, çıkarma, çarpma ve bölme devrelerini tasarlayacak, sonra da kayan nokta gösterimine geçeceğiz.
 
 
 % =============================================
@@ -95,7 +95,7 @@ $\underbrace{00000000000000000000000010011000}_{32 \text{ bit}}$ & $\rightarrow$
 
 Çıkarma\index{çıkarma}\index{subtraction|see{çıkarma}} işlemi de aslında toplamanın aynısıdır. Çıkarmanın toplamadan tek farkı toplama işleminden önce ikinci işlenenin (çıkarılanın) eksilisinin alınmasıdır. Eğer toplama işlemi $a + b = c$ şeklinde ifade edilirse çıkarma işlemi de toplama kullanılarak $a + (-b) = d$ şeklinde gösterilebilir. Böylece yalnızca toplama işlemi yapabilen bir sayısal devrede kolaylıkla çıkarma işlemi yapılabilir. İkinci işlenenin eksilisinin bulunması, kullanılan sayısal devrenin hangi tür sayı sistemi kullandığına bağlıdır. Güncel işlemciler büyük ölçüde 2'ye tümleyen\index{ikiye tümleyen}\index{two's complement|see{ikiye tümleyen}} kullandığı için bu işlemin ikiye tümleyen alınarak yapıldığı varsayılabilir.
 
-2'ye tümleyen alma işlemi iki adımda gerçekleşir: önce sayının her biti ters çevrilir (0'lar 1, 1'ler 0 olur), ardından sonuca 1 eklenir. Bu yöntem donanım açısından son derece güçlüdür: çıkarma işlemi, mevcut toplayıcı donanımı tekrar kullanılarak yapılabilir. Donanımda $b$'nin her biti DEĞİL kapısıyla ters çevrilir ve toplayıcının giren elde girişi 1 olarak ayarlanır. Böylece tek bir ek adımda hem bit terslemesi hem de +1 işlemi birleştirilmiş olur. Aynı toplayıcı devresi, giren elde sinyalinin değerine göre hem toplama hem çıkarma yapabilir. Bu tasarım ilkesinin donanımdaki somut gerçeklemesi Bölüm~\ref{sec:amb-ile-cikarma}'de ele alınmaktadır.
+2'ye tümleyen alma işlemi iki adımda gerçekleşir: önce sayının her biti ters çevrilir (0'lar 1, 1'ler 0 olur), ardından sonuca 1 eklenir. Bu yöntem donanım açısından son derece güçlüdür, çünkü çıkarma işlemi mevcut toplayıcı donanımı tekrar kullanılarak yapılabilir. Donanımda $b$'nin her biti DEĞİL kapısıyla ters çevrilir ve toplayıcının giren elde girişi 1 olarak ayarlanır. Böylece tek bir ek adımda hem bit terslemesi hem de +1 işlemi birleştirilmiş olur. Aynı toplayıcı devresi, giren elde sinyalinin değerine göre hem toplama hem çıkarma yapabilir. Bu tasarım ilkesinin donanımdaki somut gerçeklemesi Bölüm~\ref{sec:amb-ile-cikarma}'de ele alınmaktadır.
 
 \begin{ornek}[5.2]
 \textbf{Soru:} $24 - 11 = ?$ işlemini yapın.
@@ -149,7 +149,7 @@ $1$ & $0$ & $1$ & $0$ & $0$ & (4) \\
 \end{tabular}
 \end{center}
 
-sonuç toplanan iki sayıdan daha fazla bitten oluşur. İşlenenlerinden biri artı biri eksi olan bir çıkarma işleminde sonucun her iki sayıdan da büyük olması mümkün değildir. Bu nedenle taşan basamak dikkate alınmaz ve sonuç $(0100)_2 = 4$ olarak hesaplanır. İşaretsiz toplamada en anlamlı bitten dışarı çıkan elde taşmayı gösterir. İşaretsiz çıkarmada ise dışarı çıkan eldenin anlamı bunun tersidir: eldenin 1 olması borç gerekmediğini (sonucun geçerli olduğunu), 0 olması ise borç gerektiğini (çıkanın eksilenden büyük olduğunu) gösterir. 2'ye tümleyen gösteriminde ise bu elde biti taşma bilgisi taşımaz ve önemsenmez. 2'ye tümleyende taşma, farklı bir yöntemle (en anlamlı bite giren ve çıkan eldelerin XOR'u ile) saptanır (bkz.\ Bilgi Notu~\ref{bilginot:tasma-elde}, s.~\pageref{bilginot:tasma-elde}).
+sonuç toplanan iki sayıdan daha fazla bitten oluşur. İşlenenlerinden biri artı biri eksi olan bir çıkarma işleminde sonucun her iki sayıdan da büyük olması mümkün değildir. Bu nedenle taşan basamak dikkate alınmaz ve sonuç $(0100)_2 = 4$ olarak hesaplanır. İşaretsiz toplamada en anlamlı bitten dışarı çıkan elde taşmayı gösterir. İşaretsiz çıkarmada ise dışarı çıkan eldenin anlamı bunun tersidir. Eldenin 1 olması borç gerekmediğini (sonucun geçerli olduğunu), 0 olması ise borç gerektiğini (çıkanın eksilenden büyük olduğunu) gösterir. 2'ye tümleyen gösteriminde ise bu elde biti taşma bilgisi taşımaz ve önemsenmez. 2'ye tümleyende taşma, farklı bir yöntemle (en anlamlı bite giren ve çıkan eldelerin XOR'u ile) saptanır (bkz.\ Bilgi Notu~\ref{bilginot:tasma-elde}, s.~\pageref{bilginot:tasma-elde}).
 
 \subsection{32 Bit ile Çıkarma}
 
@@ -330,7 +330,7 @@ Anlık Değerle Küçükse Birle (\emph{Slti}) & \texttt{slti x1, x2, DEĞER} & 
 \end{tabularx}
 \end{table}
 
-Kaydırma işleminin önemli bir aritmetik anlamı da vardır: bir sayıyı sola $k$ basamak kaydırmak, o sayıyı $2^k$ ile \emph{çarpmaya} eşdeğerdir. Sağa $k$ basamak kaydırmak ise $2^k$'ye \emph{bölmeye} eşdeğerdir. Örneğin bir sayıyı sola 3 basamak kaydırmak (\texttt{slli}) o sayıyı $2^3 = 8$ ile çarpar. Sağa 2 basamak kaydırmak (\texttt{srli} veya \texttt{srai}) ise 4'e bölmekle aynı sonucu verir. Bu ilişki, ikilik sayı sisteminin doğal bir sonucudur, tıpkı onluk tabanda bir sayıya sıfır eklemenin o sayıyı 10 ile çarpması gibi.
+Kaydırma işleminin önemli bir aritmetik anlamı da vardır. Bir sayıyı sola $k$ basamak kaydırmak, o sayıyı $2^k$ ile \emph{çarpmaya} eşdeğerdir. Sağa $k$ basamak kaydırmak ise $2^k$'ye \emph{bölmeye} eşdeğerdir. Örneğin bir sayıyı sola 3 basamak kaydırmak (\texttt{slli}) o sayıyı $2^3 = 8$ ile çarpar. Sağa 2 basamak kaydırmak (\texttt{srli} veya \texttt{srai}) ise 4'e bölmekle aynı sonucu verir. Bu ilişki, ikilik sayı sisteminin doğal bir sonucudur, tıpkı onluk tabanda bir sayıya sıfır eklemenin o sayıyı 10 ile çarpması gibi.
 
 \begin{center}
 \small
@@ -358,11 +358,11 @@ Birçok buyruk kümesi mimarisinde bitleri terslemek için özel buyruklar bulun
 
 Bu bölümde mantık kapılarını (Ek~\ref{ch:sayisal-tasarim}) kullanarak aritmetik ve mantık işlemlerini gerçekleştirecek bir AMB tasarlayacağız.
 
-Toplama, çıkarma, VE, VEYA: tüm bu işlemleri ayrı ayrı öğrendik. Şimdi sıra geldi hepsini tek bir birimde birleştirmeye. İşte \emph{Aritmetik Mantık Birimi}\index{AMB}\index{aritmetik mantık birimi|see{AMB}}\index{ALU|see{AMB}} (AMB), bir denetim sinyaline bakarak hangi işlemin yapılacağına karar veren ve sonucu üreten birimdir. Tasarım stratejimiz yalın ama güçlüdür: önce 1 bitlik bir AMB tasarlayacağız, sonra bu birimden 32 tanesini yan yana koyarak 32 bitlik bir AMB elde edeceğiz.
+Toplama, çıkarma, VE, VEYA: tüm bu işlemleri ayrı ayrı öğrendik. Şimdi sıra geldi hepsini tek bir birimde birleştirmeye. İşte \emph{Aritmetik Mantık Birimi}\index{AMB}\index{aritmetik mantık birimi|see{AMB}}\index{ALU|see{AMB}} (AMB), bir denetim sinyaline bakarak hangi işlemin yapılacağına karar veren ve sonucu üreten birimdir. Tasarım stratejimiz yalın ama güçlüdür. Önce 1 bitlik bir AMB tasarlayacağız, sonra bu birimden 32 tanesini yan yana koyarak 32 bitlik bir AMB elde edeceğiz.
 
 1 bitlik AMB'nin desteklemesi gereken temel aritmetik işlemler toplama ve çıkarma. Mantık işlemleri ise VE ve VEYA'dır.
 
-AMB'nin çalışma ilkesini anlamak için şu noktayı kavramak gerekir: AMB, hangi işlemin yapılacağına kendisi karar vermez. \emph{Tüm işlemleri aynı anda koşut olarak gerçekleştirir}. Toplama birimi toplar, VE kapısı VE işlemini yapar, VEYA kapısı VEYA işlemini yapar. Bunların hepsi eş zamanlı çalışır. AMB'nin çıkışındaki çoklayıcı, \emph{denetim sinyaline} bakarak doğru sonucu seçer. Bu denetim sinyali nereden gelir? Yürütülmekte olan buyruğun işlem kodu alanından (\emph{opcode} ve \emph{funct} bitleri) bir denetim birimi aracılığıyla üretilir. Böylece \texttt{add} buyruğu yürütülürken toplama sonucu, \texttt{and} buyruğu yürütülürken VE sonucu çoklayıcı tarafından seçilir; ama her iki durumda da diğer işlemler de yapılmış, sonuçları atılmıştır.
+AMB'nin çalışma ilkesinde kavranması gereken bir incelik vardır. AMB, hangi işlemin yapılacağına kendisi karar vermez. \emph{Tüm işlemleri aynı anda koşut olarak gerçekleştirir}. Toplama birimi toplar, VE kapısı VE işlemini yapar, VEYA kapısı VEYA işlemini yapar. Bunların hepsi eş zamanlı çalışır. AMB'nin çıkışındaki çoklayıcı, \emph{denetim sinyaline} bakarak doğru sonucu seçer. Bu denetim sinyali nereden gelir? Yürütülmekte olan buyruğun işlem kodu alanından (\emph{opcode} ve \emph{funct} bitleri) bir denetim birimi aracılığıyla üretilir. Böylece \texttt{add} buyruğu yürütülürken toplama sonucu, \texttt{and} buyruğu yürütülürken VE sonucu çoklayıcı tarafından seçilir; ama her iki durumda da diğer işlemler de yapılmış, sonuçları atılmıştır.
 
 \subsection{AMB ile Toplama}
 
@@ -415,7 +415,7 @@ Bir bitlik toplama işleminin doğruluk tablosu\index{doğruluk tablosu}\index{t
 \label{fig:yarim-toplayici}
 \end{figure}
 
-Yarım toplayıcı tek başına kullanışsız görünebilir. Elde girişi olmadan gerçek bir toplama yapılamaz. Ancak yarım toplayıcının asıl değeri, tam toplayıcının yapı taşı olmasıdır: Şekil~\ref{fig:tam-toplayici}'de görüleceği gibi, iki yarım toplayıcı ve bir VEYA kapısı birleştirilerek elde girişini de hesaba katan bir tam toplayıcı elde edilir.
+Yarım toplayıcı tek başına kullanışsız görünebilir. Elde girişi olmadan gerçek bir toplama yapılamaz. Ancak yarım toplayıcının asıl değeri, tam toplayıcının yapı taşı olmasıdır. Şekil~\ref{fig:tam-toplayici}'de görüleceği gibi, iki yarım toplayıcı ve bir VEYA kapısı birleştirilerek elde girişini de hesaba katan bir tam toplayıcı elde edilir.
 
 \subsubsection{Tam Toplayıcı}
 
@@ -506,7 +506,7 @@ Bir tane tam toplayıcı ile 1 bitlik toplama yapılabilir. Peki çok basamaklı
 
 $n$ bitlik bir sayının bitleri sağdan sola doğru 0'dan başlayarak numaralanır. En sağdaki bit (bit~0) \emph{en az anlamlı bit}\index{en az anlamlı bit}\index{LSB|see{en az anlamlı bit}} (\emph{Least Significant Bit}, LSB) olarak adlandırılır; çünkü temsil ettiği değer ($2^0 = 1$) en küçüktür ve sayının toplam değerine en az katkıyı sağlar. En soldaki bit (bit~$n{-}1$) ise \emph{en anlamlı bit}\index{en anlamlı bit}\index{MSB|see{en anlamlı bit}} (\emph{Most Significant Bit}, MSB) olarak adlandırılır. Temsil ettiği değer ($2^{n-1}$) en büyüktür ve sayının değerine en çok katkıyı bu bit yapar.
 
-Çok basamaklı toplama yapmak için $n$ tane tam toplayıcı zincirleme bağlanır: her tam toplayıcının çıkan eldesi ($C_{out}$), bir sonraki (solundaki) tam toplayıcının giren eldesine ($C_{in}$) bağlanır. Elde sinyali böylece en az anlamlı bitten en anlamlı bite doğru ``dalgalanarak'' ilerler. Bu yapıya \emph{dalga eldeli toplayıcı}\index{dalga eldeli toplayıcı}\index{ripple carry adder|see{dalga eldeli toplayıcı}} (\emph{ripple carry adder}) denir. En sağdaki toplayıcının giren eldesi ($C_0$) toplama için 0, çıkarma için 1 yapılır. En soldaki toplayıcının çıkan eldesi ($C_n$) ise taşma bilgisi taşır.
+Çok basamaklı toplama yapmak için $n$ tane tam toplayıcı zincirleme bağlanır. Her tam toplayıcının çıkan eldesi ($C_{out}$), bir sonraki (solundaki) tam toplayıcının giren eldesine ($C_{in}$) bağlanır. Elde sinyali böylece en az anlamlı bitten en anlamlı bite doğru ``dalgalanarak'' ilerler. Bu yapıya \emph{dalga eldeli toplayıcı}\index{dalga eldeli toplayıcı}\index{ripple carry adder|see{dalga eldeli toplayıcı}} (\emph{ripple carry adder}) denir. En sağdaki toplayıcının giren eldesi ($C_0$) toplama için 0, çıkarma için 1 yapılır. En soldaki toplayıcının çıkan eldesi ($C_n$) ise taşma bilgisi taşır.
 
 Şekil~\ref{fig:1bit-toplayici}'te, Şekil~\ref{fig:tam-toplayici}'deki tam toplayıcı devresinin giriş ve çıkış sinyallerini özetleyen blok gösterimi verilmiştir. Bu blok gösterim, çok bitlik toplayıcı tasarımlarında her bir tam toplayıcıyı tek bir kutu olarak çizmeyi kolaylaştırır. Şekil~\ref{fig:4bit-toplayici}'te ise bu blokların zincirlenmesiyle oluşan 4 bitlik dalga eldeli toplayıcının yapısı gösterilmiştir.
 
@@ -564,7 +564,7 @@ $n$ bitlik bir sayının bitleri sağdan sola doğru 0'dan başlayarak numaralan
 
 \FloatBarrier
 \begin{bilginot}[Bit Numaralandırması: 0'dan mı 1'den mi?]
-Şekil~\ref{fig:4bit-toplayici}'te en sağdaki bit (en az anlamlı bit) 0 numarasını taşır. Bu, RISC-V dahil çoğu çağdaş mimaride (MIPS, ARM, x86) kullanılan standarttır: bit~0 en az anlamlı bittir ve her bitin değeri $2^i$'dir ($i$ = bit numarası). Ancak IBM System/360 (1964) ve onun mirasçıları olan z/Architecture sistemlerinde numaralandırma \emph{tersine} çalışır: bit~0 en anlamlı bittir. Bu iki gelenek zaman zaman karışıklığa yol açar. Bir belge okurken hangi numaralandırma kuralının kullanıldığına dikkat etmek gerekir.
+Şekil~\ref{fig:4bit-toplayici}'te en sağdaki bit (en az anlamlı bit) 0 numarasını taşır. Bu, RISC-V dahil çoğu çağdaş mimaride (MIPS, ARM, x86) kullanılan standarttır. Bit~0 en az anlamlı bittir ve her bitin değeri $2^i$'dir ($i$ = bit numarası). Ancak IBM System/360 (1964) ve onun mirasçıları olan z/Architecture sistemlerinde numaralandırma \emph{tersine} çalışır. Bit~0 en anlamlı bittir. Bu iki gelenek zaman zaman karışıklığa yol açar. Bir belge okurken hangi numaralandırma kuralının kullanıldığına dikkat etmek gerekir.
 \end{bilginot}
 
 \subsection{AMB ile Çıkarma}
@@ -615,7 +615,7 @@ $n$ bitlik bir sayının bitleri sağdan sola doğru 0'dan başlayarak numaralan
 \label{fig:1bit-toplama-cikarma}
 \end{figure}
 
-Şekil~\ref{fig:1bit-toplama-cikarma}'te $b$ girişini terslemek için Dışlayan VEYA kapısı kullanılmıştır: İşlem sinyali 0 olduğunda bu kapı $b$'yi aynen geçirir, 1 olduğunda ise tersler. Gerçek AMB tasarımlarında ise $b$'yi terslemek için çoğunlukla DEĞİL kapısı tercih edilir; çünkü CMOS teknolojisinde DEĞİL kapısı yalnızca 2 transistörle gerçeklenirken Dışlayan VEYA kapısı 8--12 transistör gerektirir.
+Şekil~\ref{fig:1bit-toplama-cikarma}'te $b$ girişini terslemek için Dışlayan VEYA kapısı kullanılmıştır. İşlem sinyali 0 olduğunda bu kapı $b$'yi aynen geçirir, 1 olduğunda ise tersler. Gerçek AMB tasarımlarında ise $b$'yi terslemek için çoğunlukla DEĞİL kapısı tercih edilir; çünkü CMOS teknolojisinde DEĞİL kapısı yalnızca 2 transistörle gerçeklenirken Dışlayan VEYA kapısı 8--12 transistör gerektirir.
 
 \begin{figure}[htbp]
 \centering
@@ -702,7 +702,7 @@ $n$ bitlik bir sayının bitleri sağdan sola doğru 0'dan başlayarak numaralan
 \label{fig:toplayici-cikarici}
 \end{figure}
 
-Bu tasarımda ek bir toplama devresi gerekmez: aynı donanım üzerinde yalnızca tek bir denetim sinyaliyle hem toplama hem çıkarma işlemi gerçekleştirilir. 4 bitlik toplayıcı-çıkarıcı devresinin şeması Şekil~\ref{fig:toplayici-cikarici}'da verilmiştir.
+Bu tasarımda ek bir toplama devresi gerekmez. Aynı donanım üzerinde yalnızca tek bir denetim sinyaliyle hem toplama hem çıkarma işlemi gerçekleştirilir. 4 bitlik toplayıcı-çıkarıcı devresinin şeması Şekil~\ref{fig:toplayici-cikarici}'da verilmiştir.
 
 \subsection{AMB ile Mantık İşlemleri}
 
@@ -832,13 +832,13 @@ slt t1, s0, s2   # s0 < s2 ise t1 = 1
 
 $\text{s0} = a$ ve $\text{s2} = b$ olarak alınırsa $a$, $b$'den küçükse sonuç (t1) yazmacının değerinin 1 yapılacağı anlamına gelir. Peki AMB bu karşılaştırmayı nasıl yapar?
 
-Anahtar gözlem şudur: $a < b$ olup olmadığını anlamak için $a - b$ çıkarması yapılır. Eğer sonuç eksiyse $a < b$ demektir. 2'ye tümleyen düzeninde eksi bir sayının en anlamlı biti (en soldaki bit) her zaman 1'dir. Demek ki çıkarma sonucunun en anlamlı bitine bakmak, karşılaştırmanın sonucunu verir:
+İşin anahtarı yalın bir gözlemde yatar. $a < b$ olup olmadığını anlamak için $a - b$ çıkarması yapılır. Eğer sonuç eksiyse $a < b$ demektir. 2'ye tümleyen düzeninde eksi bir sayının en anlamlı biti (en soldaki bit) her zaman 1'dir. Demek ki çıkarma sonucunun en anlamlı bitine bakmak, karşılaştırmanın sonucunu verir:
 \begin{itemize}
   \item $(a - b)$'nin en anlamlı biti $= 1$ $\Rightarrow$ sonuç eksi $\Rightarrow$ $a < b$ $\Rightarrow$ çıkış 1 olmalı
   \item $(a - b)$'nin en anlamlı biti $= 0$ $\Rightarrow$ sonuç artı veya sıfır $\Rightarrow$ $a \geq b$ $\Rightarrow$ çıkış 0 olmalı
 \end{itemize}
 
-Ancak burada bir incelik vardır: \texttt{slt} buyruğunun sonucu 32 bitlik bir yazmaca yazılır ve bu yazmacın değeri ya 0 ya da 1 olmalıdır. ``1'' değeri ikilik tabanda \texttt{00...001}'dir. En az anlamlı bit 1, diğer 31 bit 0. Oysa çıkarma sonucunun işaret bilgisi \emph{en anlamlı} bittedir. Bu bilginin en az anlamlı bite taşınması gerekir.
+Ancak burada bir incelik vardır. \texttt{slt} buyruğunun sonucu 32 bitlik bir yazmaca yazılır ve bu yazmacın değeri ya 0 ya da 1 olmalıdır. ``1'' değeri ikilik tabanda \texttt{00...001}'dir. En az anlamlı bit 1, diğer 31 bit 0. Oysa çıkarma sonucunun işaret bilgisi \emph{en anlamlı} bittedir. Bu bilginin en az anlamlı bite taşınması gerekir.
 
 Çözüm olarak 1 bitlik AMB'ye ``küçük'' adında dördüncü bir giriş eklenir (Şekil~\ref{fig:1bit-amb-kucuk}). 32 bitlik AMB'de bu giriş şöyle kullanılır:
 \begin{enumerate}
@@ -917,7 +917,7 @@ Sonuçta yazmaç ya \texttt{00...001} ($a < b$) ya da \texttt{00...000} ($a \geq
 \label{fig:1bit-amb-kucuk}
 \end{figure}
 
-Özetle: AMB zaten çıkarma yapabildiği için küçüklük karşılaştırması için yeni bir devre tasarlamaya gerek yoktur. Yalnızca çıkarma sonucunun işaret bitini doğru yere yönlendirmek yeterlidir. Küçükse birle buyruğunun işleme konulması için AMBİşlem denetim sinyalinin ``$(11)_2 = 3$'' olması gerekir.
+Özetle, AMB zaten çıkarma yapabildiği için küçüklük karşılaştırması için yeni bir devre tasarlamaya gerek yoktur. Yalnızca çıkarma sonucunun işaret bitini doğru yere yönlendirmek yeterlidir. Küçükse birle buyruğunun işleme konulması için AMBİşlem denetim sinyalinin ``$(11)_2 = 3$'' olması gerekir.
 
 \subsection{Dallanma Buyruklarının Desteklenmesi}
 
@@ -1043,7 +1043,7 @@ Toplamada en anlamlı bitlerin bulunduğu kolona giren elde ($e_{31}$) ve çıka
 \subsection{Eldenin Önceden Üretilmesi (Carry Lookahead)}\index{eldeyi önceden üretme}\index{carry lookahead|see{eldeyi önceden üretme}}
 \label{sec:carry-lookahead}
 
-1 bitlik AMB, 32 bitlik AMB'nin temel birimidir ve 32 bitlik AMB yapımında 32 tane 1 bitlik AMB kullanılır. AMB'nin bu şekilde tasarlanması pek çok sorunu da beraberinde getirmiştir. Bunlardan en önemlisi elde zincirinin yarattığı gecikmedir: her 1 bitlik toplayıcı, çıkan eldesini hesaplayabilmek için bir önceki basamaktan gelen eldeyi beklemek zorundadır.
+1 bitlik AMB, 32 bitlik AMB'nin temel birimidir ve 32 bitlik AMB yapımında 32 tane 1 bitlik AMB kullanılır. AMB'nin bu şekilde tasarlanması pek çok sorunu da beraberinde getirmiştir. Bunlardan en önemlisi elde zincirinin yarattığı gecikmedir. Her 1 bitlik toplayıcı, çıkan eldesini hesaplayabilmek için bir önceki basamaktan gelen eldeyi beklemek zorundadır.
 
 \subsubsection*{Dalga Eldeli Toplayıcının Gecikme Çözümlemesi}
 Her 1 bitlik toplayıcının elde çıkışını üretmesi 1 kapı gecikmesi (1G) sürsün. 4 bitlik bir dalga eldeli toplayıcıda gecikme şöyle birikir:
@@ -1210,7 +1210,7 @@ Bu denklemlerin mantık kapılarıyla doğrudan gerçekleştirilmesi Şekil~\ref
 
 4 bitteki eldeler hesaplanırken hiçbir elde değeri bir öncekine bağlantılı değildir. Yalnızca hepsi ilk giren eldeye ($e_0$) bağlıdır ve ilk giren elde işlemin başında hazır bulunacağı için gecikmeye sebep olmaz.
 
-Bu yaklaşımın hız kazancı sağlaması için önemli bir ön koşul vardır: çok girişli kapıların (örneğin 5 girişli VE veya VEYA kapısının) gecikmesi, aynı işlevi zincirleme bağlanmış çok sayıda 2 girişli kapıyla gerçekleştirmenin gecikmesinden \emph{az} olmalıdır. CMOS teknolojisinde çok girişli bir kapının gecikmesi giriş sayısıyla birlikte artar; ancak bu artış, aynı sonucu elde etmek için gereken zincirleme 2 girişli kapıların toplam gecikmesinden çok daha düşüktür. Örneğin 5 girişli bir VE kapısı tek bir kapı gecikmesinde sonuç üretirken, aynı işlevi dört adet zincirleme bağlanmış 2 girişli VE kapısıyla yapmak dört kapı gecikmesi gerektirir (kapılar ağaç düzeninde bağlansa bile üç kapı gecikmesi gerekir). Bu fark, önceden elde üretiminin temel üstünlüğünü oluşturur.
+Bu yaklaşımın hız kazancı sağlaması için önemli bir ön koşul vardır. Çok girişli kapıların (örneğin 5 girişli VE veya VEYA kapısının) gecikmesi, aynı işlevi zincirleme bağlanmış çok sayıda 2 girişli kapıyla gerçekleştirmenin gecikmesinden \emph{az} olmalıdır. CMOS teknolojisinde çok girişli bir kapının gecikmesi giriş sayısıyla birlikte artar; ancak bu artış, aynı sonucu elde etmek için gereken zincirleme 2 girişli kapıların toplam gecikmesinden çok daha düşüktür. Örneğin 5 girişli bir VE kapısı tek bir kapı gecikmesinde sonuç üretirken, aynı işlevi dört adet zincirleme bağlanmış 2 girişli VE kapısıyla yapmak dört kapı gecikmesi gerektirir (kapılar ağaç düzeninde bağlansa bile üç kapı gecikmesi gerekir). Bu fark, önceden elde üretiminin temel üstünlüğünü oluşturur.
 
 Ancak bir kapının giriş sayısı sınırsız değildir. Bir mantık kapısının sahip olabileceği en fazla giriş sayısı \emph{kapı giriş sayısı kısıtı}\index{kapı giriş sayısı kısıtı}\index{fan-in|see{kapı giriş sayısı kısıtı}} (\emph{fan-in}) olarak adlandırılır. CMOS teknolojisinde giriş sayısı arttıkça kapının gecikmesi ve alan tüketimi belirgin biçimde artar. Belirli bir eşiğin ötesinde kapı güvenilir çalışmaz. Bu nedenle önceden elde üretimi doğrudan 32 veya 64 bit için uygulanamaz. $e_{32}$ denklemi 33 girişli kapılar gerektirirdi ki bu uygulamada gerçekleştirilebilir değildir. Çözüm olarak önceden elde üretimi 4'er bitlik gruplar halinde yapılır ve gruplar arasında hiyerarşik bir yapı kurulur.
 
@@ -1315,7 +1315,7 @@ Yapılacak olan AMB'nin eldeyi önceden üreten devrelerle kurulması, AMB'ye h�
 \label{sec:carry-select}
 \index{elde ile seçmeli toplayıcı}\index{carry select adder|see{elde ile seçmeli toplayıcı}}
 
-Önceden elde üreten toplayıcı, elde sinyalini mantıksal denklemlerle \emph{önceden üreterek} hızlanma sağlar. Elde ile seçmeli toplayıcı ise farklı bir strateji izler: sonucu \emph{önceden hesaplayarak} hızlanır. Temel fikir şudur: bir sonraki blok, önceki bloğun eldesini beklemek yerine her iki olasılığı da ($e_{g} = 0$ ve $e_{g} = 1$) koşut olarak hesaplar. Önceki bloğun eldesi hazır olduğunda bir çoklayıcıyla doğru sonuç seçilir.
+Önceden elde üreten toplayıcı, elde sinyalini mantıksal denklemlerle \emph{önceden üreterek} hızlanma sağlar. Elde ile seçmeli toplayıcı ise farklı bir strateji izler. Sonucu \emph{önceden hesaplayarak} hızlanır. Buradaki temel fikir yalındır. Bir sonraki blok, önceki bloğun eldesini beklemek yerine her iki olasılığı da ($e_{g} = 0$ ve $e_{g} = 1$) koşut olarak hesaplar. Önceki bloğun eldesi hazır olduğunda bir çoklayıcıyla doğru sonuç seçilir.
 
 Şekil~\ref{fig:carry-select-8bit}, 8 bitlik bir elde ile seçmeli toplayıcıyı göstermektedir. İlk 4 bitlik blok normal çalışır. İkinci blok ise iki kopya halinde işlem yapar: biri $e_4 = 0$, diğeri $e_4 = 1$ varsayarak. İlk bloğun $e_4$ çıkışı hazır olduğunda çoklayıcı doğru toplamı ve eldeyi seçer.
 
@@ -1452,7 +1452,7 @@ $t_{mux} \approx t_g$ kabul edilirse 8 bitlik toplayıcı için:
   \item Dalga eldeli: $T = 2 \times 8 \times t_g = 16\,t_g$
   \item Elde ile seçmeli (4'erli blok): $T = 2 \times 4 \times t_g + 1 \times t_g = 9\,t_g$
 \end{itemize}
-Gecikme neredeyse yarıya indi; ancak bunun bir bedeli vardır: ikinci blok iki kez kurulduğu için donanım alanı yaklaşık 1{,}5 katına çıkar. Bu, tasarım ilkelerinden \emph{ödünleşme}nin güzel bir örneğidir: alandan vererek hız kazanılır. Bu toplayıcı türlerinin gecikme, alan ve karmaşıklık açısından karşılaştırması Tablo~\ref{tab:toplayici-karsilastirma}'de verilmiştir.
+Gecikme neredeyse yarıya indi; ancak bunun bir bedeli vardır. İkinci blok iki kez kurulduğu için donanım alanı yaklaşık 1{,}5 katına çıkar. Bu, tasarım ilkelerinden \emph{ödünleşme}nin güzel bir örneğidir. Alandan vererek hız kazanılır. Bu toplayıcı türlerinin gecikme, alan ve karmaşıklık açısından karşılaştırması Tablo~\ref{tab:toplayici-karsilastirma}'de verilmiştir.
 
 \begin{table}[htbp]
 \centering
@@ -1504,7 +1504,7 @@ AMB'miz toplamayı ve çıkarmayı öğrendi. Şimdi sıra çarpmaya\index{çarp
 \item \textbf{Çarpım} (\emph{product}): işlemin sonucu.
 \end{itemize}
 
-Çarpmayı anlamanın en kolay yolu, ilkokulda öğrendiğimiz elde çarpma yöntemini ikili tabana uygulamaktır. Onluk tabanda çarpanın her bir basamağını çarpılanla çarpar ve sonucu uygun konumda alt alta yazarız. Sonra tüm kısmi çarpımları toplarız. İkili tabanda bu işlem çok daha basittir: çarpanın her bir biti yalnızca 0 veya 1 olduğundan, kısmi çarpım ya sıfırdır (bit = 0) ya da çarpılanın kendisidir (bit = 1). Aşağıdaki örnekte $7 \times 5$ çarpımı ikili tabanda gösterilmiştir:
+Çarpmayı anlamanın en kolay yolu, ilkokulda öğrendiğimiz elde çarpma yöntemini ikili tabana uygulamaktır. Onluk tabanda çarpanın her bir basamağını çarpılanla çarpar ve sonucu uygun konumda alt alta yazarız. Sonra tüm kısmi çarpımları toplarız. İkili tabanda bu işlem çok daha basittir. Çarpanın her bir biti yalnızca 0 veya 1 olduğundan, kısmi çarpım ya sıfırdır (bit = 0) ya da çarpılanın kendisidir (bit = 1). Aşağıdaki örnekte $7 \times 5$ çarpımı ikili tabanda gösterilmiştir:
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -1528,11 +1528,11 @@ AMB'miz toplamayı ve çıkarmayı öğrendi. Şimdi sıra çarpmaya\index{çarp
 \end{tikzpicture}
 \end{center}
 
-Görüldüğü gibi ikili çarpma, özünde \emph{kaydır ve topla} işleminden ibarettir: çarpanın her biti için çarpılanı uygun miktarda sola kaydırarak kısmi çarpımları oluşturur ve bunları toplarız. Bu yalın ilke, donanımda çarpma biriminin temelini oluşturur.
+Görüldüğü gibi ikili çarpma, özünde \emph{kaydır ve topla} işleminden ibarettir. Çarpanın her biti için çarpılanı uygun miktarda sola kaydırarak kısmi çarpımları oluşturur ve bunları toplarız. Bu yalın ilke, donanımda çarpma biriminin temelini oluşturur.
 
 \subsubsection*{Çarpma Donanımına Neden İhtiyaç Var?}
 
-Bir işlemci toplama yapabiliyorsa, çarpmayı yazılımla da gerçekleştirebilir: çarpma, özünde arka arkaya toplama işlemine indirgenebilir. Nitekim RISC-V'in temel buyruk kümesi RV32I'da çarpma buyruğu yoktur. Çarpma desteği isteğe bağlı \textbf{M uzantısı}\index{M uzantısı} ile eklenir. Peki bu durumda özelleşmiş çarpma donanımına neden ihtiyaç duyulur? Tablo~\ref{tab:carpma-yazilim-donanim}'de gösterildiği gibi, aynı çarpma işlemi yazılımla çok daha fazla buyruk gerektirmektedir. Aşağıdaki iki RISC-V programını karşılaştıralım:
+Bir işlemci toplama yapabiliyorsa, çarpmayı yazılımla da gerçekleştirebilir, çünkü çarpma özünde arka arkaya toplama işlemine indirgenebilir. Nitekim RISC-V'in temel buyruk kümesi RV32I'da çarpma buyruğu yoktur. Çarpma desteği isteğe bağlı \textbf{M uzantısı}\index{M uzantısı} ile eklenir. Peki bu durumda özelleşmiş çarpma donanımına neden ihtiyaç duyulur? Tablo~\ref{tab:carpma-yazilim-donanim}'de gösterildiği gibi, aynı çarpma işlemi yazılımla çok daha fazla buyruk gerektirmektedir. Aşağıdaki iki RISC-V programını karşılaştıralım:
 
 \begin{table}[htbp]
 \centering
@@ -1580,7 +1580,7 @@ Soldaki programda döngü 5 kez yinelenir (her yinelemede 4 buyruk) ve başlang�
 T_{\text{yürütme}} = N_{\text{buyruk}} \times \text{BBÇ} \times T_{\text{çevrim}}
 \]
 %
-Buyruk sayısının $24$'ten $3$'e düşmesi bile \emph{8 kat} iyileşme demektir. Büyük sayılarda bu fark astronomik boyutlara ulaşır. Bu dramatik fark, çarpma donanımının neden hemen her çağdaş işlemcide bulunduğunu açıklar: \emph{buyruk kümesine eklenen tek bir buyruk, sorumluluğu yazılımdan donanıma aktararak hem programcıyı rahatlatır hem de sistem başarımını büyük ölçüde artırır.}
+Buyruk sayısının $24$'ten $3$'e düşmesi bile \emph{8 kat} iyileşme demektir. Büyük sayılarda bu fark astronomik boyutlara ulaşır. Bu dramatik fark, çarpma donanımının neden hemen her çağdaş işlemcide bulunduğunu açıklar. \emph{Buyruk kümesine eklenen tek bir buyruk, sorumluluğu yazılımdan donanıma aktararak hem programcıyı rahatlatır hem de sistem başarımını büyük ölçüde artırır.}
 
 Aynı durum bölme için de geçerlidir ve Bölüm~\ref{sec:bolme}'te ele alınacaktır.
 
@@ -1648,7 +1648,7 @@ Aynı durum bölme için de geçerlidir ve Bölüm~\ref{sec:bolme}'te ele alına
 
 1. yolda kaydırma ve toplama işlemleri kullanılmıştır. Algoritmanın akış şeması Şekil~\ref{fig:carpma-1yol-algo}'te, buna karşılık gelen donanım tasarımı ise Şekil~\ref{fig:carpma-1surum-donanim}'te gösterilmiştir. Donanım kaydırıcı ve toplayıcıların dışında, 2 tane 64 bitlik ve bir tane de 32 bitlik yazmaçtan oluşur. Toplayıcının kullanılacağı AMB de 64 bit ile işlem yapabilmek için 64 bitlik bir AMB olmalıdır. 64 bitlik AMB, 32 bitlik olandan çok daha karmaşıktır ve yavaştır.
 
-Her yinelemede yapılan işlemler şunlardır: (1) çarpanın en sağ bitini sına, (2) bit 1 ise çarpılanı çarpıma ekle, (3) çarpılanı sola, çarpanı sağa kaydır. Burada iki kaydırma birbirinden bağımsızdır (biri çarpılan yazmacını, diğeri çarpan yazmacını etkiler). Bu yüzden donanımda \emph{koşut} (aynı anda) yapılabilirler. Dolayısıyla her yineleme aslında üç aşamadan oluşur: test, toplama ve kaydırma. Denetim birimi içindeki bir sayaç yineleme sayısını takip eder: 32 bitlik bir RISC-V çarpmasında bu döngü 32 kez tekrarlanır ve sayaç 32'ye ulaştığında işlem sonlandırılır. Dolayısıyla çarpma işlemi toplam \textbf{32 saat vuruşu} sürer (toplamayı, testi ve kaydırmayı tek bir vuruşta yapabildiğimiz varsayımıyla).
+Her yinelemede yapılan işlemler şunlardır: (1) çarpanın en sağ bitini sına, (2) bit 1 ise çarpılanı çarpıma ekle, (3) çarpılanı sola, çarpanı sağa kaydır. Burada iki kaydırma birbirinden bağımsızdır (biri çarpılan yazmacını, diğeri çarpan yazmacını etkiler). Bu yüzden donanımda \emph{koşut} (aynı anda) yapılabilirler. Dolayısıyla her yineleme aslında üç aşamadan oluşur: test, toplama ve kaydırma. Denetim birimi içindeki bir sayaç yineleme sayısını takip eder. 32 bitlik bir RISC-V çarpmasında bu döngü 32 kez tekrarlanır ve sayaç 32'ye ulaştığında işlem sonlandırılır. Dolayısıyla çarpma işlemi toplam \textbf{32 saat vuruşu} sürer (toplamayı, testi ve kaydırmayı tek bir vuruşta yapabildiğimiz varsayımıyla).
 
 \begin{figure}[H]
 \centering
@@ -1740,7 +1740,7 @@ Her yinelemede yapılan işlemler şunlardır: (1) çarpanın en sağ bitini sı
 \label{fig:carpma-1surum-donanim}
 \end{figure}
 
-1.\ yolun asıl sorunu toplama adımının 64 bitlik AMB ile yapılmak zorunda olmasıdır: 64 bitlik bir toplama, 32 bitlik bir toplamaya göre belirgin şekilde daha yavaştır, daha fazla alan kaplar ve daha çok güç tüketir. Yöntemin iyileştirilmesi gerekir.
+1.\ yolun asıl sorunu toplama adımının 64 bitlik AMB ile yapılmak zorunda olmasıdır. 64 bitlik bir toplama, 32 bitlik bir toplamaya göre belirgin şekilde daha yavaştır, daha fazla alan kaplar ve daha çok güç tüketir. Yöntemin iyileştirilmesi gerekir.
 
 \begin{ornek}[5.4]
 \textbf{Soru:} $7 \times 5 = ?$ \quad $(0111 \times 0101 = ?)$
@@ -1778,7 +1778,7 @@ Başlangıç & \textcolor{gray}{0000}\textcolor{vurgumavi}{0111} & \textcolor{vu
 
 \subsubsection{2. Yol}
 
-1.\ yoldaki donanıma dikkatli bakıldığında bir verimsizlik göze çarpar: çarpılan yazmacı 64 bit genişliğinde olmasına karşın, herhangi bir anda yalnızca 32 biti anlamlı veri taşır. Kalan bitler sıfırdır. Çarpılanın sola kaydırılması, AMB'nin de 64 bit genişliğinde olmasını zorunlu kılmaktadır; oysa her toplama işleminde yalnızca 32 bitlik bir değer toplanır. Buradaki kilit gözlem şudur: çarpılanı sola kaydırmak yerine, çarpımı sağa kaydırmak aynı hizalama etkisini yaratır. Çarpım sağa kaydırıldığında, çarpılanın her zaman çarpım yazmacının üst yarısıyla (sol 32 bit) toplanması yeterli olur.
+1.\ yoldaki donanıma dikkatli bakıldığında bir verimsizlik göze çarpar. Çarpılan yazmacı 64 bit genişliğinde olmasına karşın, herhangi bir anda yalnızca 32 biti anlamlı veri taşır. Kalan bitler sıfırdır. Çarpılanın sola kaydırılması, AMB'nin de 64 bit genişliğinde olmasını zorunlu kılmaktadır; oysa her toplama işleminde yalnızca 32 bitlik bir değer toplanır. Buradaki kilit gözlem, çarpılanı sola kaydırmak yerine çarpımı sağa kaydırmanın aynı hizalama etkisini yaratmasıdır. Çarpım sağa kaydırıldığında, çarpılanın her zaman çarpım yazmacının üst yarısıyla (sol 32 bit) toplanması yeterli olur.
 
 \begin{figure}[htbp]
 \centering
@@ -1919,7 +1919,7 @@ Başlangıç & \textcolor{gray}{0000}\textcolor{vurgumavi}{0111} & \textcolor{vu
 \label{fig:carpma-2yol-algo}
 \end{figure}
 
-2.\ yol, bu gözlemden yararlanarak donanımı sadeleştirir (Şekil~\ref{fig:carpma-2surum-donanim}, akış şeması Şekil~\ref{fig:carpma-2yol-algo}): çarpılan yazmacı artık 32 bitte kalır, AMB 32 bite iner ve toplama sonucu çarpım yazmacının üst yarısına yazılır. Her adımda çarpım yazmacının tamamı sağa kaydırılarak kısmi çarpım doğru konuma yerleşir. Sonuç olarak, aynı işlevsellik yarı boyuttaki bir AMB ile sağlanmış olur. Bu da hem alan hem de güç tüketimi açısından önemli bir kazanımdır. Her yinelemede yapılan işlem sayısı (1 test, 1 toplama, kaydırmalar) 1.\ yol ile benzerdir ve döngü yine 32 kez tekrarlanır; ancak toplama artık 32 bitlik AMB ile yapıldığından her adım daha hızlıdır ve donanım daha az alan kaplar. Burada ince ama önemli bir ayrıntı vardır: üst yarıya yapılan toplama bir elde biti üretebilir. Çarpım yazmacı sağa kaydırılırken bu elde biti atılmaz, yazmacın en soldaki bitine içeri alınır.
+2.\ yol, bu gözlemden yararlanarak donanımı sadeleştirir (Şekil~\ref{fig:carpma-2surum-donanim}, akış şeması Şekil~\ref{fig:carpma-2yol-algo}). Çarpılan yazmacı artık 32 bitte kalır, AMB 32 bite iner ve toplama sonucu çarpım yazmacının üst yarısına yazılır. Her adımda çarpım yazmacının tamamı sağa kaydırılarak kısmi çarpım doğru konuma yerleşir. Sonuç olarak, aynı işlevsellik yarı boyuttaki bir AMB ile sağlanmış olur. Bu da hem alan hem de güç tüketimi açısından önemli bir kazanımdır. Her yinelemede yapılan işlem sayısı (1 test, 1 toplama, kaydırmalar) 1.\ yol ile benzerdir ve döngü yine 32 kez tekrarlanır; ancak toplama artık 32 bitlik AMB ile yapıldığından her adım daha hızlıdır ve donanım daha az alan kaplar. Burada ince ama önemli bir ayrıntı vardır. Üst yarıya yapılan toplama bir elde biti üretebilir. Çarpım yazmacı sağa kaydırılırken bu elde biti atılmaz, yazmacın en soldaki bitine içeri alınır.
 
 \begin{ornek}[5.5]
 \textbf{Soru:} $7 \times 7 = ?$ \quad $(0111 \times 0111 = ?)$
@@ -1957,7 +1957,7 @@ Başlangıç & \textcolor{vurgumavi}{0111} & \textcolor{vurgukirmizi}{0111} & \t
 
 \subsubsection{3. Yol}
 
-2.\ yoldaki çarpma sürecini adım adım izlediğimizde ilginç bir örüntü ortaya çıkar: çarpım yazmacının 64 bitlik alanı başlangıçta tamamen sıfırdır. Her adımda toplama sonucu üst yarıya (sol 32 bit) yazılıp yazmaç sağa kaydırıldıkça, alt yarı (sağ 32 bit) yavaş yavaş kısmi çarpım bitleriyle dolmaya başlar. Öte yandan çarpan yazmacı da her adımda sağa kaydırılarak tüketilir: en sağdaki bit denetim birimine gönderilir ve kaydırmayla atılır. Dolayısıyla çarpandaki anlamlı bit sayısı her adımda bir azalır.
+2.\ yoldaki çarpma sürecini adım adım izlediğimizde ilginç bir örüntü ortaya çıkar. Çarpım yazmacının 64 bitlik alanı başlangıçta tamamen sıfırdır. Her adımda toplama sonucu üst yarıya (sol 32 bit) yazılıp yazmaç sağa kaydırıldıkça, alt yarı (sağ 32 bit) yavaş yavaş kısmi çarpım bitleriyle dolmaya başlar. Öte yandan çarpan yazmacı da her adımda sağa kaydırılarak tüketilir. En sağdaki bit denetim birimine gönderilir ve kaydırmayla atılır. Dolayısıyla çarpandaki anlamlı bit sayısı her adımda bir azalır.
 
 \begin{figure}[htbp]
 \centering
@@ -2043,7 +2043,7 @@ Başlangıç & \textcolor{vurgumavi}{0111} & \textcolor{vurgukirmizi}{0111} & \t
 \label{fig:carpma-3surum-donanim}
 \end{figure}
 
-Buradaki kritik gözlem şudur: çarpım yazmacının alt yarısı dolarken, çarpan yazmacı aynı hızda boşalmaktadır. Her ikisi de sağa kaydırıldığından, çarpanın kalan bitleri çarpım yazmacının sağ yarısında tutulabilir. Böylece ayrı bir çarpan yazmacına gerek kalmaz. Çarpan, çarpım yazmacının başlangıçta boş olan alt yarısına yerleştirilir ve her adımda birlikte sağa kaydırılır. Bu tasarım, 32 bitlik bir yazmacı ortadan kaldırarak donanımı daha da yalınlaştırır. Üst yarıya yapılan toplamanın elde biti, 2.\ yolda olduğu gibi, birleşik yazmaç sağa kaydırılırken en soldaki bite içeri alınır. 3.\ yolun donanım yapısı Şekil~\ref{fig:carpma-3surum-donanim}'de, akış şeması ise Şekil~\ref{fig:carpma-3yol-algo}'da gösterilmiştir.
+Buradaki kritik gözlem, çarpım yazmacının alt yarısı dolarken çarpan yazmacının aynı hızda boşalmasıdır. Her ikisi de sağa kaydırıldığından, çarpanın kalan bitleri çarpım yazmacının sağ yarısında tutulabilir. Böylece ayrı bir çarpan yazmacına gerek kalmaz. Çarpan, çarpım yazmacının başlangıçta boş olan alt yarısına yerleştirilir ve her adımda birlikte sağa kaydırılır. Bu tasarım, 32 bitlik bir yazmacı ortadan kaldırarak donanımı daha da yalınlaştırır. Üst yarıya yapılan toplamanın elde biti, 2.\ yolda olduğu gibi, birleşik yazmaç sağa kaydırılırken en soldaki bite içeri alınır. 3.\ yolun donanım yapısı Şekil~\ref{fig:carpma-3surum-donanim}'de, akış şeması ise Şekil~\ref{fig:carpma-3yol-algo}'da gösterilmiştir.
 
 \begin{figure}[htbp]
 \centering
@@ -2153,7 +2153,7 @@ Bölüm~\ref{sec:carpma-bolme-sorunu}'de gördüğümüz gibi, RV32I'de yazmaçl
 \subsection{Booth Algoritması (İşaretli Sayılar)}
 \label{sec:booth}
 
-Kaydır-topla çarpma yalnızca işaretsiz sayılarla çalışır. İşaretli sayıları çarpmak için bir yol, işaretleri ayrı tutup işaretsiz çarpma yapmak ve sonuca doğru işareti eklemektir; ancak bu ek adımlar gerektirir. Booth algoritması\index{Booth algoritması}\index{Booth's algorithm|see{Booth algoritması}}\index{Booth, Andrew} çok daha zarif bir çözüm sunar: ikiye tümleyen gösterimindeki sayıları (ister artı ister eksi) \emph{hiçbir ayrım yapmadan} doğrudan çarpar. Ayrı bir işaret düzeltmesine veya farklı bir donanıma gerek kalmaz.
+Kaydır-topla çarpma yalnızca işaretsiz sayılarla çalışır. İşaretli sayıları çarpmak için bir yol, işaretleri ayrı tutup işaretsiz çarpma yapmak ve sonuca doğru işareti eklemektir; ancak bu ek adımlar gerektirir. Booth algoritması\index{Booth algoritması}\index{Booth's algorithm|see{Booth algoritması}}\index{Booth, Andrew} çok daha zarif bir çözüm sunar. İkiye tümleyen gösterimindeki sayıları (ister artı ister eksi) \emph{hiçbir ayrım yapmadan} doğrudan çarpar. Ayrı bir işaret düzeltmesine veya farklı bir donanıma gerek kalmaz.
 
 Booth algoritmasının çıkış noktası, ikili sayılardaki \emph{ardışık bit örüntüleridir}. Kaydır-topla yönteminde çarpanın her 1 biti bir toplama gerektirir. Ancak gerçek sayılarda ardışık 1'ler sıkça görülür. Örneğin:
 %
@@ -2162,7 +2162,7 @@ Booth algoritmasının çıkış noktası, ikili sayılardaki \emph{ardışık b
 \item $126 = 0\underbrace{\textbf{1111111}}_{\text{yedi ardışık 1}}0$, kaydır-topla ile 7 toplama gerekir.
 \end{itemize}
 %
-Booth'un gözlemi şudur: ardışık $k$ tane 1 içeren bir sayı, yalnızca \emph{iki} işlemle (bir çıkarma ve bir toplama ile) ifade edilebilir. Örneğin $0111110_2 = 1000000_2 - 0000010_2$ olduğundan, 5 toplama yerine 1 çıkarma + 1 toplama yeterlidir. Algoritma, çarpanın bitlerini ikişerli çiftler halinde tarayarak ardışık 1'lerin \emph{başladığı} yerde çıkarma, \emph{bittiği} yerde toplama yapar. Ardışık 0'lar için ise hiçbir işlem gerekmez. Bu şekilde toplama/çıkarma sayısı önemli ölçüde azalır.
+Booth'un gözlemine göre ardışık $k$ tane 1 içeren bir sayı, yalnızca \emph{iki} işlemle (bir çıkarma ve bir toplama ile) ifade edilebilir. Örneğin $0111110_2 = 1000000_2 - 0000010_2$ olduğundan, 5 toplama yerine 1 çıkarma + 1 toplama yeterlidir. Algoritma, çarpanın bitlerini ikişerli çiftler halinde tarayarak ardışık 1'lerin \emph{başladığı} yerde çıkarma, \emph{bittiği} yerde toplama yapar. Ardışık 0'lar için ise hiçbir işlem gerekmez. Bu şekilde toplama/çıkarma sayısı önemli ölçüde azalır.
 
 Booth algoritmasının işlem sayısı, çarpanın bit örüntüsüne doğrudan bağlıdır:
 %
@@ -2171,7 +2171,7 @@ Booth algoritmasının işlem sayısı, çarpanın bit örüntüsüne doğrudan 
 \item \textbf{En kötü durum:} Çarpanın bitleri sürekli değişiyorsa ($\ldots 010101 \ldots$), her bit geçişi bir işlem tetikler ve toplama/çıkarma sayısı kaydır-topla yönteminden bile fazla olabilir. Örneğin $0101010101_2$ çarpanı için her adımda bir işlem gerekir.
 \end{itemize}
 %
-Bu nedenle Booth algoritmasının başarımı \emph{veriye bağlıdır} (\emph{data-dependent}): aynı donanım, çarpanın değerine göre farklı sayıda aritmetik işlem yapar. Bu durum, sabit gecikmeli tasarım gerektiren boru hatlı işlemcilerde (bkz.\ Bölüm~\ref{chap:boruhatti}) ek zorluklar yaratabilir. Algoritmanın kuralları Tablo~\ref{tab:booth-kurallar}'te listelenmiştir, akış şeması ise Şekil~\ref{fig:booth-algo}'de gösterilmiştir.
+Bu nedenle Booth algoritmasının başarımı \emph{veriye bağlıdır} (\emph{data-dependent}). Aynı donanım, çarpanın değerine göre farklı sayıda aritmetik işlem yapar. Bu durum, sabit gecikmeli tasarım gerektiren boru hatlı işlemcilerde (bkz.\ Bölüm~\ref{chap:boruhatti}) ek zorluklar yaratabilir. Algoritmanın kuralları Tablo~\ref{tab:booth-kurallar}'te listelenmiştir, akış şeması ise Şekil~\ref{fig:booth-algo}'de gösterilmiştir.
 
 \begin{figure}[htbp]
 \centering
@@ -2243,9 +2243,9 @@ Andrew D. Booth\index{Booth, Andrew} bu algoritmayı 1950 yılında, Birkbeck Ko
 \end{tabular}
 \end{table}
 
-Algoritmanın en önemli özelliği işaretli sayılarla işlem yapabilmesidir. Bunun için kaydır-topla yöntemindeki \emph{mantıksal} sağa kaydırma yerine \emph{aritmetik} sağa kaydırma\index{aritmetik kaydırma}\index{arithmetic shift|see{aritmetik kaydırma}} kullanılır. Mantıksal kaydırmada soldan her zaman 0 girer. Aritmetik kaydırmada ise en soldaki bit (işaret biti) korunarak tekrarlanır. Böylece eksi bir kısmi çarpım sağa kaydırıldığında işareti bozulmaz: örneğin $\textcolor{vurguyesil}{1101}$ aritmetik sağa kaydırılırsa $\textcolor{vurguyesil}{1110}$ olur. En soldaki 1 korunmuştur. Bu sayede ikiye tümleyen gösterimindeki eksi ara sonuçlar kaydırma sırasında doğru kalır. Ek olarak, en sağ basamağın da sağında 0 olduğu farz edilir.
+Algoritmanın en önemli özelliği işaretli sayılarla işlem yapabilmesidir. Bunun için kaydır-topla yöntemindeki \emph{mantıksal} sağa kaydırma yerine \emph{aritmetik} sağa kaydırma\index{aritmetik kaydırma}\index{arithmetic shift|see{aritmetik kaydırma}} kullanılır. Mantıksal kaydırmada soldan her zaman 0 girer. Aritmetik kaydırmada ise en soldaki bit (işaret biti) korunarak tekrarlanır. Böylece eksi bir kısmi çarpım sağa kaydırıldığında işareti bozulmaz. Örneğin $\textcolor{vurguyesil}{1101}$ aritmetik sağa kaydırılırsa $\textcolor{vurguyesil}{1110}$ olur. En soldaki 1 korunmuştur. Bu sayede ikiye tümleyen gösterimindeki eksi ara sonuçlar kaydırma sırasında doğru kalır. Ek olarak, en sağ basamağın da sağında 0 olduğu farz edilir.
 
-Booth algoritması donanım açısından çarpma 3.\ yolunun (Şekil~\ref{fig:carpma-3surum-donanim}) üzerine kuruludur: aynı birleşik çarpım/çarpan yazmacı, aynı 32 bitlik çarpılan yazmacı ve aynı AMB kullanılır. İki temel fark vardır: (1)~AMB yalnızca toplama değil, çıkarma da yapabilmelidir ve (2)~denetim birimi çarpanın en sağ bitini tek başına değil, bir önceki bitle birlikte iki bitlik çift olarak değerlendirir (Tablo~\ref{tab:booth-kurallar}). Döngü sayısı değişmez: $n$ bitlik çarpan için yine $n$ adım gerekir.
+Booth algoritması donanım açısından çarpma 3.\ yolunun (Şekil~\ref{fig:carpma-3surum-donanim}) üzerine kuruludur. Aynı birleşik çarpım/çarpan yazmacı, aynı 32 bitlik çarpılan yazmacı ve aynı AMB kullanılır. İki temel fark vardır: (1)~AMB yalnızca toplama değil, çıkarma da yapabilmelidir ve (2)~denetim birimi çarpanın en sağ bitini tek başına değil, bir önceki bitle birlikte iki bitlik çift olarak değerlendirir (Tablo~\ref{tab:booth-kurallar}). Döngü sayısı değişmez. $n$ bitlik çarpan için yine $n$ adım gerekir.
 
 \begin{ornek}[5.7]
 \textbf{Soru:} $3 \times (-4) = ?$ \quad Booth algoritmasıyla 4 bitlik işaretli sayılarla çözün.
@@ -2286,7 +2286,7 @@ Sonuç: $\textcolor{vurguyesil}{11110100}_2 = -12_{10}$. Doğrulama: $3 \times (
 \label{sec:radix4-booth}
 \index{değiştirilmiş Booth kodlaması}\index{modified Booth encoding|see{değiştirilmiş Booth kodlaması}}\index{radix-4 Booth|see{değiştirilmiş Booth kodlaması}}
 
-Bir önceki bölümde gördüğümüz gibi, orijinal Booth algoritmasının başarımı veriye bağlıdır: çarpandaki bitler sürekli 0-1 arasında değişiyorsa ($\ldots 010101 \ldots$), her adımda bir toplama veya çıkarma tetiklenir ve kaydır-topla yönteminden bile yavaş kalınabilir. Üstelik Booth algoritması kısmi çarpım sayısını azaltsa da, $n$ bitlik bir çarpan yine $n$ adım gerektirir. Her adımda yalnızca 1 bit işlenir.
+Bir önceki bölümde gördüğümüz gibi, orijinal Booth algoritmasının başarımı veriye bağlıdır. Çarpandaki bitler sürekli 0-1 arasında değişiyorsa ($\ldots 010101 \ldots$), her adımda bir toplama veya çıkarma tetiklenir ve kaydır-topla yönteminden bile yavaş kalınabilir. Üstelik Booth algoritması kısmi çarpım sayısını azaltsa da, $n$ bitlik bir çarpan yine $n$ adım gerektirir. Her adımda yalnızca 1 bit işlenir.
 
 \begin{table}[htbp]
 \centering
@@ -2308,7 +2308,7 @@ Bir önceki bölümde gördüğümüz gibi, orijinal Booth algoritmasının baş
 \end{tabular}
 \end{table}
 
-\emph{Değiştirilmiş Booth kodlaması}\index{değiştirilmiş Booth kodlaması}\index{modified Booth encoding|see{değiştirilmiş Booth kodlaması}}\index{radix-4 Booth|see{değiştirilmiş Booth kodlaması}} (\emph{modified Booth encoding}, radix-4) bu iki sorunu birden çözer. Her adımda çarpanın 1 biti yerine \textbf{2 bitini} birden işleyerek adım sayısını yarıya indirir: 32 bitlik bir çarpan artık 32 değil \textbf{16 adımda} tamamlanır. Bunu başarmak için çarpanın bitleri 3'lük örtüşen gruplar halinde incelenir. Her üçlü, Tablo~\ref{tab:radix4-booth}'te gösterildiği gibi beş olası kısmi çarpımdan birini üretir.
+\emph{Değiştirilmiş Booth kodlaması}\index{değiştirilmiş Booth kodlaması}\index{modified Booth encoding|see{değiştirilmiş Booth kodlaması}}\index{radix-4 Booth|see{değiştirilmiş Booth kodlaması}} (\emph{modified Booth encoding}, radix-4) bu iki sorunu birden çözer. Her adımda çarpanın 1 biti yerine \textbf{2 bitini} birden işleyerek adım sayısını yarıya indirir. 32 bitlik bir çarpan artık 32 değil \textbf{16 adımda} tamamlanır. Bunu başarmak için çarpanın bitleri 3'lük örtüşen gruplar halinde incelenir. Her üçlü, Tablo~\ref{tab:radix4-booth}'te gösterildiği gibi beş olası kısmi çarpımdan birini üretir.
 
 Bu kodlamanın en büyük kazanımı, $n$ bitlik bir çarpan için yalnızca $n/2$ kısmi çarpım üretmesidir. Orijinal Booth'a göre adım sayısı yarıya iner. $+2M$ ve $-2M$ değerleri kolay bir sola kaydırma ile elde edilebildiğinden ek donanım maliyeti düşüktür.
 
@@ -2361,9 +2361,9 @@ Radix-4 Booth, 6 bitlik çarpan için yalnızca 3 kısmi çarpım üretmiştir. 
 \label{sec:paralel-carpicilar}
 \index{koşut çarpıcı}\index{parallel multiplier|see{koşut çarpıcı}}
 
-Şimdiye kadar incelediğimiz tüm çarpma yöntemleri \emph{yinelemeli} yöntemlerdir: yazmaçlar, saat sinyali ve denetim birimi içeren \emph{ardışıl devrelerdir} (\emph{sequential circuits}). Her saat çevriminde bir kısmi çarpım işlenir, $n$ bitlik çarpma için $n$ (veya radix-4 ile $n/2$) çevrim gerekir.
+Şimdiye kadar incelediğimiz tüm çarpma yöntemleri \emph{yinelemeli} yöntemlerdir. Bunlar yazmaçlar, saat sinyali ve denetim birimi içeren \emph{ardışıl devrelerdir} (\emph{sequential circuits}). Her saat çevriminde bir kısmi çarpım işlenir, $n$ bitlik çarpma için $n$ (veya radix-4 ile $n/2$) çevrim gerekir.
 
-Bu bölümde ele alacağımız koşut çarpıcılar ise temelden farklıdır: bunlar saat sinyali gerektirmeyen \emph{birleşik devrelerdir} (\emph{combinational circuits}). Girdiler (çarpılan ve çarpan) devreye verildiği anda, çıkış (çarpım) belirli bir \emph{yayılım gecikmesi} sonrasında hazır olur. Herhangi bir saat vuruşu beklenmez. Gecikme yalnızca kapıların ve bağlantıların fiziksel yayılım süresine bağlıdır.
+Bu bölümde ele alacağımız koşut çarpıcılar ise temelden farklıdır. Bunlar saat sinyali gerektirmeyen \emph{birleşik devrelerdir} (\emph{combinational circuits}). Girdiler (çarpılan ve çarpan) devreye verildiği anda, çıkış (çarpım) belirli bir \emph{yayılım gecikmesi} sonrasında hazır olur. Herhangi bir saat vuruşu beklenmez. Gecikme yalnızca kapıların ve bağlantıların fiziksel yayılım süresine bağlıdır.
 
 Birleşik çarpıcının toplam gecikmesi tek bir saat çevrimine sığıyorsa çarpma \emph{tek saat vuruşunda} tamamlanır. Sığmıyorsa (ki yüksek saat hızlarında bu sık görülür), devrenin arasına yazmaçlar eklenerek birden fazla aşamaya bölünür ve çarpma birkaç saat vuruşunda tamamlanır. Bu teknik, Bölüm~\ref{chap:boruhatti}'de ayrıntılı olarak ele alınacak olan \emph{boru hattı} yapısının bir uygulamasıdır.
 
@@ -2530,7 +2530,7 @@ Dizi çarpıcının üstünlüğü yapısının düzenli ve tasarımının yalı
 
 Wallace ağacı\index{Wallace, Chris} (\emph{Wallace tree}), 1964 yılında Chris Wallace tarafından önerilen ve dizi çarpıcının gecikme sorununu çözen bir yapıdır. Dizi çarpıcıda kısmi çarpımlar bir ızgarada satır satır toplanır ve eldeler en üst satırdan en alt satıra seri olarak yayılır. Wallace ağacının temel fikri, bu sıralı toplamayı ortadan kaldırıp kısmi çarpımları \emph{ağaç yapısında koşut olarak} indirgemektir.
 
-Yöntemin anahtar bileşeni \emph{3:2 sıkıştırıcı} (carry-save adder, CSA) adı verilen devredir. Bir 3:2 sıkıştırıcı, aslında her bit sütununa bağımsız olarak uygulanan bir tam toplayıcıdır: üç sayıyı girdi olarak alır ve iki sayı (toplam $T$ ve elde $C$) üretir. Kritik nokta şudur: elde bitleri bir sonraki sütuna taşınır ancak sütunlar arası seri elde yayılımı \emph{yoktur}. Her sütundaki tam toplayıcı bağımsız çalıştığından bir CSA'nın gecikmesi yalnızca tek bir tam toplayıcı gecikmesine eşittir. Girdi sayısından bağımsızdır.
+Yöntemin anahtar bileşeni \emph{3:2 sıkıştırıcı} (carry-save adder, CSA) adı verilen devredir. Bir 3:2 sıkıştırıcı, aslında her bit sütununa bağımsız olarak uygulanan bir tam toplayıcıdır. Üç sayıyı girdi olarak alır ve iki sayı (toplam $T$ ve elde $C$) üretir. Burada kritik olan nokta, elde bitlerinin bir sonraki sütuna taşınmasına karşın sütunlar arası seri elde yayılımının \emph{olmamasıdır}. Her sütundaki tam toplayıcı bağımsız çalıştığından bir CSA'nın gecikmesi yalnızca tek bir tam toplayıcı gecikmesine eşittir. Girdi sayısından bağımsızdır.
 
 Wallace ağacı bu sıkıştırıcıları şu şekilde kullanır:
 \begin{enumerate}[nosep]
@@ -2563,7 +2563,7 @@ Elde ($C$)    & 0\;1 & 1 & 1 & 0 & $= 14$ \quad {\scriptsize (1 konum sola kayd�
 
 Her sütundaki tam toplayıcı, o sütundaki üç biti toplar ve bir toplam biti ile bir elde biti üretir. Elde biti bir sonraki (soldaki) sütuna kaydırılır; ancak \emph{sütunlar arası seri elde yayılımı yoktur}. Dört sütundaki dört tam toplayıcı eş zamanlı çalışır.
 
-Sonuçta $T = 1000_2 = 8$ ve $C = 01110_2 = 14$ elde edilir. Dikkat edin: $T + C = 8 + 14 = 22$. Doğru sonucu verir! Ancak $T$ ve $C$ henüz \emph{toplanmamıştır}. Yalnızca üç sayı iki sayıya \emph{indirgenmiştir}. Gerçek toplama hâlâ yapılmamıştır çünkü gerçek toplama elde yayılımı gerektirir ve bu işlem zaman alır. CSA'nın tüm hız kazancı buradan gelir: elde yayılımından kaçınarak yalnızca sayı adedini azaltır.
+Sonuçta $T = 1000_2 = 8$ ve $C = 01110_2 = 14$ elde edilir. Dikkat edin: $T + C = 8 + 14 = 22$. Doğru sonucu verir! Ancak $T$ ve $C$ henüz \emph{toplanmamıştır}. Yalnızca üç sayı iki sayıya \emph{indirgenmiştir}. Gerçek toplama hâlâ yapılmamıştır çünkü gerçek toplama elde yayılımı gerektirir ve bu işlem zaman alır. CSA'nın tüm hız kazancı buradan gelir. Elde yayılımından kaçınarak yalnızca sayı adedini azaltır.
 
 Wallace ağacında bu indirgeme işlemi yinelenerek sayı adedi her aşamada $\frac{2}{3}$'e düşürülür. En sonda kalan iki sayı için kaçınılmaz olarak \emph{bir kez} gerçek toplama (CLA ile) yapılır. Böylece $n$ kez seri elde yayılımı yerine, $O(\log n)$ adet eldesiz sıkıştırma $+$ tek bir hızlı toplama gerçekleştirilir.
 
@@ -2688,7 +2688,7 @@ Wallace ağacının iki sıkıştırma aşaması şöyle işler (CSA her bit sü
         Doğrulama: $13 \times 15 = 195$. \checkmark
 \end{enumerate}
 
-Gerçek devrede işlemler bit sütunları üzerinden yürütülür: CSA her sütunu bağımsız toplar, eldeler kaydırılarak bir sonraki sütuna taşınır. Tüm sütunlar \emph{koşut} olarak işlendiğinden herhangi bir seri elde yayılımı oluşmaz.
+Gerçek devrede işlemler bit sütunları üzerinden yürütülür. CSA her sütunu bağımsız toplar, eldeler kaydırılarak bir sonraki sütuna taşınır. Tüm sütunlar \emph{koşut} olarak işlendiğinden herhangi bir seri elde yayılımı oluşmaz.
 \end{ornek}
 
 İki koşut çarpıcı yapısının karşılaştırması Tablo~\ref{tab:dizi-vs-wallace}'te özetlenmiştir.
@@ -2716,14 +2716,14 @@ Wallace ağacı & $O(\log n)$ & $O(n^2)$ & Düşük (karmaşık bağlantı) \\
     \item \textbf{Wallace/Dadda ağacı:} Kısmi çarpımları $O(\log n)$ aşamada 2 sayıya indirger.
     \item \textbf{Önceden elde üreten toplayıcı:} Son iki sayıyı toplar.
 \end{enumerate}
-Bu mimari sayesinde 64 bitlik bir çarpma işlemi tipik olarak 3--5 saat çevriminde tamamlanır. Çarpma birimi genellikle boru hatlı (\emph{pipelined}) olarak tasarlanır: her çevrimde yeni bir çarpma başlatılabilir, her ne kadar tek bir çarpmanın sonucu birkaç çevrim sonra hazır olsa da.
+Bu mimari sayesinde 64 bitlik bir çarpma işlemi tipik olarak 3--5 saat çevriminde tamamlanır. Çarpma birimi genellikle boru hatlı (\emph{pipelined}) olarak tasarlanır. Tek bir çarpmanın sonucu birkaç çevrim sonra hazır olsa da her çevrimde yeni bir çarpma başlatılabilir.
 \end{bilginot}
 
 \subsection{İşlenenlerden Birinin Sıfır Olması}
 
 Çarpma işleminde işlenenlerden birinin sıfır olduğu durumda sonucun da sıfır olacağı önceden bellidir. Kaydır-topla algoritmasında çarpan sıfırsa hiçbir kısmi çarpım üretilmez. Çarpılan sıfırsa üretilen her kısmi çarpım zaten sıfırdır. Basit bir donanım bu durumu fark etmeden 32 yinelemenin tamamını çalıştırır; ancak bu gereksiz bir zaman kaybıdır.
 
-Çağdaş işlemcilerde çarpma birimleri genellikle bir \emph{erken sonlandırma}\index{erken sonlandırma}\index{early termination|see{erken sonlandırma}} mekanizması içerir: çarpan yazmacının içeriği her sağa kaydırma sonrasında denetlenir. Kalan bitler tümüyle sıfırsa başka kısmi çarpım oluşmayacağı garanti olduğundan döngü erkenden bitirilir. Bu denetim yalnızca bir VEYA kapısı ağacıyla (tüm bitlerin 0 olup olmadığını sınayan) gerçekleştirilebilir.
+Çağdaş işlemcilerde çarpma birimleri genellikle bir \emph{erken sonlandırma}\index{erken sonlandırma}\index{early termination|see{erken sonlandırma}} mekanizması içerir. Çarpan yazmacının içeriği her sağa kaydırma sonrasında denetlenir. Kalan bitler tümüyle sıfırsa başka kısmi çarpım oluşmayacağı garanti olduğundan döngü erkenden bitirilir. Bu denetim yalnızca bir VEYA kapısı ağacıyla (tüm bitlerin 0 olup olmadığını sınayan) gerçekleştirilebilir.
 
 Erken sonlandırmanın yararı sıfır işlenenle sınırlı değildir. Çarpanın üst bitlerinin büyük bölümü sıfır olan küçük sayılarda da (örneğin $3 = 00000000\ldots011_2$) döngü birkaç adımda tamamlanır. Araştırmalar, gerçek programlarda işlenenlerin önemli bir bölümünün az sayıda anlamlı bite sahip \emph{dar değerler} (\emph{narrow values})\index{dar değer}\index{narrow value|see{dar değer}} olduğunu göstermiştir~\cite{ergin2004}. Bu nedenle erken sonlandırma ortalama çarpma süresini belirgin biçimde kısaltır.
 
@@ -2732,7 +2732,7 @@ Erken sonlandırmanın yararı sıfır işlenenle sınırlı değildir. Çarpan�
 \section{Bölme}
 \label{sec:bolme}
 
-Çarpma toplama üzerine kuruluysa, bölme\index{bölme}\index{division|see{bölme}} de çıkarma üzerine kuruludur. Bölme, bir sayının içinde diğerinden kaç tane olduğunu bulmaktır. Tek bir ayrıklık vardır: bölen sıfır olamaz. Tam sayı aritmetiğinde sıfıra bölmenin geçerli bir sonucu yoktur. Bölme işleminde dört temel bileşen vardır:
+Çarpma toplama üzerine kuruluysa, bölme\index{bölme}\index{division|see{bölme}} de çıkarma üzerine kuruludur. Bölme, bir sayının içinde diğerinden kaç tane olduğunu bulmaktır. Tek bir ayrıklık vardır. Bölen sıfır olamaz. Tam sayı aritmetiğinde sıfıra bölmenin geçerli bir sonucu yoktur. Bölme işleminde dört temel bileşen vardır:
 %
 \begin{itemize}
 \item \textbf{Bölünen} (\emph{dividend}): bölünecek sayı,
@@ -2746,9 +2746,9 @@ Aralarındaki ilişki şöyle ifade edilir:
 \text{Bölünen} = \text{Bölüm} \times \text{Bölen} + \text{Kalan}
 \]
 
-Çarpmada $n$ bitlik iki sayının çarpımının $2n$ bite kadar çıkabildiğini görmüştük. Bölme, çarpmanın tersi olduğuna göre, işlenen boyutları da bu durumla uyumlu olmalıdır. $n$ bitlik iki sayıyı birbirine böldüğümüzde bölüm en fazla $n$ bit, kalan ise en fazla $n$ bit uzunluğundadır. Ancak çarpma sonucunda elde edilen $2n$ bitlik bir değeri orijinal çarpanlardan birine bölmek istediğimizde, bölünenin çift genişlikte olması doğal bir gereksinimdir. Bu durumda bölüm de $2n$ bite kadar çıkabilir: örneğin $2n$ bitlik bir bölünen, 1 değerindeki bir bölene bölündüğünde bölüm bölünenin kendisine eşittir. Kalan ise her zaman bölenden küçük olacağından en fazla $n$ bit kalır. RISC-V'te \texttt{div} ve \texttt{rem} buyrukları 32 bitlik iki yazmaç üzerinde çalışır ve 32 bitlik sonuç üretir. Bu nedenle $2n$ bitlik bölünen doğrudan desteklenmez. Bununla birlikte, ileride göreceğimiz bölme donanımında kalan yazmacının neden $2n$ bit genişliğinde tutulduğu, bu boyut ilişkisiyle doğrudan bağlantılıdır.
+Çarpmada $n$ bitlik iki sayının çarpımının $2n$ bite kadar çıkabildiğini görmüştük. Bölme, çarpmanın tersi olduğuna göre, işlenen boyutları da bu durumla uyumlu olmalıdır. $n$ bitlik iki sayıyı birbirine böldüğümüzde bölüm en fazla $n$ bit, kalan ise en fazla $n$ bit uzunluğundadır. Ancak çarpma sonucunda elde edilen $2n$ bitlik bir değeri orijinal çarpanlardan birine bölmek istediğimizde, bölünenin çift genişlikte olması doğal bir gereksinimdir. Bu durumda bölüm de $2n$ bite kadar çıkabilir. Örneğin $2n$ bitlik bir bölünen, 1 değerindeki bir bölene bölündüğünde bölüm bölünenin kendisine eşittir. Kalan ise her zaman bölenden küçük olacağından en fazla $n$ bit kalır. RISC-V'te \texttt{div} ve \texttt{rem} buyrukları 32 bitlik iki yazmaç üzerinde çalışır ve 32 bitlik sonuç üretir. Bu nedenle $2n$ bitlik bölünen doğrudan desteklenmez. Bununla birlikte, ileride göreceğimiz bölme donanımında kalan yazmacının neden $2n$ bit genişliğinde tutulduğu, bu boyut ilişkisiyle doğrudan bağlantılıdır.
 
-Çarpmada olduğu gibi, ikili tabanda bölme işlemi de onluk tabandaki elde bölmeye benzer; ancak çok daha basittir, çünkü her adımda bölümün ilgili basamağı yalnızca 0 veya 1 olabilir: bölen çıkarılabiliyorsa 1, çıkarılamıyorsa 0 yazılır. Aşağıdaki örnekte $35 \div 5$ işlemi ikili tabanda gösterilmiştir:
+Çarpmada olduğu gibi, ikili tabanda bölme işlemi de onluk tabandaki elde bölmeye benzer; ancak çok daha basittir, çünkü her adımda bölümün ilgili basamağı yalnızca 0 veya 1 olabilir. Bölen çıkarılabiliyorsa 1, çıkarılamıyorsa 0 yazılır. Aşağıdaki örnekte $35 \div 5$ işlemi ikili tabanda gösterilmiştir:
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -2775,11 +2775,11 @@ Aralarındaki ilişki şöyle ifade edilir:
 \end{tikzpicture}
 \end{center}
 
-Doğrulama: $\textcolor{vurguyesil}{7} \times \textcolor{vurgukirmizi}{5} + \textcolor{gray}{0} = 35 = \textcolor{vurgumavi}{35}$\;\checkmark. İkili bölme de tıpkı çarpma gibi \emph{kaydır ve çıkar} mantığına dayanır: her adımda bölenin çıkarılıp çıkarılamayacağı sınanır, bölüm biti belirlenir ve kalan bir basamak kaydırılır. Bu ilke, bölme donanımının temelini oluşturur.
+Doğrulama: $\textcolor{vurguyesil}{7} \times \textcolor{vurgukirmizi}{5} + \textcolor{gray}{0} = 35 = \textcolor{vurgumavi}{35}$\;\checkmark. İkili bölme de tıpkı çarpma gibi \emph{kaydır ve çıkar} mantığına dayanır. Her adımda bölenin çıkarılıp çıkarılamayacağı sınanır, bölüm biti belirlenir ve kalan bir basamak kaydırılır. Bu ilke, bölme donanımının temelini oluşturur.
 
 \subsubsection*{Bölme Donanımına Neden İhtiyaç Var?}
 
-Çarpma bölümünde gördüğümüz gibi, çıkarma yapabilen her işlemci bölmeyi de yazılımla gerçekleştirebilir: bölünen sayıdan böleni arka arkaya çıkararak bölümü bulmak yeterlidir. Ancak bu yaklaşım büyük sayılarda son derece yavaştır. Tablo~\ref{tab:bolme-yazilim-donanim} iki yaklaşımı yan yana karşılaştırmaktadır:
+Çarpma bölümünde gördüğümüz gibi, çıkarma yapabilen her işlemci bölmeyi de yazılımla gerçekleştirebilir. Bölünen sayıdan böleni arka arkaya çıkararak bölümü bulmak yeterlidir. Ancak bu yaklaşım büyük sayılarda son derece yavaştır. Tablo~\ref{tab:bolme-yazilim-donanim} iki yaklaşımı yan yana karşılaştırmaktadır:
 
 \begin{table}[htbp]
 \centering
@@ -2829,9 +2829,9 @@ Soldaki programda döngü, bölüm değeri kadar yinelenir ($35 \div 5 = 7$ yine
 \label{sec:geri-yuklemeli-bolme}
 \index{geri yüklemeli bölme}\index{restoring division|see{geri yüklemeli bölme}}
 
-Temel bölme algoritması \emph{geri yüklemeli bölme} (\emph{restoring division}) olarak adlandırılır: bölen, kalanın üst yarısından çıkarılır. Sonuç eksiyse çıkarma geri alınarak (kalan ``geri yüklenerek'') önceki değerine döndürülür. Çarpmada olduğu gibi, donanımı adım adım iyileştiren üç yol geliştireceğiz.
+Temel bölme algoritması \emph{geri yüklemeli bölme} (\emph{restoring division}) olarak adlandırılır. Bölen, kalanın üst yarısından çıkarılır. Sonuç eksiyse çıkarma geri alınarak (kalan ``geri yüklenerek'') önceki değerine döndürülür. Çarpmada olduğu gibi, donanımı adım adım iyileştiren üç yol geliştireceğiz.
 
-Donanım gerçekleştirmesinde dikkat çekici bir durum gözlemlenir: bölünen, işlem boyunca yazmaçlarda yavaş yavaş \emph{tüketilir} ve yerini iki yeni değere (bölüm ve kalana) bırakır. Her adımda bölen, kalan ara değerinden çıkarılmaya çalışılır. Başarılı her çıkarma bölümün bir bitini belirlerken bölünenin o kısmını da dönüştürür. İşlem sonunda başlangıçtaki bölünen ortadan kalkmış, bilgi bölüm ve kalan arasında paylaşılmış olur. Bu dönüşüm yazmaçlarda fiziksel olarak da gözlemlenecektir: bölünen bitleri adım adım erirken, bölüm bitleri sağdan dolmaya başlar.
+Donanım gerçekleştirmesinde dikkat çekici bir durum gözlemlenir. Bölünen, işlem boyunca yazmaçlarda yavaş yavaş \emph{tüketilir} ve yerini iki yeni değere (bölüm ve kalana) bırakır. Her adımda bölen, kalan ara değerinden çıkarılmaya çalışılır. Başarılı her çıkarma bölümün bir bitini belirlerken bölünenin o kısmını da dönüştürür. İşlem sonunda başlangıçtaki bölünen ortadan kalkmış, bilgi bölüm ve kalan arasında paylaşılmış olur. Bu dönüşüm yazmaçlarda fiziksel olarak da gözlemlenecektir. Bölünen bitleri adım adım erirken, bölüm bitleri sağdan dolmaya başlar.
 
 \subsubsection{1. Yol}
 
@@ -2982,7 +2982,7 @@ Algoritmanın akış şeması Şekil~\ref{fig:bolme-1yol-algo}'te gösterilmişt
 \label{fig:bolme-1surum-donanim}
 \end{figure}
 
-Buna karşılık gelen donanım tasarımı Şekil~\ref{fig:bolme-1surum-donanim}'te gösterilmiştir. Donanım, 64 bitlik bir bölen yazmacı, 64 bitlik bir kalan yazmacı, 32 bitlik bir bölüm yazmacı ve 64 bitlik bir AMB'den (çıkarıcı) oluşur. Çarpmadaki 1.\ yola benzer biçimde, bölen yazmacının sol yarısına yerleştirilen değer her adımda sağa kaydırılarak kalanla hizalanır. Denetim birimi içindeki bir sayaç yineleme sayısını takip eder ve $n{+}1$ adım tamamlandığında işlemi sonlandırır. 64 bitlik AMB gerekliliği bu yolun temel dezavantajıdır: çarpmada olduğu gibi, 64 bitlik çıkarma 32 bitlik çıkarmaya göre daha yavaş, daha fazla alan kaplayan ve daha çok güç tüketen bir işlemdir.
+Buna karşılık gelen donanım tasarımı Şekil~\ref{fig:bolme-1surum-donanim}'te gösterilmiştir. Donanım, 64 bitlik bir bölen yazmacı, 64 bitlik bir kalan yazmacı, 32 bitlik bir bölüm yazmacı ve 64 bitlik bir AMB'den (çıkarıcı) oluşur. Çarpmadaki 1.\ yola benzer biçimde, bölen yazmacının sol yarısına yerleştirilen değer her adımda sağa kaydırılarak kalanla hizalanır. Denetim birimi içindeki bir sayaç yineleme sayısını takip eder ve $n{+}1$ adım tamamlandığında işlemi sonlandırır. 64 bitlik AMB gerekliliği bu yolun temel dezavantajıdır. Çarpmada olduğu gibi, 64 bitlik çıkarma 32 bitlik çıkarmaya göre daha yavaş, daha fazla alan kaplayan ve daha çok güç tüketen bir işlemdir.
 
 \begin{ornek}[5.10]
 \textbf{Soru:} $5 \div 3 = ?$ \quad $(0101 \div 0011 = ?)$
@@ -3078,7 +3078,7 @@ Bölüm $= \textcolor{vurguyesil}{(0001)_2 = 1}$, \quad Kalan $= \textcolor{vurg
 \label{fig:bolme-2yol-algo}
 \end{figure}
 
-Algoritmanın akış şeması Şekil~\ref{fig:bolme-2yol-algo}'te gösterilmiştir. Her yinelemede yapılan işlemler şunlardır: (1)~kalanı 1 bit sola kaydır, (2)~kalanın üst yarısından böleni çıkar, (3)~sonuç eksiyse kalanı geri yükle ve bölümün en sağ bitine 0 yaz; artıysa farkı kalanın üst yarısına yaz ve bölümün en sağ bitine 1 yaz. 1.\ yoldan farklı olarak bölen sabit kalır ve kalan sola kaydırılarak hizalama sağlanır. Denetim birimi içindeki sayaç yineleme sayısını takip eder: $n$ bitlik veriler için döngü $n$ kez tekrarlanır. RISC-V (RV32) gibi 32 bitlik bir mimaride 32 adım gerekir.
+Algoritmanın akış şeması Şekil~\ref{fig:bolme-2yol-algo}'te gösterilmiştir. Her yinelemede yapılan işlemler şunlardır: (1)~kalanı 1 bit sola kaydır, (2)~kalanın üst yarısından böleni çıkar, (3)~sonuç eksiyse kalanı geri yükle ve bölümün en sağ bitine 0 yaz; artıysa farkı kalanın üst yarısına yaz ve bölümün en sağ bitine 1 yaz. 1.\ yoldan farklı olarak bölen sabit kalır ve kalan sola kaydırılarak hizalama sağlanır. Denetim birimi içindeki sayaç yineleme sayısını takip eder. $n$ bitlik veriler için döngü $n$ kez tekrarlanır. RISC-V (RV32) gibi 32 bitlik bir mimaride 32 adım gerekir.
 
 \begin{figure}[htbp]
 \centering
@@ -3168,7 +3168,7 @@ Algoritmanın akış şeması Şekil~\ref{fig:bolme-2yol-algo}'te gösterilmişt
 \label{fig:bolme-2surum-donanim}
 \end{figure}
 
-Buna karşılık gelen donanım tasarımı Şekil~\ref{fig:bolme-2surum-donanim}'da gösterilmiştir. Donanım, 32 bitlik sabit bir bölen yazmacı, 64 bitlik sola kaydırılan bir kalan yazmacı, 32 bitlik bir bölüm yazmacı ve 32 bitlik bir AMB'den (çıkarıcı) oluşur. AMB artık yalnızca kalanın üst yarısı (32 bit) ile bölen (32 bit) arasında çıkarma yaptığından, 1.\ yolun 64 bitlik AMB'sine göre yarı boyuttadır. Bu da her adımı daha hızlı ve donanımı daha küçük kılar. Denetim birimi her iki yazmaca da ``Kaydır/Yaz'' sinyali gönderir: kalan yazmacı her adımın başında 1 bit sola kaydırılır. Bölüm yazmacı ise çıkarma sonucuna göre 1 bit sola kaydırılıp en sağ bitine 0 veya 1 yazılır.
+Buna karşılık gelen donanım tasarımı Şekil~\ref{fig:bolme-2surum-donanim}'da gösterilmiştir. Donanım, 32 bitlik sabit bir bölen yazmacı, 64 bitlik sola kaydırılan bir kalan yazmacı, 32 bitlik bir bölüm yazmacı ve 32 bitlik bir AMB'den (çıkarıcı) oluşur. AMB artık yalnızca kalanın üst yarısı (32 bit) ile bölen (32 bit) arasında çıkarma yaptığından, 1.\ yolun 64 bitlik AMB'sine göre yarı boyuttadır. Bu da her adımı daha hızlı ve donanımı daha küçük kılar. Denetim birimi her iki yazmaca da ``Kaydır/Yaz'' sinyali gönderir. Kalan yazmacı her adımın başında 1 bit sola kaydırılır. Bölüm yazmacı ise çıkarma sonucuna göre 1 bit sola kaydırılıp en sağ bitine 0 veya 1 yazılır.
 
 \begin{ornek}[5.11]
 \textbf{Soru:} $7 \div 2 = ?$ \quad $(0111 \div 0010 = ?)$
@@ -3392,12 +3392,12 @@ Bölüm $= \textcolor{vurguyesil}{(0011)_2 = 3}$, \quad Kalan $= \textcolor{vurg
 3.\ yol, geri yüklemeli bölme için en yalın donanım tasarımını sunar: yalnızca 1 adet 32 bitlik bölen yazmacı, 1 adet 64 bitlik birleşik kalan/bölüm yazmacı ve 32 bitlik bir AMB yeterlidir. Bu yapı RISC-V'e (RV32I) doğrudan uygulanabilir.
 
 \begin{bilginot}[İşaretli Bölme İşlemi]
-Yukarıdaki algoritmalar işaretsiz sayılar için tasarlanmıştır. İşaretli sayılarla bölme yapmak için en yaygın yöntem şudur: bölünen ve bölenin işaretleri saklanır, her iki sayı da mutlak değerine dönüştürülür ve işaretsiz bölme yapılır. İşlem sonunda bölümün ve kalanın işaretleri ayrıca belirlenir:
+Yukarıdaki algoritmalar işaretsiz sayılar için tasarlanmıştır. İşaretli sayılarla bölme yapmak için en yaygın yöntemde bölünen ve bölenin işaretleri saklanır, her iki sayı da mutlak değerine dönüştürülür ve işaretsiz bölme yapılır. İşlem sonunda bölümün ve kalanın işaretleri ayrıca belirlenir:
 \begin{itemize}[nosep]
   \item \emph{Bölümün işareti:} Bölünen ile bölenin işaretleri farklıysa bölüm eksidir (tıpkı çarpmada olduğu gibi).
   \item \emph{Kalanın işareti:} Kalan her zaman bölünenle aynı işareti taşır. Örneğin $(-7) \div 2 = -3$ kalan $-1$'dir; çünkü $-7 = (-3) \times 2 + (-1)$.
 \end{itemize}
-RISC-V bu kuralı doğrudan destekler: \texttt{div}/\texttt{rem} buyrukları işaretli, \texttt{divu}/\texttt{remu} buyrukları ise işaretsiz bölme yapar. İşaretli sürümler yukarıdaki kalan işareti kuralına uyar.
+RISC-V bu kuralı doğrudan destekler. \texttt{div}/\texttt{rem} buyrukları işaretli, \texttt{divu}/\texttt{remu} buyrukları ise işaretsiz bölme yapar. İşaretli sürümler yukarıdaki kalan işareti kuralına uyar.
 \end{bilginot}
 
 \subsection{Geri Yüklemesiz Bölme}
@@ -3406,7 +3406,7 @@ RISC-V bu kuralı doğrudan destekler: \texttt{div}/\texttt{rem} buyrukları iş
 
 Geri yüklemeli bölmede, çıkarma sonucu eksiyse kalanı eski değerine döndürmek (geri yüklemek) için ek bir toplama yapılır. Bu geri yükleme adımı zaman kaybına neden olur. \emph{Geri yüklemesiz bölme} (\emph{non-restoring division}) bu sorunu ortadan kaldırır.
 
-Temel gözlem şudur: Geri yüklemeli bölmede, eksi bir kalanı geri yükledikten sonra bir sonraki adımda yine bölen çıkarılır. Dolayısıyla sırasıyla yapılan iki işlem ``$+$Bölen'' (geri yükleme) ve ``$-$Bölen'' (yeni çıkarma) birleştirilirse net etki ``$+$Bölen $-$ Bölen $= 0$'' yerine doğrudan bir sonraki adıma geçilmesidir. Daha doğrusu, eksi kalan elde edildiğinde geri yüklemek yerine bir sonraki adımda \emph{bölen eklenir} (çıkarmak yerine).
+Temel gözlem, geri yüklemeli bölmede eksi bir kalanı geri yükledikten sonra bir sonraki adımda yine bölenin çıkarılmasıdır. Dolayısıyla sırasıyla yapılan iki işlem ``$+$Bölen'' (geri yükleme) ve ``$-$Bölen'' (yeni çıkarma) birleştirilirse net etki ``$+$Bölen $-$ Bölen $= 0$'' yerine doğrudan bir sonraki adıma geçilmesidir. Daha doğrusu, eksi kalan elde edildiğinde geri yüklemek yerine bir sonraki adımda \emph{bölen eklenir} (çıkarmak yerine).
 
 Algoritmanın kuralları:
 \begin{itemize}[nosep]
@@ -3452,7 +3452,7 @@ Son & $< 0$: Düzelt $\textcolor{vurgumavi}{1110} + \textcolor{vurgukirmizi}{001
 
 Bölüm $= \textcolor{vurguyesil}{(0010)_2 = 2}$, \quad Kalan $= \textcolor{vurgumavi}{(0001)_2 = 1}$. Doğrulama: $7 = \textcolor{vurguyesil}{2} \times \textcolor{vurgukirmizi}{3} + \textcolor{vurgumavi}{1}$.\;\checkmark
 
-Son adımdaki düzeltmeye dikkat: geri yüklemesiz bölmede işlem sonunda kalan eksi çıkabilir. Bu durumda bölen bir kez eklenerek kalan artı yapılır. Geri yüklemeli bölmede ise her adımda koşullu geri yükleme yapıldığından kalan hiçbir zaman eksi kalmaz.
+Son adımdaki düzeltmeye dikkat edin. Geri yüklemesiz bölmede işlem sonunda kalan eksi çıkabilir. Bu durumda bölen bir kez eklenerek kalan artı yapılır. Geri yüklemeli bölmede ise her adımda koşullu geri yükleme yapıldığından kalan hiçbir zaman eksi kalmaz.
 \end{ornek}
 
 \subsection{SRT Bölme}
@@ -3471,7 +3471,7 @@ Burada $P_i$ kısmi kalan, $d$ bölen, $q_i$ o adımın bölüm rakamı ve $r$ t
 
 SRT algoritmasının temel farkları:
 \begin{itemize}[nosep]
-    \item \textbf{Fazlalıklı rakam kümesi:} Bölüm rakamları yalnızca $\{0, 1\}$ değil, daha geniş bir kümeden seçilir. Radix-2 SRT'de $q_i \in \{-1, 0, +1\}$, radix-4 SRT'de $q_i \in \{-2, -1, 0, +1, +2\}$. Bu fazlalıklı (\emph{redundant}) gösterim, bölüm rakamı tahmininde hata payına izin verir: seçim hatalı olsa bile bir sonraki adımda düzeltilebilir.
+    \item \textbf{Fazlalıklı rakam kümesi:} Bölüm rakamları yalnızca $\{0, 1\}$ değil, daha geniş bir kümeden seçilir. Radix-2 SRT'de $q_i \in \{-1, 0, +1\}$, radix-4 SRT'de $q_i \in \{-2, -1, 0, +1, +2\}$. Bu fazlalıklı (\emph{redundant}) gösterim, bölüm rakamı tahmininde hata payına izin verir. Seçim hatalı olsa bile bir sonraki adımda düzeltilebilir.
     \item \textbf{Arama tablosu:} Bölüm rakamı $q_i$, kısmi kalanın ve bölenin en anlamlı birkaç bitine bakılarak bir \emph{arama tablosu} (\emph{lookup table}) aracılığıyla belirlenir. Bu, koşullu çıkarma sonucunu beklemeye gerek kalmadan hızlı karar verilmesini sağlar.
     \item \textbf{Son dönüşüm:} Fazlalıklı rakamlarla ifade edilen bölüm, işlem sonunda standart ikili gösterime dönüştürülür.
 \end{itemize}
@@ -3595,7 +3595,7 @@ Goldschmidt & 4--5 yineleme & 2 koşut çarpıcı & Arama tablosu (ilk tahmin) &
 \end{tabularx}
 \end{table}
 
-Tüm yinelemeli yöntemlerde bölme çarpmadan yavaştır: $n$ bitlik çarpma Wallace ağacı gibi yapılarla birkaç vuruşa indirilebilirken, yinelemeli bölme en az $n$ vuruş gerektirir ve her vuruşta koşullu karar (çıkarma sonucunun işareti) donanımın hızlandırılmasını zorlaştırır. Bu nedenle derleyiciler mümkün olduğunca bölmeyi kaydırma veya çarpma ile değiştirmeye çalışır (örneğin $x / 4$ yerine $x \gg 2$).
+Tüm yinelemeli yöntemlerde bölme çarpmadan yavaştır. $n$ bitlik çarpma Wallace ağacı gibi yapılarla birkaç vuruşa indirilebilirken, yinelemeli bölme en az $n$ vuruş gerektirir ve her vuruşta koşullu karar (çıkarma sonucunun işareti) donanımın hızlandırılmasını zorlaştırır. Bu nedenle derleyiciler mümkün olduğunca bölmeyi kaydırma veya çarpma ile değiştirmeye çalışır (örneğin $x / 4$ yerine $x \gg 2$).
 
 
 \subsection{RISC-V Bölme Buyrukları}
@@ -3620,11 +3620,11 @@ Tüm yinelemeli yöntemlerde bölme çarpmadan yavaştır: $n$ bitlik çarpma Wa
 \end{tabularx}
 \end{table}
 
-Her dört buyruk da aynı donanım bölme birimini kullanır. Aralarındaki tek fark, işlenenlerin ve sonucun işaretli mi yoksa işaretsiz mi yorumlanacağıdır. İşaretli bölmede (\texttt{div}) bölüm \emph{sıfıra doğru yuvarlanır}: örneğin $-7 / 2 = -3{,}5$ yuvarlanınca $-3$ olur, $-4$'e değil. Kalan ise bölünen $=$ bölüm $\times$ bölen $+$ kalan özdeşliğinden bulunur ve her zaman bölünenle aynı işareti taşır.
+Her dört buyruk da aynı donanım bölme birimini kullanır. Aralarındaki tek fark, işlenenlerin ve sonucun işaretli mi yoksa işaretsiz mi yorumlanacağıdır. İşaretli bölmede (\texttt{div}) bölüm \emph{sıfıra doğru yuvarlanır}. Örneğin $-7 / 2 = -3{,}5$ yuvarlanınca $-3$ olur, $-4$'e değil. Kalan ise bölünen $=$ bölüm $\times$ bölen $+$ kalan özdeşliğinden bulunur ve her zaman bölünenle aynı işareti taşır.
 
 MIPS'ten farklı olarak RISC-V'te bölüm ve kalan ayrı buyrukla elde edilir. MIPS'te \texttt{div} buyruğu her ikisini birden özel yazmaçlara (\texttt{hi}/\texttt{lo}) yazardı. RISC-V'te ise programcı hem bölümü hem kalanı istiyorsa \texttt{div} ve \texttt{rem} buyrukları art arda çalıştırılmalıdır. Ancak çağdaş RISC-V işlemcileri bu örüntüyü tanır ve iki buyruğu tek bir bölme işlemiyle birleştirir (\emph{division fusion}).
 
-Dikkat edilmesi gereken önemli bir nokta: \texttt{div}/\texttt{rem} ile \texttt{divu}/\texttt{remu} buyrukları aynı bit örüntüsünü tamamen farklı yorumlar. Yazmaçtaki bitler değişmez. Değişen yalnızca donanımın bu bitleri okuma biçimidir. Bu nedenle programcının (veya derleyicinin) veri türüne uygun buyruğu seçmesi gerekir: C dilindeki \texttt{int} gibi işaretli değişkenler için \texttt{div}/\texttt{rem}, \texttt{unsigned int} gibi işaretsiz değişkenler için \texttt{divu}/\texttt{remu} kullanılmalıdır. Bu farkın ne denli büyük sonuçlar doğurabileceği aşağıdaki örnekte görülmektedir.
+Dikkat edilmesi gereken önemli bir nokta var. \texttt{div}/\texttt{rem} ile \texttt{divu}/\texttt{remu} buyrukları aynı bit örüntüsünü tamamen farklı yorumlar. Yazmaçtaki bitler değişmez. Değişen yalnızca donanımın bu bitleri okuma biçimidir. Bu nedenle programcının (veya derleyicinin) veri türüne uygun buyruğu seçmesi gerekir: C dilindeki \texttt{int} gibi işaretli değişkenler için \texttt{div}/\texttt{rem}, \texttt{unsigned int} gibi işaretsiz değişkenler için \texttt{divu}/\texttt{remu} kullanılmalıdır. Bu farkın ne denli büyük sonuçlar doğurabileceği aşağıdaki örnekte görülmektedir.
 
 \begin{ornek}[5.14]
 \textbf{Soru:} $-7 \div 2$ işlemini RISC-V'te hem işaretli hem işaretsiz bölme buyrukları ile gerçekleştirin. Sonuçlar neden farklıdır?
@@ -3675,9 +3675,9 @@ Yazmaçtaki bitler iki durumda da aynıdır (\texttt{0xFFFFFFF9}). Değişen yal
 \subsection{Sıfıra Bölme ve Taşma}
 \label{sec:sifira-bolme}
 
-Tam sayı aritmetiğinde sıfıra bölmenin anlamlı bir sonucu yoktur. Bölüm veya kalan olarak yazılabilecek geçerli bir tam sayı üretilemez. (Kayan nokta aritmetiğinde ise durum farklıdır: Bölüm~\ref{sec:kayan-nokta}'da göreceğimiz gibi IEEE~754 standardı sıfırdan farklı bir sayının sıfıra bölünmesini $\pm\infty$ olarak tanımlar.) Peki tam sayı bölme donanımı bölen sıfır olduğunda ne yapar?
+Tam sayı aritmetiğinde sıfıra bölmenin anlamlı bir sonucu yoktur. Bölüm veya kalan olarak yazılabilecek geçerli bir tam sayı üretilemez. (Kayan nokta aritmetiğinde ise durum farklıdır. Bölüm~\ref{sec:kayan-nokta}'da göreceğimiz gibi IEEE~754 standardı sıfırdan farklı bir sayının sıfıra bölünmesini $\pm\infty$ olarak tanımlar.) Peki tam sayı bölme donanımı bölen sıfır olduğunda ne yapar?
 
-Farklı mimariler bu sorunu farklı biçimlerde ele alır. Bazı işlemciler (örneğin MIPS) sıfıra bölme durumunda bir \emph{kural dışı durum}\index{kural dışı durum}\index{exception|see{kural dışı durum}} (\emph{exception}) üreterek programın çalışmasını durdurur ve işletim sistemine denetimi devreder. RISC-V ise farklı bir yaklaşım benimser: sıfıra bölme durumunda \textbf{kural dışı durum üretmez}. Bunun yerine sonuç yazmaçlarına belirli değerler yazar ve programın çalışmasına devam eder. Bu tasarım kararının arkasında RISC-V'in yalınlık ilkesi yatar. Kural dışı durum mekanizması donanıma karmaşıklık katar ve bölme biriminin boru hattıyla uyumunu zorlaştırır.
+Farklı mimariler bu sorunu farklı biçimlerde ele alır. Bazı işlemciler (örneğin MIPS) sıfıra bölme durumunda bir \emph{kural dışı durum}\index{kural dışı durum}\index{exception|see{kural dışı durum}} (\emph{exception}) üreterek programın çalışmasını durdurur ve işletim sistemine denetimi devreder. RISC-V ise farklı bir yaklaşım benimser. Sıfıra bölme durumunda \textbf{kural dışı durum üretmez}. Bunun yerine sonuç yazmaçlarına belirli değerler yazar ve programın çalışmasına devam eder. Bu tasarım kararının arkasında RISC-V'in yalınlık ilkesi yatar. Kural dışı durum mekanizması donanıma karmaşıklık katar ve bölme biriminin boru hattıyla uyumunu zorlaştırır.
 
 RISC-V'te sıfıra bölme ve taşma durumlarında döndürülen değerler Tablo~\ref{tab:sifira-bolme}'de özetlenmiştir.
 
@@ -3697,9 +3697,9 @@ Taşma ($-2^{31} \div -1$) & \texttt{div}/\texttt{rem} & $-2^{31}$ & $0$ \\
 \end{tabular}
 \end{table}
 
-Sıfıra bölmede bölüm olarak tüm bitleri 1 olan değerin döndürülmesi, yazılımın bu durumu kolayca saptamasını sağlar: program bölme buyruğundan sonra sonucun \texttt{0xFFFFFFFF} olup olmadığını denetleyerek gerekli önlemi alabilir. Kalan olarak bölünenin kendisinin döndürülmesi ise bölünen $=$ bölüm $\times$ bölen $+$ kalan özdeşliğiyle tutarlıdır (çünkü bölüm $\times$ 0 $+$ bölünen $=$ bölünen).
+Sıfıra bölmede bölüm olarak tüm bitleri 1 olan değerin döndürülmesi, yazılımın bu durumu kolayca saptamasını sağlar. Program bölme buyruğundan sonra sonucun \texttt{0xFFFFFFFF} olup olmadığını denetleyerek gerekli önlemi alabilir. Kalan olarak bölünenin kendisinin döndürülmesi ise bölünen $=$ bölüm $\times$ bölen $+$ kalan özdeşliğiyle tutarlıdır (çünkü bölüm $\times$ 0 $+$ bölünen $=$ bölünen).
 
-İşaretli bölmedeki taşma durumu da dikkat gerektirir: $-2^{31} \div (-1) = +2^{31}$ olması gerekirdi, ancak $+2^{31}$ değeri 32 bitlik ikiye tümleyen ile gösterilemez (en büyük pozitif değer $2^{31}-1$'dir). RISC-V bu durumda bölümü bölünenin kendisi ($-2^{31}$) olarak döndürür. Bu matematiksel olarak yanlış bir sonuçtur, ancak donanım karmaşıklığını artırmamak adına bilinçli bir tercih yapılmıştır. Programcının bu uç durumu yazılımda denetlemesi beklenir.
+İşaretli bölmedeki taşma durumu da dikkat gerektirir. $-2^{31} \div (-1) = +2^{31}$ olması gerekirdi, ancak $+2^{31}$ değeri 32 bitlik ikiye tümleyen ile gösterilemez (en büyük pozitif değer $2^{31}-1$'dir). RISC-V bu durumda bölümü bölünenin kendisi ($-2^{31}$) olarak döndürür. Bu matematiksel olarak yanlış bir sonuçtur, ancak donanım karmaşıklığını artırmamak adına bilinçli bir tercih yapılmıştır. Programcının bu uç durumu yazılımda denetlemesi beklenir.
 
 
 % =============================================
@@ -3708,7 +3708,7 @@ Sıfıra bölmede bölüm olarak tüm bitleri 1 olan değerin döndürülmesi, y
 
 Şimdiye kadar yalnızca tam sayılarla çalıştık. Peki $3{,}14$, $0{,}001$ ya da $6{,}022 \times 10^{23}$ gibi ondalıklı ve çok büyük/küçük sayıları nasıl göstereceğiz? 32 bitle işaretsiz olarak en fazla $2^{32}-1$, işaretli olarak $-2^{31}$ ile $2^{31}-1$ arasındaki tam sayıları gösterebiliyoruz; ancak gerçek dünyanın sorunları tam sayılarla sınırlı değil. İşte bu ihtiyaç için \emph{kayan nokta}\index{kayan nokta}\index{floating point|see{kayan nokta}} gösterimi geliştirilmiştir. İkilik taban dönüşümleri ve sayı gösterimi hakkında ayrıntılı bilgi için Ek~\ref{ch:sayi-sistemleri}'da bakınız.
 
-Burada önemli bir noktanın altını çizelim: bellekte ya da yazmaçta saklanan 32 bitlik bir değerin tam sayı mı yoksa kayan nokta mı olduğunu \textbf{donanım kendiliğinden bilmez}. Aynı bit örüntüsü, kullanılan buyruğa bağlı olarak tamamen farklı yorumlanır. Örneğin \texttt{add} buyruğu yazmaçtaki bitleri ikiye tümleyen tam sayı olarak ele alırken, \texttt{fadd.s} buyruğu aynı bitleri IEEE~754 kayan nokta sayısı olarak yorumlar. Bu ayrımı belirleyen programcı veya derleyicidir. Donanım yalnızca kendisine verilen buyruğa uygun işlemi gerçekleştirir. Aynı ilkeyi daha önce işaretli ve işaretsiz tam sayılarda da görmüştük (Bölüm~\ref{sec:riscv-bolme-buyruklar}'teki \texttt{div}/\texttt{divu} örneğini hatırlayın). Kayan nokta ile tam sayı arasındaki fark da bundan farklı değildir.
+Burada önemli bir noktanın altını çizelim. Bellekte ya da yazmaçta saklanan 32 bitlik bir değerin tam sayı mı yoksa kayan nokta mı olduğunu \textbf{donanım kendiliğinden bilmez}. Aynı bit örüntüsü, kullanılan buyruğa bağlı olarak tamamen farklı yorumlanır. Örneğin \texttt{add} buyruğu yazmaçtaki bitleri ikiye tümleyen tam sayı olarak ele alırken, \texttt{fadd.s} buyruğu aynı bitleri IEEE~754 kayan nokta sayısı olarak yorumlar. Bu ayrımı belirleyen programcı veya derleyicidir. Donanım yalnızca kendisine verilen buyruğa uygun işlemi gerçekleştirir. Aynı ilkeyi daha önce işaretli ve işaretsiz tam sayılarda da görmüştük (Bölüm~\ref{sec:riscv-bolme-buyruklar}'teki \texttt{div}/\texttt{divu} örneğini hatırlayın). Kayan nokta ile tam sayı arasındaki fark da bundan farklı değildir.
 
 \subsection{Sabit Nokta ve Kayan Nokta}
 \label{sec:sabit-kayan}
@@ -3717,7 +3717,7 @@ Kesirli sayıları ikilik tabanda göstermenin iki temel yolu vardır: \textbf{s
 
 \subsubsection{Sabit Nokta Gösterimi}
 
-Sabit nokta gösteriminde virgülün yeri önceden sabittir: bit dizisinin belirli bir kısmı tam sayı bölümünü, geri kalanı kesir bölümünü temsil eder. Örneğin 16 bitlik bir sabit nokta biçiminde 8 bit tam kısma, 8 bit kesir kısmına ayrılabilir:
+Sabit nokta gösteriminde virgülün yeri önceden sabittir. Bit dizisinin belirli bir kısmı tam sayı bölümünü, geri kalanı kesir bölümünü temsil eder. Örneğin 16 bitlik bir sabit nokta biçiminde 8 bit tam kısma, 8 bit kesir kısmına ayrılabilir:
 
 \begin{center}
 \resizebox{0.85\linewidth}{!}{%
@@ -3742,7 +3742,7 @@ Sabit nokta gösteriminde virgülün yeri önceden sabittir: bit dizisinin belir
 \end{tikzpicture}}
 \end{center}
 
-Bu düzende gösterilebilecek en büyük sayı $255{,}996$ ($\approx 2^8 - 2^{-8}$), en küçük pozitif sayı ise $0{,}0039$ ($= 2^{-8}$) olur. Sabit nokta, donanım açısından çok yalındır. Toplama ve çıkarma tam sayı devreleriyle aynıdır. Ancak ciddi bir sınırlaması vardır: \textbf{değer aralığı çok dardır}.
+Bu düzende gösterilebilecek en büyük sayı $255{,}996$ ($\approx 2^8 - 2^{-8}$), en küçük pozitif sayı ise $0{,}0039$ ($= 2^{-8}$) olur. Sabit nokta, donanım açısından çok yalındır. Toplama ve çıkarma tam sayı devreleriyle aynıdır. Ancak ciddi bir sınırlaması vardır. \textbf{Değer aralığı çok dardır}.
 
 Bu sınırlamayı somut bir örnekle görelim. Bir mühendislik programında aşağıdaki üç değerle aynı anda çalışılması gerektiğini düşünelim:
 
@@ -3759,7 +3759,7 @@ Mikrop boyutu & $0{,}00085$ mm & En küçük kesir $0{,}0039 > 0{,}00085$ & \tex
 \end{tabularx}
 \end{center}
 
-Sorun açıktır: virgülün yeri sabitlendikten sonra, tam kısmın kapasitesini aşan büyük sayılar \emph{taşar} (\emph{overflow}). Kesir kısmının çözünürlüğünden küçük sayılar ise sıfıra yuvarlanarak kaybolur.
+Sorun açıktır. Virgülün yeri sabitlendikten sonra, tam kısmın kapasitesini aşan büyük sayılar \emph{taşar} (\emph{overflow}). Kesir kısmının çözünürlüğünden küçük sayılar ise sıfıra yuvarlanarak kaybolur.
 
 Üstelik burada gizli bir \emph{ödünleşme} de vardır. Köprünün uzunluğu ($1250{,}75$) tam kısma sığmadığı için gösterilemez; ancak bu sayının kesir kısmı yalnızca 2 ondalık basamak içerir ve 8 bitlik kesir alanına rahatlıkla sığardı. Sabit nokta biçiminde tam kısma ayrılan 8 bit bu sayı için yetersizken, kesir kısmına ayrılan 8 bit boşa harcanmaktadır. Tersine, mikrobun boyutu ($0{,}00085$) için tam kısım hiç gerekmezken kesir alanı yetersiz kalmaktadır. Virgülü sağa kaydırsak büyük sayıları gösterebiliriz ama küçük sayıları kaybederiz. Sola kaydırsak tam tersi olur. Virgül nereye konursa konsun, 16 bitin tamamını verimli kullanan \emph{tek bir konum yoktur}. Sorun virgülün sabit olmasının kendisidir.
 
@@ -3790,7 +3790,7 @@ Bilimsel gösterim 2'lik düzene uygulandığında:
 İkilik düzende olağanlaştırılmış gösterim $1{,}\ldots \times 2^e$ ile ifade edilir. Çünkü virgülün solundaki basamağın 0'dan farklı olması ve tek bir basamak olması zorunludur. 2'lik düzende 0'dan farklı tek basamak 1 olduğu için virgülden önceki basamağın 1 olması kaçınılmazdır.
 
 \begin{terimnotu}
-\textbf{olağanlaştırma} (\emph{normalization})\,: İngilizce \emph{normalize} fiilinden gelen bu terim, Türkçe bilişim yazınında ``normalleştirme'' ve ``normalizasyon'' biçimlerinde de geçer. Bu kitapta Türkçe kökenli \textbf{olağanlaştırma} tercih edilmiştir: \emph{olağan} sözcüğü ``normal'' anlamına gelir. Olağanlaştırma da sayıyı \emph{olağan biçime} (virgülün solunda tek anlamlı basamak kalacak şekle) getirmek demektir. Aynı kökten türeyen \emph{olağanlaştırılmamış} (\emph{denormalized}) terimi ise IEEE~754'te sıfıra çok yakın özel değerleri tanımlar.
+\textbf{olağanlaştırma} (\emph{normalization})\,: İngilizce \emph{normalize} fiilinden gelen bu terim, Türkçe bilişim yazınında ``normalleştirme'' ve ``normalizasyon'' biçimlerinde de geçer. Bu kitapta Türkçe kökenli \textbf{olağanlaştırma} tercih edilmiştir, çünkü \emph{olağan} sözcüğü ``normal'' anlamına gelir. Olağanlaştırma da sayıyı \emph{olağan biçime} (virgülün solunda tek anlamlı basamak kalacak şekle) getirmek demektir. Aynı kökten türeyen \emph{olağanlaştırılmamış} (\emph{denormalized}) terimi ise IEEE~754'te sıfıra çok yakın özel değerleri tanımlar.
 
 Not: Türkçe bilişim terminolojisinde terim birliği henüz tam sağlanamamıştır. ``normalleştirme'' veri tabanı ve veri bilimi alanlarında daha yaygınken, ``olağanlaştırma'' bilgisayar mimarisi ve sayısal çözümleme bağlamında tercih edilen biçimdir.
 \end{terimnotu}
@@ -3836,12 +3836,12 @@ Tek duyarlı (\emph{single precision}) biçimde 32 bit üç alana bölünür:
 \begin{itemize}
   \item \textbf{İşaret (bit 31):} 0 ise sayı artı, 1 ise eksidir.
 
-  \item \textbf{Üs\index{üs}\index{exponent|see{üs}} (bit 30--23):} Gerçek üs, $e_{\text{gerçek}} = e - 127$ formülüyle hesaplanır. 8 bitlik alan 0--255 arası değer alır; ancak 0 ve 255 özel değerler için ayrıldığından kullanılabilir aralık 1--254'tür. Bu kodlamaya \textbf{eklentili gösterim}\index{eklentili gösterim}\index{biased notation|see{eklentili gösterim}}\index{excess-N notation|see{eklentili gösterim}} (\emph{biased} / \emph{excess-127}) denir: gerçek üsse sabit bir \emph{eklenti} (\emph{bias}) değeri (tek duyarlıda 127) eklenerek üs alanına yazılır. Negatif üslerin ayrı bir işaret bitine gerek kalmadan ifade edilmesini sağlar. Ayrıca iki kayan nokta sayısının üs alanlarını işaretsiz tam sayı gibi karşılaştırarak büyüklük sıralamaya olanak tanır.
+  \item \textbf{Üs\index{üs}\index{exponent|see{üs}} (bit 30--23):} Gerçek üs, $e_{\text{gerçek}} = e - 127$ formülüyle hesaplanır. 8 bitlik alan 0--255 arası değer alır; ancak 0 ve 255 özel değerler için ayrıldığından kullanılabilir aralık 1--254'tür. Bu kodlamaya \textbf{eklentili gösterim}\index{eklentili gösterim}\index{biased notation|see{eklentili gösterim}}\index{excess-N notation|see{eklentili gösterim}} (\emph{biased} / \emph{excess-127}) denir. Gerçek üsse sabit bir \emph{eklenti} (\emph{bias}) değeri (tek duyarlıda 127) eklenerek üs alanına yazılır. Negatif üslerin ayrı bir işaret bitine gerek kalmadan ifade edilmesini sağlar. Ayrıca iki kayan nokta sayısının üs alanlarını işaretsiz tam sayı gibi karşılaştırarak büyüklük sıralamaya olanak tanır.
 
   \item \textbf{Kesir (bit 22--0):} Olağanlaştırılmış sayılarda virgülden önceki bit her zaman \texttt{1} olduğundan bu bit bellekte \emph{saklanmaz}. Donanım tarafından otomatik olarak eklenir. Bu saklanmayan bite \textbf{gizli 1}\index{gizli 1}\index{hidden bit|see{gizli 1}} (\emph{hidden bit}) denir. Dolayısıyla 23 bit ile aslında 24 bitlik duyarlık elde edilir.
 \end{itemize}
 
-Burada iki terimi birbirinden ayırt etmek gerekir: bellekte saklanan 23 bitlik alana \textbf{kesir}\index{kesir}\index{fraction|see{kesir}} (\emph{fraction}) denir. Bu, virgülden sonraki kısımdır. Gizli 1 bu alanın başına eklendiğinde elde edilen $1{,}\text{kesir}$ değerine ise \textbf{anlamlı kısım}\index{anlamlı kısım}\index{significand|see{anlamlı kısım}} (\emph{significand}) denir. Eski kaynaklarda anlamlı kısım için \emph{mantis} (\emph{mantissa}) terimini görebilirsiniz; ancak bu terim logaritma bağlamından geldiği için IEEE 754 standardı \emph{significand} terimini tercih eder. Özetle:
+Burada iki terimi birbirinden ayırt etmek gerekir. Bellekte saklanan 23 bitlik alana \textbf{kesir}\index{kesir}\index{fraction|see{kesir}} (\emph{fraction}) denir. Bu, virgülden sonraki kısımdır. Gizli 1 bu alanın başına eklendiğinde elde edilen $1{,}\text{kesir}$ değerine ise \textbf{anlamlı kısım}\index{anlamlı kısım}\index{significand|see{anlamlı kısım}} (\emph{significand}) denir. Eski kaynaklarda anlamlı kısım için \emph{mantis} (\emph{mantissa}) terimini görebilirsiniz; ancak bu terim logaritma bağlamından geldiği için IEEE 754 standardı \emph{significand} terimini tercih eder. Özetle:
 \[
 \underbrace{1}_{\text{gizli 1}}\;.\;\underbrace{f_{22}\,f_{21}\,\ldots\,f_0}_{\text{kesir (23 bit, bellekte saklanır)}} \;=\; \underbrace{1{,}f_{22}\,f_{21}\,\ldots\,f_0}_{\text{anlamlı kısım (24 bit etkin duyarlık)}}
 \]
@@ -3863,9 +3863,9 @@ DEC VAX (F/D/G/H) & 2 & Evet & IEEE 754'e benzer biçimde gizli 1 kullanır; anc
 \end{tabularx}
 \end{center}
 
-Intel x87'nin 80 bitlik genişletilmiş biçimi özellikle ilginçtir: bu biçim IEEE 754'ün bir parçası olmasına rağmen gizli 1 kullanmaz. Bunun nedeni, x87'nin kayan nokta hesaplamalarında \emph{ara sonuçları} tutmak için tasarlanmış olmasıdır. Olağanlaştırılmamış ara değerlerde gizli 1in varsayılması hatalara yol açabilirdi. Açık bit sayesinde donanımın her durumda doğru davranması garanti edilir. Bedeli ise anlamlı kısım için 1 bit fazla alan harcanmasıdır.
+Intel x87'nin 80 bitlik genişletilmiş biçimi özellikle ilginçtir. Bu biçim IEEE 754'ün bir parçası olmasına rağmen gizli 1 kullanmaz. Bunun nedeni, x87'nin kayan nokta hesaplamalarında \emph{ara sonuçları} tutmak için tasarlanmış olmasıdır. Olağanlaştırılmamış ara değerlerde gizli 1in varsayılması hatalara yol açabilirdi. Açık bit sayesinde donanımın her durumda doğru davranması garanti edilir. Bedeli ise anlamlı kısım için 1 bit fazla alan harcanmasıdır.
 
-IBM System/360'ın onaltılık tabanlı kayan nokta biçimi ise tarihsel bir ders niteliğindedir: 16 tabanlı olağanlaştırma, ikilik tabana göre daha ``gevşek'' olduğundan anlamlı kısmın ilk 1--3 biti sıfır olabilir. Bu durum etkili duyarlığı düşürür ve sayısal kararlılık sorunlarına yol açar. IEEE 754'ün ikilik tabana ve gizli 1e geçişinin temel nedenlerinden biri de bu duyarlık kaybını ortadan kaldırmaktı.
+IBM System/360'ın onaltılık tabanlı kayan nokta biçimi ise tarihsel bir ders niteliğindedir. 16 tabanlı olağanlaştırma, ikilik tabana göre daha ``gevşek'' olduğundan anlamlı kısmın ilk 1--3 biti sıfır olabilir. Bu durum etkili duyarlığı düşürür ve sayısal kararlılık sorunlarına yol açar. IEEE 754'ün ikilik tabana ve gizli 1e geçişinin temel nedenlerinden biri de bu duyarlık kaybını ortadan kaldırmaktı.
 \end{bilginot}
 
 \begin{bilginot}[IEEE 754 Üsleri Neden Eklentili Saklar?]
@@ -3876,7 +3876,7 @@ Eklentili gösterimde ise tüm üs değerleri 0'dan 255'e kadar artı sayılard�
 \end{bilginot}
 
 \begin{terimnotu}
-\textbf{eklentili gösterim}\index{eklentili gösterim}\index{biased notation|see{eklentili gösterim}}\index{excess-N notation|see{eklentili gösterim}} (\emph{biased notation}, \emph{excess-N notation})\,: İngilizce \emph{biased} sözcüğü ``önyargılı'' anlamına gelir; ancak ``önyargılı üs'' sanki üste bir hata eklenmiş izlenimi verir. Türkçe kaynaklarda kullanılan ``sapmalı'' da istenmeyen bir kayma çağrışımı yapar. Oysa yapılan işlem yalındır: gerçek üsse sabit bir değer \emph{eklenir}. Bu nedenle bu kitapta \textbf{eklentili gösterim} terimi tercih edilmiştir.
+\textbf{eklentili gösterim}\index{eklentili gösterim}\index{biased notation|see{eklentili gösterim}}\index{excess-N notation|see{eklentili gösterim}} (\emph{biased notation}, \emph{excess-N notation})\,: İngilizce \emph{biased} sözcüğü ``önyargılı'' anlamına gelir; ancak ``önyargılı üs'' sanki üste bir hata eklenmiş izlenimi verir. Türkçe kaynaklarda kullanılan ``sapmalı'' da istenmeyen bir kayma çağrışımı yapar. Oysa yapılan işlem yalındır. Gerçek üsse sabit bir değer \emph{eklenir}. Bu nedenle bu kitapta \textbf{eklentili gösterim} terimi tercih edilmiştir.
 \end{terimnotu}
 
 Gerçek değer şu şekilde hesaplanır:
@@ -3976,7 +3976,7 @@ IEEE 754 standardı tek ve çift duyarlının yanı sıra isteğe bağlı bir \e
 \end{tikzpicture}}
 \end{center}
 
-Bu biçimin tek ve çift duyarlıdan en önemli farkı, çizimde sarıyla gösterilen \textbf{T} (\emph{integer bit}, tam kısım biti) alanıdır. Tek ve çift duyarlıda virgülden önceki \texttt{1} gizli 1tir. Saklanmaz, donanım tarafından varsayılır. 80 bitlik genişletilmiş biçimde ise bu bit \textbf{açıkça saklanır}: olağanlaştırılmış sayılarda \texttt{1}, olağanlaştırılmamış sayılarda \texttt{0} değerini alır. Bu tasarım kararının nedeni, genişletilmiş biçimin çok adımlı hesaplamalarda \emph{ara sonuçları} tutmak için tasarlanmış olmasıdır. Ara değerler olağanlaştırılmamış olabilir ve gizli 1in varsayılması hatalara yol açabilirdi. Açık bit sayesinde donanımın her durumda doğru davranması garanti edilir. Bedeli yalnızca 1 bit fazla alan kullanılmasıdır.
+Bu biçimin tek ve çift duyarlıdan en önemli farkı, çizimde sarıyla gösterilen \textbf{T} (\emph{integer bit}, tam kısım biti) alanıdır. Tek ve çift duyarlıda virgülden önceki \texttt{1} gizli 1tir. Saklanmaz, donanım tarafından varsayılır. 80 bitlik genişletilmiş biçimde ise bu bit \textbf{açıkça saklanır}. Olağanlaştırılmış sayılarda \texttt{1}, olağanlaştırılmamış sayılarda \texttt{0} değerini alır. Bu tasarım kararının nedeni, genişletilmiş biçimin çok adımlı hesaplamalarda \emph{ara sonuçları} tutmak için tasarlanmış olmasıdır. Ara değerler olağanlaştırılmamış olabilir ve gizli 1in varsayılması hatalara yol açabilirdi. Açık bit sayesinde donanımın her durumda doğru davranması garanti edilir. Bedeli yalnızca 1 bit fazla alan kullanılmasıdır.
 
 Üs alanı 15 bit olup eklenti değeri \textbf{16\,383}'tür. Bu geniş üs alanı $\approx 10^{\pm 4932}$ aralık sağlar; 64 bitlik anlamlı kısım ise $\approx 18{-}19$ onluk basamak duyarlık verir.
 
@@ -4171,9 +4171,9 @@ NaN\index{NaN} & $11111111$ & $\neq 0$ & ``Sayı değil'' (\emph{Not a Number}).
 
 \subsubsection{Sıfır}
 
-Kayan nokta formülünü hatırlayalım: $(-1)^i \times (1 + \text{kesir}) \times 2^{(e - 127)}$. Formüldeki $1 + \text{kesir}$ ifadesine dikkat edelim: kesir alanının tüm bitleri sıfır olsa bile anlamlı kısım $1{,}000\ldots0 = 1{,}0$ olur. Sıfır değil. Üs alanını ne yaparsak yapalım, $1{,}0 \times 2^e$ asla sıfır olamaz; çünkü $2^e$ her zaman artı bir sayıdır. Kısacası, olağanlaştırılmış gösterimde sıfırı temsil etmenin \emph{hiçbir yolu yoktur}. Gizli 1, sayının sıfır olmasını engeller.
+Kayan nokta formülünü hatırlayalım: $(-1)^i \times (1 + \text{kesir}) \times 2^{(e - 127)}$. Formüldeki $1 + \text{kesir}$ ifadesine dikkat edelim. Kesir alanının tüm bitleri sıfır olsa bile anlamlı kısım $1{,}000\ldots0 = 1{,}0$ olur. Sıfır değil. Üs alanını ne yaparsak yapalım, $1{,}0 \times 2^e$ asla sıfır olamaz; çünkü $2^e$ her zaman artı bir sayıdır. Kısacası, olağanlaştırılmış gösterimde sıfırı temsil etmenin \emph{hiçbir yolu yoktur}. Gizli 1, sayının sıfır olmasını engeller.
 
-Bu nedenle IEEE 754, sıfır için özel bir kodlama tanımlar: \textbf{üs alanı ve kesir alanının tamamı sıfırdır}. Donanım bu bit örüntüsünü gördüğünde olağan formülü uygulamaz. Sonucu doğrudan sıfır olarak yorumlar.
+Bu nedenle IEEE 754, sıfır için özel bir kodlama tanımlar. \textbf{Üs alanı ve kesir alanının tamamı sıfırdır}. Donanım bu bit örüntüsünü gördüğünde olağan formülü uygulamaz. Sonucu doğrudan sıfır olarak yorumlar.
 
 İşaret bitine göre $+0$ ve $-0$ olmak üzere iki sıfır vardır. Matematiksel olarak $+0 = -0$'dır ve IEEE 754'e göre karşılaştırmada eşit kabul edilir. İki ayrı sıfırın bulunmasının nedeni, bazı sayısal çözümleme algoritmalarında sıfıra ``hangi yönden'' yaklaşıldığının önemli olmasıdır. Örneğin $1 / (+0) = +\infty$ iken $1 / (-0) = -\infty$ olur.
 
@@ -4208,12 +4208,12 @@ $\sqrt{-1}$ & Gerçek sayılarda tanımsız \\
 \end{tabular}
 \end{center}
 
-NaN'ın en dikkat çekici özelliği \emph{bulaşıcı} olmasıdır: NaN içeren herhangi bir aritmetik işlemin sonucu yine NaN olur. Örneğin $\text{NaN} + 5 = \text{NaN}$, $\text{NaN} \times 0 = \text{NaN}$. Bu bulaşıcılık, programda bir yerde oluşan tanımsız sonucun tüm hesaplamaya sessizce yayılmasına neden olabilir.
+NaN'ın en dikkat çekici özelliği \emph{bulaşıcı} olmasıdır. NaN içeren herhangi bir aritmetik işlemin sonucu yine NaN olur. Örneğin $\text{NaN} + 5 = \text{NaN}$, $\text{NaN} \times 0 = \text{NaN}$. Bu bulaşıcılık, programda bir yerde oluşan tanımsız sonucun tüm hesaplamaya sessizce yayılmasına neden olabilir.
 
-Bir diğer sürpriz: NaN kendisine eşit değildir. IEEE 754'e göre $\text{NaN} \neq \text{NaN}$ her zaman \emph{doğrudur} ve $\text{NaN} = \text{NaN}$ her zaman \emph{yanlıştır}. Bu kural birçok programcı için beklenmediktir; ancak NaN'ı saptamanın en kolay yolunu sağlar: bir değişken kendisine eşit değilse NaN'dır.
+Bir başka sürpriz, NaN'ın kendisine eşit olmamasıdır. IEEE 754'e göre $\text{NaN} \neq \text{NaN}$ her zaman \emph{doğrudur} ve $\text{NaN} = \text{NaN}$ her zaman \emph{yanlıştır}. Bu kural birçok programcı için beklenmediktir; ancak NaN'ı saptamanın en kolay yolunu sağlar. Bir değişken kendisine eşit değilse NaN'dır.
 
 \begin{bilginot}[NaN ile Programlama Uygulaması]
-NaN, program çökmesine veya kural dışı duruma yol açmaz. Program çalışmaya devam eder. Bu durum onu tehlikeli kılar: hata sessizce oluşur ve sonuçlara yayılır. Aşağıdaki C ve Python örneklerinde NaN'ın nasıl ortaya çıktığı ve ekrana nasıl yazdırıldığı görülmektedir:
+NaN, program çökmesine veya kural dışı duruma yol açmaz. Program çalışmaya devam eder. Bu durum onu tehlikeli kılar. Hata sessizce oluşur ve sonuçlara yayılır. Aşağıdaki C ve Python örneklerinde NaN'ın nasıl ortaya çıktığı ve ekrana nasıl yazdırıldığı görülmektedir:
 
 \begin{lstlisting}[language=C, xleftmargin=2em]
 #include <math.h>
@@ -4303,7 +4303,7 @@ En yakın çifte & $1{,}24 + 1{,}24 + 1{,}26 + 1{,}26$ & $5{,}00$ & $0$ \\
 \end{tabular}
 \end{center}
 
-``Her zaman yukarı'' yöntemi sistematik olarak yukarı yanlılık üretir. ``her zaman aşağı'' ise aşağı yanlılık. ``En yakın çifte'' yöntemi ise tam ortadaki değerleri bazen yukarı bazen aşağı yuvarlayarak \emph{yanlılığı sıfıra yakın tutar}. İşte IEEE 754'ün bu yöntemi varsayılan yapmasının nedeni budur: uzun hesaplamalarda hata birikimini en aza indirir.
+``Her zaman yukarı'' yöntemi sistematik olarak yukarı yanlılık üretir. ``her zaman aşağı'' ise aşağı yanlılık. ``En yakın çifte'' yöntemi ise tam ortadaki değerleri bazen yukarı bazen aşağı yuvarlayarak \emph{yanlılığı sıfıra yakın tutar}. İşte IEEE 754'ün bu yöntemi varsayılan yapmasının nedeni budur. Uzun hesaplamalarda hata birikimini en aza indirir.
 
 \subsubsection{Donanımda Yuvarlama: Koruma, Yuvarlama ve Yapışkan Bitler}
 
@@ -4339,11 +4339,11 @@ G~=~1 olduğundan atılacak kısım en az yarıdır. R ve S'ye bakıyoruz: RS~=~
 
 Eğer bit dizisi \texttt{\ldots\,1\;1\;0\;0} (G~=~1, R~=~0, S~=~0) olsaydı tam yarı noktası söz konusu olurdu. Bu durumda $L = 1$ tek olduğundan yine yukarı yuvarlanır ve $L$ çift (0) yapılırdı. Ancak $L = 0$ olsaydı (çift), kırpma yapılır ve $L$ olduğu gibi kalırdı.
 
-Yapışkan bitin neden gerekli olduğunu anlamak önemlidir: yuvarlama ve koruma bitleri yalnızca iki ek bit verir; ancak gerçek sonuç bunların da ötesinde bitlere sahip olabilir. Eğer bu uzak bitlerden herhangi biri 1 ise, atılacak kısım ``tam yarı'' olamaz. Mutlaka yarıdan büyüktür. İşte yapışkan bit, tüm bu uzak bitlerin tek bir VEYA işlemiyle özetlenerek bu ayrımın yapılabilmesini sağlar. Donanımda bu, uzun bir VEYA kapısı zinciriyle gerçekleştirilir ve yalnızca bir bitlik yer kaplar.
+Yapışkan bitin neden gerekli olduğunu anlamak önemlidir. Yuvarlama ve koruma bitleri yalnızca iki ek bit verir; ancak gerçek sonuç bunların da ötesinde bitlere sahip olabilir. Eğer bu uzak bitlerden herhangi biri 1 ise, atılacak kısım ``tam yarı'' olamaz. Mutlaka yarıdan büyüktür. İşte yapışkan bit, tüm bu uzak bitlerin tek bir VEYA işlemiyle özetlenerek bu ayrımın yapılabilmesini sağlar. Donanımda bu, uzun bir VEYA kapısı zinciriyle gerçekleştirilir ve yalnızca bir bitlik yer kaplar.
 
 \subsubsection{Yuvarlama Hatası ve Sonuçları}
 
-Yuvarlama, her kayan nokta işlemine küçük bir hata ekler. Bu hatanın büyüklüğü, anlamlı kısmın kaç bit sakladığına bağlıdır: tek duyarlıda yuvarlama virgülden sonraki 23.\ bitte, çift duyarlıda ise 52.\ bitte gerçekleşir. Bunu somutlaştırmak için $1 \div 3$ işlemini düşünelim. Sonuç $0{,}333\ldots$ olup sonsuz tekrarlıdır ve her duyarlıkta yuvarlanmak zorundadır:
+Yuvarlama, her kayan nokta işlemine küçük bir hata ekler. Bu hatanın büyüklüğü, anlamlı kısmın kaç bit sakladığına bağlıdır. Tek duyarlıda yuvarlama virgülden sonraki 23.\ bitte, çift duyarlıda ise 52.\ bitte gerçekleşir. Bunu somutlaştırmak için $1 \div 3$ işlemini düşünelim. Sonuç $0{,}333\ldots$ olup sonsuz tekrarlıdır ve her duyarlıkta yuvarlanmak zorundadır:
 
 \begin{center}
 \small
@@ -4371,7 +4371,7 @@ False
 
 Bu tür hatalar biriktikçe bilimsel benzetimlerde, finansal hesaplamalarda ve mühendislik uygulamalarında beklenmedik sonuçlara yol açabilir. Bu nedenle sayısal çözümleme alanında hata yayılımı (\emph{error propagation}) ve kararlılık (\emph{numerical stability}) kavramları büyük önem taşır. Finansal uygulamalarda kayan nokta yerine sabit noktalı veya ondalık (\emph{decimal}) aritmetik tercih edilmesinin nedeni de budur.
 
-Özellikle tehlikeli bir durum \emph{yıkıcı yokoluş}\index{yıkıcı yokoluş}\index{catastrophic cancellation|see{yıkıcı yokoluş}} (\emph{catastrophic cancellation}) olarak bilinir: birbirine çok yakın iki kayan nokta sayısı çıkarıldığında, anlamlı kısımdaki üst bitler birbirini götürür ve geriye kalan bitler yuvarlama hatalarından ibarettir. Örneğin $a = 1{,}00000001 \times 2^{10}$ ile $b = 1{,}00000000 \times 2^{10}$ çıkarıldığında sonuç $0{,}00000001 \times 2^{10} = 1{,}0 \times 2^{2}$ olur. Burada 23 bitlik anlamlı kısımdan yalnızca 1 bit gerçek bilgi taşır, geri kalanı güvenilmezdir.
+Özellikle tehlikeli bir durum \emph{yıkıcı yokoluş}\index{yıkıcı yokoluş}\index{catastrophic cancellation|see{yıkıcı yokoluş}} (\emph{catastrophic cancellation}) olarak bilinir. Birbirine çok yakın iki kayan nokta sayısı çıkarıldığında, anlamlı kısımdaki üst bitler birbirini götürür ve geriye kalan bitler yuvarlama hatalarından ibarettir. Örneğin $a = 1{,}00000001 \times 2^{10}$ ile $b = 1{,}00000000 \times 2^{10}$ çıkarıldığında sonuç $0{,}00000001 \times 2^{10} = 1{,}0 \times 2^{2}$ olur. Burada 23 bitlik anlamlı kısımdan yalnızca 1 bit gerçek bilgi taşır, geri kalanı güvenilmezdir.
 \end{bilginot}
 
 \subsection{Kayan Nokta İşlemlerinde Toplama, Çarpma ve Bölme}
@@ -4604,7 +4604,7 @@ E_\text{sonuç} = (1 + 127) + (1 + 127) - 127 = 128 + 128 - 127 = 129 \quad (\te
 
 \subsubsection{Bölme}
 
-Kayan nokta bölmesi çarpmaya benzer bir yapıda ilerler: üsler ayrı ayrı işlenir, anlamlı kısımlar bölünür. Ancak çarpmada üsler toplanırken bölmede \emph{çıkarılır}. Anlamlı kısımlar ise çarpılmak yerine bölünür. Bölme adımları şu şekildedir:
+Kayan nokta bölmesi çarpmaya benzer bir yapıda ilerler. Üsler ayrı ayrı işlenir, anlamlı kısımlar bölünür. Ancak çarpmada üsler toplanırken bölmede \emph{çıkarılır}. Anlamlı kısımlar ise çarpılmak yerine bölünür. Bölme adımları şu şekildedir:
 
 \begin{enumerate}
 \item \textbf{Özel durumları denetle:} İşlenenlerin sıfır, sonsuz veya NaN olup olmadığı denetlenir. Özel durum varsa sonuç doğrudan üretilir ve sonraki adımlar atlanır: $n \div 0 = \pm\infty$, $0 \div 0 = \text{NaN}$, $\infty \div \infty = \text{NaN}$. Bölen sıfırsa bölme işlemi hiç yapılmaz.
@@ -4662,7 +4662,7 @@ Bölen $1{,}0$ olduğundan bölüm doğrudan bölünenin anlamlı kısmıdır.
 
 Kayan nokta gösterimini öğrendiğimize göre, şimdi RISC-V'in bu sayılarla nasıl işlem yaptığına bakalım. Kayan nokta desteğinin buyruk kümesine nasıl eklendiği, mimariden mimariye farklılık gösterir. x86 mimarisinde kayan nokta işlemleri başlangıçta ayrı bir yardımcı işlemci yongasıyla (Intel 8087) destekleniyordu. Kayan nokta birimi 80486DX (1989) ile ana işlemci yongasının içine tümleştirildi. Daha sonra eklenen SSE ve AVX ise tümleştirme değil, tek buyrukla birden fazla veri üzerinde işlem yapan vektör (SIMD) genişletmeleridir. ARM mimarisinde ise kayan nokta başlangıçta isteğe bağlı bir VFP (\emph{Vector Floating-Point}) birimi olarak sunulmuş, ARMv8 ile birlikte zorunlu hale getirilmiştir. Günümüzde NEON/SVE gibi SIMD uzantıları da kayan nokta işlemlerini destekler.
 
-RISC-V bu yaklaşımlardan farklı olarak kayan nokta desteğini baştan modüler uzantılar biçiminde tasarlamıştır: \emph{F} uzantısı tek duyarlı, \emph{D} uzantısı çift duyarlı işlemleri ekler. Ayrı bir yardımcı işlemci yoktur. Kayan nokta buyrukları doğrudan ana buyruk kümesinin uzantıları olarak tanımlanmıştır. İşlemci, tam sayı yazmaçlarının (\texttt{x0}--\texttt{x31}) yanı sıra \texttt{f0}--\texttt{f31} arasında 32 adet kayan nokta yazmacı içerir. F uzantısında bu yazmaçlar 32 bit, D uzantısında ise 64 bit genişliğindedir. Bu uzantıların sağladığı buyruklar Tablo~\ref{tab:kayan-nokta-buyruklar}'te verilmiştir.
+RISC-V bu yaklaşımlardan farklı olarak kayan nokta desteğini baştan modüler uzantılar biçiminde tasarlamıştır. \emph{F} uzantısı tek duyarlı, \emph{D} uzantısı çift duyarlı işlemleri ekler. Ayrı bir yardımcı işlemci yoktur. Kayan nokta buyrukları doğrudan ana buyruk kümesinin uzantıları olarak tanımlanmıştır. İşlemci, tam sayı yazmaçlarının (\texttt{x0}--\texttt{x31}) yanı sıra \texttt{f0}--\texttt{f31} arasında 32 adet kayan nokta yazmacı içerir. F uzantısında bu yazmaçlar 32 bit, D uzantısında ise 64 bit genişliğindedir. Bu uzantıların sağladığı buyruklar Tablo~\ref{tab:kayan-nokta-buyruklar}'te verilmiştir.
 
 \begin{table}[htbp]
 \centering
@@ -4729,9 +4729,9 @@ Bu olay, kayan nokta yuvarlama hatalarının ``küçük'' ve ``önemsiz'' olmad�
 \label{sec:yapay-zeka-kayan-nokta}
 \index{kayan nokta!yapay zeka biçimleri}
 
-IEEE 754'ün tek duyarlı (FP32) biçimi on yıllarca kayan nokta hesaplamalarının standart birimi oldu. Ancak 2010'ların ortasından itibaren derin öğrenme modelleri büyüdükçe FP32'nin maliyeti sorun olmaya başladı: milyarlarca parametreli bir modelin her parametresi 32 bit kapladığında, hem bellek gereksinimi hem de veri aktarım bant genişliği devasa boyutlara ulaşır. Üstelik yapay zeka eğitiminde her parametrenin 7 onluk basamak duyarlıkla saklanması çoğu zaman gereksizdir. Ağırlık güncellemeleri zaten gürültülüdür ve birkaç basamak duyarlık yeterlidir.
+IEEE 754'ün tek duyarlı (FP32) biçimi on yıllarca kayan nokta hesaplamalarının standart birimi oldu. Ancak 2010'ların ortasından itibaren derin öğrenme modelleri büyüdükçe FP32'nin maliyeti sorun olmaya başladı. Milyarlarca parametreli bir modelin her parametresi 32 bit kapladığında, hem bellek gereksinimi hem de veri aktarım bant genişliği devasa boyutlara ulaşır. Üstelik yapay zeka eğitiminde her parametrenin 7 onluk basamak duyarlıkla saklanması çoğu zaman gereksizdir. Ağırlık güncellemeleri zaten gürültülüdür ve birkaç basamak duyarlık yeterlidir.
 
-Bu gözlem, araştırmacıları daha dar kayan nokta biçimleri geliştirmeye yöneltti. Temel fikir yalındır: \emph{her parametrenin kapladığı bit sayısını yarıya indirirsen, aynı belleğe iki kat daha fazla parametre sığar ve aynı bant genişliğiyle iki kat daha fazla veri taşırsın.} Ayrıca dar çarpıcılar daha az alan kaplar ve daha az enerji tüketir. Dolayısıyla aynı yonga üzerine çok daha fazla çarpma-toplama birimi yerleştirilebilir.
+Bu gözlem, araştırmacıları daha dar kayan nokta biçimleri geliştirmeye yöneltti. Temel fikir yalındır. \emph{Her parametrenin kapladığı bit sayısını yarıya indirirsen, aynı belleğe iki kat daha fazla parametre sığar ve aynı bant genişliğiyle iki kat daha fazla veri taşırsın.} Ayrıca dar çarpıcılar daha az alan kaplar ve daha az enerji tüketir. Dolayısıyla aynı yonga üzerine çok daha fazla çarpma-toplama birimi yerleştirilebilir.
 
 \subsection{FP16: IEEE 754 Yarım Duyarlı}
 \index{FP16}\index{yarım duyarlı|see{FP16}}
@@ -4740,14 +4740,14 @@ IEEE 754-2008 ile standartlaştırılan yarım duyarlı (\emph{half precision}) 
 
 FP16 başlangıçta grafik uygulamaları (doku sıkıştırma, renk hesaplama) için tasarlanmıştı. Yapay zeka alanında da ilk dar biçim olarak yaygınlaştı. NVIDIA'nın 2016'da çıkardığı Pascal mimarisi (P100 GPU) FP16 desteğini yapay zeka eğitimi için öne çıkaran ilk büyük ölçekli donanımdı.
 
-Ancak FP16'nın ciddi bir sınırlaması vardır: 5 bitlik üs alanı yalnızca $-14$ ile $+15$ arasında gerçek üs değerlerine izin verir. Gösterilebilen en büyük sonlu değer yaklaşık $65\,504$'tür. Derin öğrenme eğitiminde ağırlık güncellemeleri sırasında gradyanlar ve kayıp değerleri bu aralığı kolayca aşabilir. Bu durumda taşma (\emph{overflow}) oluşur ve eğitim kararsızlaşır.
+Ancak FP16'nın ciddi bir sınırlaması vardır. 5 bitlik üs alanı yalnızca $-14$ ile $+15$ arasında gerçek üs değerlerine izin verir. Gösterilebilen en büyük sonlu değer yaklaşık $65\,504$'tür. Derin öğrenme eğitiminde ağırlık güncellemeleri sırasında gradyanlar ve kayıp değerleri bu aralığı kolayca aşabilir. Bu durumda taşma (\emph{overflow}) oluşur ve eğitim kararsızlaşır.
 
 \subsection{BF16: Google Brain'den Doğan Biçim}
 \index{BF16}\index{beyin kayan nokta|see{BF16}}\index{Google Brain}
 
 2018 yılında Google Brain ekibi, kendi TPU (\emph{Tensor Processing Unit}) hızlandırıcıları için yeni bir 16 bitlik biçim tasarladı: \textbf{BF16} (\emph{Brain Floating Point 16}). Tasarımın çıkış noktası şu sorunun yanıtıydı: \emph{``FP32'nin bit bütçesini yarıya indirirken hangi alandan kısmalıyız: üsten mi, kesirden mi?''}
 
-FP16, üs alanını 5 bite indirerek sayı aralığını daraltmıştı ve bu taşma sorunlarına yol açıyordu. Google mühendisleri tam tersi bir seçim yaptı: \textbf{üs alanını FP32 ile aynı} (8 bit) tutup \textbf{kesir alanını} 23 bitten 7 bite indirdiler (Şekil~\ref{fig:fp32-bf16-fp16}).
+FP16, üs alanını 5 bite indirerek sayı aralığını daraltmıştı ve bu taşma sorunlarına yol açıyordu. Google mühendisleri tam tersi bir seçim yaptı. \textbf{Üs alanını FP32 ile aynı} (8 bit) tutup \textbf{kesir alanını} 23 bitten 7 bite indirdiler (Şekil~\ref{fig:fp32-bf16-fp16}).
 
 \begin{figure}[htbp]
 \centering
@@ -4808,13 +4808,13 @@ BF16 ilk olarak Google'ın TPU v2 ve v3 hızlandırıcılarında kullanıldı. K
 \subsection{TF32: NVIDIA'nın Uzlaşısı}
 \index{TF32}
 
-BF16 ve FP16 bellekte 16 bit kaplar ve FP32'ye göre iki kat hız kazandırır; ancak programcının veri tiplerini açıkça değiştirmesini gerektirir. NVIDIA, 2020'de Ampere mimarisini (A100 GPU) tanıtırken farklı bir yaklaşım izledi: mevcut FP32 kodunu hiç değiştirmeden hızlandırmak. Bunun için \textbf{TF32} (\emph{TensorFloat-32}) adında bir ara biçim tasarladı.
+BF16 ve FP16 bellekte 16 bit kaplar ve FP32'ye göre iki kat hız kazandırır; ancak programcının veri tiplerini açıkça değiştirmesini gerektirir. NVIDIA, 2020'de Ampere mimarisini (A100 GPU) tanıtırken mevcut FP32 kodunu hiç değiştirmeden hızlandırmayı amaçlayan farklı bir yaklaşım izledi. Bunun için \textbf{TF32} (\emph{TensorFloat-32}) adında bir ara biçim tasarladı.
 
 TF32, 1 işaret $+$ 8 üs $+$ 10 kesir $=$ 19 bitten oluşur. FP32'nin 8 bitlik üs alanını koruyarak aynı sayı aralığını ($\approx 10^{\pm 38}$) sunar. Kesir alanını ise 23 bitten 10 bite indirerek çarpıcı devresini küçültür. 10 bitlik kesir, FP16 ile aynı duyarlığı ($\approx 3{-}4$ onluk basamak) sağlar ve yapay zeka eğitimi için yeterlidir.
 
 Peki neden doğrudan FP32 kullanılmaz? Çarpma devresinin alanı, kesir genişliğinin \emph{karesiyle} orantılı büyür: $23 \times 23 = 529$ bitlik bir çarpıcı yerine $10 \times 10 = 100$ bitlik bir çarpıcı yaklaşık 5 kat daha küçüktür ve daha az enerji tüketir. Aynı yonga alanına çok daha fazla çarpma birimi yerleştirilebilir. A100'ün Tensör Çekirdeği birimleri bu sayede FP32'ye göre 8 kat daha yüksek işlem gücü sunar.
 
-TF32'nin en önemli özelliği, bellekte ayrı bir veri tipi olarak saklanmamasıdır: veriler bellekte FP32 olarak durur, yalnızca Tensör Çekirdeği çarpma birimleri içinde sessizce TF32'ye kırpılarak çarpılır ve sonuç FP32 olarak döndürülür. Programcının kod değiştirmesine gerek yoktur. Bu nedenle NVIDIA bunu ``FP32'nin hızlı modu'' olarak konumlandırmıştır.
+TF32'nin en önemli özelliği, bellekte ayrı bir veri tipi olarak saklanmamasıdır. Veriler bellekte FP32 olarak durur, yalnızca Tensör Çekirdeği çarpma birimleri içinde sessizce TF32'ye kırpılarak çarpılır ve sonuç FP32 olarak döndürülür. Programcının kod değiştirmesine gerek yoktur. Bu nedenle NVIDIA bunu ``FP32'nin hızlı modu'' olarak konumlandırmıştır.
 
 \subsection{FP8: Çıkarım İçin En Dar Biçim}
 \index{FP8}
@@ -4977,16 +4977,16 @@ Peki bu kadar bit kısmak modelin doğruluğunu ne kadar etkiler? Daha önce gö
 \caption[Farklı yapay zeka modellerinin ağırlık dağılımları]{Farklı yapay zeka modellerinin tipik ağırlık dağılımları. Tüm modellerde ağırlıklar sıfır etrafında çan eğrisi biçiminde yoğunlaşır; CNN modelleri (ResNet) daha dar, Transformer modelleri (GPT, BERT) daha geniş kuyruklu dağılım gösterir. Bu yoğunlaşma, düşük bitli kayan nokta biçimlerinin yeterli duyarlık sağlayabilmesinin temel nedenidir.}
 \label{fig:agirlik-dagilimi}
 \end{figure}
-\item \textbf{BF16 $\rightarrow$ FP8:} Doğruluk kaybı genellikle \%0{,}5--1 aralığındadır. E4M3 biçiminde yalnızca 3 bitlik kesir alanı ($\approx 1{,}5$ onluk basamak) kaldığından, aşırı büyük veya küçük ağırlıklarda kırpma (\emph{clipping}) gerekebilir. Bunu telafi etmek için eğitim sırasında \emph{niceleme farkındalıklı eğitim} (\emph{quantization-aware training}) kullanılır: model, düşük duyarlıkta çalışacağını ``bilerek'' eğitilir ve ağırlıklarını bu sınırlara göre uyarlar.
+\item \textbf{BF16 $\rightarrow$ FP8:} Doğruluk kaybı genellikle \%0{,}5--1 aralığındadır. E4M3 biçiminde yalnızca 3 bitlik kesir alanı ($\approx 1{,}5$ onluk basamak) kaldığından, aşırı büyük veya küçük ağırlıklarda kırpma (\emph{clipping}) gerekebilir. Bunu telafi etmek için eğitim sırasında \emph{niceleme farkındalıklı eğitim} (\emph{quantization-aware training}) kullanılır. Model, düşük duyarlıkta çalışacağını ``bilerek'' eğitilir ve ağırlıklarını bu sınırlara göre uyarlar.
 \item \textbf{Çıkarımda daha aşırı niceleme:} Eğitilmiş bir modelin ağırlıkları, çıkarım sırasında 4 bitlik tam sayılara (INT4) kadar indirilebilir. Bu durumda doğruluk kaybı \%1--3'e çıkabilir; ancak bellek gereksinimi FP32'ye göre 8 kat azalır. Bu teknik, büyük dil modellerinin tek bir tüketici GPU'sunda çalıştırılabilmesini sağlamıştır.
 \end{itemize}
 
 \subsection{Karma Duyarlık Eğitimi}
 \index{karma duyarlık}\index{mixed precision|see{karma duyarlık}}
 
-Önceki alt bölümlerde gördüğümüz biçimlerin her birinin güçlü ve zayıf yanları vardır: FP32 yüksek duyarlık sunar ama yavaş ve bellek açısından pahalıdır. BF16 hızlı ve verimlidir ama duyarlığı düşüktür. Peki neden tek bir biçim seçmek yerine ikisini birden kullanmıyoruz?
+Önceki alt bölümlerde gördüğümüz biçimlerin her birinin güçlü ve zayıf yanları vardır. FP32 yüksek duyarlık sunar ama yavaş ve bellek açısından pahalıdır. BF16 hızlı ve verimlidir ama duyarlığı düşüktür. Peki neden tek bir biçim seçmek yerine ikisini birden kullanmıyoruz?
 
-Sorun şudur: eğitim sırasında ağırlık güncellemeleri (gradyanlar) genellikle çok küçük değerlerdir. Örneğin $10^{-5}$ mertebesinde. Bir ağırlık $1{,}0$ iken $0{,}00001$ eklemek istediğimizde, BF16'nın yalnızca 2--3 onluk basamak duyarlığı bu küçük farkı temsil edemez ve güncelleme \emph{yuvarlanarak kaybolur}. Öte yandan tüm hesaplamayı FP32 ile yapmak, BF16'ya göre iki kat daha fazla bellek ve bant genişliği gerektirir. Milyarlarca parametreli bir modelde bu fark devasa boyutlara ulaşır.
+Sorun, eğitim sırasında ağırlık güncellemelerinin (gradyanların) genellikle çok küçük değerler olmasıdır. Örneğin $10^{-5}$ mertebesinde. Bir ağırlık $1{,}0$ iken $0{,}00001$ eklemek istediğimizde, BF16'nın yalnızca 2--3 onluk basamak duyarlığı bu küçük farkı temsil edemez ve güncelleme \emph{yuvarlanarak kaybolur}. Öte yandan tüm hesaplamayı FP32 ile yapmak, BF16'ya göre iki kat daha fazla bellek ve bant genişliği gerektirir. Milyarlarca parametreli bir modelde bu fark devasa boyutlara ulaşır.
 
 Çözüm, iki biçimin güçlü yanlarını birleştiren \emph{karma duyarlık} (\emph{mixed precision}) yöntemidir. Tipik bir karma duyarlık eğitim döngüsü şöyle çalışır:
 
@@ -5099,7 +5099,7 @@ Sıfıra bölme sonucu oluşan \texttt{Inf} (sonsuz) ve tanımsız işlemlerden 
 Yuvarlama hataları nedeniyle \texttt{if (x == 0.3)} gibi doğrudan eşitlik denetimleri neredeyse her zaman başarısız olur. Örneğin \texttt{0.1 + 0.2} ifadesinin sonucu \texttt{0.30000000000000004} olduğundan \texttt{0.3} ile eşit çıkmaz. Doğru yöntem, iki sayının farkının küçük bir eşik değerinden ($\varepsilon$) az olup olmadığını denetlemektir: $|a - b| < \varepsilon$.
 
 \tuzak{Tam sayı ve kayan nokta sıfıra bölmeyi karıştırmak}
-Kayan nokta aritmetiğinde sıfıra bölme sessizce $\pm\infty$ üretir ve program çalışmaya devam eder. Tam sayı aritmetiğinde ise davranış mimariye göre değişir: birçok mimaride (örneğin x86) sıfıra bölme bir kural dışı durum (\emph{exception}) tetikler ve program çökebilir. RISC-V ise kural dışı durum üretmeden tanımlı özel bir değer döndürür ve program çalışmaya devam eder. Bu iki davranışın karıştırılması, özellikle tam sayı ile kayan nokta arasında tür dönüşümü yapılan kodlarda tehlikeli hatalara yol açar.
+Kayan nokta aritmetiğinde sıfıra bölme sessizce $\pm\infty$ üretir ve program çalışmaya devam eder. Tam sayı aritmetiğinde ise davranış mimariye göre değişir. Birçok mimaride (örneğin x86) sıfıra bölme bir kural dışı durum (\emph{exception}) tetikler ve program çökebilir. RISC-V ise kural dışı durum üretmeden tanımlı özel bir değer döndürür ve program çalışmaya devam eder. Bu iki davranışın karıştırılması, özellikle tam sayı ile kayan nokta arasında tür dönüşümü yapılan kodlarda tehlikeli hatalara yol açar.
 
 
 % =============================================
@@ -5114,18 +5114,18 @@ Intel'in 8086 işlemcisi (1978) kayan nokta donanımına sahip değildi. Kayan n
 Bu ayrık yapı 80286/80287 ve 80386/80387 çiftlerinde de sürdü. Bilgisayar reklamlarında ``matematik yardımcı işlemci yuvası mevcut'' ifadesi bir satış noktasıydı; çünkü 8087 tek başına birkaç yüz dolar tutuyordu ve birçok kullanıcı bu ek maliyetten kaçınıyordu. Sonuç olarak, yazılım geliştiricileri programlarının kayan nokta birimi olmadan da çalışacağını garanti etmek zorundaydı.
 
 \subsection{Tümleşik Kayan Nokta Birimi (1989--)}
-Intel, \textbf{80486DX}\index{Intel 80486DX} işlemcisiyle (1989) kayan nokta birimini ilk kez işlemci yongasının içine aldı. Bu geçiş, Moore yasasının\index{Moore yasası} sağladığı transistör bütçesi artışıyla mümkün oldu: 80386'daki 275\,000 transistörden 80486'daki 1,2 milyona atlama, kayan nokta birimini de içerecek yeterli alanı sağladı. O günden bu yana her genel amaçlı işlemci tümleşik kayan nokta birimleriyle donatılmaktadır.
+Intel, \textbf{80486DX}\index{Intel 80486DX} işlemcisiyle (1989) kayan nokta birimini ilk kez işlemci yongasının içine aldı. Bu geçiş, Moore yasasının\index{Moore yasası} sağladığı transistör bütçesi artışıyla mümkün oldu. 80386'daki 275\,000 transistörden 80486'daki 1,2 milyona atlama, kayan nokta birimini de içerecek yeterli alanı sağladı. O günden bu yana her genel amaçlı işlemci tümleşik kayan nokta birimleriyle donatılmaktadır.
 
 \subsection{Günümüz: SIMD, Vektör ve Matris Birimleri}
 Bugünün işlemcileri tek seferde yalnızca bir kayan nokta işlemi yapan birimlerle yetinmez. ARM mimarisindeki \textbf{NEON}\index{NEON (ARM)} ve \textbf{SVE/SVE2}\index{SVE (ARM)} uzantıları, tek bir buyrukla birden fazla kayan nokta işlemi gerçekleştiren SIMD (\emph{Single Instruction, Multiple Data}\index{SIMD}) birimleri sunar. Apple'ın M serisi\index{Apple M serisi} yongaları (M1--M5) bu ARM uzantılarını yüksek başarımlı çekirdeklerinde kullanır. Ayrıca \textbf{AMX}\index{AMX (Apple)} (\emph{Apple Matrix coprocessor}) adlı özel bir matris çarpma birimi barındırır. AMX, bu bölümde öğrendiğimiz çarpma-toplama birimlerinden oluşan bir dizilimdir ve yapay öğrenme iş yüklerini hızlandırmak için tasarlanmıştır.
 
-x86 dünyasında da benzer bir evrim yaşanmıştır: MMX (1997), SSE (1999), AVX (2011), AVX-512 (2017) ve en son AVX10/AMX (2023) ile aritmetik birimlerin genişliği ve sayısı sürekli artmıştır. NVIDIA ve Google gibi şirketler ise bu bölümde gördüğümüz Tensör Çekirdekleri\index{Tensör Çekirdeği} ve TPU\index{TPU} gibi özel amaçlı aritmetik hızlandırıcılarla bu evrimi daha da ileri taşımıştır.
+x86 dünyasında da benzer bir evrim yaşanmıştır. MMX (1997), SSE (1999), AVX (2011), AVX-512 (2017) ve en son AVX10/AMX (2023) ile aritmetik birimlerin genişliği ve sayısı sürekli artmıştır. NVIDIA ve Google gibi şirketler ise bu bölümde gördüğümüz Tensör Çekirdekleri\index{Tensör Çekirdeği} ve TPU\index{TPU} gibi özel amaçlı aritmetik hızlandırıcılarla bu evrimi daha da ileri taşımıştır.
 
 \begin{terimnotu}
-\textbf{yapay öğrenme} (\emph{machine learning})\index{yapay öğrenme}\index{machine learning|see{yapay öğrenme}}\,: Türkçeye sıklıkla ``makine öğrenmesi'' olarak aktarılır. Ancak bu çeviri dilbilgisel olarak hatalıdır: Türkçede ``makine öğrenmesi'' biçiminde bir isim tamlaması kurulmaz, tıpkı ``çocuk öğrenmesi'' demediğimiz gibi. Doğru tamlama ``makinenin öğrenmesi'' ya da ``makineyle öğrenme'' olurdu. TDK'nın önerdiği karşılık \emph{yapay öğrenme} olup ``yapay zekâ'' ile koşut bir yapıdadır.
+\textbf{yapay öğrenme} (\emph{machine learning})\index{yapay öğrenme}\index{machine learning|see{yapay öğrenme}}\,: Türkçeye sıklıkla ``makine öğrenmesi'' olarak aktarılır. Ancak bu çeviri dilbilgisel olarak hatalıdır. Türkçede ``makine öğrenmesi'' biçiminde bir isim tamlaması kurulmaz, tıpkı ``çocuk öğrenmesi'' demediğimiz gibi. Doğru tamlama ``makinenin öğrenmesi'' ya da ``makineyle öğrenme'' olurdu. TDK'nın önerdiği karşılık \emph{yapay öğrenme} olup ``yapay zekâ'' ile koşut bir yapıdadır.
 \end{terimnotu}
 
-Bu tarihsel yolculuk bir noktayı vurgular: bu bölümde öğrendiğimiz temel yapı taşları (toplayıcılar, çarpıcılar ve kayan nokta devreleri) on yıllar boyunca değişmeden kalmıştır. Değişen, bu yapı taşlarından kaç tanesinin tek bir yonga üzerine sığdırılabildiğidir.
+Bu tarihsel yolculuk bir noktayı vurgular. Bu bölümde öğrendiğimiz temel yapı taşları (toplayıcılar, çarpıcılar ve kayan nokta devreleri) on yıllar boyunca değişmeden kalmıştır. Değişen, bu yapı taşlarından kaç tanesinin tek bir yonga üzerine sığdırılabildiğidir.
 
 % =============================================
 \section{Özet}
@@ -5312,7 +5312,7 @@ Dört bitlik $A = 1011$ ve $B = 0110$ işlenenleri için önceden elde üreten t
 \begin{enumerate}[(a)]
 \item Her bit konumu için $P_i = A_i \oplus B_i$ ve $G_i = A_i \cdot B_i$ değerlerini bulun.
 \item $C_4$'ü doğrudan $P_i$, $G_i$ ve $C_0 = 0$ kullanarak (herhangi bir $C_i$ beklemeden) hesaplayın.
-\item Bu sonucu dalga eldeli toplayıcıyla (RCA) karşılaştırın: kaç kapı gecikmesi farkı vardır?
+\item Bu sonucu dalga eldeli toplayıcıyla (RCA) karşılaştırın. Kaç kapı gecikmesi farkı vardır?
 \end{enumerate}
 \end{alistirma}
 

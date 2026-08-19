@@ -4,6 +4,20 @@ Bu dosya, kitabın sürümler arasındaki önemli değişikliklerini takip eder.
 
 ---
 
+## [0.4.8] — 2026-08-19
+
+### İyileştirmeler
+- **Kitap genelinde dil temizliği:** İngilizceden gelen "sav: açıklama" biçimindeki iki nokta kalıbı doğal Türkçeye çevrildi (yaklaşık 510 yerde). Cümleler bölündü ya da neden-sonuç bağlacıyla kuruldu.
+- **Ek A, ikiye tümleyen anlatımı yeniden kuruldu:** artık tarifin önünde amaç (çıkarmayı toplamaya çevirmek), eksi sayının tanımı, basamak ağırlığı okuması ve yeni sayaç çemberi şekli (Şekil A.1) yer alıyor.
+- Ek A'da taban çevriminde gruplamanın virgülden başladığı, tam ve kesir kısmında hangi yöne ilerlendiği açıkça belirtildi.
+- Arka sayfalara **Aynı Yazardan: Bilge ve Yonga** tanıtım sayfası eklendi (çocuklar için ücretsiz bilgisayar mimarisi kitapları serisi).
+
+### Düzeltmeler
+- Yazar tanıtımında "akademisyen" yerine "öğretim üyesi".
+- Bölüm 2'de bir özne-yüklem uyumsuzluğu giderildi.
+
+---
+
 ## [0.4.7] — 2026-07-12
 
 ### İyileştirmeler

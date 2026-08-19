@@ -57,12 +57,7 @@ jobs:
             bilgisayar-mimarisi.pdf
             bilgisayar-mimarisi-${{ github.ref_name }}.pdf
           name: "Bilgisayar Mimarisi ${{ github.ref_name }}"
-          body: |
-            ## Bilgisayar Mimarisi: RISC-V Tabanlı Yaklaşım
-
-            **Sürüm**: ${{ github.ref_name }}
-
-            PDF dosyasını indirmek için aşağıdaki bağlantıyı kullanın.
+          # body verilmez: sürüm notları elle yazılır, iş akışı üzerine yazmaz
           draft: false
           prerelease: false
           overwrite_files: true

@@ -418,44 +418,87 @@
 @media (max-width: 640px) {
     #cocuk-serisi .cocuk-alt { flex-direction: column; align-items: stretch; }
 }
+
+/* ===== Ust bolum (hero2): kapagin lacivert ve amber dunyasiyla ===== */
+.hero2 {
+    --h2-zemin: #0a1932; --h2-amber: #f2b84c; --h2-mavi: #3b82d6;
+    position: relative; overflow: hidden; color: #f5f5f0;
+    background:
+        radial-gradient(520px 360px at 22% 72%, rgba(242,184,76,.16), transparent 70%),
+        radial-gradient(640px 420px at 85% 10%, rgba(59,130,214,.28), transparent 70%),
+        linear-gradient(160deg, #0a1932 0%, #10284c 100%);
+    padding: 3.5rem 1.25rem 3.25rem;
+}
+.hero2-ic {
+    max-width: 960px; margin: 0 auto;
+    display: grid; grid-template-columns: 230px 1fr; gap: 3rem; align-items: center;
+}
+.hero2-kapak { display: block; line-height: 0; border-radius: 6px;
+    box-shadow: 0 24px 48px -12px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.07);
+    transition: transform .2s ease; }
+.hero2-kapak:hover { transform: translateY(-3px); }
+.hero2-kapak img { width: 100%; height: auto; border-radius: 6px; display: block; }
+.hero2-ust { font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--h2-amber); font-weight: 700; margin-bottom: .6rem; }
+.hero2 h1 { font-size: 2.9rem; line-height: 1.08; font-weight: 800; letter-spacing: -.015em;
+    margin-bottom: .55rem; color: #ffffff; }
+.hero2-alt { font-size: 1.35rem; margin-bottom: .35rem; color: #e8eef7; }
+.hero2-alt .amber { color: var(--h2-amber); font-weight: 700; }
+.hero2-yazar { font-size: 1rem; color: #c8d3e3; margin-bottom: 1.25rem; }
+.hero2-bilgi { list-style: none; display: flex; flex-wrap: wrap; gap: .15rem 0;
+    font-size: .85rem; color: #aebcd2; margin-bottom: 1.5rem; }
+.hero2-bilgi li + li::before { content: "·"; margin: 0 .55rem; color: #6f84a6; }
+.hero2-dugmeler { display: flex; flex-wrap: wrap; gap: .6rem; }
+.hb { display: inline-flex; align-items: center; gap: .45rem; padding: .62rem 1.05rem;
+    border-radius: 8px; font-size: .92rem; font-weight: 600; text-decoration: none;
+    color: #e8eef7; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.18);
+    transition: background .15s, border-color .15s, transform .15s; }
+.hb:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.34); transform: translateY(-1px); }
+.hb svg { width: 1.1em; height: 1.1em; flex-shrink: 0; }
+.hb-ana { background: var(--h2-amber); border-color: var(--h2-amber); color: #0a1932; }
+.hb-ana:hover { background: #ffc863; border-color: #ffc863; }
+.hero2 .hero-cocuk-bag { margin-top: 1.2rem; color: #aebcd2; border-bottom-color: #4d6a94; font-size: .9rem; }
+.hero2 .hero-cocuk-bag:hover { color: #ffffff; }
+@media (max-width: 767px) {
+    .hero2 { padding: 2.5rem 1.1rem 2.5rem; text-align: center; }
+    .hero2-ic { grid-template-columns: 1fr; gap: 1.75rem; justify-items: center; }
+    .hero2-kapak { width: 190px; }
+    .hero2 h1 { font-size: 2.2rem; }
+    .hero2-alt { font-size: 1.15rem; }
+    .hero2-dugmeler { justify-content: center; }
+    .hero2-bilgi { display: block; }
+    .hero2-bilgi li + li::before { content: none; }
+}
 </style>
 </head>
 <body>
 
 <!-- Hero -->
-<div class="hero">
-    <div class="hero-content">
-        <img src="kapak.jpg" alt="Kitap Kapağı" class="hero-cover"
-             onerror="this.style.display='none'">
-        <div>
+<header class="hero2">
+    <div class="hero2-ic">
+        <a class="hero2-kapak" href="bilgisayar-mimarisi.pdf" download aria-label="PDF indir">
+            <img src="kapak.jpg" alt="Bilgisayar Mimarisi kitabının kapağı" width="230" height="325"
+                 onerror="this.parentElement.style.display='none'">
+        </a>
+        <div class="hero2-metin">
+            <p class="hero2-ust">Açık erişimli ders kitabı</p>
             <h1>Bilgisayar Mimarisi</h1>
-            <div class="subtitle">RISC-V Tabanlı Yaklaşım</div>
-            <div class="author">Prof. Dr. Oğuz Ergin</div>
-            <div class="badges">
-                <span class="badge badge-version">v0.4.8</span>
-                <span class="badge badge-license">CC BY-NC-ND 4.0</span>
-                <span class="badge badge-isbn">ISBN: 978-625-00-6081-0</span>
-                <span class="badge badge-version">531 sayfa</span>
-                <span class="badge badge-version">19 Ağustos 2026</span>
-            </div>
-            <div class="cta-buttons">
-                <a href="bilgisayar-mimarisi.pdf" class="btn btn-primary" download>
-                    &#x1F4E5; PDF İndir (v0.4.8)
-                </a>
-                <a href="https://www.youtube.com/playlist?list=PLvNq8wrSYGAU6CF4UleG6HbXa9paQDsLK" class="btn btn-secondary">
-                    &#x1F3AC; Video Dersler
-                </a>
-                <a href="https://github.com/prof-oguzergin/bilgisayar-mimarisi" class="btn btn-secondary">
-                    &#x1F4C2; GitHub
-                </a>
-                <a href="https://play.google.com/store/books/details/O%C4%9Fuz_Ergin_Bilgisayar_Mimarisi_RISC_V_Tabanl%C4%B1_Yakl?id=857HEQAAQBAJ" class="btn btn-secondary">
-                    &#x1F4D6; Google Play Books
-                </a>
+            <p class="hero2-alt"><span class="amber">RISC-V</span> Tabanlı Yaklaşım</p>
+            <p class="hero2-yazar">Prof. Dr. Oğuz Ergin</p>
+            <ul class="hero2-bilgi">
+                <li>Sürüm 0.4.8 · 531 sayfa · 19 Ağustos 2026</li>
+                <li>ISBN 978-625-00-6081-0 · CC BY-NC-ND 4.0</li>
+            </ul>
+            <div class="hero2-dugmeler">
+                <a href="bilgisayar-mimarisi.pdf" class="hb hb-ana" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF İndir</a>
+                <a href="https://www.youtube.com/playlist?list=PLvNq8wrSYGAU6CF4UleG6HbXa9paQDsLK" class="hb"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 9.2v5.6l4.8-2.8z" fill="currentColor"/></svg>Video Dersler</a>
+                <a href="https://play.google.com/store/books/details/O%C4%9Fuz_Ergin_Bilgisayar_Mimarisi_RISC_V_Tabanl%C4%B1_Yakl?id=857HEQAAQBAJ" class="hb"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.5C10 5 7.5 4.5 4 4.8v13.4c3.5-.3 6 .2 8 1.7m0-13.4c2-1.5 4.5-2 8-1.7v13.4c-3.5-.3-6 .2-8 1.7m0-13.4v13.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Google Play</a>
+                <a href="https://github.com/prof-oguzergin/bilgisayar-mimarisi" class="hb"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5a9.5 9.5 0 0 0-3 18.52c.48.09.65-.2.65-.46v-1.6c-2.64.57-3.2-1.27-3.2-1.27-.43-1.1-1.06-1.4-1.06-1.4-.86-.59.07-.58.07-.58.95.07 1.45.98 1.45.98.85 1.45 2.22 1.03 2.76.79.09-.61.33-1.03.6-1.27-2.1-.24-4.32-1.05-4.32-4.69 0-1.03.37-1.88.98-2.54-.1-.24-.43-1.2.09-2.5 0 0 .8-.26 2.61.97a9 9 0 0 1 4.75 0c1.81-1.23 2.6-.97 2.6-.97.53 1.3.2 2.26.1 2.5.61.66.98 1.5.98 2.54 0 3.65-2.22 4.45-4.34 4.68.34.3.65.88.65 1.77v2.63c0 .26.17.56.66.46A9.5 9.5 0 0 0 12 2.5z"/></svg>GitHub</a>
             </div>
             <a class="hero-cocuk-bag" href="#cocuk-serisi">Aynı konular 7-12 yaş için: Bilge ve Yonga serisi &darr;</a>
         </div>
     </div>
-</div>
+</header>
 
 <div class="container">
 

@@ -469,6 +469,37 @@
     .hero2-bilgi { display: block; }
     .hero2-bilgi li + li::before { content: none; }
 }
+
+/* ===== Alt kisim: ust bolumle uyum (lacivert + amber) ===== */
+section h2 { border-bottom: none; padding-bottom: 0; position: relative; margin-bottom: 1.25rem; }
+section h2::after { content: ""; display: block; width: 44px; height: 3px; margin-top: .55rem;
+    border-radius: 2px; background: #f2b84c; }
+section p a, .acc-foto a { color: var(--accent); text-underline-offset: 2px; }
+section p a:hover { color: var(--primary); }
+
+.accordion-item.open .accordion-header { background: #eef4fb; }
+.chevron { width: 16px; height: 16px; color: var(--text-light); font-size: 0; }
+.chevron svg { width: 16px; height: 16px; display: block; }
+.accordion-content { background: #f6f9fd; border-top: 1px solid var(--border); padding: 1.1rem 1.25rem 1.2rem; }
+.acc-ozet { font-size: .85rem; font-weight: 600; color: var(--primary); margin: 0 0 1rem;
+    padding-bottom: .75rem; border-bottom: 1px solid var(--border); }
+@media (min-width: 760px) { .acc-detail-grid { grid-template-columns: 1.1fr 1.1fr .9fr; } }
+.acc-col ul li { border-bottom-color: #e3ebf5; }
+.acc-foto { font-size: .78rem; color: var(--text-light); margin: 1rem 0 0; font-style: italic; }
+
+.atif-kutu { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: .9rem; overflow: hidden; }
+.atif-baslik { display: flex; justify-content: space-between; align-items: center;
+    padding: .5rem .9rem; background: #f6f9fd; border-bottom: 1px solid var(--border);
+    font-size: .75rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--text-light); }
+.atif-kutu p, .atif-kutu pre { margin: 0; padding: .9rem 1rem; font-size: .88rem; }
+.atif-kutu pre { font-family: 'Fira Code', Consolas, monospace; font-size: .8rem; white-space: pre-wrap;
+    color: var(--text); overflow-x: auto; }
+.kopyala { font: inherit; font-size: .72rem; letter-spacing: .03em; text-transform: none; cursor: pointer;
+    color: var(--primary); background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: .25rem .65rem; }
+.kopyala:hover { border-color: #f2b84c; }
+.kopyala.tamam { color: #276749; border-color: #9ae6b4; background: #f0fff4; }
+footer .ayrac { color: #cbd5e0; margin: 0 .35rem; }
 </style>
 </head>
 <body>
@@ -512,12 +543,11 @@
         </p>
         <p>
             Ana eksen RISC-V olmakla birlikte, her önemli kavram x86, ARM ve MIPS mimarileriyle
-            karşılaştırmalı olarak sunulmaktadır. Kitap sürekli güncellenmektedir;
-            hata bildirimleri memnuniyetle karşılanır.
+            karşılaştırmalı olarak sunulmaktadır. Kitap sürekli güncellenmektedir.
+            Bir hata bulursanız <a href="https://github.com/prof-oguzergin/bilgisayar-mimarisi/issues">GitHub
+            üzerinden bildirebilirsiniz</a>; bildirimler memnuniyetle karşılanır.
         </p>
     </section>
-
-    <!-- İçindekiler -->
 
 <!-- Cocuk serisi -->
 <section id="cocuk-serisi">
@@ -562,11 +592,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">17 şekil · 6 tablo · 12 bilgi notu · 7 çözümlü örnek · 35 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -583,34 +614,6 @@
                                     <li>1.10 Bilgisayar Mimarisinin Yeni Ufku: Yapay Zekâ</li>
                                     <li>1.11 Yanılgılar ve Tuzaklar</li>
                                     <li>1.12 Özet</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Şekil 1.1: Pascaline mekanik hesap makinesi</li>
-                                    <li>Şekil 1.2: Intel işlemcilerin gelişimi</li>
-                                    <li>Şekil 1.3: Moore Yasası eğrisi</li>
-                                    <li>Şekil 1.4: Bilgisayarın 5 ana bileşeni</li>
-                                    <li>Şekil 1.5: Farklı bilgisayar türleri</li>
-                                    <li>Şekil 1.6: Gerçek dünyayla etkileşen bilgisayarlar</li>
-                                    <li>Şekil 1.7: Soyutlama katmanları</li>
-                                    <li>Şekil 1.8: Yonga yapılma süreci</li>
-                                    <li>Şekil 1.9: Silisyum plakadan yonga kesimi</li>
-                                    <li>Şekil 1.10: Teknoloji düğümlerinin gelişimi</li>
-                                    <li>Şekil 1.11: Üretim maliyetleri</li>
-                                    <li>Şekil 1.12: Von Neumann ve Harvard mimarileri</li>
-                                    <li>Şekil 1.13: RISC ve CISC karşılaştırması</li>
-                                    <li>Şekil 1.14: Derleme zinciri aşamaları</li>
-                                    <li>Şekil 1.15: Yazılım katmanları</li>
-                                    <li>Şekil 1.16: Buyruk yürütüm döngüsü</li>
-                                    <li>Şekil 1.17: Mimariyi şekillendiren etkenler</li>
-                                    <li>Şekil 1.18: Soğutma çözümleri ve TDP</li>
-                                    <li>Şekil 1.19: İşlemci TDP tarihsel gelişimi</li>
-                                    <li>Şekil 1.20: Durağan güç oranı değişimi</li>
-                                    <li>Şekil 1.21: x86, ARM, RISC-V karşılaştırması</li>
-                                    <li>Şekil 1.22: RISC-V çekirdek sayısı artışı</li>
-                                    <li>Şekil 1.23: Mimari paradigma değişimi</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
@@ -631,21 +634,14 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>7 çözümlü örnek</li>
-                                    <li>35 alıştırma</li>
                                     <li>Moore Yasası tartışma sorusu</li>
                                     <li>Dennard ölçeklemesi nicel örneği</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Ayasofya — İstanbul</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Ayasofya, İstanbul</p>
                     </div>
                 </div>
             </div>
@@ -660,11 +656,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">10 şekil · 8 tablo · 12 bilgi notu · 14 çözümlü örnek · 37 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -682,31 +679,10 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Şekil 2.1: Gereksinimden ölçüme döngüsü</li>
-                                    <li>Şekil 2.2: Uygulama alanları başarım gereksinimleri</li>
-                                    <li>Şekil 2.3: Saat darbeleri ve çevrim zamanı</li>
-                                    <li>Şekil 2.4: Aynı kodun farklı BKM'lerde derlenmesi</li>
-                                    <li>Şekil 2.5: Başarım bileşenleri ve tasarım katmanları</li>
-                                    <li>Şekil 2.6: Aritmetik ve geometrik ortalama</li>
-                                    <li>Şekil 2.7: SPEC CPU kümelerinin evrimi</li>
-                                    <li>Şekil 2.8: SPECint 2017 sınama programları</li>
-                                    <li>Şekil 2.9: SPECfp 2017 sınama programları</li>
-                                    <li>Şekil 2.10: İşlemci başarım eğilimleri</li>
-                                    <li>Şekil 2.11: Hesaplama başarımı kilometre taşları</li>
-                                    <li>Şekil 2.12: Amdahl Yasası'nın etkisi</li>
-                                    <li>Şekil 2.13: Tek yonga blok diyagramı</li>
-                                    <li>Şekil 2.14: Bellek Duvarı</li>
-                                    <li>Şekil 2.15: Güç-başarım düzlemi</li>
-                                    <li>Şekil 2.16: Güncel işlemci karşılaştırması</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
                                 <div class="acc-col-label">Bilgi Notları</div>
                                 <ul>
                                     <li>2.1 Yanlış Ölçütle Ölçmek: Goodhart Yasası</li>
-                                    <li>2.2 "2 kat daha hızlı" mı, "2 katı kadar hızlı" mı?</li>
+                                    <li>2.2 “2 kat daha hızlı” mı, “2 katı kadar hızlı” mı?</li>
                                     <li>2.3 Üç Farklı Buyruk Sayısı</li>
                                     <li>2.4 Pazarlama Savaşlarında Başarım Ölçütleri</li>
                                     <li>2.5 Tepe Başarım ve Gerçek Başarım</li>
@@ -720,22 +696,15 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>14 çözümlü örnek</li>
-                                    <li>37 alıştırma</li>
                                     <li>Amdahl 3 senaryo alıştırmaları</li>
                                     <li>SPEC alıştırmaları</li>
                                     <li>EDP çözümlü örneği (Örnek 2.14)</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Dolmabahçe Saat Kulesi — İstanbul</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Dolmabahçe Saat Kulesi, İstanbul</p>
                     </div>
                 </div>
             </div>
@@ -750,11 +719,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">24 şekil · 29 tablo · 15 bilgi notu · 20 çözümlü örnek · 36 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -782,34 +752,11 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Şekil 3.1: BKM ile yazılım ve donanımın ilişkisi</li>
-                                    <li>Şekil 3.2: R-tipi buyruğun kodlanması</li>
-                                    <li>Şekil 3.3: RISC-V'te veri yapıları</li>
-                                    <li>Şekil 3.4: D türü flip-flop</li>
-                                    <li>Şekil 3.5: 8 bitlik veri tutan yazmaç</li>
-                                    <li>Şekil 3.6: 16 bitlik buyruklarda yazmaç sayısının etkisi</li>
-                                    <li>Şekil 3.7: Bellek yapısının iki gösterimi</li>
-                                    <li>Şekil 3.8: Bellekte hizalı ve hizasız veri erişimi</li>
-                                    <li>Şekil 3.9: Büyüğü başta ve küçüğü başta bayt sırası</li>
-                                    <li>Şekil 3.10: RISC-V'te Buyruk Biçimleri (R, I, S, B, U, J)</li>
-                                    <li>Şekil 3.11: J Türü Buyruk yapısı</li>
-                                    <li>Şekil 3.12: Programda Dallanma</li>
-                                    <li>Şekil 3.13–3.17: Adresleme kipleri (yazmaç, anlık, eklemeli, PS'ye göreceli, üst anlık)</li>
-                                    <li>Şekil 3.18: Altyordam yığıt durumu</li>
-                                    <li>Şekil 3.19: Program çalıştığı anda yığıtın durumu</li>
-                                    <li>Şekil 3.20: Programın işlenmesi</li>
-                                    <li>Şekil 3.21: Tipik RISC-V programının bellek yerleşimi</li>
-                                    <li>Şekil 3.22: x86'da değişik buyruk biçimleri</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
                                 <div class="acc-col-label">Bilgi Notları</div>
                                 <ul>
                                     <li>3.1 Sayı Sistemleri ve Kodlama</li>
                                     <li>3.2 Bu Bölümde Ele Alınmayan Uzantılar</li>
-                                    <li>3.3 PC Neden Genel Amaçlı Yazmaç Değildir?</li>
+                                    <li>3.3 PS Neden Genel Amaçlı Yazmaç Değildir?</li>
                                     <li>3.4 Başarım Sayaçları ve BBÇ Ölçümü</li>
                                     <li>3.5 Yığıt Göstergesi: Donanım mı, Uzlaşı mı?</li>
                                     <li>3.6 RV64I'de 64 Bit Yazmaçlar</li>
@@ -825,22 +772,15 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>20 çözümlü örnek</li>
-                                    <li>36 alıştırma</li>
                                     <li>İç içe yığıt çerçevesi TikZ şekli</li>
                                     <li>Adresleme kipleri çözümlü örneği (Örnek 3.20)</li>
                                     <li>Dört mimari karşılaştırmalı tablolar</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Süleymaniye Camisi — İstanbul</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Süleymaniye Camisi, İstanbul</p>
                     </div>
                 </div>
             </div>
@@ -855,11 +795,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">18 şekil · 3 tablo · 9 bilgi notu · 24 çözümlü örnek · 30 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -877,29 +818,6 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Şekil 4.1: Taban-uzaklık adresleme</li>
-                                    <li>Şekil 4.2: Yığıt işaretçisinin değişimi</li>
-                                    <li>Şekil 4.3: Çağrı sözleşmesinde yazmaç koruma</li>
-                                    <li>Şekil 4.4: C for döngüsünün denetim akışı</li>
-                                    <li>Şekil 4.5: Altyordam çağrısında denetim akışı</li>
-                                    <li>Şekil 4.6: RISC-V programının bellek düzeni</li>
-                                    <li>Şekil 4.7: Kabarcık sıralamada tek geçiş</li>
-                                    <li>Şekil 4.8: Karakter dizisinin bellek düzeni</li>
-                                    <li>Şekil 4.9: Yapı yerleşimi ve hizalama dolgusu</li>
-                                    <li>Şekil 4.10: Bağlı listenin bellek görünümü</li>
-                                    <li>Şekil 4.11: Fibonacci çağrı ağacı</li>
-                                    <li>Şekil 4.12: Fibonacci yığıt büyümesi</li>
-                                    <li>Şekil 4.13: Çok fonksiyonlu çağrı zinciri</li>
-                                    <li>Şekil 4.14: C'den çalıştırılabilir programa boru hattı</li>
-                                    <li>Şekil 4.15: Bellek eşlemeli G/Ç adres haritası</li>
-                                    <li>Şekil 4.16: UART yoklama döngüsü</li>
-                                    <li>Şekil 4.17: Döngü açmanın ek yükü azaltması</li>
-                                    <li>Şekil 4.18: Matrisin satır öncelikli yerleşimi</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
                                 <div class="acc-col-label">Bilgi Notları</div>
                                 <ul>
                                     <li>4.1 auipc ve Program Sayacı</li>
@@ -914,22 +832,14 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>24 çözümlü örnek</li>
-                                    <li>30 alıştırma</li>
-                                    <li>18 açıklayıcı şekil</li>
                                     <li>Yazmaç izleme tabloları</li>
                                     <li>Her örnekte başarım çözümlemesi</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Hattuşa Aslan Kapısı — Çorum</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Hattuşa Aslan Kapısı, Çorum</p>
                     </div>
                 </div>
             </div>
@@ -944,64 +854,54 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">36 şekil · 27 tablo · 17 bilgi notu · 20 çözümlü örnek · 36 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
                                 <ul>
                                     <li>5.1 Toplama ve Çıkarma</li>
                                     <li>5.2 Mantık İşlemleri</li>
-                                    <li>5.3 Aritmetik Mantık Birimi (AMB)</li>
+                                    <li>5.3 AMB (Aritmetik Mantık Birimi)</li>
                                     <li>5.4 Çarpma</li>
                                     <li>5.5 Bölme</li>
                                     <li>5.6 Kayan Nokta İşlemleri</li>
                                     <li>5.7 RISC-V Kayan Nokta Buyrukları</li>
                                     <li>5.8 Yapay Zeka Çağında Kayan Nokta Biçimleri</li>
                                     <li>5.9 Yanılgılar ve Tuzaklar</li>
-                                    <li>5.10 Özet</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Şekil 5.4: 4 bitlik dalga eldeli toplayıcı</li>
-                                    <li>Şekil 5.10: 32 bitlik AMB</li>
-                                    <li>Şekil 5.19: Kaydır-Topla çarpma akış şeması</li>
-                                    <li>Şekil 5.28: Geri yüklemeli bölme akış şeması</li>
-                                    <li>Şekil 5.30: Kayan nokta toplama blok şeması</li>
-                                    <li>Şekil 5.32: FP32/BF16/FP16 bit düzenleri</li>
-                                    <li>Şekil 5.33: FP8 E4M3/E5M2 bit düzenleri</li>
-                                    <li>Şekil 5.34: YZ model bellek gereksinimleri</li>
-                                    <li>Şekil 5.35: Ağırlık dağılımı grafiği</li>
-                                    <li>Şekil 5.36: Karma duyarlık eğitim döngüsü</li>
+                                    <li>5.10 Gerçek Dünyada Aritmetik</li>
+                                    <li>5.11 Özet</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
                                 <div class="acc-col-label">Bilgi Notları</div>
                                 <ul>
-                                    <li>5.1 Dışlayan VEYA (XOR)</li>
-                                    <li>5.2 Bit Numaralandırması</li>
-                                    <li>5.3 AMB ile Bayrak Üretimi</li>
-                                    <li>5.4 Erken Sonlandırma</li>
-                                    <li>5.5 Booth Algoritmasının Tarihçesi</li>
-                                    <li>5.6 Çağdaş İşlemcilerde Çarpma Birimi</li>
-                                    <li>5.7 Bölmeyi Çarpmaya Dönüştürmek</li>
-                                    <li>5.8 Gizli 1 Her Yerde Var mı?</li>
-                                    <li>5.9 NaN ile Programlama Uygulaması</li>
-                                    <li>5.10 Kayan Nokta Duyarlığı ve Günlük Etkisi</li>
-                                    <li>5.11 Intel Pentium FDIV Hatası</li>
-                                    <li>5.12 Patriot Füzesi Kazası</li>
+                                    <li>5.1 RISC-V'te DEĞİL İşlemi</li>
+                                    <li>5.2 Bit Numaralandırması: 0'dan mı 1'den mi?</li>
+                                    <li>5.3 Gerçek İşlemcilerde VEYA-DEĞİL ve VE-DEĞİL Kapıları</li>
+                                    <li>5.4 Taşma Denetiminde Elde Kuralı</li>
+                                    <li>5.5 Güncel İşlemcilerde ve Yapay Zeka Hızlandırıcılarında Hızlı Toplayıcılar</li>
+                                    <li>5.6 Booth Algoritmasının Tarihçesi</li>
+                                    <li>5.7 Dadda Ağacı</li>
+                                    <li>5.8 Çağdaş İşlemcilerde Çarpma Birimi</li>
+                                    <li>5.9 İşaretli Bölme İşlemi</li>
+                                    <li>5.10 Bölmeyi Çarpmaya Dönüştürmek</li>
+                                    <li>5.11 Gizli 1 Her Yerde Var mı?</li>
+                                    <li>5.12 IEEE 754 Üsleri Neden Eklentili Saklar?</li>
+                                    <li>5.13 RISC-V'te Dörtlü Duyarlık: Q Uzantısı</li>
+                                    <li>5.14 NaN ile Programlama Uygulaması</li>
+                                    <li>5.15 Kayan Nokta Duyarlığı ve Günlük Etkisi</li>
+                                    <li>5.16 Intel Pentium FDIV Hatası</li>
+                                    <li>5.17 Patriot Füzesi Kazası: Yuvarlama Hatasının Bedeli</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>20 çözümlü örnek</li>
-                                    <li>15+ alıştırma</li>
                                     <li>IEEE 754 bit düzeni şekilleri</li>
                                     <li>BF16, TF32, FP8 karşılaştırma şekilleri</li>
                                     <li>YZ ağırlık dağılımı grafiği</li>
@@ -1009,13 +909,8 @@
                                     <li>Karma duyarlık eğitim akış şeması</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Divriği Ulu Camisi Taç Kapısı — Sivas</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Divriği Ulu Camisi Taç Kapısı, Sivas</p>
                     </div>
                 </div>
             </div>
@@ -1030,11 +925,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">34 şekil · 14 tablo · 6 bilgi notu · 10 çözümlü örnek · 26 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1050,45 +946,27 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Şekil 6.9: Tam tek vuruşluk veri yolu</li>
-                                    <li>Şekil 6.16: Tek vuruşluk veri yolu ve denetim birimi</li>
-                                    <li>Şekil 6.13: AMB Denetimi Karno haritaları</li>
-                                    <li>Şekil 6.21: Çok vuruşluk veri yolu</li>
-                                    <li>Şekil 6.28: Tüm denetimlerin birleştiği durum makinesi</li>
-                                    <li>Şekil 6.33: Mikroprogramlama donanımı</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
                                 <div class="acc-col-label">Bilgi Notları</div>
                                 <ul>
                                     <li>6.1 RISC-V'in Dört Anlık Değer Biçimi</li>
                                     <li>6.2 x0 Yazmacının Özel Davranışı</li>
-                                    <li>6.3 Gerçek Yazmaç Öbeklerinde Okuma</li>
-                                    <li>6.4 Sonuç Yazmacının Sabit Konumu</li>
+                                    <li>6.3 Gerçek Yazmaç Öbeklerinde Okuma Nasıl Yapılır?</li>
+                                    <li>6.4 RISC-V'te Sonuç Yazmacının Sabit Konumu</li>
                                     <li>6.5 Açık Kaynak RISC-V Çekirdekleri</li>
                                     <li>6.6 Mikroprogramlamanın Tarihçesi</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>10 çözümlü örnek</li>
-                                    <li>26 alıştırma</li>
                                     <li>Tek ve çok vuruşluk veri yolu tasarımı</li>
                                     <li>Denetim birimi: doğruluk tablosu ve Karno haritaları</li>
                                     <li>Sonlu durum makinesi (SDM)</li>
                                     <li>Yatay ve dikey mikroprogramlama</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Selimiye Camisi — Edirne</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Selimiye Camisi, Edirne</p>
                     </div>
                 </div>
             </div>
@@ -1103,7 +981,7 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
@@ -1123,7 +1001,7 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
@@ -1143,7 +1021,7 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
@@ -1163,7 +1041,7 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
@@ -1183,7 +1061,7 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
@@ -1203,7 +1081,7 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
@@ -1223,11 +1101,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">4 şekil · 7 tablo · 3 bilgi notu · 26 çözümlü örnek · 18 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1235,51 +1114,29 @@
                                     <li>A.1 İkilik Tabanda İşlemler</li>
                                     <li>A.2 İşaretli Sayılar</li>
                                     <li>A.3 Gray Kodu</li>
-                                    <li>A.4 İkiye Kodlanmış Onluk Taban Gösterimi (BCD)</li>
+                                    <li>A.4 İkiye Kodlanmış Onluk Taban Gösterimi</li>
                                     <li>A.5 Karakter Kodlaması</li>
                                     <li>A.6 IEEE 754 Kayan Nokta Gösterimi</li>
-                                    <li>A.7 Özet</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Şekil A.1: 16'lık tabandaki sayıların diğer tabanlarda gösterimi</li>
-                                    <li>Şekil A.2: Değişik yöntemlerde 4 bitle gösterilen sayılar</li>
-                                    <li>Şekil A.3: 3 Bitlik Gray Kodu</li>
-                                    <li>Şekil A.4: BCD yöntemi ile onluk taban gösterimi</li>
-                                    <li>Şekil A.5: ASCII Karakter Tablosu</li>
-                                    <li>Şekil A.6: UTF-8 kodlama kuralları</li>
-                                    <li>Şekil A.7: IEEE 754 tek duyarlı kayan nokta biçimi</li>
-                                    <li>Şekil A.8: IEEE 754 kayan nokta biçimlerinin karşılaştırması</li>
-                                    <li>Şekil A.9: IEEE 754 duyarlık düzeylerinin karşılaştırması</li>
-                                    <li>Şekil A.10: IEEE 754 özel değerler (tek duyarlı)</li>
+                                    <li>A.7 Yanılgılar ve Tuzaklar</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
                                 <div class="acc-col-label">Bilgi Notları</div>
                                 <ul>
-                                    <li>A.1 Ariane 5 — Taşmanın Bedeli</li>
+                                    <li>A.1 Ariane 5: Taşmanın Bedeli</li>
                                     <li>A.2 Unicode'un Doğuşu</li>
                                     <li>A.3 IEEE 754 ve William Kahan</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>26 çözümlü örnek</li>
-                                    <li>18 alıştırma</li>
                                     <li>İkilik, 8'lik, 16'lık taban dönüşümleri</li>
                                     <li>IEEE 754 tam kapsam</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Göbekli Tepe — Şanlıurfa</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Göbekli Tepe, Şanlıurfa</p>
                     </div>
                 </div>
             </div>
@@ -1294,11 +1151,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">27 şekil · 10 tablo · 5 bilgi notu · 17 çözümlü örnek · 15 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1313,48 +1171,28 @@
                                     <li>B.8 Sayaçlar</li>
                                     <li>B.9 Mealy ve Moore Makineleri</li>
                                     <li>B.10 Yanılgılar ve Tuzaklar</li>
-                                    <li>B.11 Özet</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Yapı Taşları</div>
+                                <div class="acc-col-label">Bilgi Notları</div>
                                 <ul>
-                                    <li>VE, VEYA, DEĞİL, NAND, NOR, XOR, XNOR kapıları</li>
-                                    <li>Evrensel kapılar (NAND, NOR)</li>
-                                    <li>Karno haritasıyla 2/3/4 değişkenli sadeleştirme</li>
-                                    <li>Kod çözücü, kodlayıcı, çoklayıcı, tekleyici</li>
-                                    <li>Yarım, tam, dalgalı elde, önceden elde üreten toplayıcılar</li>
-                                    <li>RS, D, T, JK flip-flopları</li>
-                                    <li>Koşut yüklemeli ve kaydırma yazmaçları</li>
-                                    <li>Eşzamanlı ve eşzamansız sayaçlar</li>
-                                    <li>Mealy ve Moore durum makineleri</li>
+                                    <li>B.1 Sayısal Tasarım ve Teknoloji</li>
+                                    <li>B.2 George Boole ve Mantığın Cebirleşmesi</li>
+                                    <li>B.3 Boole Cebrinde Gösterim ve Öncelik</li>
+                                    <li>B.4 Maurice Karnaugh ve Karno Haritası</li>
+                                    <li>B.5 Değişken Sırası ve Mini Terim Numarası</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Çözümlü Örnekler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>İçecek otomatı tasarımı (B.16)</li>
-                                    <li>Yarışma sistemi tasarımı (B.17)</li>
-                                    <li>Trafik lambası denetleyicisi</li>
-                                    <li>Karno haritasıyla sadeleştirme örnekleri</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
-                                <ul>
-                                    <li>17 çözümlü örnek</li>
                                     <li>4 yanılgı + 4 tuzak</li>
                                     <li>Tasarım adımları (durum tablosu → flip-flop seçimi → Karno → devre)</li>
                                     <li>Otomat ve yarışma sistemi vaka çalışmaları</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Galata Kulesi — İstanbul</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Galata Kulesi, İstanbul</p>
                     </div>
                 </div>
             </div>
@@ -1369,11 +1207,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">7 şekil · 7 tablo · 2 bilgi notu · 4 çözümlü örnek · 9 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1388,20 +1227,6 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Tablo C.1: RISC-V standart uzantıları</li>
-                                    <li>Tablo C.2: RISC-V ayrıcalık düzeyleri</li>
-                                    <li>Tablo C.3: Buyruk kategorileri ve yazım örnekleri</li>
-                                    <li>Tablo C.4: RV32I temel buyruk kümesi</li>
-                                    <li>Tablo C.5: RISC-V yazmaç tablosu</li>
-                                    <li>Tablo C.6: Altyordam yığıt çerçevesinin yapısı</li>
-                                    <li>Tablo C.7–12: R/I/S/B/U/J türü buyruk biçimleri</li>
-                                    <li>Tablo C.13: Buyruk biçimleri ve kullanım alanları</li>
-                                    <li>Tablo C.14: RISC-V sözde buyrukları</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
                                 <div class="acc-col-label">Bilgi Notları</div>
                                 <ul>
                                     <li>C.1 Bu kitapta kullanılan yapılandırma</li>
@@ -1409,22 +1234,15 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>4 çözümlü örnek</li>
-                                    <li>9 alıştırma</li>
                                     <li>Tam RV32I buyruk referansı</li>
                                     <li>Tüm buyruk biçimleri (R/I/S/B/U/J)</li>
                                     <li>Çağrı kuralları ve yığıt çerçevesi</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Celsus Kütüphanesi — Efes</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Celsus Kütüphanesi, Efes</p>
                     </div>
                 </div>
             </div>
@@ -1439,11 +1257,12 @@
                     </div>
                     <div class="accordion-right">
                         <span class="status-badge ready">Yayında</span>
-                        <span class="chevron">&#9658;</span>
+                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
                     </div>
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
+                        <p class="acc-ozet">3 şekil · 5 tablo · 6 bilgi notu · 10 alıştırma</p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1453,12 +1272,6 @@
                                     <li>D.3 Yazmaç Öbeği Tasarımı</li>
                                     <li>D.4 Mini Projeler</li>
                                     <li>D.5 Proje Değerlendirme Ölçütleri</li>
-                                </ul>
-                            </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Şekiller</div>
-                                <ul>
-                                    <li>Şekil D.1: Yazmaç öbeği blok diyagramı</li>
                                 </ul>
                             </div>
                             <div class="acc-col">
@@ -1473,22 +1286,16 @@
                                 </ul>
                             </div>
                             <div class="acc-col">
-                                <div class="acc-col-label">Özellikler</div>
+                                <div class="acc-col-label">Öne Çıkanlar</div>
                                 <ul>
-                                    <li>10 alıştırma</li>
                                     <li>Proje A: RV32I Yorumlayıcı</li>
                                     <li>Proje B: Boru Hattı Benzetimliği</li>
                                     <li>Proje C: Önbellek ve Dallanma Öngörücüsü</li>
                                     <li>RARS ve Spike benzetimlik rehberi</li>
                                 </ul>
                             </div>
-                            <div class="acc-col">
-                                <div class="acc-col-label">Fotoğraf</div>
-                                <ul>
-                                    <li>Sümela Manastırı — Trabzon</li>
-                                </ul>
-                            </div>
                         </div>
+                        <p class="acc-foto">Bölüm fotoğrafı: Sümela Manastırı, Trabzon</p>
                     </div>
                 </div>
             </div>
@@ -1496,62 +1303,28 @@
         </div><!-- /.accordion -->
     </section>
 
-    <!-- Kaynaklar -->
-    <section>
-        <h2>Kaynaklar</h2>
-        <div class="info-grid">
-            <div class="info-card">
-                <h3>&#x1F4E5; PDF İndir</h3>
-                <p>Kitabın güncel sürümünü doğrudan indirin.</p>
-                <a href="bilgisayar-mimarisi.pdf" download>
-                    Son sürüm (PDF) &rarr;
-                </a>
-            </div>
-            <div class="info-card">
-                <h3>&#x1F3AC; Video Dersler</h3>
-                <p>Kitaba eşlik eden video ders serisi.</p>
-                <a href="https://www.youtube.com/playlist?list=PLvNq8wrSYGAU6CF4UleG6HbXa9paQDsLK">
-                    YouTube &rarr;
-                </a>
-            </div>
-            <div class="info-card">
-                <h3>&#x1F4C2; Kaynak Kod</h3>
-                <p>LaTeX kaynak dosyaları ve derleme talimatları.</p>
-                <a href="https://github.com/prof-oguzergin/bilgisayar-mimarisi">
-                    GitHub &rarr;
-                </a>
-            </div>
-            <div class="info-card">
-                <h3>&#x1F4D6; Google Play Books</h3>
-                <p>Kitabı Google Play Books üzerinden okuyun.</p>
-                <a href="https://play.google.com/store/books/details/O%C4%9Fuz_Ergin_Bilgisayar_Mimarisi_RISC_V_Tabanl%C4%B1_Yakl?id=857HEQAAQBAJ">
-                    Google Play &rarr;
-                </a>
-            </div>
-            <div class="info-card">
-                <h3>&#x1F41B; Hata Bildirimi</h3>
-                <p>Kitapta hata buldunuz mu? Bize bildirin.</p>
-                <a href="https://github.com/prof-oguzergin/bilgisayar-mimarisi/issues">
-                    GitHub Issues &rarr;
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Atıf -->
-    <section>
+    <section id="atif">
         <h2>Atıf</h2>
-        <p>Bu kitabı akademik çalışmalarınızda kullanıyorsanız lütfen aşağıdaki şekilde atıf yapınız:</p>
-        <div class="citation-block">
-<pre>@book{ergin2026bilgisayar,
+        <p>Bu kitabı bir çalışmada kaynak gösterecekseniz aşağıdaki biçimlerden birini kullanabilirsiniz.</p>
+        <div class="atif-kutu">
+            <div class="atif-baslik"><span>Kaynak satırı</span>
+                <button type="button" class="kopyala" data-hedef="atif-duz">Kopyala</button></div>
+            <p id="atif-duz">Ergin, O. (2026). <em>Bilgisayar mimarisi: RISC-V tabanlı yaklaşım</em>. Ankara. ISBN 978-625-00-6081-0. https://doi.org/10.5281/zenodo.18903608</p>
+        </div>
+        <div class="atif-kutu">
+            <div class="atif-baslik"><span lang="en">BibTeX</span>
+                <button type="button" class="kopyala" data-hedef="atif-bib">Kopyala</button></div>
+<pre id="atif-bib">@book{ergin2026bilgisayar,
   author    = {Ergin, Oğuz},
   title     = {Bilgisayar Mimarisi: RISC-V Tabanlı Yaklaşım},
   year      = {2026},
+  publisher = {Oğuz Ergin},
+  address   = {Ankara},
   isbn      = {978-625-00-6081-0},
-  publisher = {Açık Erişim},
-  url       = {https://github.com/prof-oguzergin/bilgisayar-mimarisi},
   doi       = {10.5281/zenodo.18903608},
-  license   = {CC BY-NC-ND 4.0}
+  url       = {https://bilgisayar-mimarisi.oguzergin.net},
+  note      = {Açık erişim, CC BY-NC-ND 4.0}
 }</pre>
         </div>
     </section>
@@ -1562,16 +1335,16 @@
         <p>
             Bu eser <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons
             Atıf-GayriTicari-Türetilemez 4.0 Uluslararası</a> lisansı ile lisanslanmıştır.
-            Özgürce paylaşabilir ve dağıtabilirsiniz &mdash; uygun atıf yapmanız,
-            ticari amaçla kullanmamanız ve değişiklik yapmamanız koşuluyla.
+            Kaynak göstermeniz, ticari amaçla kullanmamanız ve değiştirmemeniz koşuluyla
+            kitabı özgürce kopyalayabilir ve paylaşabilirsiniz.
         </p>
     </section>
 
 </div>
 
 <footer>
-    &copy; 2026 Prof. Dr. Oğuz Ergin &mdash;
-    <a href="https://oguzergin.net">oguzergin.net</a> &mdash;
+    &copy; 2026 Prof. Dr. Oğuz Ergin <span class="ayrac">·</span>
+    <a href="https://oguzergin.net">oguzergin.net</a> <span class="ayrac">·</span>
     <a href="https://doi.org/10.5281/zenodo.18903608">DOI: 10.5281/zenodo.18903608</a>
 </footer>
 
@@ -1586,11 +1359,42 @@
             el.classList.remove('open');
         });
 
+        items.forEach(function(el) {
+            el.querySelector('.accordion-body').style.maxHeight = null;
+        });
+
         // Toggle current
         if (!isOpen) {
             item.classList.add('open');
+            var govde = item.querySelector('.accordion-body');
+            govde.style.maxHeight = govde.scrollHeight + 'px';
         }
     }
+
+    // Atif kopyalama
+    document.querySelectorAll('.kopyala').forEach(function(d) {
+        d.addEventListener('click', function() {
+            var metin = document.getElementById(d.dataset.hedef).innerText;
+            function bildir() {
+                d.textContent = 'Kopyalandı';
+                d.classList.add('tamam');
+                setTimeout(function() { d.textContent = 'Kopyala'; d.classList.remove('tamam'); }, 1600);
+            }
+            function yedek() {   // pano izni olmayan tarayicilar icin
+                var t = document.createElement('textarea');
+                t.value = metin; t.setAttribute('readonly', '');
+                t.style.position = 'fixed'; t.style.opacity = '0';
+                document.body.appendChild(t); t.select();
+                try { if (document.execCommand('copy')) bildir(); } catch (e) {}
+                document.body.removeChild(t);
+            }
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(metin).then(bildir, yedek);
+            } else {
+                yedek();
+            }
+        });
+    });
 </script>
 
 </body>

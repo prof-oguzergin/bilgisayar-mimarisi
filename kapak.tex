@@ -1,6 +1,9 @@
 % =============================================================
 % Bilgisayar Mimarisi - Kapak Sayfası
-% Konsept: Devre Tahtası (PCB) — Fotoğraflı Arka Plan
+% Konsept: Açılmış işlemci katmanları (transistörden çekirdeğe)
+% Görsel: gorseller/kapak-arkaplan-katmanlar.png (Codex imagegen, Eylül 2026)
+%   Ham görsel ...-ham.png; alt degrade kapak-degrade.py ile işlenir.
+% Eski görsel: gorseller/kapak-arkaplan.png (yerinde duruyor)
 % =============================================================
 
 % --- Kapak Renkleri ---
@@ -8,6 +11,11 @@
 \definecolor{pcbaltin}{RGB}{205, 175, 100}
 \definecolor{pcbacik}{RGB}{230, 210, 150}
 \definecolor{pcbbeyaz}{RGB}{245, 245, 240}
+\definecolor{kapakamber}{RGB}{242, 184, 76}
+
+% --- Kapak yazı tipi: IBM Plex Sans (yalnız kapakta; iç sayfalar Libertinus) ---
+\newfontfamily\kapakyazi{IBMPlexSans-Regular.otf}[BoldFont=IBMPlexSans-SemiBold.otf]
+
 
 \begin{titlepage}
 \thispagestyle{empty}
@@ -15,55 +23,43 @@
 \begin{tikzpicture}[remember picture, overlay]
 
     % === TAM SAYFA ARKA PLAN GÖRSELİ ===
-    % Görsel dikey formatta; genişliği sayfaya sığdır, üst/alttan minimal kırpma
     \begin{scope}
         \clip (current page.south west) rectangle (current page.north east);
         \node[inner sep=0pt] at (current page.center) {%
-            \includegraphics[width=\paperwidth]{gorseller/kapak-arkaplan.png}%
+            \includegraphics[width=\paperwidth]{gorseller/kapak-arkaplan-katmanlar.png}%
         };
     \end{scope}
 
-    % === ALT BÖLGE: Koyu degrade (metin okunabilirliği için) ===
-    % Alt %45: tamamen koyu
-    \fill[pcbzemin, opacity=0.85]
-        (current page.south west) rectangle ([yshift=13.5cm]current page.south east);
-    % Kademeli geçiş bantları (yumuşak degrade etkisi)
-    \fill[pcbzemin, opacity=0.7]
-        ([yshift=13.5cm]current page.south west) rectangle ([yshift=14.5cm]current page.south east);
-    \fill[pcbzemin, opacity=0.5]
-        ([yshift=14.5cm]current page.south west) rectangle ([yshift=15.5cm]current page.south east);
-    \fill[pcbzemin, opacity=0.3]
-        ([yshift=15.5cm]current page.south west) rectangle ([yshift=16.5cm]current page.south east);
-    \fill[pcbzemin, opacity=0.15]
-        ([yshift=16.5cm]current page.south west) rectangle ([yshift=17.5cm]current page.south east);
+    % === ALT BÖLGE: Koyu degrade ===
+    % Degrade görselin içine işlenmiştir (kapak-degrade.py). LaTeX'te üst üste
+    % saydam şekillerle çizilince yığının amber yansımasında ek yeri çizgileri çıkıyordu.
 
-    % === ÜST ŞERİT (ince altın çizgi) ===
+    % === ÜST VE ALT ŞERİT (ince altın çizgi) ===
     \fill[pcbaltin] (current page.north west) rectangle ([yshift=-1.2mm]current page.north east);
-
-    % === ALT ŞERİT (ince altın çizgi) ===
     \fill[pcbaltin] ([yshift=1.2mm]current page.south west) rectangle (current page.south east);
 
-    % === ANA BAŞLIK ===
-    \node[font=\fontsize{42}{50}\selectfont\bfseries, text=pcbbeyaz]
-        at ([yshift=9.5cm]current page.south) {Bilgisayar};
-    \node[font=\fontsize{42}{50}\selectfont\bfseries, text=pcbbeyaz]
-        at ([yshift=7.5cm]current page.south) {Mimarisi};
+    % === ANA BAŞLIK (IBM Plex Sans, sayfa genişliğinin yarısı) ===
+    \node[font=\kapakyazi\fontsize{70}{78}\selectfont\bfseries, text=pcbbeyaz]
+        at ([yshift=10.7cm]current page.south) {Bilgisayar};
+    \node[font=\kapakyazi\fontsize{70}{78}\selectfont\bfseries, text=pcbbeyaz]
+        at ([yshift=8.1cm]current page.south) {Mimarisi};
 
-    % === ALTIN AYIRICI ÇİZGİ ===
-    \draw[pcbaltin, line width=1.2pt]
-        ([yshift=6.5cm, xshift=-3cm]current page.south) -- ++(6cm,0);
+    % === AMBER AYIRICI ÇİZGİ ===
+    \draw[kapakamber, line width=2pt]
+        ([yshift=6.75cm, xshift=-5cm]current page.south) -- ++(10cm,0);
 
-    % === ALT BAŞLIK ===
-    \node[font=\Large\itshape, text=pcbacik]
-        at ([yshift=5.5cm]current page.south) {RISC-V Tabanlı Yaklaşım};
+    % === ALT BAŞLIK (RISC-V vurgulu) ===
+    \node[font=\kapakyazi\fontsize{26}{30}\selectfont, text=pcbbeyaz]
+        at ([yshift=5.6cm]current page.south)
+        {\textcolor{kapakamber}{\bfseries RISC-V} Tabanlı Yaklaşım};
 
     % === YAZAR ADI ===
-    \node[font=\large\bfseries, text=pcbbeyaz]
-        at ([yshift=3.8cm]current page.south) {Prof.\ Dr.\ Oğuz Ergin};
+    \node[font=\kapakyazi\fontsize{19}{22}\selectfont, text=pcbbeyaz]
+        at ([yshift=3.5cm]current page.south) {Prof.\ Dr.\ Oğuz Ergin};
 
     % === BASKI BİLGİSİ ===
-    \node[font=\normalsize, text=pcbaltin, opacity=0.7]
-        at ([yshift=1.8cm]current page.south) {Sürüm \kitapsurum\ \ $\cdot$\ \ \the\year};
+    \node[font=\kapakyazi\fontsize{13}{16}\selectfont, text=pcbacik]
+        at ([yshift=1.7cm]current page.south) {Sürüm \kitapsurum\ \ ·\ \ \the\year};
 
 \end{tikzpicture}
 \vfill

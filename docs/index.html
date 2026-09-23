@@ -426,6 +426,7 @@
 .hero-cocuk-bag:hover { color: #ffffff; }
 @media (max-width: 640px) {
     #cocuk-serisi .cocuk-alt { flex-direction: column; align-items: stretch; }
+    #cocuk-serisi .cocuk-liste { flex-basis: auto; }   /* sutun yonunde 340px yukseklige donusuyordu */
 }
 
 /* ===== Ust bolum (hero2): kapagin lacivert ve amber dunyasiyla ===== */
@@ -529,7 +530,7 @@ footer .ayrac { color: var(--ayrac); }
 section p a:hover { color: var(--baslik); }
 
 /* Bilge ve Yonga dugmesi: ust bolumdeki ana dugmeyle ayni */
-#cocuk-serisi .btn-primary { background: #f2b84c; color: #0a1932; border: 1px solid #f2b84c; }
+#cocuk-serisi .btn-primary { background: #f2b84c; color: #0a1932; border: 1px solid #f2b84c; justify-content: center; }
 #cocuk-serisi .btn-primary:hover { background: #ffc863; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
 
 /* Tema dugmesi */
@@ -573,6 +574,24 @@ section p a:hover { color: var(--baslik); }
 :root[data-tema="koyu"] .tema-dugme .ikon-ay { display: none; }
 :root[data-tema="koyu"] .acc-thumb { border-color: rgba(255,255,255,.18); }
 body { transition: background-color .2s ease, color .2s ease; }
+
+/* ===== Bolum listesi: <details> yapisi ===== */
+summary.accordion-header { list-style: none; }
+summary.accordion-header::-webkit-details-marker { display: none; }
+summary.accordion-header:focus-visible { outline: 2px solid #f2b84c; outline-offset: -2px; border-radius: 6px; }
+.accordion-body { max-height: none; overflow: visible; transition: none; }
+.accordion-item[open] .accordion-header { background: var(--yuzey-acik-baslik); }
+.accordion-item[open] .chevron { transform: rotate(90deg); }
+.acc-baslik { display: flex; flex-direction: column; gap: .12rem; min-width: 0; }
+.acc-meta { font-size: .76rem; color: var(--text-light); font-weight: 400; }
+.accordion-item.status-wip .accordion-header { cursor: default; }
+.accordion-item.status-wip .accordion-header:hover { background: var(--card-bg); }
+.accordion-item.status-wip .acc-title { color: var(--text-light); }
+.acc-ozet { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem 1rem; }
+.acc-pdf { font-size: .8rem; font-weight: 600; color: var(--baslik); text-decoration: none; white-space: nowrap;
+    border: 1px solid var(--border); border-radius: 6px; padding: .28rem .7rem; background: var(--card-bg); }
+.acc-pdf:hover { border-color: #f2b84c; }
+@media (max-width: 520px) { .acc-meta { display: none; } }
 </style>
 </head>
 <body>
@@ -657,21 +676,18 @@ body { transition: background-color .2s ease, color .2s ease; }
         <div class="accordion" id="toc-accordion">
 
             <!-- Bölüm 1 -->
-            <div class="accordion-item status-ready" data-index="0">
-                <div class="accordion-header" onclick="toggleAccordion(0)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="0">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum01-ayasofya.jpg" alt="Bölüm 1" class="acc-thumb">
                         <span class="acc-number">Bölüm 1</span>
-                        <span class="acc-title">Bilgisayar Mimarisine Giriş</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">Bilgisayar Mimarisine Giriş</span><span class="acc-meta">12 alt bölüm · 17 şekil · 35 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">17 şekil · 6 tablo · 12 bilgi notu · 7 çözümlü örnek · 35 alıştırma</p>
+                        <p class="acc-ozet"><span>17 şekil · 6 tablo · 12 bilgi notu · 7 çözümlü örnek · 35 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=31">PDF'te aç (s. 1)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -718,24 +734,21 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Ayasofya, İstanbul</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Bölüm 2 -->
-            <div class="accordion-item status-ready" data-index="1">
-                <div class="accordion-header" onclick="toggleAccordion(1)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="1">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum02-dolmabahce.jpg" alt="Bölüm 2" class="acc-thumb">
                         <span class="acc-number">Bölüm 2</span>
-                        <span class="acc-title">Bilgisayar Başarımı</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">Bilgisayar Başarımı</span><span class="acc-meta">10 alt bölüm · 10 şekil · 37 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">10 şekil · 8 tablo · 12 bilgi notu · 14 çözümlü örnek · 37 alıştırma</p>
+                        <p class="acc-ozet"><span>10 şekil · 8 tablo · 12 bilgi notu · 14 çözümlü örnek · 37 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=75">PDF'te aç (s. 45)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -781,24 +794,21 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Dolmabahçe Saat Kulesi, İstanbul</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Bölüm 3 -->
-            <div class="accordion-item status-ready" data-index="2">
-                <div class="accordion-header" onclick="toggleAccordion(2)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="2">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum03-suleymaniye.jpg" alt="Bölüm 3" class="acc-thumb">
                         <span class="acc-number">Bölüm 3</span>
-                        <span class="acc-title">Buyruk Kümesi Mimarisi</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">Buyruk Kümesi Mimarisi</span><span class="acc-meta">20 alt bölüm · 24 şekil · 36 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">24 şekil · 29 tablo · 15 bilgi notu · 20 çözümlü örnek · 36 alıştırma</p>
+                        <p class="acc-ozet"><span>24 şekil · 29 tablo · 15 bilgi notu · 20 çözümlü örnek · 36 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=131">PDF'te aç (s. 101)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -857,24 +867,21 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Süleymaniye Camisi, İstanbul</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Bölüm 4 -->
-            <div class="accordion-item status-ready" data-index="3">
-                <div class="accordion-header" onclick="toggleAccordion(3)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="3">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum04-hattusa.jpg" alt="Bölüm 4" class="acc-thumb">
                         <span class="acc-number">Bölüm 4</span>
-                        <span class="acc-title">RISC-V ile Programlama</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">RISC-V ile Programlama</span><span class="acc-meta">10 alt bölüm · 18 şekil · 30 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">18 şekil · 3 tablo · 9 bilgi notu · 24 çözümlü örnek · 30 alıştırma</p>
+                        <p class="acc-ozet"><span>18 şekil · 3 tablo · 9 bilgi notu · 24 çözümlü örnek · 30 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=201">PDF'te aç (s. 171)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -916,24 +923,21 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Hattuşa Aslan Kapısı, Çorum</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Bölüm 5 -->
-            <div class="accordion-item status-ready" data-index="4">
-                <div class="accordion-header" onclick="toggleAccordion(4)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="4">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum05-divrigi.jpg" alt="Bölüm 5" class="acc-thumb">
                         <span class="acc-number">Bölüm 5</span>
-                        <span class="acc-title">Aritmetik İşlemler</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">Aritmetik İşlemler</span><span class="acc-meta">11 alt bölüm · 36 şekil · 36 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">36 şekil · 27 tablo · 17 bilgi notu · 20 çözümlü örnek · 36 alıştırma</p>
+                        <p class="acc-ozet"><span>36 şekil · 27 tablo · 17 bilgi notu · 20 çözümlü örnek · 36 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=251">PDF'te aç (s. 221)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -987,24 +991,21 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Divriği Ulu Camisi Taç Kapısı, Sivas</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Bölüm 6 -->
-            <div class="accordion-item status-ready" data-index="5">
-                <div class="accordion-header" onclick="toggleAccordion(5)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="5">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum06-selimiye.jpg" alt="Bölüm 6" class="acc-thumb">
                         <span class="acc-number">Bölüm 6</span>
-                        <span class="acc-title">İşlemci Tasarımı</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">İşlemci Tasarımı</span><span class="acc-meta">8 alt bölüm · 34 şekil · 26 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">34 şekil · 14 tablo · 6 bilgi notu · 10 çözümlü örnek · 26 alıştırma</p>
+                        <p class="acc-ozet"><span>34 şekil · 14 tablo · 6 bilgi notu · 10 çözümlü örnek · 26 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=335">PDF'te aç (s. 305)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1043,144 +1044,93 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Selimiye Camisi, Edirne</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Bölüm 7 -->
             <div class="accordion-item status-wip" data-index="6">
-                <div class="accordion-header" onclick="toggleAccordion(6)">
-                    <div class="accordion-left">
+                <div class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum07-valens.jpg" alt="Bölüm 7" class="acc-thumb">
                         <span class="acc-number">Bölüm 7</span>
-                        <span class="acc-title">Boru Hattı</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
-                <div class="accordion-body">
-                    <div class="accordion-content">
-                        <p class="acc-wip-msg">Bu bölüm henüz hazırlanıyor...</p>
-                    </div>
+                        <span class="acc-baslik"><span class="acc-title">Boru Hattı</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="status-badge wip">Hazırlanıyor</span></span>
                 </div>
             </div>
 
             <!-- Bölüm 8 -->
             <div class="accordion-item status-wip" data-index="7">
-                <div class="accordion-header" onclick="toggleAccordion(7)">
-                    <div class="accordion-left">
+                <div class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum08-topkapi.jpg" alt="Bölüm 8" class="acc-thumb">
                         <span class="acc-number">Bölüm 8</span>
-                        <span class="acc-title">Bellek Hiyerarşisi</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
-                <div class="accordion-body">
-                    <div class="accordion-content">
-                        <p class="acc-wip-msg">Bu bölüm henüz hazırlanıyor...</p>
-                    </div>
+                        <span class="acc-baslik"><span class="acc-title">Bellek Hiyerarşisi</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="status-badge wip">Hazırlanıyor</span></span>
                 </div>
             </div>
 
             <!-- Bölüm 9 -->
             <div class="accordion-item status-wip" data-index="8">
-                <div class="accordion-header" onclick="toggleAccordion(8)">
-                    <div class="accordion-left">
+                <div class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum09-aspendos.jpg" alt="Bölüm 9" class="acc-thumb">
                         <span class="acc-number">Bölüm 9</span>
-                        <span class="acc-title">Giriş/Çıkış</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
-                <div class="accordion-body">
-                    <div class="accordion-content">
-                        <p class="acc-wip-msg">Bu bölüm henüz hazırlanıyor...</p>
-                    </div>
+                        <span class="acc-baslik"><span class="acc-title">Giriş/Çıkış</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="status-badge wip">Hazırlanıyor</span></span>
                 </div>
             </div>
 
             <!-- Bölüm 10 -->
             <div class="accordion-item status-wip" data-index="9">
-                <div class="accordion-header" onclick="toggleAccordion(9)">
-                    <div class="accordion-left">
+                <div class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum10-kapalicarsi.jpg" alt="Bölüm 10" class="acc-thumb">
                         <span class="acc-number">Bölüm 10</span>
-                        <span class="acc-title">Çok Çekirdekli İşlemciler</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
-                <div class="accordion-body">
-                    <div class="accordion-content">
-                        <p class="acc-wip-msg">Bu bölüm henüz hazırlanıyor...</p>
-                    </div>
+                        <span class="acc-baslik"><span class="acc-title">Çok Çekirdekli İşlemciler</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="status-badge wip">Hazırlanıyor</span></span>
                 </div>
             </div>
 
             <!-- Bölüm 11 -->
             <div class="accordion-item status-wip" data-index="10">
-                <div class="accordion-header" onclick="toggleAccordion(10)">
-                    <div class="accordion-left">
+                <div class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum11-nemrut.jpg" alt="Bölüm 11" class="acc-thumb">
                         <span class="acc-number">Bölüm 11</span>
-                        <span class="acc-title">GPU ve Hızlandırıcılar</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
-                <div class="accordion-body">
-                    <div class="accordion-content">
-                        <p class="acc-wip-msg">Bu bölüm henüz hazırlanıyor...</p>
-                    </div>
+                        <span class="acc-baslik"><span class="acc-title">GPU ve Hızlandırıcılar</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="status-badge wip">Hazırlanıyor</span></span>
                 </div>
             </div>
 
             <!-- Bölüm 12 -->
             <div class="accordion-item status-wip" data-index="11">
-                <div class="accordion-header" onclick="toggleAccordion(11)">
-                    <div class="accordion-left">
+                <div class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/bolum12-ishakpasa.jpg" alt="Bölüm 12" class="acc-thumb">
                         <span class="acc-number">Bölüm 12</span>
-                        <span class="acc-title">Güncel Mimariler</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge wip">Hazırlanıyor</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
-                <div class="accordion-body">
-                    <div class="accordion-content">
-                        <p class="acc-wip-msg">Bu bölüm henüz hazırlanıyor...</p>
-                    </div>
+                        <span class="acc-baslik"><span class="acc-title">Güncel Mimariler</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="status-badge wip">Hazırlanıyor</span></span>
                 </div>
             </div>
 
             <!-- Ek A -->
-            <div class="accordion-item status-ready" data-index="12">
-                <div class="accordion-header" onclick="toggleAccordion(12)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="12">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/ekA-gobeklitepe.jpg" alt="Ek A" class="acc-thumb">
                         <span class="acc-number">Ek A</span>
-                        <span class="acc-title">Sayı Sistemleri ve Kodlama</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">Sayı Sistemleri ve Kodlama</span><span class="acc-meta">7 alt bölüm · 4 şekil · 18 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">4 şekil · 7 tablo · 3 bilgi notu · 26 çözümlü örnek · 18 alıştırma</p>
+                        <p class="acc-ozet"><span>4 şekil · 7 tablo · 3 bilgi notu · 26 çözümlü örnek · 18 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=403">PDF'te aç (s. 373)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1213,24 +1163,21 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Göbekli Tepe, Şanlıurfa</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Ek B -->
-            <div class="accordion-item status-ready" data-index="13">
-                <div class="accordion-header" onclick="toggleAccordion(13)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="13">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/ekB-galatakulesi.jpg" alt="Ek B" class="acc-thumb">
                         <span class="acc-number">Ek B</span>
-                        <span class="acc-title">Sayısal Tasarım Temelleri</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">Sayısal Tasarım Temelleri</span><span class="acc-meta">10 alt bölüm · 27 şekil · 15 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">27 şekil · 10 tablo · 5 bilgi notu · 17 çözümlü örnek · 15 alıştırma</p>
+                        <p class="acc-ozet"><span>27 şekil · 10 tablo · 5 bilgi notu · 17 çözümlü örnek · 15 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=427">PDF'te aç (s. 397)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1269,24 +1216,21 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Galata Kulesi, İstanbul</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Ek C -->
-            <div class="accordion-item status-ready" data-index="14">
-                <div class="accordion-header" onclick="toggleAccordion(14)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="14">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/ekC-efes.jpg" alt="Ek C" class="acc-thumb">
                         <span class="acc-number">Ek C</span>
-                        <span class="acc-title">RISC-V Referans Kartı</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">RISC-V Referans Kartı</span><span class="acc-meta">7 alt bölüm · 7 şekil · 9 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">7 şekil · 7 tablo · 2 bilgi notu · 4 çözümlü örnek · 9 alıştırma</p>
+                        <p class="acc-ozet"><span>7 şekil · 7 tablo · 2 bilgi notu · 4 çözümlü örnek · 9 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=479">PDF'te aç (s. 449)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1319,24 +1263,21 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Celsus Kütüphanesi, Efes</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
             <!-- Ek D -->
-            <div class="accordion-item status-ready" data-index="15">
-                <div class="accordion-header" onclick="toggleAccordion(15)">
-                    <div class="accordion-left">
+            <details class="accordion-item status-ready" data-index="15">
+                <summary class="accordion-header">
+                    <span class="accordion-left">
                         <img src="gorseller/ekD-sumela.jpg" alt="Ek D" class="acc-thumb">
                         <span class="acc-number">Ek D</span>
-                        <span class="acc-title">RISC-V Uygulama Çalışmaları ve Projeler</span>
-                    </div>
-                    <div class="accordion-right">
-                        <span class="status-badge ready">Yayında</span>
-                        <span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                    </div>
-                </div>
+                        <span class="acc-baslik"><span class="acc-title">RISC-V Uygulama Çalışmaları ve Projeler</span><span class="acc-meta">5 alt bölüm · 3 şekil · 10 alıştırma</span></span>
+                    </span>
+                    <span class="accordion-right"><span class="chevron" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                </summary>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        <p class="acc-ozet">3 şekil · 5 tablo · 6 bilgi notu · 10 alıştırma</p>
+                        <p class="acc-ozet"><span>3 şekil · 5 tablo · 6 bilgi notu · 10 alıştırma</span><a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=495">PDF'te aç (s. 465)</a></p>
                         <div class="acc-detail-grid">
                             <div class="acc-col">
                                 <div class="acc-col-label">Alt Bölümler</div>
@@ -1372,7 +1313,7 @@ body { transition: background-color .2s ease, color .2s ease; }
                         <p class="acc-foto">Bölüm fotoğrafı: Sümela Manastırı, Trabzon</p>
                     </div>
                 </div>
-            </div>
+            </details>
 
         </div><!-- /.accordion -->
     </section>
@@ -1423,28 +1364,6 @@ body { transition: background-color .2s ease, color .2s ease; }
 </footer>
 
 <script>
-    function toggleAccordion(index) {
-        var items = document.querySelectorAll('.accordion-item');
-        var item = items[index];
-        var isOpen = item.classList.contains('open');
-
-        // Close all
-        items.forEach(function(el) {
-            el.classList.remove('open');
-        });
-
-        items.forEach(function(el) {
-            el.querySelector('.accordion-body').style.maxHeight = null;
-        });
-
-        // Toggle current
-        if (!isOpen) {
-            item.classList.add('open');
-            var govde = item.querySelector('.accordion-body');
-            govde.style.maxHeight = govde.scrollHeight + 'px';
-        }
-    }
-
     // Tema secimi
     (function () {
         var kok = document.documentElement, d = document.getElementById('tema-dugme');

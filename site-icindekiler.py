@@ -8,6 +8,9 @@ Yayindaki (status-ready) her bolum icin:
   - Bilgi Notlari: \\begin{bilginot}[Baslik] basliklari
   - One Cikanlar : sayfadaki mevcut elle yazilmis vurgular (sayi satirlari haric)
   - bolum fotografi alt yazisi
+  - kapali satirdaki kisa ozet (acc-meta)
+  - "PDF'te ac (s. N)" baglantisi: docs/bilgisayar-mimarisi.pdf yer imlerinden
+    (PyMuPDF gerekir; PDF yeniden derlendikten SONRA calistirin)
 
 Bolum basliklari, gorseller ve durum etiketleri (Yayinda/Hazirlaniyor) elle
 yonetilir; betik yalnizca acilir icerigi yeniden yazar.
@@ -163,7 +166,34 @@ def on_ek(ad):
     return ad.split()[1]            # "Bölüm 5" -> "5", "Ek B" -> "B"
 
 
-def icerik(ad, v, vurgular, foto, girinti):
+def pdf_sayfalari():
+    """PDF yer imlerinden bolum baslangiclari: {'5': (fiziksel_sayfa, 'basili_no')}."""
+    yol = os.path.join(KOK, "docs", "bilgisayar-mimarisi.pdf")
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        print("uyarı: PyMuPDF yok, PDF bağlantıları üretilmeyecek")
+        return {}
+    d = fitz.open(yol)
+    out = {}
+    for lvl, baslik, sayfa in d.get_toc():
+        m = re.match(r"([0-9]+|[A-Z])\s", baslik)
+        if lvl == 1 and m:
+            out[m.group(1)] = (sayfa, d[sayfa - 1].get_label() or str(sayfa))
+    return out
+
+
+def kisa_ozet(v):
+    """Kapali satirda gorunen tek satirlik ozet."""
+    p = ["%d alt bölüm" % len(v["bolumler"])]
+    if v["sekil"]:
+        p.append("%d şekil" % v["sekil"])
+    if v["alistirma"]:
+        p.append("%d alıştırma" % v["alistirma"])
+    return " · ".join(p)
+
+
+def icerik(ad, v, vurgular, foto, girinti, pdf=None):
     g = girinti
     ek = on_ek(ad)
     parca = []
@@ -177,8 +207,12 @@ def icerik(ad, v, vurgular, foto, girinti):
         parca.append("%d çözümlü örnek" % v["ornek"])
     if v["alistirma"]:
         parca.append("%d alıştırma" % v["alistirma"])
+    baglanti = ""
+    if pdf:
+        baglanti = ('<a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=%d">PDF\'te aç (s. %s)</a>'
+                    % (pdf[0], pdf[1]))
     s = [g + '<div class="accordion-content">',
-         g + '    <p class="acc-ozet">' + " · ".join(parca) + "</p>",
+         g + '    <p class="acc-ozet"><span>' + " · ".join(parca) + "</span>" + baglanti + "</p>",
          g + '    <div class="acc-detail-grid">']
 
     def sutun(etiket, satirlar):
@@ -206,7 +240,8 @@ def main():
     html = io.open(SAYFA, encoding="utf-8", newline="").read()
     NL = "\r\n" if "\r\n" in html else "\n"
     html = html.replace("\r\n", "\n")
-    ogeler = [m.start() for m in re.finditer(r'<div class="accordion-item', html)]
+    ogeler = [m.start() for m in re.finditer(r'<(?:details|div) class="accordion-item', html)]
+    sayfalar = pdf_sayfalari()
     rapor = []
     # sondan basa isle ki konumlar kaymasin
     for k in range(len(ogeler) - 1, -1, -1):
@@ -231,12 +266,18 @@ def main():
             if d == 0:
                 j = i0 + m.end()
                 break
-        yeni = icerik(ad, v, mevcut_vurgular(parca), mevcut_foto(parca), girinti)
+        pdf = sayfalar.get(on_ek(ad))
+        yeni = icerik(ad, v, mevcut_vurgular(parca), mevcut_foto(parca), girinti, pdf)
         parca = parca[:i0] + yeni.lstrip() + parca[j:]
+        # kapali satirdaki ozet (acc-baslik icinde, basligin altinda)
+        parca = re.sub(r'(<span class="acc-title">[^<]*</span>)(?:<span class="acc-meta">[^<]*</span>)?',
+                       lambda m: m.group(1) + '<span class="acc-meta">' + kisa_ozet(v) + "</span>",
+                       parca, count=1)
         html = html[:bas] + parca + html[parca_sonu:]
-        rapor.append((ad, "%d alt bölüm, %d not, %d şekil, %d tablo, %d örnek, %d alıştırma"
+        rapor.append((ad, "%d alt bölüm, %d not, %d şekil, %d tablo, %d örnek, %d alıştırma, PDF %s"
                        % (len(v["bolumler"]), len(v["notlar"]), v["sekil"], v["tablo"],
-                          v["ornek"], v["alistirma"])))
+                          v["ornek"], v["alistirma"],
+                          ("s. %s (sayfa %d)" % (pdf[1], pdf[0])) if pdf else "YOK")))
     io.open(SAYFA, "w", encoding="utf-8", newline="").write(html.replace("\n", NL))
     for ad, r in reversed(rapor):
         print("%-9s %s" % (ad, r))

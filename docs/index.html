@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem("tema");
+                if (t === "koyu" || t === "acik") document.documentElement.setAttribute("data-tema", t);
+            } catch (e) {}
+        })();
+    </script>
     <title>Bilgisayar Mimarisi: RISC-V Tabanlı Yaklaşım</title>
     <meta name="description" content="RISC-V tabanlı, açık erişimli Türkçe bilgisayar mimarisi ders kitabı. Prof. Dr. Oğuz Ergin.">
     <!-- Google Scholar / Highwire atıf meta etiketleri -->
@@ -500,12 +509,77 @@ section p a:hover { color: var(--primary); }
 .kopyala:hover { border-color: #f2b84c; }
 .kopyala.tamam { color: #276749; border-color: #9ae6b4; background: #f0fff4; }
 footer .ayrac { color: #cbd5e0; margin: 0 .35rem; }
+
+/* ===== Tema: aydinlik degiskenler + sabit renklerin degiskene baglanmasi ===== */
+:root {
+    --yuzey-ic: #f6f9fd; --yuzey-uzerinde: #f0f4f8; --yuzey-acik-baslik: #eef4fb;
+    --cizgi-ince: #e3ebf5; --ayrac: #cbd5e0; --kod-yazi: var(--text);
+    --tamam-yazi: #276749; --tamam-cizgi: #9ae6b4; --tamam-zemin: #f0fff4;
+    --baslik: var(--primary);
+}
+section h2, .acc-title, .acc-ozet { color: var(--baslik); }
+.accordion-header:hover { background: var(--yuzey-uzerinde); }
+.accordion-item.open .accordion-header { background: var(--yuzey-acik-baslik); }
+.accordion-content, .atif-baslik { background: var(--yuzey-ic); }
+.acc-col ul li { border-bottom-color: var(--cizgi-ince); }
+.kopyala { background: var(--card-bg); color: var(--baslik); }
+.kopyala.tamam { color: var(--tamam-yazi); border-color: var(--tamam-cizgi); background: var(--tamam-zemin); }
+.atif-kutu pre { color: var(--kod-yazi); }
+footer .ayrac { color: var(--ayrac); }
+section p a:hover { color: var(--baslik); }
+
+/* Bilge ve Yonga dugmesi: ust bolumdeki ana dugmeyle ayni */
+#cocuk-serisi .btn-primary { background: #f2b84c; color: #0a1932; border: 1px solid #f2b84c; }
+#cocuk-serisi .btn-primary:hover { background: #ffc863; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+
+/* Tema dugmesi */
+.tema-dugme { position: absolute; top: 1rem; right: 1rem; z-index: 2; width: 40px; height: 40px;
+    display: grid; place-items: center; border-radius: 50%; cursor: pointer; color: #e8eef7;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2);
+    transition: background .15s, border-color .15s; }
+.tema-dugme:hover { background: rgba(255,255,255,.16); border-color: rgba(255,255,255,.4); }
+.tema-dugme svg { width: 20px; height: 20px; grid-area: 1 / 1; }
+.tema-dugme .ikon-gunes { display: none; }
+
+/* ===== Karanlik tema degiskenleri ===== */
+:root[data-tema="koyu"] {
+    color-scheme: dark;
+    --bg: #0c1a2e; --card-bg: #13233d; --text: #d5deea; --text-light: #93a3ba;
+    --primary: #e6edf7; --accent: #7fb3ef; --accent-light: #2a4468; --border: #243956;
+    --baslik: #eef3fa; --accordion-expanded-bg: #0f2038;
+    --yuzey-ic: #0f2038; --yuzey-uzerinde: #172a47; --yuzey-acik-baslik: #1a2f4f;
+    --cizgi-ince: #213653; --ayrac: #4a5f7e;
+    --success: #48bb78; --success-bg: rgba(72,187,120,.14); --success-border: #2f855a;
+    --warning: #ecc94b; --warning-bg: rgba(236,201,75,.12); --warning-border: #b7791f;
+    --tamam-yazi: #9ae6b4; --tamam-cizgi: #2f855a; --tamam-zemin: rgba(72,187,120,.14);
+}
+@media (prefers-color-scheme: dark) {
+    :root:not([data-tema="acik"]) {
+        color-scheme: dark;
+        --bg: #0c1a2e; --card-bg: #13233d; --text: #d5deea; --text-light: #93a3ba;
+        --primary: #e6edf7; --accent: #7fb3ef; --accent-light: #2a4468; --border: #243956;
+        --baslik: #eef3fa; --accordion-expanded-bg: #0f2038;
+        --yuzey-ic: #0f2038; --yuzey-uzerinde: #172a47; --yuzey-acik-baslik: #1a2f4f;
+        --cizgi-ince: #213653; --ayrac: #4a5f7e;
+        --success: #48bb78; --success-bg: rgba(72,187,120,.14); --success-border: #2f855a;
+        --warning: #ecc94b; --warning-bg: rgba(236,201,75,.12); --warning-border: #b7791f;
+        --tamam-yazi: #9ae6b4; --tamam-cizgi: #2f855a; --tamam-zemin: rgba(72,187,120,.14);
+    }
+    :root:not([data-tema="acik"]) .tema-dugme .ikon-gunes { display: block; }
+    :root:not([data-tema="acik"]) .tema-dugme .ikon-ay { display: none; }
+    :root:not([data-tema="acik"]) .acc-thumb { border-color: rgba(255,255,255,.18); }
+}
+:root[data-tema="koyu"] .tema-dugme .ikon-gunes { display: block; }
+:root[data-tema="koyu"] .tema-dugme .ikon-ay { display: none; }
+:root[data-tema="koyu"] .acc-thumb { border-color: rgba(255,255,255,.18); }
+body { transition: background-color .2s ease, color .2s ease; }
 </style>
 </head>
 <body>
 
 <!-- Hero -->
 <header class="hero2">
+    <button type="button" class="tema-dugme" id="tema-dugme" aria-label="Karanlık temaya geç" title="Karanlık / aydınlık tema"><svg class="ikon-ay" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><svg class="ikon-gunes" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
     <div class="hero2-ic">
         <a class="hero2-kapak" href="bilgisayar-mimarisi.pdf" download aria-label="PDF indir">
             <img src="kapak.jpg" alt="Bilgisayar Mimarisi kitabının kapağı" width="230" height="325"
@@ -560,7 +634,7 @@ footer .ayrac { color: #cbd5e0; margin: 0 .35rem; }
             <strong>51 kitaplık</strong> bir çocuk kitabı serisidir. Her kitap
             tek bir fikri baştan sona bir hikâyeyle anlatır.
         </p>
-        <img class="cocuk-serit" src="gorseller/bilge-ve-yonga-serit.jpg"
+        <img class="cocuk-serit" src="gorseller/bilge-ve-yonga-serit.webp"
              alt="Bilge ve Yonga serisinden kitap kapakları" loading="lazy">
         <div class="cocuk-alt">
             <ul class="cocuk-liste">
@@ -1370,6 +1444,27 @@ footer .ayrac { color: #cbd5e0; margin: 0 .35rem; }
             govde.style.maxHeight = govde.scrollHeight + 'px';
         }
     }
+
+    // Tema secimi
+    (function () {
+        var kok = document.documentElement, d = document.getElementById('tema-dugme');
+        var koyuMu = function () {
+            var t = kok.getAttribute('data-tema');
+            if (t) return t === 'koyu';
+            return window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+        };
+        var etiket = function () {
+            d.setAttribute('aria-label', koyuMu() ? 'Aydınlık temaya geç' : 'Karanlık temaya geç');
+        };
+        etiket();
+        d.addEventListener('click', function () {
+            var yeni = koyuMu() ? 'acik' : 'koyu';
+            kok.setAttribute('data-tema', yeni);
+            try { localStorage.setItem('tema', yeni); } catch (e) {}
+            etiket();
+        });
+        if (window.matchMedia) matchMedia('(prefers-color-scheme: dark)').addEventListener('change', etiket);
+    })();
 
     // Atif kopyalama
     document.querySelectorAll('.kopyala').forEach(function(d) {

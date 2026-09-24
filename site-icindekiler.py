@@ -209,7 +209,7 @@ def icerik(ad, v, vurgular, foto, girinti, pdf=None):
         parca.append("%d alıştırma" % v["alistirma"])
     baglanti = ""
     if pdf:
-        baglanti = ('<a class="acc-pdf" href="bilgisayar-mimarisi.pdf#page=%d">PDF\'te aç (s. %s)</a>'
+        baglanti = ('<a class="acc-pdf" href="oku.html#s%d">Bölümü oku (s. %s)</a>'
                     % (pdf[0], pdf[1]))
     s = [g + '<div class="accordion-content">',
          g + '    <p class="acc-ozet"><span>' + " · ".join(parca) + "</span>" + baglanti + "</p>",

@@ -83,6 +83,7 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
 .gezinti button { min-width: 34px; padding: 0 .55rem; cursor: pointer; display: grid; place-items: center; }
 .gezinti .dugme { display: inline-flex; align-items: center; gap: .35rem; padding: 0 .7rem; text-decoration: none; font-weight: 600; }
 .gezinti button:hover, .gezinti select:hover, .gezinti .dugme:hover { border-color: var(--amber); }
+.gezinti button[aria-pressed="true"] { border-color: var(--amber); color: var(--amber); }
 .gezinti button:disabled { opacity: .4; cursor: default; border-color: var(--cizgi); }
 .gezinti svg { width: 16px; height: 16px; }
 .sayfa-no { display: flex; align-items: center; gap: .3rem; font-family: var(--kod); font-size: .82rem; color: var(--soluk); }
@@ -189,8 +190,8 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
             <button type="button" id="kucult" aria-label="Uzaklaştır">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             </button>
-            <button type="button" id="genislik" class="genislik-dugme" aria-label="Genişliğe sığdır" title="Genişliğe sığdır">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <button type="button" id="genislik" class="genislik-dugme" aria-pressed="false" aria-label="Sayfayı ekrana sığdır" title="Sayfayı ekrana sığdır">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="3.5" width="11" height="17" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 8h5M9.5 11h5M9.5 14h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
             </button>
             <button type="button" id="buyut" aria-label="Yakınlaştır">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -217,6 +218,7 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
     var icindekiler = document.getElementById("icindekiler");
     var cubuk = document.getElementById("cubuk");
     var belge = null, kagitlar = [], etiketler = null, olcek = 1, suanki = 1, cizilen = new Map();
+    var sigdir = false;   // acikken butun sayfa ekrana sigar: ust kenar cubugun altinda, alt kenar ekranin dibinde
     var dpr = Math.min(window.devicePixelRatio || 1, 2.5);
 
     function sakla(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -292,6 +294,7 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
         kutu.appendChild(parca);
         var z = parseFloat(oku("oku-olcek"));
         olcek = z >= 0.5 && z <= 2.5 ? z : 1;
+        sigdir = oku("oku-kip") === "sayfa" && window.innerWidth > 640;
         boyutla();
         durum.hidden = true;
         gozcuKur();
@@ -305,6 +308,12 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
 
     function boyutla() {
         var g = Math.round(taban() * olcek);
+        if (sigdir) {
+            // scroll-margin 8 px + altta 8 px pay
+            var yuk = window.innerHeight - cubuk.offsetHeight - 16;
+            g = Math.floor(yuk / parseFloat(kagitlar[0].dataset.oran));
+        }
+        document.getElementById("genislik").setAttribute("aria-pressed", sigdir ? "true" : "false");
         kagitlar.forEach(function (k) {
             k.style.width = g + "px";
             k.style.height = Math.round(g * parseFloat(k.dataset.oran)) + "px";
@@ -486,8 +495,8 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
         if (!belge) return;
         document.getElementById("onceki").disabled = suanki <= 1;
         document.getElementById("sonraki").disabled = suanki >= belge.numPages;
-        document.getElementById("kucult").disabled = olcek <= 0.55;
-        document.getElementById("buyut").disabled = olcek >= 2.4;
+        document.getElementById("kucult").disabled = !sigdir && olcek <= 0.55;
+        document.getElementById("buyut").disabled = !sigdir && olcek >= 2.4;
     }
 
     document.getElementById("onceki").addEventListener("click", function () { git(suanki - 1); });
@@ -495,6 +504,11 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
     sayfaKutusu.addEventListener("change", function () { git(parseInt(sayfaKutusu.value, 10) || 1); });
     function yakinlas(z) {
         var n = suanki;
+        if (sigdir) {
+            sigdir = false;
+            sakla("oku-kip", "");
+            z += parseFloat(kagitlar[0].style.width) / taban() - olcek;
+        }
         olcek = Math.max(0.5, Math.min(2.5, Math.round(z * 100) / 100));
         sakla("oku-olcek", olcek);
         boyutla();
@@ -502,7 +516,14 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
     }
     document.getElementById("kucult").addEventListener("click", function () { yakinlas(olcek - 0.15); });
     document.getElementById("buyut").addEventListener("click", function () { yakinlas(olcek + 0.15); });
-    document.getElementById("genislik").addEventListener("click", function () { yakinlas(1); });
+    document.getElementById("genislik").addEventListener("click", function () {
+        var n = suanki;
+        sigdir = !sigdir;
+        sakla("oku-kip", sigdir ? "sayfa" : "");
+        if (!sigdir) { olcek = 1; sakla("oku-olcek", 1); }
+        boyutla();
+        git(n, "auto");
+    });
     document.addEventListener("keydown", function (e) {
         if (!belge || e.ctrlKey || e.metaKey || e.altKey || /INPUT|SELECT|TEXTAREA/.test(e.target.tagName)) return;
         if (e.key === "ArrowRight" || e.key === "PageDown") { git(suanki + 1); e.preventDefault(); }
@@ -510,7 +531,8 @@ body { color: var(--metin); font-family: var(--yazi); font-size: 15px; line-heig
     });
     var zamanlayici, sonGenislik = window.innerWidth;
     window.addEventListener("resize", function () {
-        if (window.innerWidth === sonGenislik) return;   // telefonda adres cubugu inip cikinca yeniden cizme
+        // telefonda adres cubugu inip cikinca yeniden cizme; sigdir kipinde yukseklik de onemli
+        if (window.innerWidth === sonGenislik && !sigdir) return;
         sonGenislik = window.innerWidth;
         clearTimeout(zamanlayici);
         zamanlayici = setTimeout(function () { var n = suanki; boyutla(); git(n, "auto"); }, 200);
